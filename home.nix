@@ -70,4 +70,5 @@
   programs.tmux = import tmux/tmux.nix { pkgs=pkgs; };
   programs.zsh = import zsh/zsh.nix { config=config; pkgs=pkgs; };
   programs.git = import git/git.nix { pkgs=pkgs; };
+  programs.gpg = import gpg/gpg.nix { pkgs=pkgs; };
 }
