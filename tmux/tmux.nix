@@ -8,16 +8,15 @@
 
   plugins = with pkgs; [
     tmuxPlugins.better-mouse-mode
-    #tmuxPlugins.vim-tmux-navigator
     tmuxPlugins.sensible
-    tmuxPlugins.nord
+    tmuxPlugins.power-theme
     tmuxPlugins.prefix-highlight
     tmuxPlugins.pain-control
     tmuxPlugins.yank
   ];
 
   extraConfig = ''
-    set-option -sa terminal-overrides ',xterm-256color:RGB'
+    set-option -sa terminal-overrides ',xterm-255color:RGB'
     set -g status-position top
 
     bind C-a send-prefix -2

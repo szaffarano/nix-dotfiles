@@ -22,6 +22,7 @@ local servers = {
 	"bashls",
 	"jsonls",
 	"yamlls",
+	"nil_ls",
 }
 
 mason.setup({

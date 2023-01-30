@@ -31,7 +31,14 @@
     poetry
     mypy
     black
-
+    nodejs
+    unzip
+    go
+    rustc
+    clippy
+    cargo
+    rustfmt
+    rust-analyzer
     tree-sitter
     nodePackages.pyright
     luaPackages.lua-lsp
@@ -65,11 +72,9 @@
   programs.zsh = import zsh/zsh.nix { config=config; pkgs=pkgs; };
   programs.git = import git/git.nix { pkgs=pkgs; };
   programs.gpg = import gpg/gpg.nix { pkgs=pkgs; };
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    extraConfig = lib.fileContents ./nvim/init.vim;
+  programs.neovim = import nvim/neovim.nix { lib=lib; pkgs=pkgs; };
+  xdg.configFile."nvim" = {
+    source = ./nvim;
+    recursive = true;
   };
 }

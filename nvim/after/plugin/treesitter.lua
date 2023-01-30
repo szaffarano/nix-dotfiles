@@ -19,6 +19,7 @@ treesitter_configs.setup({
 		"python",
 		"rust",
 		"typescript",
+		"nix",
 	},
 
 	highlight = { enable = true },
