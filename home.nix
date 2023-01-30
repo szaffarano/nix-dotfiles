@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -70,6 +70,6 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    extraConfig = ./nvim/init.lua;
+    extraConfig = lib.fileContents ./nvim/init.vim;
   };
 }
