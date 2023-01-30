@@ -23,9 +23,6 @@
     };
     shellAliases = {
       update = "sudo nixos-rebuild switch";
-      v = "nvim";
-      vi = "nvim";
-      vim = "nvim";
       ls="ls --color";
       ll="ls -l";
     };
