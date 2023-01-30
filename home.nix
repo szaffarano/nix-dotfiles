@@ -51,12 +51,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 1800;
-    enableSshSupport = true;
-  };
-
   programs.mcfly = {
     enable = true;
     keyScheme = "vim";
@@ -67,6 +61,7 @@
     enable = true;
   };
 
+  services.gpg-agent = import gpg/gpg-agent.nix {};
   programs.tmux = import tmux/tmux.nix { pkgs=pkgs; };
   programs.zsh = import zsh/zsh.nix { config=config; pkgs=pkgs; };
   programs.git = import git/git.nix { pkgs=pkgs; };
