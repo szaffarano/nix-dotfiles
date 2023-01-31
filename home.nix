@@ -27,21 +27,29 @@
     duf
     which
     gnumake
+    unzip
+
+    # python
     python3
     poetry
     mypy
     black
+
+    # nodejs
     nodejs
-    unzip
+
+    # golang
     go
+
+    # nix
+    alejandra
+
+    # rust
     rustc
     clippy
     cargo
     rustfmt
     rust-analyzer
-    tree-sitter
-    nodePackages.pyright
-    luaPackages.lua-lsp
   ];
 
   # This value determines the Home Manager release that your
