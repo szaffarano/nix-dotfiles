@@ -32,16 +32,16 @@
     gnumake
     unzip
 
+    comma # runs software without installing it
+
     # python
     python3
     poetry
     mypy
     black
 
-    # nodejs
     nodejs
 
-    # golang
     go
 
     # nix
@@ -94,4 +94,5 @@
     source = ./nvim;
     recursive = true;
   };
+  programs.nix-index.enable = true;
 }
