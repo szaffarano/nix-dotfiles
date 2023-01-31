@@ -1,5 +1,4 @@
-{pkgs}:
-{
+{pkgs}: {
   enable = true;
   settings = {
     personal-cipher-preferences = "AES256 AES192 AES";
@@ -9,7 +8,7 @@
     cert-digest-algo = "SHA512";
     s2k-digest-algo = "SHA512";
     s2k-cipher-algo = "AES256";
-   
+
     charset = "utf-8";
     fixed-list-mode = true;
     no-comments = true;
@@ -23,13 +22,12 @@
     no-symkey-cache = true;
     use-agent = true;
     throw-keyids = true;
-    
+
     default-key = "0x14F35C58A2191587";
     trusted-key = "0x14F35C58A2191587";
     group = "keygroup = 0xFF00000000000001 0xFF00000000000002 0x14F35C58A2191587";
-
   };
   publicKeys = [
-    { source = ./sebas.asc; }
+    {source = ./sebas.asc;}
   ];
 }

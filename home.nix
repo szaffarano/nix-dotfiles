@@ -1,13 +1,16 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "sebas";
   home.homeDirectory = "/home/sebas";
 
   # Packages that should be installed to the user profile.
-  home.packages = with pkgs ; [
+  home.packages = with pkgs; [
     git
     entr
     exa
@@ -76,11 +79,17 @@
   };
 
   services.gpg-agent = import gpg/gpg-agent.nix {};
-  programs.tmux = import tmux/tmux.nix { pkgs=pkgs; };
-  programs.zsh = import zsh/zsh.nix { config=config; pkgs=pkgs; };
-  programs.git = import git/git.nix { pkgs=pkgs; };
-  programs.gpg = import gpg/gpg.nix { pkgs=pkgs; };
-  programs.neovim = import nvim/neovim.nix { lib=lib; pkgs=pkgs; };
+  programs.tmux = import tmux/tmux.nix {pkgs = pkgs;};
+  programs.zsh = import zsh/zsh.nix {
+    config = config;
+    pkgs = pkgs;
+  };
+  programs.git = import git/git.nix {pkgs = pkgs;};
+  programs.gpg = import gpg/gpg.nix {pkgs = pkgs;};
+  programs.neovim = import nvim/neovim.nix {
+    lib = lib;
+    pkgs = pkgs;
+  };
   xdg.configFile."nvim" = {
     source = ./nvim;
     recursive = true;

@@ -1,5 +1,4 @@
-{pkgs}:
-{
+{pkgs}: {
   enable = true;
 
   aliases = {
@@ -25,7 +24,7 @@
 
   extraConfig = {
     user = {
-      name  = "Sebastián Zaffarano";
+      name = "Sebastián Zaffarano";
       email = "sebas@zaffarano.com.ar";
       signingKey = "0x14F35C58A2191587";
     };
@@ -39,19 +38,19 @@
     color = {
       branch = {
         current = "yellow reverse";
-	local = "yellow";
-	remote = "green";
+        local = "yellow";
+        remote = "green";
       };
       status = {
         added = "yellow";
-	changed = "red";
-	untracked = "cyan";
+        changed = "red";
+        untracked = "cyan";
       };
       diff = {
         meta = "yellow bold";
-	frag = "magenta bold";
-	old = "red bold";
-	new = "green bold";
+        frag = "magenta bold";
+        old = "red bold";
+        new = "green bold";
       };
     };
     credential.helper = "keepassxc --unlock 0";
@@ -60,6 +59,6 @@
   };
 
   includes = [
-   	{ path = ./delta.conf; }
+    {path = ./delta.conf;}
   ];
 }

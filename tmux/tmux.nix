@@ -1,5 +1,4 @@
-{ pkgs }:
-{
+{pkgs}: {
   enable = true;
   prefix = "C-a";
   escapeTime = 1;
@@ -26,5 +25,4 @@
     bind C-h previous-window
     bind C-l next-window
   '';
-
 }
