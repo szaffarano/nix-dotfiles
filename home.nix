@@ -59,6 +59,7 @@
     # sway
     fontconfig
     font-awesome
+    dejavu_fonts
     (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
     rofi
     foot
@@ -78,93 +79,48 @@
   # changes in each release.
   home.stateVersion = "22.11";
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  programs.mcfly = {
-    enable = true;
-    keyScheme = "vim";
-    fuzzySearchFactor = 3;
-  };
-
-  programs.starship = {
-    enable = true;
-  };
-
   services.gpg-agent = import gpg/gpg-agent.nix {};
-  programs.tmux = import tmux/tmux.nix {pkgs = pkgs;};
-  programs.zsh = import zsh/zsh.nix {
-    config = config;
-    pkgs = pkgs;
-    lib = lib;
+
+  programs = {
+    home-manager.enable = true;
+    nix-index.enable = true;
+    mcfly = {
+      enable = true;
+      keyScheme = "vim";
+      fuzzySearchFactor = 3;
+    };
+    starship = {
+      enable = true;
+    };
+    tmux = import tmux/tmux.nix {pkgs = pkgs;};
+    zsh = import zsh/zsh.nix {
+      config = config;
+      pkgs = pkgs;
+      lib = lib;
+    };
+    git = import git/git.nix {pkgs = pkgs;};
+    gpg = import gpg/gpg.nix {pkgs = pkgs;};
+    neovim = import nvim/neovim.nix {
+      lib = lib;
+      pkgs = pkgs;
+    };
+    kitty = {
+      enable = true;
+      font = {
+        name = "JetBrains Mono";
+        size = 13;
+      };
+    };
+    i3status-rust = import sway/i3status-rs.nix {};
   };
-  programs.git = import git/git.nix {pkgs = pkgs;};
-  programs.gpg = import gpg/gpg.nix {pkgs = pkgs;};
-  programs.neovim = import nvim/neovim.nix {
-    lib = lib;
-    pkgs = pkgs;
-  };
+
   xdg.configFile."nvim" = {
     source = ./nvim;
     recursive = true;
   };
-  programs.kitty = {
-    enable = true;
-    font = {
-      name = "JetBrains Mono";
-      size = 13;
-    };
-  };
-  programs.nix-index.enable = true;
-
-  programs.i3status-rust = {
-    enable = true;
-    bars = {
-      default = {
-        blocks = [
-          {
-            block = "disk_space";
-            path = "/";
-            alias = "/";
-            info_type = "available";
-            unit = "GB";
-            interval = 60;
-            warning = 20.0;
-            alert = 10.0;
-          }
-          {
-            block = "memory";
-            display_type = "memory";
-            format_mem = "{mem_used_percents}";
-            format_swap = "{swap_used_percents}";
-          }
-          {
-            block = "cpu";
-            interval = 1;
-          }
-          {
-            block = "load";
-            interval = 1;
-            format = "{1m}";
-          }
-          {
-            block = "time";
-            interval = 60;
-            format = "%a %d/%m %R";
-          }
-        ];
-        settings = {
-          theme = {
-            name = "solarized-dark";
-            overrides = {
-              idle_bg = "#123456";
-              idle_fg = "#abcdef";
-            };
-          };
-        };
-        icons = "awesome5";
-        theme = "gruvbox-dark";
-      };
-    };
+  wayland.windowManager.sway = import sway/sway.nix {
+    pkgs = pkgs;
+    lib = lib;
+    config = config;
   };
 }
