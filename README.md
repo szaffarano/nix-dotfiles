@@ -1,12 +1,8 @@
+# Nix Based dotfiles
 
-nix build --no-link <flake-uri>#homeConfigurations.sebas.activationPackage
+## Preconditions
 
-"$(nix path-info <flake-uri>#homeConfigurations.sebas.activationPackage)"/activate
-
-
-## Arch
-
-### Preconditions
+### Arch
 
 ```sh
 sudo pacman -S --needed git base-devel
@@ -16,29 +12,41 @@ makepkg -si
 popd
 rm -rf yay-bin
 yay -Y --gendb
+```
 
+```sh
 yay -S zsh
 sudo chsh sebas -s /bin/zsh
 ```
 
-### Wayland
+### Bootstrap nix and home-manager
 
 ```sh
-yay -S wlroots
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+mkdir ~/.config/nix && echo "experimental-features = nix-command flakes" | tee ~/.config/nix/nix.conf
+
+nix build --no-link .#homeConfigurations.$USER.activationPackage
+
+"$(nix path-info .#homeConfigurations.$USER.activationPackage)"/activate
+
+# after above command, to update 
+
+home-manager switch --flake .#$USER
+```
+
+### Wayland and sway
+
+```sh
+yay -Syu
+yay -S wayland xorg-xwayland sway swaylock-effects ly
 sudo usermod -aG seat sebas
 sudo systemctl enable seatd.service
+sudo systemctl enable ly.service
 sudo systemctl start seatd.service
 ```
 
-
-bemenu: Wayland-native alternative to dmenu                                                                           
-dmenu: Application launcher used in default config                                                                    
-foot: Terminal emulator used in the default configuration 
-i3status: Status line generation                                                                                      
-mako: Lightweight notification daemon                    
-polkit: System privilege control. Required if not using seatd service
-swaybg: Wallpaper tool for sway                                                                                       
-swayidle: Idle management daemon                                                                                      
-swaylock: Screen locker                                  
-waybar: Highly customizable bar                                                                                       
-xorg-xwayland: X11 support
+mako: Lightweight notification daemon
+swaybg: Wallpaper tool for sway
+swayidle: Idle management daemon
+waybar: Highly customizable bar
