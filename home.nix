@@ -9,6 +9,8 @@
   home.username = "sebas";
   home.homeDirectory = "/home/sebas";
 
+  fonts.fontconfig.enable = true;
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     git
@@ -40,6 +42,9 @@
     mypy
     black
 
+    # c
+    gcc
+
     nodejs
 
     go
@@ -53,6 +58,15 @@
     cargo
     rustfmt
     rust-analyzer
+
+    # sway
+    swaylock-effects
+    fontconfig
+    (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
+    rofi
+
+    firefox
+    chromium
   ];
 
   # This value determines the Home Manager release that your
@@ -83,6 +97,7 @@
   programs.zsh = import zsh/zsh.nix {
     config = config;
     pkgs = pkgs;
+    lib = lib;
   };
   programs.git = import git/git.nix {pkgs = pkgs;};
   programs.gpg = import gpg/gpg.nix {pkgs = pkgs;};
@@ -94,5 +109,20 @@
     source = ./nvim;
     recursive = true;
   };
+  programs.alacritty.enable = true;
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "JetBrains Mono";
+      size = 13;
+    };
+  };
   programs.nix-index.enable = true;
+  xsession.enable = true;
+  xsession.windowManager.command = "sway";
+
+  wayland.windowManager.sway = import sway/sway.nix {
+    lib = lib;
+    config = config;
+  };
 }
