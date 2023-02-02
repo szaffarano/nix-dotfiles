@@ -60,7 +60,6 @@
     rust-analyzer
 
     # sway
-    swaylock-effects
     fontconfig
     (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
     rofi
@@ -109,7 +108,6 @@
     source = ./nvim;
     recursive = true;
   };
-  programs.alacritty.enable = true;
   programs.kitty = {
     enable = true;
     font = {
@@ -118,11 +116,4 @@
     };
   };
   programs.nix-index.enable = true;
-  xsession.enable = true;
-  xsession.windowManager.command = "sway";
-
-  wayland.windowManager.sway = import sway/sway.nix {
-    lib = lib;
-    config = config;
-  };
 }
