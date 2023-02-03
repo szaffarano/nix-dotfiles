@@ -2,7 +2,6 @@
   description = "Home Manager configuration of Sebas";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,15 +23,10 @@
     homeConfigurations.sebas = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
       modules = [
         nix-index-database.hmModules.nix-index
-        ./home.nix
+        ./home
       ];
-
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
     };
   };
 }
