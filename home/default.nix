@@ -11,7 +11,7 @@
     ./sway
     ./tmux.nix
     ./zsh.nix
- ];
+  ];
 
   home = {
     username = "sebas";
@@ -66,11 +66,12 @@
       dejavu_fonts
       (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
       rofi
-      foot
       swayidle
       wl-clipboard
       wofi
       mako
+      wlr-randr
+      kanshi
 
       ncspot
 
@@ -106,6 +107,13 @@
       enable = true;
       keyScheme = "vim";
       fuzzySearchFactor = 5;
+    };
+    kitty = {
+      enable = true;
+      font = {
+        name = "JetBrains Mono";
+        size = 13;
+      };
     };
   };
 }

@@ -8,20 +8,21 @@
       :lua require('init')
     '';
     plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (plugins:
-        with plugins; [
-          bash
-          c
-          cpp
-          go
-          java
-          kotlin
-          lua
-          python
-          rust
-          typescript
-          nix
-        ]))
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins
+        (p:
+          with p; [
+            bash
+            c
+            cpp
+            go
+            java
+            kotlin
+            lua
+            python
+            rust
+            typescript
+            nix
+          ]))
     ];
   };
   xdg.configFile."nvim" = {

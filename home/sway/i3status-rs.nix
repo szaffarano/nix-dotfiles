@@ -23,7 +23,7 @@
             format_mem = "{mem_used_percents}";
             format_swap = "{swap_used_percents}";
           }
-         {
+          {
             block = "cpu";
             interval = 1;
           }
@@ -34,7 +34,8 @@
           }
           {
             block = "battery";
-            format = "$percentage|N/A";
+            interval = 10;
+            format = "{percentage} {time}";
           }
           {
             block = "keyboard_layout";
@@ -44,6 +45,15 @@
               "English (intl., with AltGr dead keys)" = "En [Q]";
               "English (Dvorak, intl., with dead keys)" = "En [D]";
             };
+          }
+          {
+            block = "net";
+            format = "{ssid} {signal_strength}";
+            interval = 5;
+          }
+          {
+            block = "sound";
+            step_width = 3;
           }
           {
             block = "time";

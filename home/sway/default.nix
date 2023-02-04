@@ -5,9 +5,9 @@
   ...
 }: let
   fontConf = {
-    names = ["JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free"];
+    names = ["JetBrainsMono Nerd Font Mono" "DejaVuSansMono" "FontAwesome 6 Free"];
     style = "Bold Semi-Condensed";
-    size = 10.0;
+    size = 11.0;
   };
 in {
   imports = [
@@ -44,7 +44,7 @@ in {
       workspaceAutoBackAndForth = true;
 
       window = {
-        titlebar = true;
+        titlebar = false;
         hideEdgeBorders = "both";
       };
 
@@ -85,23 +85,24 @@ in {
       ];
 
       startup = [
-        {command = "mako";}
+        {command = "/tmp/m";}
+        {command = "kanshi";}
         {command = "keepassxc";}
         {command = "speedcrunch";}
         {
           command = ''
             swayidle -w \
-               timeout 300 ${lockCmd} \
+               timeout 300 "${lockCmd}" \
                timeout 120 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
-               before-sleep ${lockCmd}
+               before-sleep "${lockCmd}"
           '';
         }
         {command = "firefox";}
       ];
 
       assigns = {
-          "1" = [ { app_id = "firefox"; } ];
+        "1" = [{app_id = "firefox";}];
       };
 
       input = {
@@ -239,6 +240,47 @@ in {
           Return = "mode default";
           Escape = "mode default";
         };
+      };
+    };
+  };
+
+  programs.foot = {
+    enable = true;
+    settings = {
+      main = {
+        term = "xterm-256color";
+        font = "JetBrainsMono Nerd Font Mono:size=13";
+        dpi-aware = "yes";
+      };
+      mouse = {
+        hide-when-typing = "yes";
+      };
+    };
+  };
+
+  services.kanshi = {
+    enable = true;
+    systemdTarget = "";
+    profiles = {
+      undocked = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+          }
+        ];
+      };
+      docked = {
+        outputs = [
+          {
+            criteria = "eDP-1";
+            status = "disable";
+          }
+          {
+            criteria = "HDMI-A-1";
+            status = "enable";
+          }
+        ];
       };
     };
   };
