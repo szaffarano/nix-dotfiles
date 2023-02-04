@@ -39,7 +39,8 @@ home-manager switch --flake .#$USER
 
 ```sh
 yay -Syu
-yay -S wayland xorg-xwayland sway swaylock-effects ly
+yay -S wayland xorg-xwayland sway swaylock-effects polkit ly
+yay -S xdg-desktop-portal xdg-desktop-portal-wlr
 sudo usermod -aG seat sebas
 sudo systemctl enable seatd.service
 sudo systemctl enable ly.service

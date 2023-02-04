@@ -11,7 +11,7 @@
     ./sway
     ./tmux.nix
     ./zsh.nix
-  ];
+ ];
 
   home = {
     username = "sebas";
@@ -67,14 +67,33 @@
       (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
       rofi
       foot
-      clipman
+      swayidle
       wl-clipboard
       wofi
+      mako
 
       ncspot
 
       firefox
       chromium
+      keepassxc
+      flameshot
+      speedcrunch
+      anki
+      calibre
+      gnome-themes-extra
+      gnome.adwaita-icon-theme
+      grim #screenshot
+      slurp #screenshot
+      imagemagick
+      pandoc
+      pavucontrol
+      qview
+      tdesktop
+      weechat
+      wl-clipboard
+      xdg-utils
+      zip
     ];
   };
 

@@ -7,21 +7,6 @@ if not ok then
 end
 
 treesitter_configs.setup({
-	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = {
-		"bash",
-		"c",
-		"cpp",
-		"go",
-		"java",
-		"kotlin",
-		"lua",
-		"python",
-		"rust",
-		"typescript",
-		"nix",
-	},
-
 	highlight = { enable = true },
 	indent = { enable = true },
 	incremental_selection = {

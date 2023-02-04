@@ -23,7 +23,7 @@
             format_mem = "{mem_used_percents}";
             format_swap = "{swap_used_percents}";
           }
-          {
+         {
             block = "cpu";
             interval = 1;
           }
@@ -35,6 +35,15 @@
           {
             block = "battery";
             format = "$percentage|N/A";
+          }
+          {
+            block = "keyboard_layout";
+            driver = "sway";
+            format = "{layout}";
+            mappings = {
+              "English (intl., with AltGr dead keys)" = "En [Q]";
+              "English (Dvorak, intl., with dead keys)" = "En [D]";
+            };
           }
           {
             block = "time";
