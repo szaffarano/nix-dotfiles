@@ -8,7 +8,6 @@
         blocks = [
           {
             block = "music";
-            format = "$combo.rot-str(20) $play $next|";
             player = "ncspot";
           }
           {
@@ -42,8 +41,8 @@
             driver = "sway";
             format = "{layout}";
             mappings = {
-              "English (intl., with AltGr dead keys)" = "En [Q]";
-              "English (Dvorak, intl., with dead keys)" = "En [D]";
+              "English (intl., with AltGr dead keys)" = "En";
+              "English (Dvorak, intl., with dead keys)" = "En[Dvorak]";
             };
           }
           {

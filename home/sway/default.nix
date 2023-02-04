@@ -5,15 +5,17 @@
   ...
 }: let
   fontConf = {
-    names = ["JetBrainsMono Nerd Font Mono" "DejaVuSansMono" "FontAwesome 6 Free"];
+    names = ["JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free"];
     style = "Bold Semi-Condensed";
-    size = 11.0;
+    size = 12.0;
   };
 in {
   imports = [
     ./i3status-rs.nix
   ];
   wayland.windowManager.sway = let
+    rofiCmd = "${pkgs.rofi-wayland}/bin/rofi";
+    ncspotCmd = "~/.bin/ncspot";
     lockCmd = lib.concatStrings [
       "swaylock "
       " --screenshots"
@@ -30,16 +32,18 @@ in {
       " --inside-color 00000088"
       " --separator-color 00000000"
       " --grace 2"
-      " --fade-in 0.2"
+      " --fade-in 0.2 &"
     ];
   in {
     enable = true;
     package = null;
     swaynag.enable = true;
+    extraConfigEarly = "workspace 1";
     config = {
       modifier = "Mod4";
       terminal = "foot";
-      menu = "rofi -show drun";
+      menu = "${rofiCmd} -show drun";
+
       fonts = fontConf;
       workspaceAutoBackAndForth = true;
 
@@ -50,8 +54,7 @@ in {
 
       floating.criteria = [
         {class = "^Pavucontrol$";}
-        {class = "^Arandr$";}
-        {class = "^copyq$";}
+        {app_id = "com.github.hluk.copyq";}
         {class = "^Keybase$";}
         {class = "^JetBrains Toolbox$";}
         {title = "tracker - .*";}
@@ -85,24 +88,34 @@ in {
       ];
 
       startup = [
-        {command = "/tmp/m";}
-        {command = "kanshi";}
-        {command = "keepassxc";}
-        {command = "speedcrunch";}
+        # {command = "workspace 1";}
+        {command = "${pkgs.keepassxc}/bin/keepassxc";}
+        {command = "${pkgs.mako}/bin/mako";}
+        {command = "${pkgs.copyq}/bin/copyq";}
+        {command = "${pkgs.kanshi}/bin/kanshi";}
+        {command = "${pkgs.speedcrunch}/bin/speedcrunch";}
+        {command = "${pkgs.foot}/bin/foot --title main-term";}
+        {command = "${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}";}
         {
           command = ''
-            swayidle -w \
-               timeout 300 "${lockCmd}" \
-               timeout 120 'swaymsg "output * dpms off"' \
+            ${pkgs.swayidle}/bin/swayidle -w \
+               timeout 300 '${lockCmd}' \
+               timeout 600 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
-               before-sleep "${lockCmd}"
+               before-sleep '${lockCmd}'
           '';
         }
-        {command = "firefox";}
+        {command = "${pkgs.firefox}/bin/firefox";}
       ];
 
       assigns = {
         "1" = [{app_id = "firefox";}];
+        "2" = [
+          {
+            app_id = "foot";
+            title = "main-term";
+          }
+        ];
       };
 
       input = {
@@ -121,8 +134,9 @@ in {
         {
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
           command = "swaybar";
-          position = "top";
+          position = "bottom";
           fonts = fontConf;
+          extraConfig = ''height 32'';
           trayOutput = "*";
         }
       ];
@@ -135,6 +149,13 @@ in {
         {
           command = "move to scratchpad";
           criteria.app_id = "org.speedcrunch.";
+        }
+        {
+          command = "move to scratchpad";
+          criteria = {
+            app_id = "foot";
+            title = "ncspot";
+          };
         }
       ];
 
@@ -154,8 +175,13 @@ in {
           "${mod}+Return" = "exec ${terminal}";
           "${mod}+Shift+q" = "kill";
           "${mod}+d" = "exec ${menu}";
-          "${mod}+q" = "exec --no-startup-id rofi -show window";
-          "${mod}+F2" = "exec --no-startup-id rofi -show run";
+          "${mod}+q" = "exec --no-startup-id ${rofiCmd} -show window";
+          "${mod}+F2" = "exec --no-startup-id ${rofiCmd} -show run";
+
+          "${mod}+Shift+w" = "exec ${pkgs.keepassxc}/bin/keepassxc";
+
+          "Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save area - | ${pkgs.swappy}/bin/swappy -f -";
+          "Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen";
 
           "${mod}+${left}" = "focus left";
           "${mod}+${down}" = "focus down";
@@ -167,7 +193,6 @@ in {
           "${mod}+Shift+${up}" = "move up";
           "${mod}+Shift+${right}" = "move right";
 
-          "${mod}+Shift+space" = "floating toggle";
           "${mod}+space" = "focus mode_toggle";
 
           "${mod}+1" = "workspace number 1";
@@ -192,9 +217,6 @@ in {
           "${mod}+Shift+9" = "move container to workspace number 9";
           "${mod}+Shift+0" = "move container to workspace number 10";
 
-          "Shift+Print" = "exec flameshot full -p $screenshots";
-          "Print" = "exec flameshot gui";
-
           "${mod}+backslash" = "split h";
           "${mod}+minus" = "split v";
           "${mod}+f" = "fullscreen toggle";
@@ -206,9 +228,11 @@ in {
 
           "${mod}+Shift+c" = "reload";
           "${mod}+Shift+r" = "restart";
-          "${mod}+BackSpace" = ''mode "system:  [r]eboot  [p]oweroff  [l]ogout"'';
+          "${mod}+BackSpace" = ''mode "system: [l]ogout [p]oweroff [r]eboot [s]uspend"'';
 
           "${mod}+r" = "mode resize";
+
+          "Ctrl+Alt+v" = "exec ${pkgs.copyq}/bin/copyq toggle";
 
           "${mod}+Ctrl+BackSpace" = "exec ${lockCmd}";
           "Ctrl+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss";
@@ -217,18 +241,25 @@ in {
           "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
           "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
           "${mod}+Control_L+Left" = "move workspace to output left";
           "${mod}+Control_L+Right" = "move workspace to output left";
 
           "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
+          "${mod}+m" = ''[app_id="foot" title="ncspot"] scratchpad show'';
+          "${mod}+Shift+m" = ''exec ${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}; [app_id="foot" title="ncspot"] scratchpad show'';
         };
 
       modes = {
-        "system:  [r]eboot  [p]oweroff  [l]ogout" = {
-          r = "exec reboot";
-          p = "exec poweroff";
+        "system: [l]ogout [p]oweroff [r]eboot [s]uspend" = {
+          r = "exec systemctl reboot";
+          p = "exec systemctl poweroff";
           l = "exit";
+          s = "exec systemctl suspend";
           Return = "mode default";
           Escape = "mode default";
         };
@@ -252,9 +283,35 @@ in {
         font = "JetBrainsMono Nerd Font Mono:size=13";
         dpi-aware = "yes";
       };
-      mouse = {
-        hide-when-typing = "yes";
-      };
+    };
+  };
+
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    cycle = true;
+    terminal = "${pkgs.foot}/bin/foot";
+    theme = "catppuccin-mocha";
+    plugins = with pkgs; [
+      rofi-bluetooth
+      rofi-calc
+      rofi-emoji
+      rofi-power-menu
+      rofi-pulse-select
+    ];
+    extraConfig = {
+      modi = "run,drun,ssh,combi,keys,filebrowser";
+      icon-theme = "Oranchelo";
+      show-icons = true;
+      drun-display-format = "{icon} {name}";
+      location = 0;
+      disable-history = false;
+      hide-scrollbar = true;
+      display-drun = "   Apps ";
+      display-run = "   Run ";
+      display-window = "   Window";
+      display-Network = " 󰤨  Network";
+      sidebar-mode = true;
     };
   };
 

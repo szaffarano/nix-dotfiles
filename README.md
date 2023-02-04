@@ -47,7 +47,9 @@ sudo systemctl enable ly.service
 sudo systemctl start seatd.service
 ```
 
-mako: Lightweight notification daemon
-swaybg: Wallpaper tool for sway
-swayidle: Idle management daemon
-waybar: Highly customizable bar
+## TODO
+
+- [ ] Automate the bootstrap process
+- [ ] Include scripts and statis configs not covered by home-manager
+- [ ] Review old programs and configs to migrate to home-manager
+- [ ] Add flakes for other environments

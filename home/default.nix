@@ -37,6 +37,7 @@
       which
       gnumake
       unzip
+      gh
 
       comma # runs software without installing it
 
@@ -65,27 +66,34 @@
       font-awesome
       dejavu_fonts
       (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
-      rofi
       swayidle
       wl-clipboard
-      wofi
       mako
       wlr-randr
       kanshi
+      wtype
+      rofi-bluetooth
+      rofi-power-menu
+      rofi-pulse-select
 
       ncspot
+      playerctl
 
       firefox
       chromium
       keepassxc
-      flameshot
       speedcrunch
       anki
       calibre
       gnome-themes-extra
       gnome.adwaita-icon-theme
-      grim #screenshot
-      slurp #screenshot
+
+      # screenshots
+      grim 
+      slurp
+      swappy
+      sway-contrib.grimshot
+
       imagemagick
       pandoc
       pavucontrol
@@ -95,6 +103,7 @@
       wl-clipboard
       xdg-utils
       zip
+      copyq
     ];
   };
 
