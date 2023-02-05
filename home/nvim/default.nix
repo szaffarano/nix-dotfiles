@@ -4,8 +4,8 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    extraConfig = ''
-      :lua require('init')
+    extraLuaConfig = ''
+      require('init')
     '';
     plugins = with pkgs.vimPlugins; [
       (pkgs.vimPlugins.nvim-treesitter.withPlugins
