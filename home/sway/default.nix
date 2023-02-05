@@ -1,23 +1,14 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
+{ config, pkgs, lib, ... }:
+let
   fontConf = {
-    names = ["JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free"];
+    names = [ "JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free" ];
     style = "Bold Semi-Condensed";
     size = 12.0;
   };
 in {
-  imports = [
-    ./i3status-rs.nix
-  ];
+  imports = [ ./i3status-rs.nix ];
 
-  home.packages = with pkgs; [
-    gnome.adwaita-icon-theme
-    gnome-themes-extra
-  ];
+  home.packages = with pkgs; [ gnome.adwaita-icon-theme gnome-themes-extra ];
 
   wayland.windowManager.sway = let
     rofiCmd = "${pkgs.rofi-wayland}/bin/rofi";
@@ -46,7 +37,9 @@ in {
     swaynag.enable = true;
     extraConfigEarly = "workspace 1";
 
-    extraConfig = "seat seat0 xcursor_theme Adwaita\n";
+    extraConfig = ''
+      seat seat0 xcursor_theme Adwaita-dark
+    '';
 
     config = {
       modifier = "Mod4";
@@ -62,11 +55,11 @@ in {
       };
 
       floating.criteria = [
-        {class = "^Pavucontrol$";}
-        {app_id = "com.github.hluk.copyq";}
-        {class = "^Keybase$";}
-        {class = "^JetBrains Toolbox$";}
-        {title = "tracker - .*";}
+        { class = "^Pavucontrol$"; }
+        { app_id = "com.github.hluk.copyq"; }
+        { class = "^Keybase$"; }
+        { class = "^JetBrains Toolbox$"; }
+        { title = "tracker - .*"; }
         {
           class = "jetbrains-idea-ce";
           title = "Welcome to IntelliJ IDEA";
@@ -91,20 +84,20 @@ in {
           class = "Anki";
           title = "^Browse.*";
         }
-        {app_id = "org.keepassxc.KeePassXC";}
-        {class = "Blueman-manager";}
-        {class = "flameshot";}
+        { app_id = "org.keepassxc.KeePassXC"; }
+        { class = "Blueman-manager"; }
+        { class = "flameshot"; }
       ];
 
       startup = [
         # {command = "workspace 1";}
-        {command = "${pkgs.keepassxc}/bin/keepassxc";}
-        {command = "${pkgs.mako}/bin/mako";}
-        {command = "${pkgs.copyq}/bin/copyq";}
-        {command = "${pkgs.kanshi}/bin/kanshi";}
-        {command = "${pkgs.speedcrunch}/bin/speedcrunch";}
-        {command = "${pkgs.foot}/bin/foot --title main-term";}
-        {command = "${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}";}
+        { command = "${pkgs.keepassxc}/bin/keepassxc"; }
+        { command = "${pkgs.mako}/bin/mako"; }
+        { command = "${pkgs.copyq}/bin/copyq"; }
+        { command = "${pkgs.kanshi}/bin/kanshi"; }
+        { command = "${pkgs.speedcrunch}/bin/speedcrunch"; }
+        { command = "${pkgs.foot}/bin/foot --title main-term"; }
+        { command = "${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}"; }
         {
           command = ''
             ${pkgs.swayidle}/bin/swayidle -w \
@@ -114,17 +107,15 @@ in {
                before-sleep '${lockCmd}'
           '';
         }
-        {command = "${pkgs.firefox}/bin/firefox";}
+        { command = "${pkgs.firefox}/bin/firefox"; }
       ];
 
       assigns = {
-        "1" = [{app_id = "firefox";}];
-        "2" = [
-          {
-            app_id = "foot";
-            title = "main-term";
-          }
-        ];
+        "1" = [{ app_id = "firefox"; }];
+        "2" = [{
+          app_id = "foot";
+          title = "main-term";
+        }];
       };
 
       input = {
@@ -139,16 +130,15 @@ in {
         };
       };
 
-      bars = [
-        {
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
-          command = "swaybar";
-          position = "bottom";
-          fonts = fontConf;
-          extraConfig = ''height 32'';
-          trayOutput = "*";
-        }
-      ];
+      bars = [{
+        statusCommand =
+          "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+        command = "swaybar";
+        position = "bottom";
+        fonts = fontConf;
+        extraConfig = "height 32";
+        trayOutput = "*";
+      }];
 
       window.commands = [
         {
@@ -170,98 +160,97 @@ in {
 
       keybindings = let
         mod = config.wayland.windowManager.sway.config.modifier;
-        inherit
-          (config.wayland.windowManager.sway.config)
-          left
-          down
-          up
-          right
-          menu
-          terminal
-          ;
-      in
-        lib.mkOptionDefault {
-          "${mod}+Return" = "exec ${terminal}";
-          "${mod}+Shift+q" = "kill";
-          "${mod}+d" = "exec ${menu}";
-          "${mod}+q" = "exec --no-startup-id ${rofiCmd} -show window";
-          "${mod}+F2" = "exec --no-startup-id ${rofiCmd} -show run";
+        inherit (config.wayland.windowManager.sway.config)
+          left down up right menu terminal;
+      in lib.mkOptionDefault {
+        "${mod}+Return" = "exec ${terminal}";
+        "${mod}+Shift+q" = "kill";
+        "${mod}+d" = "exec ${menu}";
+        "${mod}+q" = "exec --no-startup-id ${rofiCmd} -show window";
+        "${mod}+F2" = "exec --no-startup-id ${rofiCmd} -show run";
 
-          "${mod}+Shift+w" = "exec ${pkgs.keepassxc}/bin/keepassxc";
+        "${mod}+Shift+w" = "exec ${pkgs.keepassxc}/bin/keepassxc";
 
-          "Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save area - | ${pkgs.swappy}/bin/swappy -f -";
-          "Shift+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen";
+        "Print" =
+          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save area - | ${pkgs.swappy}/bin/swappy -f -";
+        "Shift+Print" =
+          "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen";
 
-          "${mod}+${left}" = "focus left";
-          "${mod}+${down}" = "focus down";
-          "${mod}+${up}" = "focus up";
-          "${mod}+${right}" = "focus right";
+        "${mod}+${left}" = "focus left";
+        "${mod}+${down}" = "focus down";
+        "${mod}+${up}" = "focus up";
+        "${mod}+${right}" = "focus right";
 
-          "${mod}+Shift+${left}" = "move left";
-          "${mod}+Shift+${down}" = "move down";
-          "${mod}+Shift+${up}" = "move up";
-          "${mod}+Shift+${right}" = "move right";
+        "${mod}+Shift+${left}" = "move left";
+        "${mod}+Shift+${down}" = "move down";
+        "${mod}+Shift+${up}" = "move up";
+        "${mod}+Shift+${right}" = "move right";
 
-          "${mod}+space" = "focus mode_toggle";
+        "${mod}+space" = "focus mode_toggle";
 
-          "${mod}+1" = "workspace number 1";
-          "${mod}+2" = "workspace number 2";
-          "${mod}+3" = "workspace number 3";
-          "${mod}+4" = "workspace number 4";
-          "${mod}+5" = "workspace number 5";
-          "${mod}+6" = "workspace number 6";
-          "${mod}+7" = "workspace number 7";
-          "${mod}+8" = "workspace number 8";
-          "${mod}+9" = "workspace number 9";
-          "${mod}+0" = "workspace number 10";
+        "${mod}+1" = "workspace number 1";
+        "${mod}+2" = "workspace number 2";
+        "${mod}+3" = "workspace number 3";
+        "${mod}+4" = "workspace number 4";
+        "${mod}+5" = "workspace number 5";
+        "${mod}+6" = "workspace number 6";
+        "${mod}+7" = "workspace number 7";
+        "${mod}+8" = "workspace number 8";
+        "${mod}+9" = "workspace number 9";
+        "${mod}+0" = "workspace number 10";
 
-          "${mod}+Shift+1" = "move container to workspace number 1";
-          "${mod}+Shift+2" = "move container to workspace number 2";
-          "${mod}+Shift+3" = "move container to workspace number 3";
-          "${mod}+Shift+4" = "move container to workspace number 4";
-          "${mod}+Shift+5" = "move container to workspace number 5";
-          "${mod}+Shift+6" = "move container to workspace number 6";
-          "${mod}+Shift+7" = "move container to workspace number 7";
-          "${mod}+Shift+8" = "move container to workspace number 8";
-          "${mod}+Shift+9" = "move container to workspace number 9";
-          "${mod}+Shift+0" = "move container to workspace number 10";
+        "${mod}+Shift+1" = "move container to workspace number 1";
+        "${mod}+Shift+2" = "move container to workspace number 2";
+        "${mod}+Shift+3" = "move container to workspace number 3";
+        "${mod}+Shift+4" = "move container to workspace number 4";
+        "${mod}+Shift+5" = "move container to workspace number 5";
+        "${mod}+Shift+6" = "move container to workspace number 6";
+        "${mod}+Shift+7" = "move container to workspace number 7";
+        "${mod}+Shift+8" = "move container to workspace number 8";
+        "${mod}+Shift+9" = "move container to workspace number 9";
+        "${mod}+Shift+0" = "move container to workspace number 10";
 
-          "${mod}+backslash" = "split h";
-          "${mod}+minus" = "split v";
-          "${mod}+f" = "fullscreen toggle";
-          "${mod}+s" = "layout stacking";
-          "${mod}+w" = "layout tabbed";
-          "${mod}+e" = "layout toggle split";
-          "${mod}+a" = "focus parent";
-          "${mod}+c" = "focus child";
+        "${mod}+backslash" = "split h";
+        "${mod}+minus" = "split v";
+        "${mod}+f" = "fullscreen toggle";
+        "${mod}+s" = "layout stacking";
+        "${mod}+w" = "layout tabbed";
+        "${mod}+e" = "layout toggle split";
+        "${mod}+a" = "focus parent";
+        "${mod}+c" = "focus child";
 
-          "${mod}+Shift+c" = "reload";
-          "${mod}+Shift+r" = "restart";
-          "${mod}+BackSpace" = ''mode "system: [l]ogout [p]oweroff [r]eboot [s]uspend"'';
+        "${mod}+Shift+c" = "reload";
+        "${mod}+Shift+r" = "restart";
+        "${mod}+BackSpace" =
+          ''mode "system: [l]ogout [p]oweroff [r]eboot [s]uspend"'';
 
-          "${mod}+r" = "mode resize";
+        "${mod}+r" = "mode resize";
 
-          "Ctrl+Alt+v" = "exec ${pkgs.copyq}/bin/copyq toggle";
+        "Ctrl+Alt+v" = "exec ${pkgs.copyq}/bin/copyq toggle";
 
-          "${mod}+Ctrl+BackSpace" = "exec ${lockCmd}";
-          "Ctrl+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss";
-          "Ctrl+Shift+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
+        "${mod}+Ctrl+BackSpace" = "exec ${lockCmd}";
+        "Ctrl+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+        "Ctrl+Shift+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
 
-          "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        "XF86AudioMute" =
+          "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioRaiseVolume" =
+          "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+        "XF86AudioLowerVolume" =
+          "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
-          "${mod}+Control_L+Left" = "move workspace to output left";
-          "${mod}+Control_L+Right" = "move workspace to output left";
+        "${mod}+Control_L+Left" = "move workspace to output left";
+        "${mod}+Control_L+Right" = "move workspace to output left";
 
-          "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
-          "${mod}+m" = ''[app_id="foot" title="ncspot"] scratchpad show'';
-          "${mod}+Shift+m" = ''exec ${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}; [app_id="foot" title="ncspot"] scratchpad show'';
-        };
+        "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
+        "${mod}+m" = ''[app_id="foot" title="ncspot"] scratchpad show'';
+        "${mod}+Shift+m" = ''
+          exec ${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}; [app_id="foot" title="ncspot"] scratchpad show'';
+      };
 
       modes = {
         "system: [l]ogout [p]oweroff [r]eboot [s]uspend" = {
@@ -354,12 +343,10 @@ in {
     systemdTarget = "";
     profiles = {
       undocked = {
-        outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-          }
-        ];
+        outputs = [{
+          criteria = "eDP-1";
+          status = "enable";
+        }];
       };
       docked = {
         outputs = [

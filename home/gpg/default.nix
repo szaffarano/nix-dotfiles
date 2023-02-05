@@ -1,6 +1,1 @@
-{...}: {
-  imports = [
-    ./gpg.nix
-    ./gpg-agent.nix
-  ];
-}
+{ ... }: { imports = [ ./gpg.nix ./gpg-agent.nix ]; }

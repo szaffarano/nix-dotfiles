@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.git = {
     enable = true;
 
@@ -18,9 +18,7 @@
 
     delta = {
       enable = true;
-      options = {
-        features = "chameleon";
-      };
+      options = { features = "chameleon"; };
     };
 
     extraConfig = {
@@ -33,9 +31,7 @@
         date = "iso";
         abrevCommit = true;
       };
-      pull = {
-        ff = "only";
-      };
+      pull = { ff = "only"; };
       color = {
         branch = {
           current = "yellow reverse";
@@ -59,8 +55,6 @@
       init.defaultBranch = "master";
     };
 
-    includes = [
-      {path = ./delta.conf;}
-    ];
+    includes = [{ path = ./delta.conf; }];
   };
 }

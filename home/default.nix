@@ -1,17 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ./git
-    ./gpg
-    ./nvim
-    ./sway
-    ./tmux.nix
-    ./zsh.nix
-  ];
+{ config, lib, pkgs, ... }: {
+  imports = [ ./git ./gpg ./nvim ./sway ./tmux.nix ./zsh.nix ];
 
   home = {
     username = "sebas";
@@ -67,7 +55,9 @@
       fontconfig
       font-awesome
       dejavu_fonts
-      (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
+      })
       swayidle
       wl-clipboard
       mako
@@ -102,7 +92,6 @@
       qview
       tdesktop
       weechat
-      wl-clipboard
       xdg-utils
       zip
       copyq

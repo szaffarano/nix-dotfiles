@@ -11,25 +11,18 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    nix-index-database,
-    ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-    };
-  in {
-    homeConfigurations.sebas = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+  outputs = { nixpkgs, home-manager, nix-index-database, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+    in {
+      homeConfigurations.sebas = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./home
-      ];
+        modules = [ nix-index-database.hmModules.nix-index ./home ];
+      };
     };
-  };
 }
