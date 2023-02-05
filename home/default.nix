@@ -54,7 +54,7 @@
       go
 
       # nix
-      alejandra
+      nixfmt
 
       # rust
       rustc
