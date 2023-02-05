@@ -13,6 +13,12 @@ in {
   imports = [
     ./i3status-rs.nix
   ];
+
+  home.packages = with pkgs; [
+    gnome.adwaita-icon-theme
+    gnome-themes-extra
+  ];
+
   wayland.windowManager.sway = let
     rofiCmd = "${pkgs.rofi-wayland}/bin/rofi";
     ncspotCmd = "~/.bin/ncspot";
@@ -39,6 +45,9 @@ in {
     package = null;
     swaynag.enable = true;
     extraConfigEarly = "workspace 1";
+
+    extraConfig = "seat seat0 xcursor_theme Adwaita\n";
+
     config = {
       modifier = "Mod4";
       terminal = "foot";
@@ -312,6 +321,31 @@ in {
       display-window = "   Window";
       display-Network = " 󰤨  Network";
       sidebar-mode = true;
+    };
+  };
+
+  programs.zathura = {
+    enable = true;
+    options.selection-clipboard = "clipboard";
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = "org.pwmt.zathura.desktop";
+      "application/xhtml+xml" = "firefox.desktop";
+      "text/html" = "firefox.desktop";
+    };
+  };
+  xdg.dataFile."applications/mimeapps.list".force = true;
+  xdg.configFile."mimeapps.list".force = true;
+
+  gtk = {
+    enable = true;
+    iconTheme.name = "Adwaita-dark";
+    theme = {
+      package = pkgs.gnome.gnome-themes-extra;
+      name = "Adwaita-dark";
     };
   };
 

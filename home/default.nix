@@ -18,6 +18,8 @@
     homeDirectory = "/home/sebas";
     stateVersion = "22.11";
     packages = with pkgs; [
+      #home-manager
+
       entr
       exa
       fzf
@@ -89,7 +91,7 @@
       gnome.adwaita-icon-theme
 
       # screenshots
-      grim 
+      grim
       slurp
       swappy
       sway-contrib.grimshot
@@ -104,6 +106,7 @@
       xdg-utils
       zip
       copyq
+      slack
     ];
   };
 
@@ -124,5 +127,13 @@
         size = 13;
       };
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = false;
+    enableFishIntegration = false;
+    nix-direnv.enable = true;
   };
 }
