@@ -79,6 +79,8 @@
       calibre
       gnome-themes-extra
       gnome.adwaita-icon-theme
+      blueman
+      pulseaudioFull
 
       # screenshots
       grim

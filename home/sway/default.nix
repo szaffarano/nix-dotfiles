@@ -57,6 +57,8 @@ in {
       floating.criteria = [
         { class = "^Pavucontrol$"; }
         { app_id = "com.github.hluk.copyq"; }
+        { app_id = "nm-connection-editor"; }
+        { app_id = "blueman-manager"; }
         { class = "^Keybase$"; }
         { class = "^JetBrains Toolbox$"; }
         { title = "tracker - .*"; }
@@ -211,7 +213,7 @@ in {
         "${mod}+Shift+0" = "move container to workspace number 10";
 
         "${mod}+backslash" = "split h";
-        "${mod}+minus" = "split v";
+        "${mod}+v" = "split v";
         "${mod}+f" = "fullscreen toggle";
         "${mod}+s" = "layout stacking";
         "${mod}+w" = "layout tabbed";
@@ -245,6 +247,9 @@ in {
 
         "${mod}+Control_L+Left" = "move workspace to output left";
         "${mod}+Control_L+Right" = "move workspace to output left";
+
+        "${mod}+minus" = "scratchpad show";
+        "${mod}+Shift+minus" = "move scratchpad";
 
         "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
         "${mod}+m" = ''[app_id="foot" title="ncspot"] scratchpad show'';

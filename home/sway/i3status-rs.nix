@@ -46,9 +46,12 @@
             };
           }
           {
-            block = "net";
-            format = "{ssid} {signal_strength}";
-            interval = 5;
+            block = "networkmanager";
+            on_click = "nm-connection-editor";
+            interface_name_exclude = ["^virbr+" "^docker+" "^enp*"];
+            interface_name_include = [];
+            ap_format = "{ssid^10}";
+            device_format = "{icon}";
           }
           {
             block = "sound";
