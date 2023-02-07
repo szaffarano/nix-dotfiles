@@ -77,9 +77,7 @@
       speedcrunch
       anki
       calibre
-      gnome-themes-extra
-      gnome.adwaita-icon-theme
-      blueman
+      blueberry
       pulseaudioFull
 
       # screenshots

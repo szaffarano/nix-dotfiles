@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.i3status-rust = {
     enable = true;
     bars = {
@@ -47,11 +47,11 @@
           }
           {
             block = "networkmanager";
-            on_click = "nm-connection-editor";
+            on_click = "${pkgs.foot}/bin/foot --title nmtui-wifi-edit nmtui";
             interface_name_exclude = ["^virbr+" "^docker+" "^enp*"];
             interface_name_include = [];
             ap_format = "{ssid^10}";
-            device_format = "{icon}";
+            device_format = "{icon} {ap}";
           }
           {
             block = "sound";

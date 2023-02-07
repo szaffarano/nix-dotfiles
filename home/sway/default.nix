@@ -6,13 +6,18 @@ let
     size = 12.0;
   };
 in {
-  imports = [ ./i3status-rs.nix ];
+  imports = [ ./i3status-rs.nix ./gtk.nix ];
 
-  home.packages = with pkgs; [ gnome.adwaita-icon-theme gnome-themes-extra ];
+  home.packages = with pkgs; [ networkmanagerapplet ];
+  programs.zsh.profileExtra = ''
+    export XDG_CURRENT_DESKTOP="sway";
+    export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.local/share
+  '';
 
   wayland.windowManager.sway = let
     rofiCmd = "${pkgs.rofi-wayland}/bin/rofi";
-    ncspotCmd = "~/.bin/ncspot";
+    ncspotCmd =
+      "~/.bin/ncspot"; # TODO HM package enables alsa and it cause problems
     lockCmd = lib.concatStrings [
       "swaylock "
       " --screenshots"
@@ -35,12 +40,8 @@ in {
     enable = true;
     package = null;
     swaynag.enable = true;
+
     extraConfigEarly = "workspace 1";
-
-    extraConfig = ''
-      seat seat0 xcursor_theme Adwaita-dark
-    '';
-
     config = {
       modifier = "Mod4";
       terminal = "foot";
@@ -58,10 +59,11 @@ in {
         { class = "^Pavucontrol$"; }
         { app_id = "com.github.hluk.copyq"; }
         { app_id = "nm-connection-editor"; }
-        { app_id = "blueman-manager"; }
+        { app_id = "blueberry.py"; }
         { class = "^Keybase$"; }
         { class = "^JetBrains Toolbox$"; }
         { title = "tracker - .*"; }
+        { title = "nmtui-wifi-edit"; }
         {
           class = "jetbrains-idea-ce";
           title = "Welcome to IntelliJ IDEA";
@@ -92,7 +94,6 @@ in {
       ];
 
       startup = [
-        # {command = "workspace 1";}
         { command = "${pkgs.keepassxc}/bin/keepassxc"; }
         { command = "${pkgs.mako}/bin/mako"; }
         { command = "${pkgs.copyq}/bin/copyq"; }
@@ -114,7 +115,7 @@ in {
 
       assigns = {
         "1" = [{ app_id = "firefox"; }];
-        "2" = [{
+        "3" = [{
           app_id = "foot";
           title = "main-term";
         }];
@@ -333,15 +334,6 @@ in {
   };
   xdg.dataFile."applications/mimeapps.list".force = true;
   xdg.configFile."mimeapps.list".force = true;
-
-  gtk = {
-    enable = true;
-    iconTheme.name = "Adwaita-dark";
-    theme = {
-      package = pkgs.gnome.gnome-themes-extra;
-      name = "Adwaita-dark";
-    };
-  };
 
   services.kanshi = {
     enable = true;

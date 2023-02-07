@@ -41,7 +41,15 @@ home-manager switch --flake .#$USER
 yay -Syu
 yay -S wayland xorg-xwayland sway swaylock-effects polkit ly
 yay -S xdg-desktop-portal xdg-desktop-portal-wlr
-sudo usermod -aG seat sebas
+apt-get install dconf-service
+apt-get install gsettings-desktop-schemas 
+apt-get install gnome-themes-extra adwaita-icon-theme-full
+
+bluez-cups bluez-meshd # or bluetooth metapackage
+at-spi2-core
+pulseaudio pulseaudio-module-bluetooth
+
+sudo usermod -aG seat sebas # video for ubuntu
 sudo systemctl enable seatd.service
 sudo systemctl enable ly.service
 sudo systemctl start seatd.service
