@@ -57,7 +57,7 @@ in {
       };
 
       floating.criteria = [
-        { class = "^Pavucontrol$"; }
+        { app_id = "^pavucontrol$"; }
         { app_id = "com.github.hluk.copyq"; }
         { app_id = "nm-connection-editor"; }
         { app_id = "blueberry.py"; }

@@ -56,6 +56,7 @@
           {
             block = "sound";
             step_width = 3;
+            on_click = "pavucontrol";
           }
           {
             block = "time";
