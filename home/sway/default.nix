@@ -11,7 +11,8 @@ in {
   home.packages = with pkgs; [ networkmanagerapplet ];
   programs.zsh.profileExtra = ''
     export XDG_CURRENT_DESKTOP="sway";
-    export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.local/share
+    export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"
+    export PATH="$PATH:$HOME/.nix-profile/bin"
   '';
 
   wayland.windowManager.sway = let
