@@ -10,13 +10,9 @@
 
       entr
       exa
-      fzf
-      bat
       ripgrep
       fd
-      jq
       htop
-      tmux
       glow
       icdiff
       zoxide
@@ -30,6 +26,8 @@
       gh
 
       comma # runs software without installing it
+
+      jetbrains.idea-community
 
       # python
       python3
@@ -51,6 +49,10 @@
       rustfmt
       rust-analyzer
 
+      keepassxc
+
+      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
+
       # sway
       fontconfig
       font-awesome
@@ -68,12 +70,10 @@
       rofi-power-menu
       rofi-pulse-select
 
-      ncspot
       playerctl
 
       firefox
       chromium
-      keepassxc
       speedcrunch
       anki
       calibre
@@ -101,21 +101,47 @@
 
   fonts.fontconfig.enable = true;
 
-  programs = {
-    home-manager.enable = true;
-    nix-index.enable = true;
-    mcfly = {
-      enable = true;
-      keyScheme = "vim";
-      fuzzySearchFactor = 5;
-    };
-    kitty = {
-      enable = true;
-      font = {
-        name = "JetBrains Mono";
-        size = 13;
+  programs.java.enable = true;
+  programs.jq.enable = true;
+  programs.home-manager.enable = true;
+  programs.gh = {
+    enable = true;
+    extensions = [ pkgs.gh-dash ];
+    settings = {
+      git_protocol = "https";
+      prompt = "enabled";
+      editor = "nvim";
+      aliases = {
+        co = "pr checkout";
+        pv = "pr view";
       };
     };
+  };
+
+  programs.ncspot = {
+    enable = true;
+    package = pkgs.ncspot.override { withALSA = false; };
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      map-syntax = [ "*.jenkinsfile:Groovy" "*.props:Java Properties" ];
+      pager = "less -FR";
+      theme = "Dracula";
+    };
+    themes = {
+      dracula = builtins.readFile (pkgs.fetchFromGitHub {
+        owner = "dracula";
+        repo = "sublime"; # Bat uses sublime syntax for its themes
+        rev = "c5de15a0ad654a2c7d8f086ae67c2c77fda07c5f";
+        sha256 = "sha256-m/MHz4phd3WR56I5jfi4hMXnFf4L4iXVpMFwtd0L0XE=";
+      } + "/Dracula.tmTheme");
+    };
+  };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.direnv = {

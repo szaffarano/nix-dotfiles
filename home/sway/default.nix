@@ -17,8 +17,7 @@ in {
 
   wayland.windowManager.sway = let
     rofiCmd = "${pkgs.rofi-wayland}/bin/rofi";
-    ncspotCmd =
-      "~/.bin/ncspot"; # TODO HM package enables alsa and it cause problems
+    ncspotCmd = "${config.programs.ncspot.package}/bin/ncspot";
     lockCmd = lib.concatStrings [
       "swaylock "
       " --screenshots"
@@ -225,14 +224,16 @@ in {
 
         "${mod}+Shift+c" = "reload";
         "${mod}+Shift+r" = "restart";
-        "${mod}+BackSpace" =
-          ''mode "system: [l]ogout [p]oweroff [r]eboot [s]uspend"'';
+        "${mod}+BackSpace" = ''
+          exec --no-startup-id ${rofiCmd} -show menu -modi "menu:rofi-power-menu"
+        '';
+        "${mod}+Ctrl+Shift+BackSpace" = "exec systemctl suspend";
+        "${mod}+Ctrl+BackSpace" = "exec ${lockCmd}";
 
         "${mod}+r" = "mode resize";
 
         "Ctrl+Alt+v" = "exec ${pkgs.copyq}/bin/copyq toggle";
 
-        "${mod}+Ctrl+BackSpace" = "exec ${lockCmd}";
         "Ctrl+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss";
         "Ctrl+Shift+Space" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
 
