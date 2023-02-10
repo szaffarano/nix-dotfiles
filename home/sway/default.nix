@@ -115,6 +115,7 @@ in {
 
       assigns = {
         "1" = [{ app_id = "firefox"; }];
+        "2" = [{ class = "jetbrains-idea.*"; }];
         "3" = [{
           app_id = "foot";
           title = "main-term";
