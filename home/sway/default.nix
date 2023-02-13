@@ -159,6 +159,10 @@ in {
         }
         {
           command = "move to scratchpad";
+          criteria.class = "Slack";
+        }
+        {
+          command = "move to scratchpad";
           criteria = {
             app_id = "foot";
             title = "ncspot";
@@ -262,6 +266,7 @@ in {
         "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
         "${mod}+m" = ''[app_id="foot" title="ncspot"] scratchpad show'';
         "${mod}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
+        "${mod}+p" = ''[class="Slack"] scratchpad show'';
         "${mod}+Shift+m" = ''
           exec ${pkgs.foot}/bin/foot --title ncspot ${ncspotCmd}; [app_id="foot" title="ncspot"] scratchpad show'';
       };
