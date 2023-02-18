@@ -50,6 +50,7 @@
       rust-analyzer
 
       keepassxc
+      git-credential-keepassxc
 
       (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
 
@@ -57,6 +58,7 @@
       fontconfig
       font-awesome
       dejavu_fonts
+      iosevka
       (nerdfonts.override {
         fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
       })

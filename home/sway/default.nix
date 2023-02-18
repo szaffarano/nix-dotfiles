@@ -1,7 +1,9 @@
 { config, pkgs, lib, ... }:
 let
+  terminalCmd =
+    "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty";
   fontConf = {
-    names = [ "JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free" ];
+    names = [ "Iosevka Extended" "JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free" ];
     style = "Bold Semi-Condensed";
     size = 12.0;
   };
@@ -44,7 +46,7 @@ in {
     extraConfigEarly = "workspace 1";
     config = {
       modifier = "Mod4";
-      terminal = "foot";
+      terminal = "${terminalCmd}";
       menu = "${rofiCmd} -show drun";
 
       fonts = fontConf;
@@ -292,12 +294,26 @@ in {
     };
   };
 
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "Iosevka Extended";
+      size = 16;
+    };
+    settings = {
+      copy_on_select = true;
+      enable_audio_bell = false;
+      adjust_line_height = "105%";
+    };
+    theme = "Catppuccin-Frappe";
+  };
+
   programs.foot = {
     enable = true;
     settings = {
       main = {
         term = "xterm-256color";
-        font = "JetBrainsMono Nerd Font Mono:size=13";
+        font = "Iosevka Extended:size=13";
         dpi-aware = "yes";
       };
     };
@@ -307,7 +323,7 @@ in {
     enable = true;
     package = pkgs.rofi-wayland;
     cycle = true;
-    terminal = "${pkgs.foot}/bin/foot";
+    terminal = "${terminalCmd}";
     theme = "catppuccin-mocha";
     plugins = with pkgs; [
       rofi-bluetooth
