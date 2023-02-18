@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  terminalCmd =
-    "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty";
+  terminalCmd = "${pkgs.kitty}/bin/kitty";
   fontConf = {
     names = [
       "Iosevka Extended"

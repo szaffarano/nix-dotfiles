@@ -18,7 +18,11 @@
   outputs = inputs:
     let lib = import ./lib inputs;
     in {
-      overlays = [ inputs.nixgl.overlay ];
+      overlays = [
+        inputs.nixgl.overlay
+        (import ./overlays/kitty)
+        (import ./overlays/chromium)
+      ];
       homeModules = import ./modules inputs;
 
       homeConfigurations = {
