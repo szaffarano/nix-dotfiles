@@ -3,14 +3,31 @@ let
   terminalCmd =
     "${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty";
   fontConf = {
-    names = [ "Iosevka Extended" "JetBrains Mono" "DejaVuSansMono" "FontAwesome 6 Free" ];
+    names = [
+      "Iosevka Extended"
+      "JetBrains Mono"
+      "DejaVuSansMono"
+      "FontAwesome 6 Free"
+    ];
     style = "Bold Semi-Condensed";
     size = 12.0;
   };
 in {
   imports = [ ./i3status-rs.nix ./gtk.nix ];
 
-  home.packages = with pkgs; [ networkmanagerapplet ];
+  home.packages = with pkgs; [
+    networkmanagerapplet
+    swayidle
+    wl-clipboard
+    mako
+    wlr-randr
+    kanshi
+    wtype
+    rofi-bluetooth
+    rofi-power-menu
+    rofi-pulse-select
+  ];
+
   programs.zsh.profileExtra = ''
     export XDG_CURRENT_DESKTOP="sway";
     export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"

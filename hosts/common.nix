@@ -1,60 +1,45 @@
-{ config, lib, pkgs, ... }: {
-  imports = [ ./git ./gpg ./nvim ./sway ./tmux.nix ./zsh.nix ];
+{ config, pkgs, nixpkgs, lib, ... }: {
+  imports = [
+    ../programs/development.nix
+    ../programs/git
+    ../programs/gpg
+    ../programs/nvim
+    ../programs/starship.nix
+    ../programs/tmux.nix
+    ../programs/zsh.nix
+  ];
 
   home = {
-    username = "sebas";
-    homeDirectory = "/home/sebas";
     stateVersion = "22.11";
     packages = with pkgs; [
-      #home-manager
-
-      entr
-      exa
-      ripgrep
+      (python3.withPackages (ps: with ps; [ pip flake8 black ipython mypy ]))
+      poetry
+      dig
+      file
       fd
-      htop
-      glow
       icdiff
-      zoxide
       du-dust
       tldr
       broot
       duf
       which
       gnumake
-      unzip
-      gh
-
-      comma # runs software without installing it
-
-      jetbrains.idea-community
-
-      # python
-      python3
-      poetry
-      mypy
-      black
-
-      nodejs
-
-      go
-
-      # nix
-      nixfmt
-
-      # rust
-      rustc
-      clippy
-      cargo
-      rustfmt
-      rust-analyzer
-
+      comma
+      gawk
+      htop
+      httpie
+      kubectx
+      openssl
+      p7zip
+      pandoc
+      ripgrep
+      sqlite
+      tree
       keepassxc
       git-credential-keepassxc
+      unzip
+      whois
 
-      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
-
-      # sway
       fontconfig
       font-awesome
       dejavu_fonts
@@ -62,50 +47,16 @@
       (nerdfonts.override {
         fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
       })
-      swayidle
-      wl-clipboard
-      mako
-      wlr-randr
-      kanshi
-      wtype
-      rofi-bluetooth
-      rofi-power-menu
-      rofi-pulse-select
 
-      playerctl
-
-      firefox
-      chromium
-      speedcrunch
-      anki
-      calibre
-      blueberry
-      pulseaudioFull
-
-      # screenshots
-      grim
-      slurp
-      swappy
-      sway-contrib.grimshot
-
-      imagemagick
-      pandoc
-      pavucontrol
-      qview
-      tdesktop
-      weechat
-      xdg-utils
-      zip
-      copyq
-      slack
     ];
   };
 
-  fonts.fontconfig.enable = true;
+  programs.firefox.enable = true;
+  programs.chromium.enable = true;
 
+  fonts.fontconfig.enable = true;
   programs.java.enable = true;
   programs.jq.enable = true;
-  programs.home-manager.enable = true;
   programs.gh = {
     enable = true;
     extensions = [ pkgs.gh-dash ];
@@ -119,12 +70,6 @@
       };
     };
   };
-
-  programs.ncspot = {
-    enable = true;
-    package = pkgs.ncspot.override { withALSA = false; };
-  };
-
   programs.bat = {
     enable = true;
     config = {
@@ -141,6 +86,7 @@
       } + "/Dracula.tmTheme");
     };
   };
+
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -154,4 +100,5 @@
     enableFishIntegration = false;
     nix-direnv.enable = true;
   };
+
 }
