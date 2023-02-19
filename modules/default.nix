@@ -1,1 +1,25 @@
-_: { }
+inputs: {
+  # i3status-rs = import ./sway/i3status-rs.nix inputs;
+  ansible = import ./ansible inputs;
+  bat = import ./bat inputs;
+  btop = import ./btop inputs;
+  development = import ./development inputs;
+  direnv = import ./direnv inputs;
+  firefox = import ./firefox inputs;
+  fzf = import ./fzf inputs;
+  git = import ./git inputs;
+  gpg-agent = import ./gpg-agent inputs;
+  gpg = import ./gpg inputs;
+  gtk = import ./gtk inputs;
+  kitty = import ./kitty inputs;
+  ncspot = import ./ncspot inputs;
+  neovim = import ./neovim inputs;
+  starship = import ./starship inputs;
+  sway = import ./sway inputs;
+  tmux = import ./tmux inputs;
+  xdg = import ./xdg inputs;
+  zsh = import ./zsh inputs;
+
+  # sway-notification-center = import ./sway-notification-center inputs;
+  # waybar = import ./waybar inputs;
+}

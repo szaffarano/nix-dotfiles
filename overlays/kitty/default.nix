@@ -6,7 +6,7 @@ self: super: {
     postBuild = ''
       mv $out/bin/kitty $out/bin/kitty.ok
 
-      echo "${super.pkgs.nixgl.nixGLIntel}/bin/nixGLIntel $out/bin/kitty.ok" > $out/bin/kitty
+      echo "${super.pkgs.nixgl.nixGLIntel}/bin/nixGLIntel $out/bin/kitty.ok \$@" > $out/bin/kitty
 
       chmod +x $out/bin/kitty
     '';

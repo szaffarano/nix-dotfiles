@@ -1,9 +1,9 @@
 { pkgs, ... }: {
-  imports = [ ../programs/sway ];
-
   programs.home-manager.enable = true;
 
-  services.blueman-applet.enable = true;
+  ncspot.enable = true;
+  sway.enable = true;
+  xdg.config.enable = true;
 
   home.packages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
@@ -28,14 +28,8 @@
     tdesktop
     slack
     weechat
-    xdg-utils
     copyq
 
     zeal
   ];
-
-  programs.ncspot = {
-    enable = true;
-    package = pkgs.ncspot.override { withALSA = false; };
-  };
 }

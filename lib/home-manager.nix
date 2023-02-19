@@ -7,7 +7,15 @@ let
 in inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = import inputs.nixpkgs {
     inherit system;
-    config.allowUnfree = true;
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+        "dropbox"
+        "grammarly"
+        "lastpass-password-manager"
+        "skypeforlinux"
+        "slack"
+        "zoom"
+      ];
     overlays = self.overlays;
   };
 
