@@ -1,0 +1,17 @@
+---
+- name: Update Linux packages (Debian)
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    purge: true
+    autoremove: true
+    autoclean: true
+  when:
+    - distro.is_debian
+
+- name: Install Linux packages (Debian)
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  when:
+    - distro.is_debian

@@ -1,0 +1,43 @@
+---
+ansible_connection: local
+
+system_groups:
+  debian:
+    - video
+  archlinux:
+    - seatd
+
+systemd_services:
+  debian:
+    - seatd.service
+  archlinux:
+    - seatd.service
+    - ly.service
+
+packages:
+  debian:
+    - xwayland
+    - sway
+    - polkitd
+    - xdg-desktop-portal
+    - xdg-desktop-portal-wlr
+    - dconf-service
+    - gsettings-desktop-schemas
+    - bluez-cups
+    - bluez-meshd
+    - pulseaudio
+    - pulseaudio-module-bluetooth
+  archlinux:
+    - wayland
+    - xorg-xwayland
+    - sway
+    - swaylock-effects
+    - polkit
+    - ly
+    - xdg-desktop-portal
+    - xdg-desktop-portal-wlr
+    - dconf-service
+    - gsettings-desktop-schemas
+    - bluetooth
+    - pulseaudio
+    - pulseaudio-module-bluetooth

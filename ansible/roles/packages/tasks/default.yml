@@ -1,0 +1,4 @@
+---
+- name: Operating system not configured
+  ansible.builtin.fail:
+    msg: "No packages configured for {{ distro.family }}"

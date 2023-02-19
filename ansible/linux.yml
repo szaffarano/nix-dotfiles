@@ -1,0 +1,8 @@
+---
+- name: Setup Linux Workstation
+  gather_facts: true
+  become: true
+  hosts: all
+  roles:
+    - packages
+    - system

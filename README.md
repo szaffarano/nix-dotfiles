@@ -40,26 +40,14 @@ home-manager switch --flake .#$USER
 ### Wayland and sway
 
 ```sh
-yay -Syu
-yay -S wayland xorg-xwayland sway swaylock-effects polkit ly
-yay -S xdg-desktop-portal xdg-desktop-portal-wlr
-apt-get install dconf-service
-apt-get install gsettings-desktop-schemas 
-apt-get install gnome-themes-extra adwaita-icon-theme-full
-
-bluez-cups bluez-meshd # or bluetooth metapackage
-at-spi2-core
-pulseaudio pulseaudio-module-bluetooth
-
-sudo usermod -aG seat sebas # video for ubuntu
-sudo systemctl enable seatd.service
-sudo systemctl enable ly.service
-sudo systemctl start seatd.service
+cd ansible
+ansible-galaxy install -r requirements.yml
+ansible-playbook linux.yml -K
 ```
 
 ## TODO
 
 - [ ] Automate the bootstrap process
-- [ ] Include scripts and statis configs not covered by home-manager
+- [ ] Include scripts and static configs not covered by home-manager
 - [ ] Review old programs and configs to migrate to home-manager
-- [ ] Add flakes for other environments
+- [X] Add flakes for other environments

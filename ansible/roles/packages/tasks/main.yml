@@ -1,0 +1,14 @@
+---
+- name: "Set packages for {{ distro.family }}"
+  ansible.builtin.set_fact:
+    packages: >
+      {{
+        packages[distro.family] | default([])
+      }}
+
+- name: "Load tasks for {{ distro.family }}"
+  ansible.builtin.include_tasks: "{{ item }}"
+  with_first_found:
+    - "{{ distro.family }}.yml"
+    - default.yml
+  tags: tasks

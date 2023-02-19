@@ -1,0 +1,31 @@
+---
+- name: Install Yay
+  become: false
+  ansible.builtin.shell: |
+    cd /tmp \
+      && git clone https://aur.archlinux.org/yay-bin.git yay \
+      && cd /tmp/yay \
+      && makepkg -si --noconfirm
+  notify:
+    - Init yay db
+    - Cleanup yay setup
+  args:
+    creates: "{{ yay_exec }}"
+
+- name: Update Linux packages (Archlinux)
+  become: false
+  ansible.builtin.pacman:
+    executable: "{{ yay_exec }}"
+    update_cache: true
+    upgrade: true
+  when:
+    - distro.is_arch
+
+- name: Install Linux packages (Archlinux)
+  become: false
+  ansible.builtin.pacman:
+    executable: "{{ yay_exec }}"
+    name: "{{ packages }}"
+    state: present
+  when:
+    - distro.is_arch

@@ -1,0 +1,17 @@
+---
+user_home: "{{ lookup('env', 'HOME') }}"
+yay_exec: /usr/bin/yay
+
+distro:
+  family: "{{ ansible_facts['os_family'] | lower }}"
+  system: "{{ ansible_facts['system'] | lower }}"
+  is_debian: "{{ ansible_facts['os_family'] == 'Debian' }}"
+  is_arch: "{{ ansible_facts['os_family'] == 'Archlinux' }}"
+
+# packages group by distro, e.g.:
+# packages:
+#   debian:
+#     - curl
+#   archlinux:
+#     - tmux
+packages: []
