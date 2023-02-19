@@ -10,6 +10,12 @@ _:
     };
 
   in lib.mkIf config.gpg.enable {
+
+    home.sessionVariables = {
+      SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
+      GPG_TTY = "$(tty)";
+    };
+
     programs.gpg = {
       enable = true;
       settings = {
