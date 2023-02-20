@@ -1,0 +1,24 @@
+---
+system_groups:
+  - video
+  - docker
+
+systemd_services:
+  - seatd.service
+  - bluetooth.service
+  - libvirtd.service
+
+packages:
+  - xwayland
+  - sway
+  - polkitd
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
+  - dconf-service
+  - gsettings-desktop-schemas
+  - bluez-cups
+  - bluez-meshd
+  - pulseaudio
+  - pulseaudio-module-bluetooth
+  - zsh
+  - libvirt-daemon

@@ -2,3 +2,7 @@
 - name: Init yay db
   ansible.builtin.command:
     cmd: yay -Y --gendb
+- name: Cleanup yay setup
+  ansible.builtin.file:
+    path: /tmp/yay/
+    state: absent

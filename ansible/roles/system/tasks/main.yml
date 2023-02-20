@@ -5,13 +5,6 @@
     name: "{{ user_name }}"
     shell: "{{ default_shell }}"
 
-- name: "Set groups for {{ distro.family }}"
-  ansible.builtin.set_fact:
-    system_groups: >
-      {{
-        system_groups[distro.family] | default([])
-      }}
-
 - name: "Configure groups for {{ user_name }}"
   become: true
   ansible.builtin.user:
@@ -19,19 +12,11 @@
     groups: "{{ system_groups }}"
     append: true
 
-- name: "Set systemd services to enable for {{ distro.family }}"
-  ansible.builtin.set_fact:
-    systemd_services: >
-      {{
-        systemd_services[distro.family] | default([])
-      }}
-
 - name: "Configure systemd services"
   become: true
   ansible.builtin.systemd:
     name: "{{ item }}"
     enabled: true
   loop: "{{ systemd_services }}"
-  notify: 
+  notify:
     - Start systemd services
-

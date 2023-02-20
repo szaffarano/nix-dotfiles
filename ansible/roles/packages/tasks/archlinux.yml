@@ -14,7 +14,7 @@
 
 - name: Update Linux packages (Archlinux)
   become: false
-  ansible.builtin.pacman:
+  community.general.pacman:
     executable: "{{ yay_exec }}"
     update_cache: true
     upgrade: true
@@ -23,7 +23,7 @@
 
 - name: Install Linux packages (Archlinux)
   become: false
-  ansible.builtin.pacman:
+  community.general.pacman:
     executable: "{{ yay_exec }}"
     name: "{{ packages }}"
     state: present

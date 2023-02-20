@@ -1,0 +1,32 @@
+---
+docker_compose_package: docker-compose
+
+system_groups:
+  - seat
+  - docker
+
+systemd_services:
+  - seatd.service
+  - ly.service
+  - bluetooth.service
+  - libvirtd.service
+
+packages:
+  - wayland
+  - xorg-xwayland
+  - sway
+  - swaylock-effects
+  - polkit
+  - ly
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
+  - dconf
+  - gsettings-desktop-schemas
+  - bluez
+  - bluez-utils
+  - pulseaudio
+  - pulseaudio-bluetooth
+  - base-devel
+  - zsh
+  - libvirt
+  - libvirt-dbus
