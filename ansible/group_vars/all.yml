@@ -5,14 +5,16 @@ system_groups:
   debian:
     - video
   archlinux:
-    - seatd
+    - seat
 
 systemd_services:
   debian:
     - seatd.service
+    - bluetooth.service
   archlinux:
     - seatd.service
     - ly.service
+    - bluetooth.service
 
 packages:
   debian:
@@ -27,6 +29,7 @@ packages:
     - bluez-meshd
     - pulseaudio
     - pulseaudio-module-bluetooth
+    - zsh
   archlinux:
     - wayland
     - xorg-xwayland
@@ -36,8 +39,11 @@ packages:
     - ly
     - xdg-desktop-portal
     - xdg-desktop-portal-wlr
-    - dconf-service
+    - dconf
     - gsettings-desktop-schemas
-    - bluetooth
+    - bluez
+    - bluez-utils
     - pulseaudio
-    - pulseaudio-module-bluetooth
+    - pulseaudio-bluetooth
+    - base-devel
+    - zsh

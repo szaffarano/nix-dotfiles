@@ -26,11 +26,13 @@ sudo chsh sebas -s /bin/zsh
 ```sh
 sh <(curl -L https://nixos.org/nix/install) --daemon
 
-mkdir ~/.config/nix && echo "experimental-features = nix-command flakes" | tee ~/.config/nix/nix.conf
+mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" | tee ~/.config/nix/nix.conf
 
 nix build --no-link .#homeConfigurations.$USER.activationPackage
 
 "$(nix path-info .#homeConfigurations.$USER.activationPackage)"/activate
+or
+./result/activate
 
 # after above command, to update 
 
