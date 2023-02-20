@@ -4,16 +4,24 @@
     type = lib.types.str;
     default = "kitty";
   };
-  options.rofi.theme = lib.mkOption {
+  options.rofi.catppuccinVariat = lib.mkOption {
     type = lib.types.str;
     default = "catppuccin-mocha";
   };
-  options.rofi.icon-theme = lib.mkOption {
-    type = lib.types.str;
-    default = "Oranchelo";
-  };
 
-  config = lib.mkIf config.rofi.enable {
+  config = let
+    catppuccin = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "rofi";
+      rev = "5350da4";
+      sha256 = "sha256-DNorfyl3C4RBclF2KDgwvQQwixpTwSRu7fIvihPN8JY=";
+    };
+
+  in lib.mkIf config.rofi.enable {
+    xdg.dataFile."rofi/themes" = {
+      source = "${catppuccin}/basic/.local/share/rofi/themes/";
+    };
+
     home.packages = with pkgs; [
       rofi-bluetooth
       rofi-power-menu
@@ -27,7 +35,7 @@
       package = pkgs.rofi-wayland;
       cycle = true;
       terminal = config.rofi.terminal;
-      theme = config.rofi.theme;
+      theme = config.rofi.catppuccinVariat;
       plugins = with pkgs; [
         rofi-bluetooth
         rofi-calc
@@ -37,7 +45,6 @@
       ];
       extraConfig = {
         modi = "run,drun,ssh,combi,keys,filebrowser";
-        icon-theme = config.rofi.icon-theme;
         show-icons = true;
         drun-display-format = "{icon} {name}";
         location = 0;
