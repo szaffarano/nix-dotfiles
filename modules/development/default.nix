@@ -24,6 +24,8 @@ _:
         rust-analyzer
         rustc
         rustfmt
+
+        virt-manager
       ];
     };
 
