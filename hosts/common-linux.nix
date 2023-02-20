@@ -31,5 +31,6 @@
     copyq
 
     zeal
+    virt-manager
   ];
 }

@@ -2,31 +2,16 @@
 
 ## Preconditions
 
-### Arch
-
-TODO: requirement for nix?
-
-```sh
-sudo pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay-bin.git
-pushd yay-bin
-makepkg -si
-popd
-rm -rf yay-bin
-yay -Y --gendb
-```
-
-```sh
-yay -S zsh
-sudo chsh sebas -s /bin/zsh
-```
-
 ### Bootstrap nix and home-manager
 
 ```sh
+# TODO: Ubuntu
+sudo pacman -S --needed git base-devel
+
 sh <(curl -L https://nixos.org/nix/install) --daemon
 
-mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" | tee ~/.config/nix/nix.conf
+mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" \
+        | tee ~/.config/nix/nix.conf
 
 nix build --no-link .#homeConfigurations.$USER.activationPackage
 
@@ -34,7 +19,7 @@ nix build --no-link .#homeConfigurations.$USER.activationPackage
 or
 ./result/activate
 
-# after above command, to update 
+# after above command, to update
 
 home-manager switch --flake .#$USER
 ```

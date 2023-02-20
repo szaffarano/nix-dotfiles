@@ -25,7 +25,7 @@ _:
         rustc
         rustfmt
 
-        virt-manager
+        pre-commit
       ];
     };
 
