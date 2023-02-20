@@ -9,7 +9,8 @@ let
     };
   };
 
-in {
+in
+{
   options.i3status-rs.enable = lib.mkEnableOption "i3status-rs";
   options.i3status-rs.fonts = lib.mkOption { type = fontOptions; };
 

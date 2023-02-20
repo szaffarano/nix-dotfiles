@@ -7,7 +7,8 @@ let
   theme = "Adwaita";
   icon_theme_pkg = pkgs.papirus-icon-theme;
   theme_pkg = pkgs.gnome-themes-extra;
-in {
+in
+{
   options.gtk.config.enable = lib.mkEnableOption "gtk.config";
 
   config = lib.mkIf config.gtk.config.enable {

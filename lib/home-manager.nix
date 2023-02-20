@@ -4,7 +4,8 @@ let
   config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
   home-directory = "/home/${user}";
 
-in inputs.home-manager.lib.homeManagerConfiguration {
+in
+inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfreePredicate = pkg:
