@@ -6,8 +6,8 @@ _:
     programs.kitty = {
       enable = true;
       font = {
-        name = "Iosevka Extended";
-        size = 16;
+        name = "FiraCode Nerd Font";
+        size = 15;
       };
       settings = {
         copy_on_select = true;

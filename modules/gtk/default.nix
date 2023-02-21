@@ -2,7 +2,7 @@ _:
 { config, lib, pkgs, theme, ... }:
 let
   # TODO: marameterize
-  font = "Iosevka 11";
+  font = "Liberation Mono";
   icon_theme = "Papirus";
   theme = "Adwaita";
   icon_theme_pkg = pkgs.papirus-icon-theme;

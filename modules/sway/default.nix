@@ -10,12 +10,10 @@ _:
       terminalCmd = "kitty";
       fontConf = {
         names = [
-          "Iosevka Extended"
-          "JetBrains Mono"
-          "DejaVuSansMono"
-          "FontAwesome 6 Free"
+          "Liberation Mono"
+          "Font Awesome 6 Free"
         ];
-        style = "Bold Semi-Condensed";
+        style = "";
         size = 12.0;
       };
       lockCmd = lib.concatStrings [

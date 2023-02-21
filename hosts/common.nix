@@ -50,7 +50,7 @@
       fontconfig
       font-awesome
       dejavu_fonts
-      iosevka
+      ubuntu_font_family
       (nerdfonts.override {
         fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
       })

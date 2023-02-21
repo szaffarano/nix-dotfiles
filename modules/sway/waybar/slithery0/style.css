@@ -64,7 +64,7 @@ window#waybar {
 
 /* The whole bar */
 #waybar {
-  font-family: Iosevka Extended;
+  font-family: Liberation Mono, sans-serif;
   font-size: 16px;
 }
 
