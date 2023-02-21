@@ -1,7 +1,10 @@
 ---
-- name: "Load tasks for {{ distro.family }}"
+- name: >
+    Load package config tasks for
+    {{ ansible_distribution }} ({{ ansible_os_family }})
   ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
-    - "{{ distro.family }}.yml"
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
     - default.yml
   tags: tasks

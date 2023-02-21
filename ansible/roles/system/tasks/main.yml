@@ -20,3 +20,13 @@
   loop: "{{ systemd_services }}"
   notify:
     - Start systemd services
+
+- name: >
+    Load system config tasks for
+    {{ ansible_distribution }} ({{ ansible_os_family }})
+  ansible.builtin.include_tasks: "{{ item }}"
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
+  tags: tasks
