@@ -24,11 +24,14 @@ or
 home-manager switch --flake .#$USER
 ```
 
-### Wayland and sway
+### System-level setup
+
+Only meant to be used for non-nixos Linux environments
 
 ```sh
+export LC_ALL=C.UTF-8
 cd ansible
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml --timeout 120
 ansible-playbook linux.yml -K
 ```
 
@@ -38,3 +41,7 @@ ansible-playbook linux.yml -K
 - [ ] Include scripts and static configs not covered by home-manager
 - [ ] Review old programs and configs to migrate to home-manager
 - [X] Add flakes for other environments
+- [ ] Archlinux support
+- [ ] Darwin support
+- [ ] Ubuntu support
+- [ ] FreeBSD support
