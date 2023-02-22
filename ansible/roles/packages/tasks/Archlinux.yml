@@ -1,30 +1,30 @@
 ---
-- name: Install Yay
-  become: false
+- name: Install Chaotic-AUR
+  become: true
+  vars:
+    chaotic_base: "https://cdn-mirror.chaotic.cx/chaotic-aur"
   ansible.builtin.shell: |
-    cd /tmp \
-      && git clone https://aur.archlinux.org/yay-bin.git yay \
-      && cd /tmp/yay \
-      && makepkg -si --noconfirm
-  notify:
-    - Init yay db
-    - Cleanup yay setup
+   pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com \
+    && pacman-key --lsign-key FBA220DFC880C036 \
+    && pacman -U --noconfirm \
+      "{{ chaotic_base }}/chaotic-keyring.pkg.tar.zst" \
+      "{{ chaotic_base }}/chaotic-mirrorlist.pkg.tar.zst" \
+    && tee -a /etc/pacman.conf << EOF
+    [chaotic-aur]
+    Include = /etc/pacman.d/chaotic-mirrorlist
+    EOF
   args:
-    creates: "{{ yay_exec }}"
+    creates: "/etc/pacman.d/chaotic-mirrorlist"
 
 - name: Update Linux packages (Archlinux)
-  become: false
   community.general.pacman:
-    executable: "{{ yay_exec }}"
     update_cache: true
     upgrade: true
   when:
     - distro.is_arch
 
 - name: Install Linux packages (Archlinux)
-  become: false
   community.general.pacman:
-    executable: "{{ yay_exec }}"
     name: "{{ packages }}"
     state: present
   when:

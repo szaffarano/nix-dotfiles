@@ -1,6 +1,5 @@
 ---
 user_home: "{{ lookup('env', 'HOME') }}"
-yay_exec: /usr/bin/yay
 
 distro:
   is_debian: "{{ ansible_os_family == 'Debian' }}"

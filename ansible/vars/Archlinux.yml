@@ -30,3 +30,4 @@ packages:
   - zsh
   - libvirt
   - libvirt-dbus
+  - yay
