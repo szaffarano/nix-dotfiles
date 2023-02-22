@@ -4,6 +4,7 @@
   ncspot.enable = true;
   sway.enable = true;
   xdg.config.enable = true;
+  gpg-agent.enable = true;
 
   home.packages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
