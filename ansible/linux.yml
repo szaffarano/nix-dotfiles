@@ -23,5 +23,5 @@
             - vars
   roles:
     - packages
-    - system
     - geerlingguy.docker
+    - system
