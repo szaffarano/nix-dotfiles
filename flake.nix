@@ -17,6 +17,10 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs:
     let lib = import ./lib inputs;
@@ -30,6 +34,11 @@
 
       homeConfigurations = {
         "sebas@ubuntu" = lib.mkHome "sebas" "ubuntu" "x86_64-linux";
+      };
+
+      darwinConfigurations = {
+        "szaffarano@macbook" =
+          lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
     };
 }
