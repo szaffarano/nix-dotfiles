@@ -13,9 +13,9 @@ sh <(curl -L https://nixos.org/nix/install) --daemon
 mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" \
         | tee ~/.config/nix/nix.conf
 
-nix build --no-link .#homeConfigurations.$USER.activationPackage
+nix build --no-link .#homeConfigurations.$USER@host.activationPackage
 
-"$(nix path-info .#homeConfigurations.$USER.activationPackage)"/activate
+"$(nix path-info .#homeConfigurations.$USER@host.activationPackage)"/activate
 or
 ./result/activate
 
@@ -32,7 +32,7 @@ Only meant to be used for non-nixos Linux environments
 export LC_ALL=C.UTF-8
 cd ansible
 ansible-galaxy install -r requirements.yml --timeout 120
-ansible-playbook linux.yml -K
+ansible-playbook linux.yml -K -l dell.local
 ```
 
 ## TODO

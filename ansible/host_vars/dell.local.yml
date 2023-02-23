@@ -1,0 +1,6 @@
+---
+wakeup_devices:
+  - id_vendor: "046d"
+    id_product: "c52b"
+  - id_vendor: "05ac"
+    id_product: "024f"

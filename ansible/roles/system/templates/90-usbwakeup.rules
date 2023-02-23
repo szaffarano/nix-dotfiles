@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for device in wakeup_devices %}
+ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="{{ device.id_vendor }}", ATTRS{idProduct}=="{{ device.id_product }}", ATTR{power/wakeup}="enabled"
+{% endfor %}

@@ -30,3 +30,10 @@
     - '{{ ansible_os_family }}.yml'
     - default.yml
   tags: tasks
+
+- name: Configure udev rules for USB wakeup devices
+  ansible.builtin.template:
+    src: 90-usbwakeup.rules
+    dest: /etc/udev/rules.d/
+    mode: "0644"
+  when: wakeup_devices is defined
