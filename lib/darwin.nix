@@ -1,51 +1,45 @@
-{ self, ... }@input:
+{ self, ... }@inputs:
 user: host: system:
 let
-  config-file = import "${self}/hosts/${user}@${host}/home.nix" input;
-  extraModules = import ../modules input;
-  ex = import ../../modules/bat input;
+  currentUser = { szaffarano = { home = "/Users/${user}"; }; };
+
+  nixpkgsConfig = {
+    inherit system;
+    overlays = self.overlays;
+    config = {
+      modules = [ inputs.nur.nixosModules.nur ];
+      allowUnfreePredicate = pkg:
+        builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+          "dropbox"
+          "grammarly"
+          "lastpass-password-manager"
+          "skypeforlinux"
+          "slack"
+          "zoom"
+        ];
+
+    };
+  };
+
+  extraModules = import ../modules inputs;
+  config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
 
 in
-input.darwin.lib.darwinSystem {
-  system = system;
+inputs.darwin.lib.darwinSystem {
+  inherit system;
   modules = [
     "${self}/configuration.nix"
-    input.home-manager.darwinModules.home-manager
+    inputs.home-manager.darwinModules.home-manager
+    inputs.nur.nixosModules.nur
     {
+      nixpkgs = nixpkgsConfig;
+      home-manager.sharedModules = builtins.attrValues extraModules
+        ++ [ inputs.nur.nixosModules.nur ];
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users."${user}" = config-file;
-      # home-manager.extraSpecialArgs = {
-      #   inherit self input ex;
-      # };
+      home-manager.verbose = false;
     }
   ];
+  specialArgs = { inherit self inputs currentUser; };
 }
-
-# inputs.home-manager.lib.homeManagerConfiguration {
-#   pkgs = import inputs.nixpkgs {
-#     inherit system;
-#     config.allowUnfreePredicate = pkg:
-#       builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-#         "dropbox"
-#         "grammarly"
-#         "lastpass-password-manager"
-#         "skypeforlinux"
-#         "slack"
-#         "zoom"
-#       ];
-#     overlays = self.overlays;
-#   };
-#
-#   modules = builtins.attrValues self.homeModules ++ [
-#     config-file
-#     inputs.nur.nixosModules.nur
-#     {
-#       home = {
-#         username = user;
-#         homeDirectory = home-directory;
-#         stateVersion = "22.11";
-#       };
-#     }
-#   ];
-# }

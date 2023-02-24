@@ -1,12 +1,7 @@
 { self, ... }:
-{ config, lib, pkgs, ... }@input:
-let
+{ config, lib, pkgs, ... }: {
 
-  extraModules = import ../../modules input;
-in
-{
-
-  imports = [ ../common.nix ] ++ builtins.attrValues extraModules;
+  imports = [ ../common.nix ];
 
   git = {
     enable = true;
@@ -26,5 +21,14 @@ in
   programs.zsh.sessionVariables = { AWS_VAULT_BACKEND = "pass"; };
 
   home.stateVersion = "22.11";
-  home.packages = with pkgs; [ bottom vault aws-vault awscli2 aws-iam-authenticator ];
+  home.packages = with pkgs; [
+    bottom
+    vault
+    aws-vault
+    awscli2
+    aws-iam-authenticator
+
+    slack
+    zoom-us
+  ];
 }
