@@ -21,11 +21,10 @@ or
 ./result/activate
 
 # for Darwin
-nix build .#darwinConfigurations.Sebastians-Mac-Book-Pro.system
-printf 'run\tprivate/var/run\n' | \
-               sudo tee -a /etc/synthetic.conf\n/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
-./result/sw/bin/darwin-rebuild switch --flake .
-
+nix build .#darwinConfigurations.szaffarano@macbook.system
+printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf
+/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+darwin-rebuild switch --flake .#szaffarano@macbook
 
 # after above command, to update
 # for linux
