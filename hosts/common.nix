@@ -7,16 +7,15 @@
   btop.enable = true;
   development.enable = true;
   direnv.enable = true;
-  # firefox.enable = true;
   fzf.enable = true;
   neovim.enable = true;
   starship.enable = true;
   tmux.enable = true;
   zsh.enable = true;
-  # programs.chromium.enable = true;
   programs.jq.enable = true;
   programs.navi.enable = true;
   programs.nix-index.enable = true;
+  ncspot.enable = true;
 
   home = {
     packages = with pkgs; [

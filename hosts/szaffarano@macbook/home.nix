@@ -20,6 +20,7 @@
 
   programs.zsh.sessionVariables = { AWS_VAULT_BACKEND = "pass"; };
 
+  kitty.enable = true;
   home.stateVersion = "22.11";
   home.packages = with pkgs; [
     bottom
