@@ -1,6 +1,8 @@
 _:
 { config, lib, pkgs, ... }: {
   options.gpg.enable = lib.mkEnableOption "gpg";
+  options.gpg.default-key = lib.mkOption { type = lib.types.str; };
+  options.gpg.trusted-key = lib.mkOption { type = lib.types.str; };
 
   config =
     let
@@ -44,10 +46,10 @@ _:
           use-agent = true;
           throw-keyids = true;
 
-          default-key = "0x14F35C58A2191587";
-          trusted-key = "0x14F35C58A2191587";
+          default-key = config.gpg.default-key;
+          trusted-key = config.gpg.trusted-key;
           group =
-            "keygroup = 0xFF00000000000001 0xFF00000000000002 0x14F35C58A2191587";
+            "keygroup = 0xFF00000000000001 0xFF00000000000002 ${config.gpg.trusted-key}";
         };
         publicKeys = [{ source = sebasPublicKey; }];
       };

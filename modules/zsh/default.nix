@@ -10,6 +10,7 @@ _:
       sessionVariables = { EDITOR = "nvim"; };
       enableCompletion = true;
       enableVteIntegration = true;
+      defaultKeymap = "viins";
 
       zplug = {
         enable = true;
@@ -52,9 +53,11 @@ _:
         ];
       };
       shellAliases = {
-        update = "sudo nixos-rebuild switch";
         ls = "ls --color";
         ll = "ls -l";
+
+        # TODO: move to k8s-related module
+        k = "kubectl";
       };
       history = {
         size = 10000;

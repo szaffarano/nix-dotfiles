@@ -11,7 +11,8 @@ _:
         jetbrains.idea-community
 
         poetry
-        (python3.withPackages (ps: with ps; [ pip flake8 black ipython mypy ]))
+        pipx
+        (python3.withPackages (ps: with ps; [ pip flake8 black ipython mypy python-dotenv ]))
 
         nodejs
 

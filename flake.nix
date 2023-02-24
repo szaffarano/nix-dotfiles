@@ -37,7 +37,7 @@
       };
 
       darwinConfigurations = {
-        "szaffarano@macbook" =
+        "Sebastians-MacBook-Pro" =
           lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
     };

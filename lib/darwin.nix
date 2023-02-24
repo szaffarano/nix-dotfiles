@@ -1,19 +1,23 @@
-{ self, ... }@inputs:
+{ self, ... }@input:
 user: host: system:
 let
-  config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
-  # home-directory = "/home/${user}";
+  config-file = import "${self}/hosts/${user}@${host}/home.nix" input;
+  extraModules = import ../modules input;
+  ex = import ../../modules/bat input;
 
 in
-inputs.darwin.lib.darwinSystem {
+input.darwin.lib.darwinSystem {
   system = system;
   modules = [
-    ./configuration.nix
-    inputs.home-manager.darwinModules.home-manager
+    "${self}/configuration.nix"
+    input.home-manager.darwinModules.home-manager
     {
-      inputs.home-manager.useGlobalPkgs = true;
-      inputs.home-manager.useUserPackages = true;
-      inputs.home-manager.users."${user}" = import config-file;
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users."${user}" = config-file;
+      # home-manager.extraSpecialArgs = {
+      #   inherit self input ex;
+      # };
     }
   ];
 }

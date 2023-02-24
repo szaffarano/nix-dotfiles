@@ -7,15 +7,13 @@
   btop.enable = true;
   development.enable = true;
   direnv.enable = true;
-  firefox.enable = true;
+  # firefox.enable = true;
   fzf.enable = true;
-  git.enable = true;
-  gpg.enable = true;
   neovim.enable = true;
   starship.enable = true;
   tmux.enable = true;
   zsh.enable = true;
-  programs.chromium.enable = true;
+  # programs.chromium.enable = true;
   programs.jq.enable = true;
   programs.navi.enable = true;
   programs.nix-index.enable = true;
@@ -46,6 +44,7 @@
       keepassxc
       unzip
       whois
+      pass
 
       fontconfig
       font-awesome

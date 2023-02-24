@@ -1,25 +1,34 @@
-{ pkgs, nix, nixpkgs, config, lib, ... }: {
-  imports = [ ];
-  environment.systemPackages = [ ];
+{ pkgs, lib, ... }: {
+  nix.settings.substituters = [ "https://cache.nixos.org/" ];
+  nix.settings.trusted-public-keys =
+    [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+  nix.settings.trusted-users = [ "@admin" ];
+  nix.configureBuildUsers = true;
 
-  fonts = {
-    fontDir.enable = true;
-    fonts = [ ];
-  };
+  nix.extraOptions = ''
+    auto-optimise-store = true
+    experimental-features = nix-command flakes
+  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
 
   programs.zsh.enable = true;
 
-  system.stateVersion = 4;
-  users = { users.szaffarano = { home = /Users/szaffarano; }; };
-
-  nix = {
-    nixPath = lib.mkForce [ "nixpkgs=${nixpkgs}" ];
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    distributedBuilds = true;
-    buildMachines = [{ }];
-  };
   services.nix-daemon.enable = true;
+
+  environment.systemPackages = with pkgs; [ ];
+
+  programs.nix-index.enable = true;
+
+  fonts.fontDir.enable = true;
+  fonts.fonts = [ ];
+
+  system.keyboard.enableKeyMapping = true;
+  system.keyboard.remapCapsLockToEscape = true;
+
+  security.pam.enableSudoTouchIdAuth = true;
+
+  # TODO: move it away
+  users = { users = { szaffarano = { home = "/Users/szaffarano"; }; }; };
+
 }

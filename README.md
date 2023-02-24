@@ -13,15 +13,26 @@ sh <(curl -L https://nixos.org/nix/install) --daemon
 mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" \
         | tee ~/.config/nix/nix.conf
 
+# for linux
 nix build --no-link .#homeConfigurations.$USER@host.activationPackage
 
 "$(nix path-info .#homeConfigurations.$USER@host.activationPackage)"/activate
 or
 ./result/activate
 
-# after above command, to update
+# for Darwin
+nix build .#darwinConfigurations.Sebastians-Mac-Book-Pro.system
+printf 'run\tprivate/var/run\n' | \
+               sudo tee -a /etc/synthetic.conf\n/System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t
+./result/sw/bin/darwin-rebuild switch --flake .
 
+
+# after above command, to update
+# for linux
 home-manager switch --flake .#$USER
+
+# for darwin
+$ darwin-rebuild switch --flake .
 ```
 
 ### System-level setup

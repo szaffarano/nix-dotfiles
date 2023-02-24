@@ -1,6 +1,19 @@
 _:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  userOptions = with lib;
+    types.submodule {
+      options = {
+        name = mkOption { type = types.str; };
+        email = mkOption { type = types.str; };
+        signingKey = mkOption { type = types.str; };
+      };
+    };
+
+in
+{
   options.git.enable = lib.mkEnableOption "git";
+  options.git.user = lib.mkOption { type = userOptions; };
 
   config =
     let
@@ -36,11 +49,7 @@ _:
         };
 
         extraConfig = {
-          user = {
-            name = "Sebastián Zaffarano";
-            email = "sebas@zaffarano.com.ar";
-            signingKey = "0x14F35C58A2191587";
-          };
+          user = config.git.user;
           log = {
             date = "iso";
             abbrevCommit = true;
