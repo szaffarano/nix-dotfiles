@@ -32,7 +32,7 @@ in
       default = pkgs.sketchybar;
     };
 
-    services.sketchybar.plugins = mkOption {
+    services.sketchybar.pluginsDir = mkOption {
       type = path;
       description = "Directory containing sketchybar plugins";
       default = null;
@@ -60,7 +60,7 @@ in
       serviceConfig.KeepAlive = true;
       serviceConfig.RunAtLoad = true;
       serviceConfig.EnvironmentVariables = {
-        PATH = "${cfg.package}/bin:${cfg.plugins}:${config.environment.systemPath}";
+        PATH = "${cfg.package}/bin:${cfg.pluginsDir}:${config.environment.systemPath}";
         XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
       };
     };

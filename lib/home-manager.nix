@@ -1,8 +1,8 @@
 { self, ... }@inputs:
 user: host: system:
 let
-  config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
-  home-directory = "/home/${user}";
+  configFile = import "${self}/hosts/${user}@${host}/home.nix" inputs;
+  homeDirectory = "/home/${user}";
 
 in
 inputs.home-manager.lib.homeManagerConfiguration {
@@ -13,12 +13,12 @@ inputs.home-manager.lib.homeManagerConfiguration {
   };
 
   modules = builtins.attrValues self.homeModules ++ [
-    config-file
+    configFile
     inputs.nur.nixosModules.nur
     {
       home = {
         username = user;
-        homeDirectory = home-directory;
+        homeDirectory = homeDirectory;
         stateVersion = "22.11";
       };
     }

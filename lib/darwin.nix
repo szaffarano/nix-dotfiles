@@ -12,9 +12,10 @@ let
     };
   };
 
-  homeManagerModules = import ../modules/home-manager inputs;
-  darwinModules = import ../modules/darwin;
+  homeManagerModules = import "${self}/modules/home-manager" inputs;
   homeManagerConfig = import "${self}/hosts/${user}@${host}/home.nix" inputs;
+
+  darwinModules = import "${self}/modules/darwin";
   darwinConfig = "${self}/hosts/system@${host}/configuration.nix";
 in
 inputs.darwin.lib.darwinSystem {
