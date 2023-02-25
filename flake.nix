@@ -36,6 +36,7 @@
 
       homeConfigurations = {
         "sebas@ubuntu" = lib.mkHome "sebas" "ubuntu" "x86_64-linux";
+        "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
       };
 
       darwinConfigurations = {
