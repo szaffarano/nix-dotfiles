@@ -1,0 +1,36 @@
+# float system preferences
+yabai -m rule --add app='^System Information$' manage=off
+yabai -m rule --add app='^System Settings$' manage=off
+yabai -m rule --add title='Preferences$' manage=off
+yabai -m rule --add title='SecretAgent' manage=off
+
+# float settings windows
+yabai -m rule --add title='Settings$' manage=off
+
+# Some Goland settings, in case you are using it. float Goland Preference panes
+yabai -m rule --add app='IntelliJ IDEA' title='Welcome to IntelliJ IDEA' manage=off
+yabai -m rule --add app='JetBrains Toolbox' manage=off
+yabai -m rule --add app='IntelliJ IDEA' title='Project Structure' manage=off
+yabai -m rule --add app='IntelliJ IDEA' title='Preferences' manage=off
+yabai -m rule --add app='IntelliJ IDEA' title='Edit configuration' manage=off
+yabai -m rule --add app='IntelliJ IDEA' title='Rename' manage=off
+yabai -m rule --add app='IntelliJ IDEA' title='Evaluate' manage=off
+yabai -m rule --add app='DataGrip' title='Data Sources and Drivers' manage=off
+yabai -m rule --add app='DataGrip' title='Connecting.*' manage=off
+yabai -m rule --add app='DataGrip' title='Export Data' manage=off
+yabai -m rule --add app='zoom.us' manage=off
+yabai -m rule --add app='KeePassXC' manage=off
+yabai -m rule --add app='Slack' manage=off
+yabai -m rule --add app='Flameshot' manage=off
+yabai -m rule --add app='Pomotroid' manage=off
+yabai -m rule --add app='Logseq' manage=off
+yabai -m rule --add app='Spotify' manage=off
+yabai -m rule --add app='Calculator' manage=off
+yabai -m rule --add app='Microsoft Teams' manage=off
+yabai -m rule --add app='Anki' manage=off
+
+# Disable animations when opening and closing windows.
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Accelerated playback when adjusting the window size.
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001

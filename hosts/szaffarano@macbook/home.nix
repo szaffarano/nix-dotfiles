@@ -20,6 +20,20 @@
 
   programs.zsh.sessionVariables = { AWS_VAULT_BACKEND = "pass"; };
 
+  flameshot = {
+    enable = true;
+    settings = {
+      General = {
+        contrastOpacity = 145;
+        copyOnDoubleClick = true;
+        drawColor = "#0000ff";
+        drawFontSize = 7;
+        startupLaunch = true;
+      };
+      Shortcuts = { TYPE_COPY = "Return"; };
+    };
+  };
+
   kitty.enable = true;
   home.stateVersion = "22.11";
   home.packages = with pkgs; [

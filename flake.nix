@@ -23,14 +23,16 @@
     };
   };
   outputs = inputs:
-    let lib = import ./lib inputs;
-    in {
+    let
+      lib = import ./lib inputs;
+      customOverlays = import ./overlays;
+    in
+    {
       overlays = [
         inputs.nixgl.overlay
-        (import ./overlays/kitty)
-        (import ./overlays/chromium)
-      ];
-      homeModules = import ./modules inputs;
+      ] ++ builtins.attrValues customOverlays;
+
+      homeModules = import ./modules/home-manager inputs;
 
       homeConfigurations = {
         "sebas@ubuntu" = lib.mkHome "sebas" "ubuntu" "x86_64-linux";

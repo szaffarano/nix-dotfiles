@@ -6,6 +6,7 @@ inputs: {
   development = import ./development inputs;
   direnv = import ./direnv inputs;
   firefox = import ./firefox inputs;
+  flameshot = import ./flameshot inputs;
   fzf = import ./fzf inputs;
   git = import ./git inputs;
   gpg-agent = import ./gpg-agent inputs;

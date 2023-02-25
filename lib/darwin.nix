@@ -8,20 +8,12 @@ let
     overlays = self.overlays;
     config = {
       modules = [ inputs.nur.nixosModules.nur ];
-      allowUnfreePredicate = pkg:
-        builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-          "dropbox"
-          "grammarly"
-          "lastpass-password-manager"
-          "skypeforlinux"
-          "slack"
-          "zoom"
-        ];
-
+      allowUnfreePredicate = (import ./non-free-config.nix inputs);
     };
   };
 
-  extraModules = import ../modules inputs;
+  homeManagerModules = import ../modules/home-manager inputs;
+  darwinModules = import ../modules/darwin;
   config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
 
 in
@@ -33,13 +25,13 @@ inputs.darwin.lib.darwinSystem {
     inputs.nur.nixosModules.nur
     {
       nixpkgs = nixpkgsConfig;
-      home-manager.sharedModules = builtins.attrValues extraModules
+      home-manager.sharedModules = builtins.attrValues homeManagerModules
         ++ [ inputs.nur.nixosModules.nur ];
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users."${user}" = config-file;
       home-manager.verbose = false;
     }
-  ];
+  ] ++ builtins.attrValues darwinModules;
   specialArgs = { inherit self inputs currentUser; };
 }
