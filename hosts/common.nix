@@ -48,6 +48,7 @@
       fontconfig
       font-awesome
       dejavu_fonts
+      liberation_ttf
       ubuntu_font_family
       (nerdfonts.override {
         fonts = [ "FiraCode" "Hack" "DroidSansMono" "JetBrainsMono" ];
