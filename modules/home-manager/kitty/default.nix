@@ -10,9 +10,10 @@ _:
         size = 15;
       };
       settings = {
+        adjust_line_height = "105%";
         copy_on_select = true;
         enable_audio_bell = false;
-        adjust_line_height = "105%";
+        hide_window_decorations = "titlebar-only";
       };
       theme = "Catppuccin-Frappe";
     };

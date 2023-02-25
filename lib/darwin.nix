@@ -1,7 +1,7 @@
 { self, ... }@inputs:
 user: host: system:
 let
-  currentUser = { szaffarano = { home = "/Users/${user}"; }; };
+  currentUser = { ${user} = { home = "/Users/${user}"; }; };
 
   nixpkgsConfig = {
     inherit system;
@@ -14,13 +14,13 @@ let
 
   homeManagerModules = import ../modules/home-manager inputs;
   darwinModules = import ../modules/darwin;
-  config-file = import "${self}/hosts/${user}@${host}/home.nix" inputs;
-
+  homeManagerConfig = import "${self}/hosts/${user}@${host}/home.nix" inputs;
+  darwinConfig = "${self}/hosts/system@${host}/configuration.nix";
 in
 inputs.darwin.lib.darwinSystem {
   inherit system;
   modules = [
-    "${self}/configuration.nix"
+    darwinConfig
     inputs.home-manager.darwinModules.home-manager
     inputs.nur.nixosModules.nur
     {
@@ -29,7 +29,7 @@ inputs.darwin.lib.darwinSystem {
         ++ [ inputs.nur.nixosModules.nur ];
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users."${user}" = config-file;
+      home-manager.users."${user}" = homeManagerConfig;
       home-manager.verbose = false;
     }
   ] ++ builtins.attrValues darwinModules;

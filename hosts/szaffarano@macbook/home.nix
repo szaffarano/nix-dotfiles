@@ -1,5 +1,10 @@
 { self, ... }:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
+
+  # darwin.services.sketchybar = {
+  #   enable = true;
+  # };
+  #
 
   imports = [ ../common.nix ];
 

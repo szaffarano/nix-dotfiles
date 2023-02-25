@@ -50,7 +50,7 @@
       dejavu_fonts
       ubuntu_font_family
       (nerdfonts.override {
-        fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
+        fonts = [ "FiraCode" "Hack" "DroidSansMono" "JetBrainsMono" ];
       })
     ];
   };
