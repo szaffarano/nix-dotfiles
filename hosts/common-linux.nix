@@ -26,6 +26,7 @@
     qview
 
     speedcrunch
+    transmission-qt
     anki
     calibre
     tdesktop

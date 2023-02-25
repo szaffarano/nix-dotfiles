@@ -75,6 +75,7 @@ _:
             { app_id = "com.github.hluk.copyq"; }
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
+            { app_id = "transmission-qt"; }
             { class = "^Keybase$"; }
             { class = "^JetBrains Toolbox$"; }
             { title = "tracker - .*"; }
