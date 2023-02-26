@@ -6,7 +6,7 @@
     enable = true;
     user = {
       name = "Sebastián Zaffarano";
-      email = "sebastian.zaffarano@wolt.com";
+      email = "sebas@zaffarano.com.ar";
       signingKey = "0x14F35C58A2191587";
     };
   };
