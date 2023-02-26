@@ -9,10 +9,7 @@ _:
     let
       terminalCmd = "kitty";
       fontConf = {
-        names = [
-          "Liberation Mono"
-          "Font Awesome 6 Free"
-        ];
+        names = [ "Liberation Mono" "Font Awesome 6 Free" ];
         style = "";
         size = 12.0;
       };
@@ -52,6 +49,28 @@ _:
         wtype
       ];
 
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "application/pdf" = "org.pwmt.zathura.desktop";
+
+          "application/x-extension-htm" = "firefox.desktop";
+          "application/x-extension-html" = "firefox.desktop";
+          "application/x-extension-shtml" = "firefox.desktop";
+          "application/x-extension-xht" = "firefox.desktop";
+          "application/x-extension-xhtml" = "firefox.desktop";
+          "application/xhtml+xml" = "firefox.desktop";
+
+          "text/html" = "firefox.desktop";
+
+          "x-scheme-handler/chrome" = "firefox.desktop";
+          "x-scheme-handler/http" = "firefox.desktop";
+          "x-scheme-handler/https" = "firefox.desktop";
+        };
+      };
+      xdg.dataFile."applications/mimeapps.list".force = true;
+      xdg.configFile."mimeapps.list".force = true;
+
       wayland.windowManager.sway = {
         enable = true;
         package = null;
@@ -65,9 +84,7 @@ _:
           fonts = fontConf;
           workspaceAutoBackAndForth = true;
 
-          window = {
-            titlebar = false;
-          };
+          window = { titlebar = false; };
 
           floating.criteria = [
             { app_id = "^pavucontrol$"; }
