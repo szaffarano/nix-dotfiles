@@ -10,6 +10,7 @@ systemd_services:
   - ly.service
   - bluetooth.service
   - libvirtd.service
+  - NetworkManager.service
 
 packages:
   - wayland
@@ -31,3 +32,6 @@ packages:
   - libvirt
   - libvirt-dbus
   - yay
+  - networkmanager
+  - wayland-protocols
+  - openssh

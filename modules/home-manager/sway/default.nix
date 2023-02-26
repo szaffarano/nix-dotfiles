@@ -44,7 +44,6 @@ _:
 
       home.packages = with pkgs; [
         kanshi
-        xwayland
         mako
         networkmanagerapplet
         swayidle
