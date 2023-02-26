@@ -33,22 +33,20 @@
 
 - name: Configure udev rules for USB wakeup devices
   ansible.builtin.template:
-    src: 90-usbwakeup.rules
+    src: udev/90-usbwakeup.rules
     dest: /etc/udev/rules.d/
     mode: "0644"
   when: wakeup_devices is defined
 
 - name: Disable wakeup using Lid
   ansible.builtin.template:
-    src: disable-lid.conf
+    src: systemd/disable-lid.conf
     dest: "/etc/tmpfiles.d/disable-{{ lid_name }}.conf"
     mode: "0644"
   when: lid_name is defined
 
 - name: Enable FastConnectable blueetooth feature
-  ansible.builtin.blockinfile:
-    path: /etc/bluetooth/main.conf
-    block: |
-      FastConnectable = true
-      ReconnectAttempts=7
-      ReconnectIntervals=1,2,4,8,16,32
+  ansible.builtin.template:
+    src: bluetooth/main.conf
+    dest: /etc/bluetooth/main.conf
+    mode: "0644"
