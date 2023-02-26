@@ -37,3 +37,10 @@
     dest: /etc/udev/rules.d/
     mode: "0644"
   when: wakeup_devices is defined
+
+- name: Disable wakeup using Lid
+  ansible.builtin.template:
+    src: disable-lid.conf
+    dest: "/etc/tmpfiles.d/disable-{{ lid_name }}.conf"
+    mode: "0644"
+  when: lid_name is defined

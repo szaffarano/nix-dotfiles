@@ -1,4 +1,6 @@
 ---
+lid_name: LID0
+
 system_groups:
   - video
   - docker

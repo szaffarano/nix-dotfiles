@@ -1,6 +1,8 @@
 ---
 docker_compose_package: docker-compose
 
+lid_name: LID0
+
 system_groups:
   - seat
   - docker
