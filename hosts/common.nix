@@ -17,6 +17,8 @@
   programs.nix-index.enable = true;
   ncspot.enable = true;
 
+  services.syncthing.enable = true;
+
   home = {
     packages = with pkgs; [
       dig
