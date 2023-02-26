@@ -5,6 +5,7 @@
   xdg.config.enable = true;
   gpg-agent.enable = true;
 
+  copyq.enable = true;
   firefox.enable = true;
   programs.chromium.enable = true;
 
@@ -32,7 +33,6 @@
     tdesktop
     slack
     weechat
-    copyq
 
     zeal
     virt-manager

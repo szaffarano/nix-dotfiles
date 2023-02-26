@@ -53,10 +53,10 @@ darwin-rebuild switch --flake .
 - [ ] Automate the bootstrap process
 - [X] Add flakes for other environments
 - [X] Bluetooth
-- [ ] CopyQ config
+- [X] CopyQ config
 - [X] Syncthing config
 - [X] KeepassXC config
-- [ ] git-credentials-keepass config
+- [X] git-credentials-keepass config
 - [ ] Add custom scripts to PATH
 
 ### OS Integrations

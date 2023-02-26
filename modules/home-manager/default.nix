@@ -3,6 +3,7 @@ inputs: {
   ansible = import ./ansible inputs;
   bat = import ./bat inputs;
   btop = import ./btop inputs;
+  copyq = import ./copyq inputs;
   development = import ./development inputs;
   direnv = import ./direnv inputs;
   firefox = import ./firefox inputs;
