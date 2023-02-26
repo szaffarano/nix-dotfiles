@@ -12,6 +12,7 @@ inputs: {
   gpg-agent = import ./gpg-agent inputs;
   gpg = import ./gpg inputs;
   gtk = import ./gtk inputs;
+  keepassxc = import ./keepassxc inputs;
   kitty = import ./kitty inputs;
   ncspot = import ./ncspot inputs;
   neovim = import ./neovim inputs;

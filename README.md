@@ -55,7 +55,7 @@ darwin-rebuild switch --flake .
 - [X] Bluetooth
 - [ ] CopyQ config
 - [X] Syncthing config
-- [ ] KeepassXC config
+- [X] KeepassXC config
 - [ ] git-credentials-keepass config
 - [ ] Add custom scripts to PATH
 

@@ -8,6 +8,7 @@
   development.enable = true;
   direnv.enable = true;
   fzf.enable = true;
+  keepassxc.enable = true;
   neovim.enable = true;
   starship.enable = true;
   tmux.enable = true;
@@ -42,7 +43,6 @@
       ripgrep
       sqlite
       tree
-      keepassxc
       unzip
       whois
       pass
