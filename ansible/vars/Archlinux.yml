@@ -6,6 +6,7 @@ lid_name: LID0
 system_groups:
   - seat
   - docker
+  - libvirt
 
 systemd_services:
   - seatd.service
@@ -37,3 +38,9 @@ packages:
   - networkmanager
   - wayland-protocols
   - openssh
+  - dnsmasq
+  - vde2
+  - bridge-utils
+  - openbsd-netcat
+  - dmidecode
+  - qemu
