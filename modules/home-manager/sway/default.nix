@@ -13,16 +13,17 @@ _:
         style = "";
         size = 12.0;
       };
-      lockCmd = lib.concatStrings [
+      swaylockArgs = [
         "swaylock "
         " -S -F -f"
         " --indicator"
         " --indicator-radius 60"
         " -K"
-        " --grace 2"
         " --effect-blur 5x8"
         " --fade-in 0.5"
       ];
+      lockCmd = lib.concatStrings (swaylockArgs ++ [ " --grace 2" ]);
+      lockCmdBeforeSleep = lib.concatStrings swaylockArgs;
 
     in
     lib.mkIf config.sway.enable {
@@ -139,7 +140,7 @@ _:
                    timeout 300 '${lockCmd}' \
                    timeout 600 'swaymsg "output * dpms off"' \
                    resume 'swaymsg "output * dpms on"' \
-                   before-sleep '${lockCmd}'
+                   before-sleep '${lockCmdBeforeSleep}'
               '';
             }
             { command = "firefox"; }
