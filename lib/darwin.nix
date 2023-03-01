@@ -8,6 +8,7 @@ let
     overlays = self.overlays;
     config = {
       modules = [ inputs.nur.nixosModules.nur ];
+      allowUnfree = true;
       allowUnfreePredicate = (import ./non-free-config.nix inputs);
     };
   };

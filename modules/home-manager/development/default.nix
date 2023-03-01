@@ -14,7 +14,7 @@ _:
         pipx
         (python3.withPackages (ps: with ps; [ pip flake8 black ipython mypy python-dotenv ]))
 
-        nodejs
+        asdf-vm
 
         go
 
@@ -26,9 +26,10 @@ _:
         rustc
         rustfmt
 
+        hyperfine
+
         pre-commit
       ];
     };
-
   };
 }

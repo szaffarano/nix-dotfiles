@@ -19,15 +19,24 @@
   services.sketchybar = {
     enable = true;
     config = builtins.readFile ./sketchybar/sketchybarrc.py;
-    plugins = ./sketchybar/plugins;
+    pluginsDir = ./sketchybar/plugins;
   };
 
-  environment.systemPackages = [ ];
+  environment.systemPackages = with pkgs;[ lima colima ];
 
   programs.nix-index.enable = true;
 
   fonts.fontDir.enable = true;
   fonts.fonts = [ ];
+
+  homebrew = {
+    enable = true;
+    onActivation.autoUpdate = true;
+    onActivation.upgrade = true;
+    onActivation.cleanup = "zap";
+    brews = [ "gnupg" "pinentry-mac" ];
+    casks = [ "maccy" "insomnia" "cloudflare-warp" "wkhtmltopdf" ];
+  };
 
   system.defaults = {
     loginwindow = {
@@ -39,7 +48,7 @@
       AppleInterfaceStyle = "Dark"; # set dark mode
       AppleKeyboardUIMode = 3;
       ApplePressAndHoldEnabled = false;
-      InitialKeyRepeat = 20;
+      InitialKeyRepeat = 25;
       KeyRepeat = 1;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
