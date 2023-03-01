@@ -8,6 +8,7 @@
   copyq.enable = true;
   firefox.enable = true;
   programs.chromium.enable = true;
+  services.syncthing.enable = true;
 
   home.packages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))

@@ -54,7 +54,7 @@ darwin-rebuild switch --flake .
 - [X] Add flakes for other environments
 - [X] Bluetooth
 - [X] CopyQ config
-- [X] Syncthing config
+- [-] Syncthing config (only for linux systems)
 - [X] KeepassXC config
 - [X] git-credentials-keepass config
 - [ ] Add custom scripts to PATH
