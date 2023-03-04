@@ -24,6 +24,9 @@ _:
       lockCmd = lib.concatStringsSep " " (swaylockArgs ++ [ " --grace 2" ]);
       lockCmdBeforeSleep = lib.concatStringsSep " " swaylockArgs;
 
+      # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
+      startupCommandDellay = "5";
+
     in
     lib.mkIf config.sway.enable {
 
@@ -125,10 +128,12 @@ _:
           ];
 
           startup = [
-            { command = "keepassxc"; }
+            { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
+            { command = "nm-applet --indicator"; }
             { command = "mako"; }
-            { command = "copyq"; }
+            { command = "'sleep ${startupCommandDellay} && copyq'"; }
             { command = "kanshi"; }
+            { command = "'sleep ${startupCommandDellay} && slack'"; }
             { command = "speedcrunch"; }
             { command = "kitty --title main-term"; }
             { command = "kitty --title ncspot ncspot"; }
@@ -141,7 +146,6 @@ _:
                    before-sleep '${lockCmdBeforeSleep}'
               '';
             }
-            { command = "firefox"; }
           ];
 
           assigns = {
@@ -155,7 +159,7 @@ _:
 
           input = {
             "type:keyboard" = {
-              repeat_delay = "150";
+              repeat_delay = "250";
               repeat_rate = "25";
               xkb_layout = "us,us";
               xkb_variant = "altgr-intl,dvorak-intl";

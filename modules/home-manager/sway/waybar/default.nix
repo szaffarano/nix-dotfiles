@@ -6,7 +6,12 @@
     cjbassi.enable = false;
     slithery0.enable = true;
 
-    wayland.windowManager.sway.config.bars = [{ command = "waybar"; }];
+    wayland.windowManager.sway = {
+      config.bars = [ ];
+      extraConfigEarly = ''
+        exec waybar
+      '';
+    };
 
     programs.waybar = { enable = true; };
   };

@@ -140,12 +140,12 @@ window#waybar {
 	animation-name: full;
 }
 #battery.discharging {
-	color: @critical;
+	color: @warning;
 	/* DO ANIMATE HERE */
 	animation-name: blink-critical;
 	animation-duration: 0.5s;
 	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
+	animation-iteration-count: 10;
 	animation-direction: alternate;
 }
 
