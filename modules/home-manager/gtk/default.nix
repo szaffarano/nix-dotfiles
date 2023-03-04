@@ -1,8 +1,8 @@
 _:
 { config, lib, pkgs, theme, ... }:
 let
-  # TODO: marameterize
-  font = "Liberation Mono";
+  # TODO: parameterize
+  font = "Liberation Sans";
   icon_theme = "Papirus";
   theme = "Adwaita";
   icon_theme_pkg = pkgs.papirus-icon-theme;

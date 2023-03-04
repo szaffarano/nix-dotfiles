@@ -128,6 +128,26 @@ _:
           ];
 
           startup = [
+            {
+              command = "gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'";
+              always = true;
+            }
+            {
+              command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'";
+              always = true;
+            }
+            {
+              command = "gsettings set org.gnome.desktop.interface icon-theme 'Papirus'";
+              always = true;
+            }
+            {
+              command = "gsettings set org.gnome.desktop.interface font-name 'Liberation Sans 11'";
+              always = true;
+            }
+            {
+              command = "gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 11'";
+              always = true;
+            }
             { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
             { command = "'sleep ${startupCommandDellay} && pasystray'"; }
             { command = "nm-applet --indicator"; }
