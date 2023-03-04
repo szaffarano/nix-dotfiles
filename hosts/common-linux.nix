@@ -32,7 +32,6 @@
     anki
     calibre
     tdesktop
-    slack
     weechat
 
     zeal

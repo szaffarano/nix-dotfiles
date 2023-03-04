@@ -45,6 +45,8 @@
       whois
       pass
 
+      slack
+
       fontconfig
       font-awesome
       dejavu_fonts
