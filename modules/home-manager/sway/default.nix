@@ -94,6 +94,7 @@ _:
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
             { app_id = "transmission-qt"; }
+            { app_id = "kitty"; title = "floating-terminal"; }
             { class = "^Keybase$"; }
             { class = "^JetBrains Toolbox$"; }
             { title = "tracker - .*"; }
@@ -128,6 +129,7 @@ _:
 
           startup = [
             { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
+            { command = "'sleep ${startupCommandDellay} && pasystray'"; }
             { command = "nm-applet --indicator"; }
             { command = "mako"; }
             { command = "'sleep ${startupCommandDellay} && copyq'"; }
@@ -205,6 +207,7 @@ _:
             lib.mkOptionDefault {
               "${mod}+Return" = "exec ${terminal}";
               "${mod}+Shift+q" = "kill";
+              "${mod}+Shift+P" = "exec ${terminal} --title floating-terminal htop";
               "${mod}+d" = "exec ${menu}";
               "${mod}+q" = "exec --no-startup-id rofi -show window";
               "${mod}+F2" = "exec --no-startup-id rofi -show run";

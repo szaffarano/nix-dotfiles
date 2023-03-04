@@ -25,6 +25,7 @@
 
     imagemagick
     pavucontrol
+    pasystray
     qview
 
     speedcrunch

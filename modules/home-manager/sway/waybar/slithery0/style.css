@@ -64,7 +64,7 @@ window#waybar {
 
 /* The whole bar */
 #waybar {
-  font-family: Liberation Mono, sans-serif;
+  font-family: FiraCode Nerd Font, sans-serif;
   font-size: 16px;
 }
 

@@ -13,6 +13,8 @@
         "modules-right" = [
           "pulseaudio"
           "custom/sep"
+          "bluetooth"
+          "custom/sep"
           "network"
           "custom/sep"
           "cpu"
@@ -42,25 +44,43 @@
         pulseaudio = {
           format = " {icon} {volume}%";
           format-muted = " {volume}%";
+          format-bluetooth = " {icon} {volume}%";
           format-icons = {
-            headphones = "";
-            default = [ "" "" "" ];
+            headphones = " ";
+            default = [ "" "" " " ];
           };
           on-click = "pavucontrol";
         };
         "sway/scratchpad" = {
           format = "{icon}";
           show-empty = false;
-          format-icons = [ "" "" ];
+          format-icons = [ " " " " ];
           tooltip = true;
           tooltip-format = "{app}: {title}";
+        };
+        bluetooth = {
+          on-click = "blueberry";
+          format = " {status}";
+          format-device-preference = [ "Keychron K2" ];
+          format-connected = " {device_alias}";
+          format-connected-battery =
+            " {device_alias} {device_battery_percentage}%";
+          tooltip-format = ''
+            {controller_alias}	{controller_address}
+            {num_connections} connected'';
+          tooltip-format-connected = ''
+            {controller_alias}	{controller_address}
+            {num_connections} connected
+            {device_enumerate}'';
+          tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
+          tooltip-format-enumerate-connected-battery = "{device_alias}	{device_address}	{device_battery_percentage}%";
         };
         "network" = {
           "interval" = "1";
           "format-wifi" = "{icon}  {essid} ({signalStrength}%)";
           "format-ethernet" = " {ifname}";
           "format-disconnected" = " Disconnected";
-          "format-icons" = [ "" ];
+          "format-icons" = [ " " ];
           "max-length" = "10";
           "tooltip-format" = ''
             Interface: {ifname}
@@ -69,7 +89,7 @@
         };
         "cpu" = {
           "format" = " {usage}%";
-          "on-click" = "alacritty -t 'Floating Terminal' -e htop";
+          "on-click" = "kitty --title floating-terminal htop";
         };
         "memory" = {
           "interval" = 1;
@@ -84,22 +104,22 @@
           };
           "format-icons" = [ "" "" "" "" "" "" "" "" "" "" ];
         };
-        "idle_inhibitor" = {
+        idle_inhibitor = {
           "format" = "{icon}";
           "format-icons" = {
             "activated" = "   ";
             "deactivated" = "   ";
           };
         };
-        "clock" = {
-          "format-alt" = " {:%Y-%m-%d, %A}";
-          "format" = " {:%I:%M %p}";
+        clock = {
+          "format-alt" = " {:%Y-%m-%d, %A}";
+          "format" = "󱑑 {:%I:%M %p}";
         };
-        "tray" = {
+        tray = {
           "icon-size" = 16;
           "spacing" = 10;
         };
-        "custom/sep" = { "format" = ""; };
+        "custom/sep" = { "format" = "  "; };
         disk = {
           format = " {free}";
           interval = "30";
