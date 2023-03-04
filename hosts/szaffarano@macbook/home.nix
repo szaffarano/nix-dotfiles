@@ -23,10 +23,9 @@
     trusted-key = "0x14F35C58A2191587";
   };
 
-  programs.zsh.sessionVariables = {
-    AWS_VAULT_BACKEND = "pass";
-    PATH = "$PATH:/opt/homebrew/bin:$HOME/.asdf/shims";
-  };
+  programs.zsh.profileExtra = ''
+    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin";
+  '';
 
   flameshot = {
     enable = true;

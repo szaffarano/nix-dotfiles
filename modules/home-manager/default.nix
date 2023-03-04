@@ -1,5 +1,4 @@
 inputs: {
-  # i3status-rs = import ./sway/i3status-rs.nix inputs;
   ansible = import ./ansible inputs;
   bat = import ./bat inputs;
   btop = import ./btop inputs;
@@ -22,7 +21,6 @@ inputs: {
   tmux = import ./tmux inputs;
   xdg = import ./xdg inputs;
   zsh = import ./zsh inputs;
-  #
+  nix-index = inputs.nix-index-database.hmModules.nix-index;
   # sway-notification-center = import ./sway-notification-center inputs;
-  # waybar = import ./waybar inputs;
 }

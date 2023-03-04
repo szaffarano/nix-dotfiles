@@ -55,4 +55,9 @@
       })
     ];
   };
+  programs.zsh.profileExtra = ''
+    export PATH="$PATH:$HOME/.nix-profile/bin"
+    export PATH="$PATH:$HOME/.asdf/shims";
+    export AWS_VAULT_BACKEND="pass";
+  '';
 }
