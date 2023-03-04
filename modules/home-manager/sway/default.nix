@@ -124,7 +124,6 @@ _:
             }
             { app_id = "org.keepassxc.KeePassXC"; }
             { class = "Blueman-manager"; }
-            { class = "flameshot"; }
           ];
 
           startup = [
