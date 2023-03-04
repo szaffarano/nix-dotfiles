@@ -20,6 +20,8 @@ packages:
   - xorg-xwayland
   - sway
   - swaylock-effects
+  - swayidle
+  - librsvg
   - polkit
   - ly
   - xdg-desktop-portal

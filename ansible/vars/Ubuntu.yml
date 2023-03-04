@@ -13,6 +13,7 @@ systemd_services:
 packages:
   - xwayland
   - sway
+  - swayidle
   - polkitd
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr

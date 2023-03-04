@@ -15,24 +15,23 @@ _:
       };
       swaylockArgs = [
         "swaylock "
-        " -S -F -f"
-        " --indicator"
-        " --indicator-radius 60"
-        " -K"
-        " --effect-blur 5x8"
-        " --fade-in 0.5"
+        "-S -F -f -K"
+        "--indicator"
+        "--indicator-radius 60"
+        "--effect-blur 5x8"
+        "--fade-in 0.5"
       ];
-      lockCmd = lib.concatStrings (swaylockArgs ++ [ " --grace 2" ]);
-      lockCmdBeforeSleep = lib.concatStrings swaylockArgs;
+      lockCmd = lib.concatStringsSep " " (swaylockArgs ++ [ " --grace 2" ]);
+      lockCmdBeforeSleep = lib.concatStringsSep " " swaylockArgs;
 
     in
     lib.mkIf config.sway.enable {
 
       i3status-rs = {
-        enable = true;
+        enable = false;
         fonts = fontConf;
       };
-      waybar.enable = false;
+      waybar.enable = true;
 
       gtk.config.enable = true;
       kitty.enable = true;
@@ -44,7 +43,6 @@ _:
         kanshi
         mako
         networkmanagerapplet
-        swayidle
         wl-clipboard
         wlr-randr
         wtype
@@ -157,6 +155,8 @@ _:
 
           input = {
             "type:keyboard" = {
+              repeat_delay = "150";
+              repeat_rate = "25";
               xkb_layout = "us,us";
               xkb_variant = "altgr-intl,dvorak-intl";
               xkb_options = "grp:rctrl_toggle";
