@@ -130,8 +130,18 @@
           };
         };
         clock = {
-          format-alt = " {:%Y-%m-%d, %A}";
-          format = "󱑑 {:%I:%M %p}";
+          format = "  {:%a %d %b %R %Z}";
+          interval = 10;
+          tooltip = true;
+          tooltip-format = "<tt>{timezoned_time_list}\n{:%B %Y}\n{calendar}</tt>";
+          on-click = "zenity --calendar";
+          today-format = "<span color='red'><b>{}</b></span>";
+          timezones = [
+            "Europe/Stockholm"
+            "Europe/Helsinki"
+            "Europe/London"
+            "US/Michigan"
+          ];
         };
         tray = {
           icon-size = 16;

@@ -35,6 +35,7 @@
     tdesktop
     weechat
 
+    gnome.zenity # calendar
     zeal
     virt-manager
   ];

@@ -49,8 +49,5 @@
     aws-vault
     awscli2
     aws-iam-authenticator
-
-    slack
-    zoom-us
   ];
 }

@@ -46,6 +46,7 @@
       pass
 
       slack
+      zoom-us
 
       fontconfig
       font-awesome
