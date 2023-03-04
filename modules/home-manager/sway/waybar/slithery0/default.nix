@@ -6,16 +6,14 @@
     programs.waybar = {
       settings = [{
         "layer" = "top";
-        "position" = "top";
-        "height" = 35;
-        "modules-left" = [ "sway/workspaces" "sway/scratchpad" ];
-        "modules-center" = [ "sway/window" ];
+        "position" = "bottom";
+        "height" = 30;
+        "modules-left" = [ "sway/workspaces" "custom/sep" "sway/scratchpad" ];
+        "modules-center" = [ ];
         "modules-right" = [
           "pulseaudio"
           "custom/sep"
           "bluetooth"
-          "custom/sep"
-          "network"
           "custom/sep"
           "cpu"
           "custom/sep"
@@ -25,6 +23,10 @@
           "custom/sep"
           "battery"
           "custom/sep"
+          "sway/language"
+          "custom/sep"
+          "network"
+          "custom/sep"
           "idle_inhibitor"
           "custom/sep"
           "clock"
@@ -32,15 +34,28 @@
           "tray"
         ];
         "sway/workspaces" = {
-          "disable-scroll" = true;
-          "all-outputs" = false;
-          "format" = "{name}";
+          disable-scroll = true;
+          all-outputs = true;
+          format = "{name}: {icon}";
+          format-icons = {
+            "1" = "󰖟";
+            "2" = "";
+            "3" = "";
+            "4" = "";
+            "5" = "";
+            "6" = "";
+            "7" = "";
+            "urgent" = "";
+            "focused" = "";
+            "default" = "";
+          };
+          persistent_workspaces = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+          };
         };
-        "sway/window" = {
-          "format" = " {title} ";
-          "max-length" = 60;
-          "tooltip" = true;
-        };
+        "sway/language" = { "format" = "{} {variant}"; };
         pulseaudio = {
           format = " {icon} {volume}%";
           format-muted = " {volume}%";
@@ -72,54 +87,57 @@
             {controller_alias}	{controller_address}
             {num_connections} connected
             {device_enumerate}'';
-          tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
-          tooltip-format-enumerate-connected-battery = "{device_alias}	{device_address}	{device_battery_percentage}%";
+          tooltip-format-enumerate-connected =
+            "{device_alias}	{device_address}";
+          tooltip-format-enumerate-connected-battery =
+            "{device_alias}	{device_address}	{device_battery_percentage}%";
         };
-        "network" = {
-          "interval" = "1";
-          "format-wifi" = "{icon}  {essid} ({signalStrength}%)";
-          "format-ethernet" = " {ifname}";
-          "format-disconnected" = " Disconnected";
-          "format-icons" = [ " " ];
-          "max-length" = "10";
-          "tooltip-format" = ''
+        network = {
+          interval = "1";
+          format-wifi = "{icon}";
+          format-ethernet = " {ifname}";
+          format-disconnected = " Disconnected";
+          format-icons = [ " " ];
+          max-length = "5";
+          tooltip-format = ''
+            SSID: {essid}
             Interface: {ifname}
             Signal: {signalStrength}%
             IP: {ipaddr}'';
         };
-        "cpu" = {
-          "format" = " {usage}%";
-          "on-click" = "kitty --title floating-terminal htop";
+        cpu = {
+          format = " {usage}%";
+          on-click = "kitty --title floating-terminal htop";
         };
-        "memory" = {
+        memory = {
           "interval" = 1;
           "format" = " {used:0.1f}/{total:0.1f}G";
         };
-        "battery" = {
-          "interval" = "60";
-          "format" = "{icon} {capacity}%";
-          "states" = {
-            "warning" = "95";
-            "critical" = "50";
+        battery = {
+          interval = "60";
+          format = "{icon} {capacity}%";
+          states = {
+            warning = "95";
+            critical = "50";
           };
-          "format-icons" = [ "" "" "" "" "" "" "" "" "" "" ];
+          format-icons = [ "" "" "" "" "" "" "" "" "" "" ];
         };
         idle_inhibitor = {
-          "format" = "{icon}";
-          "format-icons" = {
-            "activated" = "   ";
-            "deactivated" = "   ";
+          format = "{icon}";
+          format-icons = {
+            activated = "   ";
+            deactivated = "   ";
           };
         };
         clock = {
-          "format-alt" = " {:%Y-%m-%d, %A}";
-          "format" = "󱑑 {:%I:%M %p}";
+          format-alt = " {:%Y-%m-%d, %A}";
+          format = "󱑑 {:%I:%M %p}";
         };
         tray = {
-          "icon-size" = 16;
-          "spacing" = 10;
+          icon-size = 16;
+          spacing = 10;
         };
-        "custom/sep" = { "format" = "  "; };
+        "custom/sep" = { "format" = ""; };
         disk = {
           format = " {free}";
           interval = "30";

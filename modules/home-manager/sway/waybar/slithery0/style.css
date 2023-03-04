@@ -1,19 +1,6 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
-
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
 /*
-Arc-Dark Color Scheme
-*/
-/* @define-color background #1d2021; */
+ * Arc-Dark Color Scheme
+ */
 @define-color bg #282828;
 @define-color critical #fb4934;
 @define-color warning #d79921;
@@ -44,15 +31,11 @@ Arc-Dark Color Scheme
   }
 }
 
-/* -----------------------------------------------------------------------------
- * Base styles
- * -------------------------------------------------------------------------- */
-
 /* Reset all styles */
 * {
   border: none;
   border-radius: 0;
-	min-height: 0;
+  min-height: 0;
   margin: 0px;
 }
 
@@ -65,49 +48,26 @@ window#waybar {
 /* The whole bar */
 #waybar {
   font-family: FiraCode Nerd Font, sans-serif;
-  font-size: 16px;
+  font-size: 15px;
 }
-
-/* Every Module  */
-/*
-#workspace.
-#window,
-#mode,
-#custom-music,
-#pulseaudio,
-#network,
-#cpu,
-#memory,
-#battery,
-#idle_inhibator,
-#backlight,
-#custom-wl-gammarelay-temperature,
-#clock,
-#tray
-
-*/
 
 /* Set margin and padding for all */
-#workspace,
-#mode,
-#custom-music,
-#pulseaudio,
-#network,
-#cpu,
-#memory,
-#battery,
 #backlight,
-#custom-wl-gammarelay-temperature,
+#battery,
+#bluetooth,
 #clock,
+#cpu,
+#disk,
+#language,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#scratchpad,
+#workspace,
 #tray {
-  padding: 0.5rem 0.7rem;
+  padding: 0.3rem 0.4rem;
 }
-
-/* -----------------------------------------------------------------------------
- * Modules styles
- * -------------------------------------------------------------------------- */
-
-/* sway/workspaces */
 
 #workspaces {
   padding: 0px;
@@ -124,37 +84,32 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-	animation-name: blink-critical;
-	animation-duration: 0.5s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
+  animation-name: blink-critical;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
   color: @critical;
 }
-
-/* Battery */
 
 #battery.full,
 #battery.charging {
   color: @ok;
-	animation-name: full;
+  animation-name: full;
 }
 #battery.discharging {
-	color: @warning;
-	/* DO ANIMATE HERE */
-	animation-name: blink-critical;
-	animation-duration: 0.5s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: 10;
-	animation-direction: alternate;
+  color: @warning;
+  /* DO ANIMATE HERE */
+  animation-name: blink-critical;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 10;
+  animation-direction: alternate;
 }
-
-/* Network */
 
 #network.disconnected {
   color: @muted;
 }
-
 #network.disabled {
   color: @critical;
 }
@@ -179,14 +134,4 @@ window#waybar {
 
 #pulseaudio.muted {
   color: @muted;
-}
-
-#keyboard-state label.locked {
-	color: @critical;
-	/* DO ANIMATE HERE */
-	animation-name: blink-critical;
-	animation-duration: 0.5s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
 }
