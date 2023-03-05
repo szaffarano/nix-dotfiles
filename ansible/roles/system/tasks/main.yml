@@ -50,3 +50,17 @@
     src: bluetooth/main.conf
     dest: /etc/bluetooth/main.conf
     mode: "0644"
+
+# workaround to make swaync works, it expects this file at startup
+# but since the package is installed using home-manager, the file does not exist
+- name: Create swaync global config directory
+  ansible.builtin.file:
+    path: /etc/xdg/swaync
+    state: directory
+    mode: "0755"
+    recurse: true
+- name: Set swaync global fallback style
+  ansible.builtin.file:
+    path: /etc/xdg/swaync/style.css
+    state: touch
+    mode: "0644"

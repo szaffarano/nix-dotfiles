@@ -1,7 +1,7 @@
 _:
 { config, lib, pkgs, ... }: {
   imports =
-    [ ./i3status-rs.nix ./rofi.nix ./kanshi.nix ./zathura.nix ./waybar ];
+    [ ./i3status-rs.nix ./rofi.nix ./kanshi.nix ./zathura.nix ./waybar ./swaync ];
 
   options.sway.enable = lib.mkEnableOption "sway";
 
@@ -41,10 +41,11 @@ _:
       rofi.enable = true;
       zathura.enable = true;
       kanshi.enable = true;
+      swaync.enable = true;
 
       home.packages = with pkgs; [
         kanshi
-        mako
+        libnotify
         networkmanagerapplet
         wl-clipboard
         wlr-randr
@@ -152,7 +153,7 @@ _:
             { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
             { command = "'sleep ${startupCommandDellay} && pasystray'"; }
             { command = "nm-applet --indicator"; }
-            { command = "mako"; }
+            { command = "swaync"; }
             { command = "'sleep ${startupCommandDellay} && copyq'"; }
             { command = "kanshi"; }
             { command = "'sleep ${startupCommandDellay} && slack'"; }
@@ -293,8 +294,8 @@ _:
 
               "Ctrl+Alt+v" = "exec copyq toggle";
 
-              "Ctrl+Space" = "exec makoctl dismiss";
-              "Ctrl+Shift+Space" = "exec makoctl dismiss -a";
+              "Ctrl+Space" = "exec swaync-client --hide-latest";
+              "Ctrl+Shift+Space" = "exec swaync-client --close-all";
 
               "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
               "XF86AudioRaiseVolume" =

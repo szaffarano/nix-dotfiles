@@ -32,6 +32,8 @@
           "clock"
           "custom/sep"
           "tray"
+          "custom/sep"
+          "custom/notifications"
         ];
         "sway/workspaces" = {
           disable-scroll = true;
@@ -133,7 +135,10 @@
           format = "  {:%a %d %b %R %Z}";
           interval = 10;
           tooltip = true;
-          tooltip-format = "<tt>{timezoned_time_list}\n{:%B %Y}\n{calendar}</tt>";
+          tooltip-format = ''
+            <tt>{timezoned_time_list}
+            {:%B %Y}
+            {calendar}</tt>'';
           on-click = "zenity --calendar";
           today-format = "<span color='red'><b>{}</b></span>";
           timezones = [
@@ -152,6 +157,23 @@
           format = " {free}";
           interval = "30";
         };
+        "custom/notifications" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = {
+            notification = "<span foreground='red'><sup></sup></span>";
+            none = "";
+            dnd-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-none = "";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
+
       }];
       style = builtins.readFile ./style.css;
     };

@@ -22,5 +22,4 @@ inputs: {
   xdg = import ./xdg inputs;
   zsh = import ./zsh inputs;
   nix-index = inputs.nix-index-database.hmModules.nix-index;
-  # sway-notification-center = import ./sway-notification-center inputs;
 }
