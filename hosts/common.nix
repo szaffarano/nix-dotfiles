@@ -65,6 +65,8 @@
   programs.zsh.profileExtra = ''
     export PATH="$PATH:$HOME/.nix-profile/bin"
     export PATH="$PATH:$HOME/.asdf/shims";
+    export PATH="$PATH:$HOME/.local/bin"
+    export PATH="$PATH:$HOME/.bin"
     export AWS_VAULT_BACKEND="pass";
   '';
 }
