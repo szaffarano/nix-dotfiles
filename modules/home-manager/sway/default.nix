@@ -9,7 +9,7 @@ _:
     let
       terminalCmd = "kitty";
       fontConf = {
-        names = [ "Liberation Mono" "Font Awesome 6 Free" ];
+        names = [ "JetBrainsMono Nerd Font" "Ubuntu" ];
         style = "";
         size = 12.0;
       };
@@ -27,8 +27,18 @@ _:
       # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
       startupCommandDellay = "5";
 
+      catppuccin = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "i3";
+        rev = "c89098f";
+        sha256 = "sha256-6Cvsmdl3OILz1vZovyBIuuSpm207I3W0dmUGowR9Ugk=";
+      };
     in
     lib.mkIf config.sway.enable {
+
+      xdg.configFile."sway/themes" = {
+        source = "${catppuccin}/themes";
+      };
 
       i3status-rs = {
         enable = false;
@@ -79,7 +89,10 @@ _:
         package = null;
         swaynag.enable = true;
 
-        extraConfigEarly = "workspace 1";
+        extraConfigEarly = ''
+          include themes/catppuccin-mocha
+          workspace 1
+        '';
 
         config = {
           modifier = "Mod4";
@@ -324,14 +337,6 @@ _:
             };
 
           modes = {
-            "system: [l]ogout [p]oweroff [r]eboot [s]uspend" = {
-              r = "exec systemctl reboot";
-              p = "exec systemctl poweroff";
-              l = "exit";
-              s = "exec systemctl suspend";
-              Return = "mode default";
-              Escape = "mode default";
-            };
             resize = {
               "h" = "resize shrink width";
               "l" = "resize grow width";
