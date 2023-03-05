@@ -1,6 +1,6 @@
 { config, pkgs, nixpkgs, lib, ... }: {
 
-  fonts.fontconfig.enable = true;
+  fontconfig.enable = true;
 
   ansible.enable = true;
   bat.enable = true;
@@ -57,8 +57,12 @@
       dejavu_fonts
       liberation_ttf
       ubuntu_font_family
+      twemoji-color-font
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
       (nerdfonts.override {
-        fonts = [ "FiraCode" "Hack" "DroidSansMono" "JetBrainsMono" ];
+        fonts = [ "FiraCode" "Hack" "DroidSansMono" "JetBrainsMono" "FantasqueSansMono" ];
       })
     ];
   };

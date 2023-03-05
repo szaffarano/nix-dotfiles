@@ -1,7 +1,13 @@
 _:
 { config, lib, pkgs, ... }: {
-  imports =
-    [ ./i3status-rs.nix ./rofi.nix ./kanshi.nix ./zathura.nix ./waybar ./swaync ];
+  imports = [
+    ./i3status-rs.nix
+    ./rofi.nix
+    ./kanshi.nix
+    ./zathura.nix
+    ./waybar
+    ./swaync
+  ];
 
   options.sway.enable = lib.mkEnableOption "sway";
 
@@ -36,9 +42,7 @@ _:
     in
     lib.mkIf config.sway.enable {
 
-      xdg.configFile."sway/themes" = {
-        source = "${catppuccin}/themes";
-      };
+      xdg.configFile."sway/themes" = { source = "${catppuccin}/themes"; };
 
       i3status-rs = {
         enable = false;
@@ -109,7 +113,10 @@ _:
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
             { app_id = "transmission-qt"; }
-            { app_id = "kitty"; title = "floating-terminal"; }
+            {
+              app_id = "kitty";
+              title = "floating-terminal";
+            }
             { class = "^Keybase$"; }
             { class = "^JetBrains Toolbox$"; }
             { title = "tracker - .*"; }
@@ -144,23 +151,28 @@ _:
 
           startup = [
             {
-              command = "gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'";
+              command =
+                "gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'";
               always = true;
             }
             {
-              command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'";
+              command =
+                "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'";
               always = true;
             }
             {
-              command = "gsettings set org.gnome.desktop.interface icon-theme 'Papirus'";
+              command =
+                "gsettings set org.gnome.desktop.interface icon-theme 'Papirus'";
               always = true;
             }
             {
-              command = "gsettings set org.gnome.desktop.interface font-name 'Liberation Sans 11'";
+              command =
+                "gsettings set org.gnome.desktop.interface font-name 'Liberation Sans 11'";
               always = true;
             }
             {
-              command = "gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 11'";
+              command =
+                "gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 11'";
               always = true;
             }
             { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
@@ -345,6 +357,44 @@ _:
               Return = "mode default";
               Escape = "mode default";
             };
+          };
+          colors = {
+            unfocused = {
+              background = "$base";
+              border = "$mauve";
+              childBorder = "$mauve";
+              indicator = "$rosewater";
+              text = "$text";
+            };
+            focused = {
+              background = "$base";
+              border = "$pink";
+              childBorder = "$pink";
+              indicator = "$rosewater";
+              text = "$pink";
+            };
+            focusedInactive = {
+              background = "$base";
+              border = "$mauve";
+              childBorder = "$mauve";
+              indicator = "$rosewater";
+              text = "$text";
+            };
+            urgent = {
+              background = "$base";
+              border = "$peach";
+              childBorder = "$peach";
+              indicator = "$overlay0";
+              text = "$peach";
+            };
+            placeholder = {
+              background = "$base";
+              border = "$overlay0";
+              childBorder = "$overlay0";
+              indicator = "$overlay0";
+              text = "$text";
+            };
+            background = "$base";
           };
         };
       };

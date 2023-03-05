@@ -7,6 +7,7 @@ inputs: {
   direnv = import ./direnv inputs;
   firefox = import ./firefox inputs;
   flameshot = import ./flameshot inputs;
+  fontconfig = import ./fontconfig inputs;
   fzf = import ./fzf inputs;
   git = import ./git inputs;
   gpg-agent = import ./gpg-agent inputs;
