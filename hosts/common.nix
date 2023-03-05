@@ -48,6 +48,10 @@
       slack
       zoom-us
 
+      remind
+
+      nettools
+
       fontconfig
       font-awesome
       dejavu_fonts
