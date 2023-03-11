@@ -18,16 +18,16 @@ window#waybar {
 	background: #1a1a1a;
 }
 
-#workspaces,
+#battery,
 #clock.1,
 #clock.2,
 #clock.3,
-#pulseaudio,
-#memory,
 #cpu,
-#battery,
 #disk,
-#tray {
+#memory,
+#pulseaudio,
+#tray,
+#workspaces {
 	background: #1a1a1a;
 }
 

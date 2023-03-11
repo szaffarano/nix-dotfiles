@@ -10,12 +10,13 @@ system_groups:
 
 systemd_services:
   - seatd.service
-  - ly.service
   - bluetooth.service
   - libvirtd.service
   - NetworkManager.service
+  - avahi-daemon.service
 
 packages:
+  - avahi
   - wayland
   - xorg-xwayland
   - sway
@@ -23,7 +24,6 @@ packages:
   - swayidle
   - librsvg
   - polkit
-  - ly
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
   - dconf

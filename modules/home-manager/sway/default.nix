@@ -175,14 +175,14 @@ _:
                 "gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 11'";
               always = true;
             }
+            { command = "swaync"; }
+            { command = "kanshi"; }
+            { command = "speedcrunch"; }
             { command = "'sleep ${startupCommandDellay} && keepassxc'"; }
             { command = "'sleep ${startupCommandDellay} && pasystray'"; }
-            { command = "nm-applet --indicator"; }
-            { command = "swaync"; }
+            { command = "'sleep ${startupCommandDellay} && nm-applet --indicator'"; }
             { command = "'sleep ${startupCommandDellay} && copyq'"; }
-            { command = "kanshi"; }
-            { command = "'sleep ${startupCommandDellay} && slack'"; }
-            { command = "speedcrunch"; }
+            { command = "'sleep ${startupCommandDellay} && slack -g error'"; }
             { command = "kitty --title main-term"; }
             { command = "kitty --title ncspot ncspot"; }
             {
@@ -403,6 +403,14 @@ _:
         export XDG_CURRENT_DESKTOP="sway";
         export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"
         export PATH="$PATH:$HOME/.nix-profile/bin"
+        export NO_AT_BRIDGE=1
+      '';
+
+      programs.zsh.loginExtra = ''
+        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+          exec ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel sway \
+            > ~/.cache/sway.log 2>~/.cache/sway.err.log
+        fi
       '';
     };
 }
