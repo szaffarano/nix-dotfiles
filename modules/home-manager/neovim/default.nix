@@ -16,7 +16,7 @@ _:
       extraLuaConfig = builtins.readFile ./init.lua;
     };
 
-    home.packages = with pkgs; [ tree-sitter gcc nodejs ];
+    home.packages = with pkgs; [ tree-sitter gcc nodejs-16_x ];
 
     xdg.configFile.nvim = {
       source = ./config;
