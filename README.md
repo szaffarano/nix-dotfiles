@@ -1,5 +1,7 @@
 # Nix Based dotfiles
 
+![GitHub branch checks state](https://img.shields.io/github/checks-status/szaffarano/nix-dotfiles/master)
+
 ## Preconditions
 
 ### Bootstrap nix and home-manager
