@@ -1,6 +1,6 @@
 # Nix Based dotfiles
 
-![GitHub branch checks state](https://img.shields.io/github/checks-status/szaffarano/nix-dotfiles/master)
+[![pre-commit](https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml)
 
 ## Preconditions
 
