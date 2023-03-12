@@ -46,12 +46,14 @@ lazy.setup({
       'hrsh7th/cmp-nvim-lsp-document-symbol',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-path',
-      'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       'tamago324/cmp-zsh',
       'ray-x/cmp-treesitter',
     },
   },
+
+  { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } },
+  'rafamadriz/friendly-snippets',
 
   'folke/which-key.nvim',
 
