@@ -319,7 +319,7 @@ _:
 
               "Ctrl+Alt+v" = "exec copyq toggle";
 
-              "Ctrl+Space" = "exec swaync-client --hide-latest";
+              "Ctrl+Alt+Space" = "exec swaync-client --hide-latest";
               "Ctrl+Shift+Space" = "exec swaync-client --close-all";
 
               "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";

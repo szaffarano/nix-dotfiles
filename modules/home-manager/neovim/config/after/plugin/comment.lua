@@ -1,8 +1,16 @@
 -- Enable Comment.nvim
-local ok, comment = pcall(require, "Comment")
+local ok, comment = pcall(require, 'Comment')
 if not ok then
-	print("Comment plugin is not installed")
-	return
+  return
 end
 
-comment.setup()
+comment.setup {
+  marker_padding = true,
+  comment_empty = true,
+  comment_empty_trim_whitespace = true,
+  create_mappings = true,
+  line_mapping = 'gcc',
+  operator_mapping = 'gc',
+  comment_chunk_text_object = 'ic',
+  hook = nil,
+}

@@ -5,7 +5,6 @@ _:
   options.neovim.enable = lib.mkEnableOption "neovim";
 
   config = lib.mkIf config.neovim.enable {
-
     programs.neovim = {
       enable = true;
       defaultEditor = true;
@@ -14,29 +13,12 @@ _:
       vimdiffAlias = true;
       withPython3 = true;
 
-      extraLuaConfig = ''
-        require('init')
-      '';
-
-      plugins = with pkgs.vimPlugins;
-        [
-          (pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
-            with p; [
-              bash
-              c
-              cpp
-              go
-              java
-              kotlin
-              lua
-              python
-              rust
-              typescript
-              nix
-            ]))
-        ];
+      extraLuaConfig = builtins.readFile ./init.lua;
     };
-    xdg.configFile."nvim" = {
+
+    home.packages = with pkgs; [ tree-sitter gcc nodejs ];
+
+    xdg.configFile.nvim = {
       source = ./config;
       recursive = true;
     };

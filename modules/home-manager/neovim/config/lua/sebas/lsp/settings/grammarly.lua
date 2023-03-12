@@ -1,3 +1,3 @@
 return {
-	cmd = { "grammarly-languageserver", "--no-experimental-fetch", "--stdio" },
+  cmd = { 'grammarly-languageserver', '--no-experimental-fetch', '--stdio' },
 }

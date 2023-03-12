@@ -1,25 +1,35 @@
 ---
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+  -
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: mixed-line-ending
-  - repo: https://github.com/adrienverge/yamllint.git
+    repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+  -
+    hooks:
+      - args: [--format, parsable, --strict]
+        id: yamllint
+    repo: https://github.com/adrienverge/yamllint.git
     rev: v1.29.0
-    hooks:
-      - id: yamllint
-        args: [--format, parsable, --strict]
-  - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.14.0a0
-    hooks:
+
+  - hooks:
       - id: ansible-lint
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
-    hooks:
+    repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v6.14.0a0
+
+  - hooks:
       - id: markdownlint
-  - repo: https://github.com/nix-community/nixpkgs-fmt
-    rev: v1.3.0
-    hooks:
+    repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.33.0
+
+  - hooks:
       - id: nixpkgs-fmt
+    repo: https://github.com/nix-community/nixpkgs-fmt
+    rev: v1.3.0
+
+  - hooks:
+      - id: stylua-github
+    repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.17.0
