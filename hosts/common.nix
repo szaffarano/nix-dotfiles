@@ -20,6 +20,11 @@
 
   home = {
     packages = with pkgs; [
+      scc # analyze LOC and other code metrics
+      sd # sed replacement
+      bandwhich
+      newsboat # rss feeds reader
+
       dig
       file
       fd

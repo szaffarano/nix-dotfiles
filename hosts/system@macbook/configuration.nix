@@ -35,7 +35,7 @@
     onActivation.upgrade = true;
     onActivation.cleanup = "zap";
     brews = [ "gnupg" "pinentry-mac" ];
-    casks = [ "maccy" "insomnia" "cloudflare-warp" "wkhtmltopdf" ];
+    casks = [ "maccy" "insomnia" "cloudflare-warp" "wkhtmltopdf" "obsidian" ];
   };
 
   system.defaults = {

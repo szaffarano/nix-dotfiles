@@ -17,6 +17,8 @@
     blueberry
     pulseaudioFull
 
+    obsidian
+
     # screenshots
     grim
     slurp
