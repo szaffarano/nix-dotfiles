@@ -34,8 +34,8 @@
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
     onActivation.cleanup = "zap";
-    brews = [ "gnupg" "pinentry-mac" ];
-    casks = [ "maccy" "insomnia" "cloudflare-warp" "wkhtmltopdf" "obsidian" ];
+    brews = [ "gnupg" "pinentry-mac"];
+    casks = [ "maccy" "insomnia" "cloudflare-warp" "wkhtmltopdf" "obsidian" "mongodb-compass" "syncthing"];
   };
 
   system.defaults = {

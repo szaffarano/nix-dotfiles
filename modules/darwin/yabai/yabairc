@@ -32,6 +32,7 @@ yabai -m rule --add app='Spotify' manage=off
 yabai -m rule --add app='Calculator' manage=off
 yabai -m rule --add app='Microsoft Teams' manage=off
 yabai -m rule --add app='Anki' manage=off
+yabai -m rule --add app='Obsidian' manage=off
 
 # Disable animations when opening and closing windows.
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false

@@ -39,7 +39,6 @@
       gawk
       htop
       httpie
-      kubectx
       openssl
       p7zip
       pandoc
@@ -49,6 +48,11 @@
       unzip
       whois
       pass
+      yq
+
+      kubectx
+      kubectl
+      kustomize
 
       slack
       zoom-us
