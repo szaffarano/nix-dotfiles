@@ -97,4 +97,6 @@ lazy.setup({
     },
     'sbdchd/neoformat',
   },
+
+  { 'akinsho/toggleterm.nvim', version = '*', config = true },
 }, lazy_config)
