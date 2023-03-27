@@ -50,6 +50,8 @@
       pass
       yq
 
+      buku
+
       kubectx
       kubectl
       kustomize
