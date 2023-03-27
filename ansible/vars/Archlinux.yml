@@ -4,16 +4,17 @@ docker_compose_package: docker-compose
 lid_name: LID0
 
 system_groups:
+  - disk
   - seat
   - docker
   - libvirt
 
 systemd_services:
-  - seatd.service
+  - avahi-daemon.service
   - bluetooth.service
   - libvirtd.service
   - NetworkManager.service
-  - avahi-daemon.service
+  - seatd.service
 
 packages:
   - avahi
@@ -22,6 +23,7 @@ packages:
   - sway
   - swaylock-effects
   - swayidle
+  - udisks2
   - librsvg
   - polkit
   - xdg-desktop-portal

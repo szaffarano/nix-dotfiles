@@ -19,12 +19,7 @@ _:
         go
 
         nixfmt
-
-        cargo
-        clippy
-        rust-analyzer
-        rustc
-        rustfmt
+        rustup
 
         hyperfine
 
