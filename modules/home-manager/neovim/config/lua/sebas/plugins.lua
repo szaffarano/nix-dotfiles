@@ -99,4 +99,6 @@ lazy.setup({
   },
 
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
+
+  'github/copilot.vim',
 }, lazy_config)
