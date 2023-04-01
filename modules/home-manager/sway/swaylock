@@ -1,0 +1,19 @@
+ignore-empty-password
+show-failed-attempts
+indicator-idle-visible
+
+clock
+timestr=%H:%M:%S
+datestr=%a, %b %d
+
+indicator-caps-lock
+indicator-radius=60
+
+screenshots
+effect-greyscale
+effect-blur=5x8
+fade-in=0.5
+
+daemonize
+
+grace=5
