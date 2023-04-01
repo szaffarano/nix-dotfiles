@@ -37,8 +37,8 @@ in
         pre-commit
       ] ++ lib.optionals config.development.datagrip.enable [ jetbrains.datagrip ];
 
-      file.".ideavim" = {
-        source = ./ideavim;
+      file.".ideavimrc" = {
+        source = ./ideavimrc;
       };
     };
   };
