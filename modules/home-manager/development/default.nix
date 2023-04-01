@@ -1,14 +1,25 @@
 _:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  c = config.homeDirectory;
+in
+{
   options.development.enable = lib.mkEnableOption "development";
+  options.development.intellij-idea-pkg = lib.mkOption {
+    default = pkgs.jetbrains.idea-community;
+    type = lib.types.package;
+    description = "IntelliJ IDEA package to use";
+  };
+  options.development.datagrip.enable = lib.mkEnableOption {
+    default = false;
+    description = "Enable DataGrip";
+  };
 
   config = lib.mkIf config.development.enable {
     programs.java.enable = true;
     home = {
       packages = with pkgs; [
-        # TODO: parameterize DataGrip
-        # TODO: parameterize IC or IU
-        jetbrains.idea-community
+        config.development.intellij-idea-pkg
 
         poetry
         pipx
@@ -24,7 +35,11 @@ _:
         hyperfine
 
         pre-commit
-      ];
+      ] ++ lib.optionals config.development.datagrip.enable [ jetbrains.datagrip ];
+
+      file.".ideavim" = {
+        source = ./ideavim;
+      };
     };
   };
 }

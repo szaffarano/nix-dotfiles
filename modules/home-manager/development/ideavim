@@ -1,0 +1,74 @@
+set relativenumber
+
+map <space> <leader>
+
+noremap <Esc> <nop>
+
+nnoremap <C-j> :m +1<CR>
+nnoremap <C-k> :m -2<CR>
+inoremap <C-j> <Esc>:m +1<CR>gi
+inoremap <C-k> <Esc>:m -2<CR>gi
+
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>y "+yy
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
+
+nnoremap <leader><leader> <C-Tab>
+
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+
+let g:argtextobj_pairs="[:],(:),<:>"
+
+set showmode
+set so=5
+set nu
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+map <C-l> :noh<cr>
+
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+map <leader>f <Plug>(easymotion-s)
+map <leader>e <Plug>(easymotion-f)
+
+map  <leader>a  <Action>(Annotate)
+map  <leader>b  <Action>(ToggleLineBreakpoint)
+map  <leader>c  <Action>(Stop)
+map  <leader>d  <Action>(Debug)
+map  <leader>o  <Action>(FileStructurePopup)
+map  <leader>r  <Action>(RenameElement)
+map  <leader>s  <Action>(SelectInProjectView)
+map  <leader>z  <Action>(ToggleDistractionFreeMode)
+nmap <leader>/ <Action>(ShowErrorDescription)
+nmap <leader>bd <Action>(CloseEditor)
+nmap <leader>e <Action>(GotoNextError)
+nmap <leader>h <Action>(PreviousTab)
+nmap <leader>i <Action>(Generate)
+nmap <leader>l <Action>(NextTab)
+nmap <leader>g <Action>(Git.Menu)
+vmap <leader>g <Action>(Git.Menu)
+nmap <leader>s <Action>(QuickChangeScheme)
+nnoremap <leader><leader> <C-Tab>
+
+set scrolloff=5
+
+map Q gq
+
+set surround
+
+# vim: ft=vim
