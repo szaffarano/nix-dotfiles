@@ -19,16 +19,8 @@ _:
         style = "";
         size = 12.0;
       };
-      swaylockArgs = [
-        "swaylock "
-        "-S -F -f -K"
-        "--indicator"
-        "--indicator-radius 60"
-        "--effect-blur 5x8"
-        "--fade-in 0.5"
-      ];
-      lockCmd = lib.concatStringsSep " " (swaylockArgs ++ [ " --grace 2" ]);
-      lockCmdBeforeSleep = lib.concatStringsSep " " swaylockArgs;
+      lockCmd = "swaylock --grace 5 -f";
+      lockCmdBeforeSleep = "swaylock --grace 5 -f";
 
       # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
       startupCommandDellay = "5";
@@ -43,6 +35,7 @@ _:
     lib.mkIf config.sway.enable {
 
       xdg.configFile."sway/themes" = { source = "${catppuccin}/themes"; };
+      xdg.configFile."swaylock/config".source = ./swaylock;
 
       i3status-rs = {
         enable = false;
