@@ -81,8 +81,15 @@ in
         includes = [{ path = delta.themes; }];
       };
 
-      home = { packages = with pkgs; [ git-credential-keepassxc ]; };
-
+      home = {
+        packages = with pkgs;
+          [
+            (git-credential-keepassxc.override {
+              withNotification = true;
+              withYubikey = true;
+            })
+          ];
+      };
       programs.gh = {
         enable = true;
         extensions = [ pkgs.gh-dash ];
