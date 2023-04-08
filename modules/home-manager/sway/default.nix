@@ -182,7 +182,7 @@ _:
               command = ''
                 swayidle -w \
                    timeout 300 '${lockCmd}' \
-                   timeout 600 'swaymsg "output * dpms off"' \
+                   timeout 1800 'swaymsg "output * dpms off"' \
                    resume 'swaymsg "output * dpms on"' \
                    before-sleep '${lockCmdBeforeSleep}'
               '';
