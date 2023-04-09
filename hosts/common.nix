@@ -50,7 +50,7 @@
       pass
       yq
 
-      (buku.override { withServer = true; })
+      (buku.override { withServer = false; })
 
       kubectx
       kubectl
