@@ -5,3 +5,11 @@
     name: "{{ item }}"
     state: restarted
   loop: "{{ systemd_services }}"
+
+- name: "Start systemd services at userspace"
+  become: false
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    scope: "user"
+  loop: "{{ systemd_services_userspace }}"

@@ -21,6 +21,17 @@
   notify:
     - Start systemd services
 
+- name: "Configure systemd services in userspace"
+  become: false
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    scope: "user"
+  loop: "{{ systemd_services_userspace }}"
+  when: systemd_services_userspace is defined
+  notify:
+    - Start systemd services at userspace
+
 - name: >
     Load system config tasks for
     {{ ansible_distribution }} ({{ ansible_os_family }})
