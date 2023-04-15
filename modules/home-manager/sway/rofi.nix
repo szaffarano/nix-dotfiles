@@ -27,7 +27,6 @@
       home.packages = with pkgs; [
         rofi-bluetooth
         rofi-power-menu
-        rofi-pulse-select
       ];
 
       wayland.windowManager.sway = { config = { menu = "rofi -show drun"; }; };
@@ -43,7 +42,6 @@
           rofi-calc
           rofi-emoji
           rofi-power-menu
-          rofi-pulse-select
         ];
         extraConfig = {
           modi = "run,drun,ssh,combi,keys,filebrowser";
