@@ -76,6 +76,7 @@ in
           credential.helper = "keepassxc --unlock 0";
           commit.gpgsign = true;
           init.defaultBranch = "master";
+          fetch.prune = true;
         };
 
         includes = [{ path = delta.themes; }];
