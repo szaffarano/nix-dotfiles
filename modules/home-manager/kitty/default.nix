@@ -7,7 +7,7 @@ _:
       enable = true;
       font = {
         name = "FiraCode Nerd Font";
-        size = 15;
+        size = 13;
       };
       settings = {
         adjust_line_height = "105%";

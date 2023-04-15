@@ -21,7 +21,7 @@ packages:
   - wayland
   - xorg-xwayland
   - sway
-  - swaylock-effects-git
+  - swaylock-effects
   - swayidle
   - udisks2
   - librsvg
@@ -32,8 +32,6 @@ packages:
   - gsettings-desktop-schemas
   - bluez
   - bluez-utils
-  - pulseaudio
-  - pulseaudio-bluetooth
   - base-devel
   - zsh
   - libvirt
