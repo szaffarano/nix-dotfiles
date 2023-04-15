@@ -15,7 +15,6 @@
     playerctl
     networkmanager
     blueberry
-    pulseaudioFull
 
     obsidian
 
