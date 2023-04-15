@@ -24,7 +24,7 @@ packages:
   - wayland
   - xorg-xwayland
   - sway
-  - swaylock-effects-git
+  - swaylock-effects
   - swayidle
   - udisks2
   - librsvg

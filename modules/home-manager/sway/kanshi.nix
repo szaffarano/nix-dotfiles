@@ -24,6 +24,18 @@
             }
           ];
         };
+        docked-work = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "DP-1";
+              status = "enable";
+            }
+          ];
+        };
       };
     };
   };
