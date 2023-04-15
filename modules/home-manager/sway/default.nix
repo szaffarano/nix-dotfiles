@@ -19,8 +19,8 @@ _:
         style = "";
         size = 12.0;
       };
-      lockCmd = "swaylock --grace 5 -f";
-      lockCmdBeforeSleep = "swaylock --grace 5 -f";
+      lockCmd = "swaylock --grace 5";
+      lockCmdBeforeSleep = "swaylock";
 
       # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
       startupCommandDellay = "5";
@@ -196,6 +196,12 @@ _:
               app_id = "kitty";
               title = "main-term";
             }];
+          };
+
+          output = {
+            HDMI-A-1 = {
+              scale = "1.25";
+            };
           };
 
           input = {
