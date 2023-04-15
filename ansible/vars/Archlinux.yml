@@ -56,3 +56,4 @@ packages:
   - openbsd-netcat
   - dmidecode
   - qemu
+  - intel-ucode
