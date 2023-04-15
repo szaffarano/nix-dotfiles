@@ -198,6 +198,12 @@ _:
             }];
           };
 
+          output = {
+            HDMI-A-1 = {
+              scale = "1.25";
+            };
+          };
+
           input = {
             "type:keyboard" = {
               repeat_delay = "250";
