@@ -19,8 +19,9 @@ _:
         style = "";
         size = 12.0;
       };
-      lockCmd = "swaylock --grace 5";
-      lockCmdBeforeSleep = "swaylock";
+      wallpapersCommand = ./scripts/wallpaper.sh;
+      lockCmd = ./scripts/swaylock.sh;
+      lockCmdBeforeSleep = "${./scripts/swaylock.sh} 0";
 
       # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
       startupCommandDellay = "5";
@@ -54,6 +55,7 @@ _:
         kanshi
         libnotify
         networkmanagerapplet
+        swayimg
         wl-clipboard
         wlr-randr
         wtype
@@ -199,6 +201,8 @@ _:
           };
 
           output = {
+            "*".bg = ''"$(${wallpapersCommand})" fit'';
+
             HDMI-A-1 = {
               scale = "1.25";
             };

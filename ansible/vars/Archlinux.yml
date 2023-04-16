@@ -18,13 +18,18 @@ systemd_services:
 
 systemd_services_userspace:
   - pipewire-pulse.service
+  - keybase.service
+  - kbfs.service
 
 packages:
   - avahi
   - wayland
   - xorg-xwayland
   - sway
-  - swaylock-effects
+  - swaybg
+  - swaylock
+  - keybase
+  - kbfs
   - swayidle
   - udisks2
   - librsvg
