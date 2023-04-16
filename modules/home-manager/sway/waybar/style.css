@@ -1,14 +1,13 @@
-/*
- * Arc-Dark Color Scheme
- */
-@define-color bg #282828;
-@define-color critical #fb4934;
-@define-color warning #d79921;
-@define-color ok #b9bb26;
-@define-color fg #ebdbb2;
-@define-color fg2 #fbf1c7;
-@define-color muted #928374;
-@define-color neutral #83a598;
+/* colors replaces by theme.nix definitions */
+@define-color bg c-bg-primary;
+@define-color critical c-critical;
+@define-color warning c-warning;
+@define-color ok c-ok;
+@define-color fg c-fg-primary;
+@define-color fg2 c-fg-secondary;
+@define-color muted c-muted;
+@define-color neutral c-neutral;
+
 @keyframes blink-warning {
   70% {
     color: white;
@@ -47,8 +46,8 @@ window#waybar {
 
 /* The whole bar */
 #waybar {
-  font-family: FiraCode Nerd Font, sans-serif;
-  font-size: 15px;
+  font-family: f-name, f-family;
+  font-size: f-size;
 }
 
 /* Set margin and padding for all */

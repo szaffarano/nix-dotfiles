@@ -19,6 +19,7 @@ inputs: {
   neovim = import ./neovim inputs;
   starship = import ./starship inputs;
   sway = import ./sway inputs;
+  theme = import ./theme inputs;
   tmux = import ./tmux inputs;
   xdg = import ./xdg inputs;
   zsh = import ./zsh inputs;
