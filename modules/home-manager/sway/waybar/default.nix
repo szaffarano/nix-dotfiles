@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, theme, ... }: {
   options.waybar.enable = lib.mkEnableOption "waybar";
 
   config = lib.mkIf config.waybar.enable {
@@ -174,7 +174,11 @@
         };
 
       }];
-      style = builtins.readFile ./style.css;
+
+      style = builtins.replaceStrings
+        ((builtins.attrNames theme.waybar.colors) ++ (builtins.attrNames theme.waybar.fonts))
+        ((builtins.attrValues theme.waybar.colors) ++ (builtins.attrValues theme.waybar.fonts))
+        (builtins.readFile ./style.css);
     };
     wayland.windowManager.sway = {
       config.bars = [ ];
