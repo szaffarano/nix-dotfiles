@@ -222,6 +222,11 @@ _:
             "type:touchpad" = {
               click_method = "clickfinger";
               tap = "enabled";
+              dwt = "enabled";
+            };
+            "type:pointer" = {
+              accel_profile = "adaptive";
+              pointer_accel = "0.5";
             };
           };
 
