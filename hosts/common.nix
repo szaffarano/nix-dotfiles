@@ -50,6 +50,9 @@
       pass
       yq
 
+      yubikey-personalization
+      yubikey-personalization-gui
+
       (buku.override { withServer = false; })
 
       kubectx

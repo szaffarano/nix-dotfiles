@@ -62,3 +62,4 @@ packages:
   - dmidecode
   - qemu
   - intel-ucode
+  - yubikey-full-disk-encryption
