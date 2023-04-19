@@ -8,7 +8,12 @@ in
 inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = import inputs.nixpkgs {
     inherit system;
-    config.allowUnfreePredicate = (import ./non-free-config.nix inputs);
+    config = {
+      allowUnfreePredicate = (import ./non-free-config.nix inputs);
+      permittedInsecurePackages = [
+        "electron-21.4.0"
+      ];
+    };
     overlays = self.overlays;
   };
 
