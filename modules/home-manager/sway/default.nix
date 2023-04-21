@@ -249,6 +249,10 @@ _:
             }
             {
               command = "move to scratchpad";
+              criteria.class = "obsidian";
+            }
+            {
+              command = "move to scratchpad";
               criteria = {
                 app_id = "kitty";
                 title = "ncspot";
@@ -351,6 +355,7 @@ _:
 
               "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
               "${mod}+m" = ''[app_id="kitty" title="ncspot"] scratchpad show'';
+              "${mod}+o" = ''[class="obsidian"] scratchpad show'';
               "${mod}+Shift+t" =
                 ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${mod}+p" = ''[class="Slack"] scratchpad show'';
