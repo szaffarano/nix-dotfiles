@@ -225,8 +225,8 @@ _:
               dwt = "enabled";
             };
             "type:pointer" = {
-              accel_profile = "adaptive";
-              pointer_accel = "0.5";
+              accel_profile = "flat";
+              pointer_accel = "1";
             };
           };
 
