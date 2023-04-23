@@ -15,6 +15,7 @@ systemd_services:
   - libvirtd.service
   - NetworkManager.service
   - seatd.service
+  - paccache.timer
 
 systemd_services_userspace:
   - pipewire-pulse.service
@@ -63,3 +64,4 @@ packages:
   - qemu
   - intel-ucode
   - yubikey-full-disk-encryption
+  - pacman-contrib

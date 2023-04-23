@@ -1,6 +1,6 @@
 { self, ... }:
 { config, lib, pkgs, ... }: {
-  imports = [ ../common.nix ../common-linux.nix ];
+  imports = [ ../common.nix ../common-linux.nix ../security.nix ];
 
   git = {
     enable = true;
