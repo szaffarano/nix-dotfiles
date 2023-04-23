@@ -18,7 +18,10 @@ _:
           grammarly
           keepassxc-browser
           facebook-container
-          lastpass-password-manager
+          auto-tab-discard
+          decentraleyes
+          duckduckgo-privacy-essentials
+          simple-tab-groups
         ];
 
         settings = {
