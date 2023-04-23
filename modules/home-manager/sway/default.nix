@@ -104,6 +104,8 @@ _:
           floating.criteria = [
             { app_id = "^pavucontrol$"; }
             { app_id = "zenity"; }
+            { app_id = "Zoom.*"; }
+            { app_id = "as_toolbar"; }
             { app_id = "com.github.hluk.copyq"; }
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
