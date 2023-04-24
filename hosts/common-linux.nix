@@ -18,6 +18,8 @@
 
     obsidian
 
+    nettools
+
     # screenshots
     grim
     slurp
