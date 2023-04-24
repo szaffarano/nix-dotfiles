@@ -5,6 +5,7 @@ builtins.elem (inputs.nixpkgs.lib.getName pkg) [
   "dropbox"
   "grammarly"
   "obsidian"
+  "okta-browser-plugin"
   "skypeforlinux"
   "slack"
   "zoom"

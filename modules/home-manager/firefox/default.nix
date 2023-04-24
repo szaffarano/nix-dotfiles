@@ -22,6 +22,7 @@ _:
           decentraleyes
           duckduckgo-privacy-essentials
           simple-tab-groups
+          okta-browser-plugin
         ];
 
         settings = {
