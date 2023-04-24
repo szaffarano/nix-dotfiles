@@ -105,6 +105,9 @@ _:
             { app_id = "^pavucontrol$"; }
             { app_id = "zenity"; }
             { title = "as_toolbar"; }
+            { title = "zoom"; }
+            { title = "Settings"; }
+            { title = "Zoom - Free Account"; }
             { title = "Firefox — Sharing Indicator"; }
             { app_id = "com.github.hluk.copyq"; }
             { app_id = "nm-connection-editor"; }
