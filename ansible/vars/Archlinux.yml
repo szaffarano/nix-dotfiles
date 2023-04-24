@@ -16,6 +16,7 @@ systemd_services:
   - NetworkManager.service
   - seatd.service
   - paccache.timer
+  - systemd-boot-update.service
 
 systemd_services_userspace:
   - pipewire-pulse.service
@@ -65,3 +66,4 @@ packages:
   - intel-ucode
   - yubikey-full-disk-encryption
   - pacman-contrib
+  - fwupd

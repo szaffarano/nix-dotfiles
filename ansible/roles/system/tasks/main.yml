@@ -70,8 +70,13 @@
     state: directory
     mode: "0755"
     recurse: true
+    modification_time: preserve
+    access_time: preserve
+
 - name: Set swaync global fallback style
   ansible.builtin.file:
     path: /etc/xdg/swaync/style.css
     state: touch
     mode: "0644"
+    modification_time: preserve
+    access_time: preserve
