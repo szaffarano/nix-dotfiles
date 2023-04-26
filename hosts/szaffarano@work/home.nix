@@ -6,14 +6,14 @@
     enable = true;
     user = {
       name = "Sebastián Zaffarano";
-      email = "sebas@zaffarano.com.ar";
-      signingKey = "0x14F35C58A2191587";
+      email = "sebastian.zaffarano@elastic.co";
+      signingKey = "0xB31A0D3EFDC15D4B";
     };
   };
 
   gpg = {
     enable = true;
-    default-key = "0x14F35C58A2191587";
-    trusted-key = "0x14F35C58A2191587";
+    default-key = "0xB31A0D3EFDC15D4B";
+    trusted-key = "0xB31A0D3EFDC15D4B";
   };
 }
