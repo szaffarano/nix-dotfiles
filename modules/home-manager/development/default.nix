@@ -17,6 +17,10 @@ in
 
   config = lib.mkIf config.development.enable {
     programs.java.enable = true;
+    programs.vscode = {
+      enable = true;
+      enableExtensionUpdateCheck = true;
+    }; 
     home = {
       packages = with pkgs; [
         config.development.intellij-idea-pkg

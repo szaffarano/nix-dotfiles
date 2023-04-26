@@ -62,6 +62,9 @@
       slack
       zoom-us
 
+      vault
+      aws-vault
+
       fontconfig
       font-awesome
       dejavu_fonts
