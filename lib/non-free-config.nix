@@ -8,5 +8,6 @@ builtins.elem (inputs.nixpkgs.lib.getName pkg) [
   "okta-browser-plugin"
   "skypeforlinux"
   "slack"
+  "vscode"
   "zoom"
 ]
