@@ -20,7 +20,7 @@ in
     programs.vscode = {
       enable = true;
       enableExtensionUpdateCheck = true;
-    }; 
+    };
     home = {
       packages = with pkgs; [
         config.development.intellij-idea-pkg
