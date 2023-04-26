@@ -7,9 +7,13 @@ _:
   config =
     let
       sebasPublicKey = pkgs.fetchurl {
-        url =
-          "https://keys.openpgp.org/vks/v1/by-fingerprint/9AE57D3DE601A79560DD0F4B14F35C58A2191587";
+        url = "https://keys.openpgp.org/vks/v1/by-fingerprint/9AE57D3DE601A79560DD0F4B14F35C58A2191587";
         sha256 = "sha256-AjutFST4fTkQWpUwRm/ww3+o0MiJxz6LFAzB5rLT9qM=";
+      };
+
+      sebasAtElasticPublicKey = pkgs.fetchurl {
+        url = "https://keys.openpgp.org/vks/v1/by-fingerprint/77B7F77E3747F3B4482A7AB4B31A0D3EFDC15D4B";
+        sha256 = "sha256-gcejo1Ov15Jj0DUHp3jK6lcTLtKWS6poeTPYpqiPw7Q=";
       };
 
     in
@@ -51,7 +55,10 @@ _:
           group =
             "keygroup = 0xFF00000000000001 0xFF00000000000002 ${config.gpg.trusted-key}";
         };
-        publicKeys = [{ source = sebasPublicKey; }];
+        publicKeys = [
+          { source = sebasPublicKey; }
+          { source = sebasAtElasticPublicKey; }
+        ];
       };
     };
 }
