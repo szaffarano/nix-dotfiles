@@ -27,7 +27,6 @@ in
 
         poetry
         pipx
-        (python3.withPackages (ps: with ps; [ pip flake8 black ipython mypy python-dotenv ]))
 
         asdf-vm
 

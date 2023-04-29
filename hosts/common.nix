@@ -65,6 +65,8 @@
       vault
       aws-vault
 
+      rsync
+
       fontconfig
       font-awesome
       dejavu_fonts

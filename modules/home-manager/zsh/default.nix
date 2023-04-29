@@ -63,6 +63,7 @@ _:
         size = 10000;
         path = "${config.xdg.dataHome}/zsh/history";
       };
+      initExtra = (builtins.readFile ./pyenv.zsh) + "\n" + (builtins.readFile ./ocalm.zsh);
     };
   };
 }
