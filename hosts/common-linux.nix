@@ -20,6 +20,8 @@
 
     nettools
 
+    opam
+
     # screenshots
     grim
     slurp

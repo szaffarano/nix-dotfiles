@@ -17,6 +17,7 @@ systemd_services:
   - seatd.service
   - paccache.timer
   - systemd-boot-update.service
+  - thermald.service
 
 systemd_services_userspace:
   - pipewire-pulse.service
@@ -67,3 +68,7 @@ packages:
   - yubikey-full-disk-encryption
   - pacman-contrib
   - fwupd
+  - openresolv
+  - thermald
+  - python
+  - python-pip
