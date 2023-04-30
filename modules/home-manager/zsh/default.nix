@@ -20,6 +20,10 @@ _:
             tags = [ "defer:0" ];
           }
           {
+            name = "RiverGlide/zsh-goenv";
+            tags = [ "from:gitlab" ];
+          }
+          {
             name = "zsh-users/zsh-syntax-highlighting";
             tags = [ "defer:3" ];
           }

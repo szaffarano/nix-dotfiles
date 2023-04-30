@@ -30,8 +30,6 @@ in
 
         asdf-vm
 
-        go
-
         nixfmt
         rustup
 
