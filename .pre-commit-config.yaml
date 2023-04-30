@@ -7,17 +7,17 @@ repos:
       - id: end-of-file-fixer
       - id: mixed-line-ending
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.29.0
+    rev: v1.31.0
     hooks:
       - id: yamllint
         args: [--format, parsable, --strict]
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.14.2
+    rev: v6.15.0
     hooks:
       - id: ansible-lint
         args: [--project-dir ansible]
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
+    rev: v0.34.0
     hooks:
       - id: markdownlint
   - repo: https://github.com/nix-community/nixpkgs-fmt
@@ -25,6 +25,6 @@ repos:
     hooks:
       - id: nixpkgs-fmt
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v0.17.0
+    rev: v0.17.1
     hooks:
       - id: stylua-github
