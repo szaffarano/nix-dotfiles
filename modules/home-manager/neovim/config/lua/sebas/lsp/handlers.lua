@@ -90,6 +90,7 @@ local function lsp_keymaps(bufnr)
   end, '[W]orkspace [L]ist Folders')
 end
 
+--  This function gets run when an LSP connects to a particular buffer.
 M.on_attach = function(_, bufnr)
   lsp_keymaps(bufnr)
 

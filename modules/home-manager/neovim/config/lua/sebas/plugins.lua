@@ -23,21 +23,26 @@ local lazy_config = {
 }
 
 lazy.setup({
+  -- git
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'lewis6991/gitsigns.nvim',
+
+  -- manage shiftwitd and expand tab automagically
   'tpope/vim-sleuth',
 
+  -- LSP stuff
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason.nvim',
+      { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
+      { 'j-hui/fidget.nvim', opts = {} },
       'folke/neodev.nvim',
-      'j-hui/fidget.nvim',
     },
   },
 
+  -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -46,13 +51,12 @@ lazy.setup({
       'hrsh7th/cmp-nvim-lsp-document-symbol',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'ray-x/cmp-treesitter',
       'saadparwaiz1/cmp_luasnip',
       'tamago324/cmp-zsh',
-      'ray-x/cmp-treesitter',
     },
   },
-
-  { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } },
   'rafamadriz/friendly-snippets',
 
   'folke/which-key.nvim',
@@ -64,7 +68,8 @@ lazy.setup({
   'lukas-reineke/indent-blankline.nvim',
 
   'numToStr/Comment.nvim',
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
+
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
     'nvim-telescope/telescope-fzf-native.nvim',
     build = 'make',
@@ -73,23 +78,27 @@ lazy.setup({
     end,
   },
 
+  -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    config = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
+    build = ':TSUpdate',
   },
 
+  -- automatic higlighting
   'RRethy/vim-illuminate',
 
+  -- transparent gpg encryption
   'jamessan/vim-gnupg',
+
+  -- misc goodies
   'tpope/vim-unimpaired',
   'godlygeek/tabular',
   'farmergreg/vim-lastplace',
 
+  -- fancy file explorer
   {
     'nvim-tree/nvim-tree.lua',
     dependencies = {
@@ -98,7 +107,6 @@ lazy.setup({
     'sbdchd/neoformat',
   },
 
+  -- embedded terms
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
-
-  'github/copilot.vim',
 }, lazy_config)
