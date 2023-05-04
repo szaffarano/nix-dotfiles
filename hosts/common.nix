@@ -64,6 +64,8 @@
 
       vault
       aws-vault
+      awscli2
+      aws-iam-authenticator
 
       rsync
 
