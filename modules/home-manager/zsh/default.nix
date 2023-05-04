@@ -24,6 +24,9 @@ _:
             tags = [ "from:gitlab" ];
           }
           {
+            name = "lukechilds/zsh-nvm";
+          }
+          {
             name = "zsh-users/zsh-syntax-highlighting";
             tags = [ "defer:3" ];
           }
