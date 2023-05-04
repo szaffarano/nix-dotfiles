@@ -45,7 +45,5 @@
   home.stateVersion = "22.11";
   home.packages = with pkgs; [
     bottom
-    awscli2
-    aws-iam-authenticator
   ];
 }
