@@ -25,7 +25,7 @@
   outputs = inputs:
     let
       lib = import ./lib inputs;
-      customOverlays = { };
+      customOverlays = import ./overlays;
     in
     {
       overlays = [
