@@ -1,5 +1,8 @@
 ---
 docker_compose_package: docker-compose
+docker_packages:
+  - "docker"
+  - "docker-buildx"
 
 lid_name: LID0
 
@@ -39,6 +42,7 @@ packages:
   - polkit
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
+  - xdg-desktop-portal-gtk
   - dconf
   - gsettings-desktop-schemas
   - bluez

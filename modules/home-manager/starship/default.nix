@@ -15,10 +15,10 @@ _:
         kotlin.disabled = true;
         git_branch.disabled = false;
         git_commit.disabled = false;
-        git_metrics.disabled = false;
+        git_metrics.disabled = true;
         git_state.disabled = false;
         git_status = {
-          disabled = false;
+          disabled = true;
           ignore_submodules = true;
           untracked = "";
         };

@@ -22,6 +22,9 @@
 
     opam
 
+    insomnia
+    docker-credential-helpers
+
     # screenshots
     grim
     slurp
