@@ -39,7 +39,7 @@
           all-outputs = true;
           format = "{name}: {icon}";
           format-icons = {
-            "1" = "󰖟";
+            "1" = "";
             "2" = "";
             "3" = "";
             "4" = "";
@@ -107,7 +107,7 @@
             IP: {ipaddr}'';
         };
         cpu = {
-          format = " {usage}%";
+          format = "󰾆 {usage}%";
           on-click = "kitty --title floating-terminal htop";
         };
         memory = {
@@ -121,7 +121,7 @@
             warning = "95";
             critical = "50";
           };
-          format-icons = [ "" "" "" "" "" "" "" "" "" "" ];
+          format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
         };
         idle_inhibitor = {
           format = "{icon}";
@@ -153,7 +153,7 @@
         };
         "custom/sep" = { "format" = ""; };
         disk = {
-          format = " {free}";
+          format = " {free}";
           interval = "30";
         };
         "custom/notifications" = {
