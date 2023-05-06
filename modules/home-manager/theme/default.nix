@@ -1,9 +1,50 @@
-_: { pkgs, ... }:
+_:
+{ pkgs, ... }:
+let
+  font = {
+    family = "";
+    name = "Liberation Sans";
+    size = "11px";
+  };
 
+  font-mono = {
+    family = "sans-serif";
+    name = "FiraCode Nerd Font";
+    size = "15px";
+  };
+in
 {
   _module.args = {
-
     theme = {
+      fonts = {
+        f-serif = "Noto Serif";
+        f-sans-serif = "Noto Sans";
+        f-mono = font-mono.name;
+        f-emoji = "Noto Color Emoji";
+      };
+
+      sway = {
+        fonts = font-mono // {
+          size = 12.0;
+          style = "";
+        };
+      };
+
+      gtk = {
+        theme = "Adwaita";
+        cursor-theme = "Adwaita";
+        icon-theme = "Papirus";
+        font = font // { size = "11"; };
+        font-mono = font-mono // { size = "11"; };
+        icon-theme-pkg = pkgs.papirus-icon-theme;
+        theme-pkg = pkgs.gnome-themes-extra;
+      };
+
+      kitty = {
+        fonts = font-mono // { size = 13; };
+        theme = "Catppuccin-Frappe";
+      };
+
       waybar = {
         colors = {
           c-bg-primary = "#282828";
@@ -17,9 +58,9 @@ _: { pkgs, ... }:
         };
 
         fonts = {
-          f-family = "sans-serif";
-          f-name = "FiraCode Nerd Font";
-          f-size = "15px";
+          f-family = font-mono.family;
+          f-name = font-mono.name;
+          f-size = font-mono.size;
         };
       };
     };
