@@ -1,5 +1,5 @@
 _:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, theme, ... }: {
   imports = [
     ./i3status-rs.nix
     ./rofi.nix
@@ -15,9 +15,9 @@ _:
     let
       terminalCmd = "kitty";
       fontConf = {
-        names = [ "JetBrainsMono Nerd Font" "Ubuntu" ];
-        style = "";
-        size = 12.0;
+        names = [ theme.sway.fonts.name ];
+        style = theme.sway.fonts.style;
+        size = theme.sway.fonts.size;
       };
       wallpapersCommand = ./scripts/wallpaper.sh;
       lockCmd = ./scripts/swaylock.sh;
@@ -152,27 +152,27 @@ _:
           startup = [
             {
               command =
-                "gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'";
+                "gsettings set org.gnome.desktop.interface gtk-theme '${theme.gtk.theme}'";
               always = true;
             }
             {
               command =
-                "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'";
+                "gsettings set org.gnome.desktop.interface cursor-theme '${theme.gtk.cursor-theme}'";
               always = true;
             }
             {
               command =
-                "gsettings set org.gnome.desktop.interface icon-theme 'Papirus'";
+                "gsettings set org.gnome.desktop.interface icon-theme '${theme.gtk.icon-theme}'";
               always = true;
             }
             {
               command =
-                "gsettings set org.gnome.desktop.interface font-name 'Liberation Sans 11'";
+                "gsettings set org.gnome.desktop.interface font-name '${theme.gtk.font.name} ${theme.gtk.font.size}'";
               always = true;
             }
             {
               command =
-                "gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 11'";
+                "gsettings set org.gnome.desktop.interface monospace-font-name '${theme.gtk.font-mono.name} ${theme.gtk.font-mono.size}'";
               always = true;
             }
             { command = "swaync"; }

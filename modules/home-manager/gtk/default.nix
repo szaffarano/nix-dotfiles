@@ -1,12 +1,11 @@
 _:
 { config, lib, pkgs, theme, ... }:
 let
-  # TODO: parameterize
-  font = "Liberation Sans";
-  icon_theme = "Papirus";
-  theme = "Adwaita";
-  icon_theme_pkg = pkgs.papirus-icon-theme;
-  theme_pkg = pkgs.gnome-themes-extra;
+  font = theme.gtk.font.name;
+  icon_theme = theme.gtk.icon-theme;
+  gtk-theme = theme.gtk.theme;
+  icon-theme-pkg = theme.gtk.icon-theme-pkg;
+  theme-pkg = theme.gtk.theme-pkg;
 in
 {
   options.gtk.config.enable = lib.mkEnableOption "gtk.config";
@@ -16,11 +15,11 @@ in
       enable = true;
       iconTheme = {
         name = icon_theme;
-        package = icon_theme_pkg;
+        package = icon-theme-pkg;
       };
       theme = {
-        name = theme;
-        package = theme_pkg;
+        name = gtk-theme;
+        package = theme-pkg;
       };
       gtk3 = {
         extraConfig = {

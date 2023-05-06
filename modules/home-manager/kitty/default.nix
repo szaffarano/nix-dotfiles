@@ -6,8 +6,8 @@ _:
     programs.kitty = {
       enable = true;
       font = {
-        name = "FiraCode Nerd Font";
-        size = 13;
+        name = theme.kitty.fonts.name;
+        size = theme.kitty.fonts.size;
       };
       settings = {
         adjust_line_height = "105%";
@@ -15,7 +15,7 @@ _:
         enable_audio_bell = false;
         hide_window_decorations = "titlebar-only";
       };
-      theme = "Catppuccin-Frappe";
+      theme = theme.kitty.theme;
     };
 
     home.sessionVariables = { TERMINAL = "kitty"; };
