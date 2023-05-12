@@ -43,6 +43,8 @@ vim.bo.softtabstop = 2
 vim.bo.shiftwidth = 2
 vim.o.wrap = false
 
+vim.o.conceallevel = 2
+
 -- popup menu options
 vim.o.pumblend = 17
 vim.o.wildmode = 'longest:full'

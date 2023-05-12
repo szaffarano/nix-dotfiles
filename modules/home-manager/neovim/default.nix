@@ -16,7 +16,7 @@ _:
       extraLuaConfig = builtins.readFile ./init.lua;
     };
 
-    home.packages = with pkgs; [ tree-sitter ];
+    home.packages = with pkgs; [ tree-sitter gcc zlib ];
 
     xdg.configFile.nvim = {
       source = ./config;
