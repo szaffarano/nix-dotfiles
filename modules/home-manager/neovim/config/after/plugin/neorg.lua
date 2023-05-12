@@ -93,5 +93,7 @@ vim.keymap.set('n', '<leader>njy', '<Cmd>Neorg journal yesterday<CR>', { desc = 
 vim.keymap.set('n', '<leader>njj', '<Cmd>Neorg journal today<CR>', { desc = [[Go to Neorg today' journal]] })
 vim.keymap.set('n', '<leader>njt', '<Cmd>Neorg journal tomorrow<CR>', { desc = [[Go to Neorg today' journal]] })
 vim.keymap.set('n', '<localleader>ji', '<Cmd>Neorg journal toc update<CR>', { desc = [[Update Neorg journal TOC]] })
+vim.keymap.set('n', '<localleader>im', '<Cmd>Neorg inject-metadata<CR>', { desc = 'Inject Neorg metadata' })
+vim.keymap.set('n', '<localleader>um', '<Cmd>Neorg update-metadata<CR>', { desc = 'Update Neorg metadata' })
 
 vim.keymap.set('n', '<leader>nq', '<Cmd>Neorg return<CR>', { desc = 'Exit neorg' })
