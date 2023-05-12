@@ -16,7 +16,7 @@ in
   };
 
   config = lib.mkIf config.development.enable {
-    programs.java.enable = true;
+    programs.java.enable = false;
     programs.vscode = {
       enable = true;
       enableExtensionUpdateCheck = true;
