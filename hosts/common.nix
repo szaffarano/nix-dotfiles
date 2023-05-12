@@ -47,13 +47,14 @@
       tree
       unzip
       whois
+      gopass
       pass
       yq
 
       yubikey-personalization
       yubikey-personalization-gui
 
-      (buku.override { withServer = false; })
+      (buku.override { withServer = true; })
 
       kubectx
       kubectl

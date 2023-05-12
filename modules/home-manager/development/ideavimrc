@@ -71,4 +71,4 @@ map Q gq
 
 set surround
 
-# vim: ft=vim
+" vim: ft=vim

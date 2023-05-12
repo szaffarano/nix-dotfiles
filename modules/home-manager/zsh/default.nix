@@ -1,6 +1,7 @@
 _:
 { config, lib, pkgs, ... }:
-
+let extras = [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ];
+in
 {
   options.zsh.enable = lib.mkEnableOption "zsh";
   config = lib.mkIf config.zsh.enable {
@@ -70,7 +71,9 @@ _:
         size = 10000;
         path = "${config.xdg.dataHome}/zsh/history";
       };
-      initExtra = (builtins.readFile ./pyenv.zsh) + "\n" + (builtins.readFile ./ocalm.zsh);
+      initExtra = lib.concatStringsSep "\n" (lib.lists.forEach extras (f:
+        (builtins.readFile f)
+      ));
     };
   };
 }

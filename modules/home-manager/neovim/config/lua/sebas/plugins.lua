@@ -62,13 +62,13 @@ lazy.setup({
   'folke/which-key.nvim',
 
   'catppuccin/nvim',
+  'folke/tokyonight.nvim',
 
   'nvim-lualine/lualine.nvim',
 
   'lukas-reineke/indent-blankline.nvim',
 
   'numToStr/Comment.nvim',
-
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -98,15 +98,19 @@ lazy.setup({
   'godlygeek/tabular',
   'farmergreg/vim-lastplace',
 
-  -- fancy file explorer
+  -- A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer.
   {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    'sbdchd/neoformat',
+    'stevearc/oil.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
+  'sbdchd/neoformat',
 
   -- embedded terms
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
+
+  {
+    'nvim-neorg/neorg',
+    build = ':Neorg sync-parsers',
+    dependencies = { { 'nvim-lua/plenary.nvim' } },
+  },
 }, lazy_config)
