@@ -425,6 +425,7 @@ _:
         export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"
         export PATH="$PATH:$HOME/.nix-profile/bin"
         export NO_AT_BRIDGE=1
+        export _JAVA_AWT_WM_NONREPARENTING=1
       '';
 
       programs.zsh.loginExtra = ''
