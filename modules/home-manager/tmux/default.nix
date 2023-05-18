@@ -32,7 +32,7 @@ _:
 
           set -g @catppuccin_flavour 'mocha'
 
-          set-option -sa terminal-features ',xterm-kitty:RGB'
+          set-option -sa terminal-features ',xterm-256color:RGB'
           set -g status-position top
 
           bind C-a send-prefix -2

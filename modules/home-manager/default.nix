@@ -22,6 +22,7 @@ inputs: {
   theme = import ./theme inputs;
   tmux = import ./tmux inputs;
   xdg = import ./xdg inputs;
+  wezterm = import ./wezterm inputs;
   zsh = import ./zsh inputs;
   nix-index = inputs.nix-index-database.hmModules.nix-index;
 }
