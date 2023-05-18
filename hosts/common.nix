@@ -59,6 +59,7 @@
       kubectx
       kubectl
       kustomize
+      minikube
 
       slack
       zoom-us
