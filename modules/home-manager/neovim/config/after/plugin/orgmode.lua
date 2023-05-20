@@ -19,6 +19,8 @@ end
 
 vim.api.nvim_create_autocmd('FileType', { pattern = 'org', command = [[setlocal nofoldenable]] })
 
+vim.keymap.set('n', '<localleader>tt', require('orgmode.org.mappings').toggle_checkbox, { desc = '[T]oggle checkbox' })
+
 orgmode.setup_ts_grammar()
 
 ts_configs.setup {
