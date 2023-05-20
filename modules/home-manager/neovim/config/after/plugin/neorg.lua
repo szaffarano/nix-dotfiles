@@ -1,6 +1,5 @@
 local ok, neorg = pcall(require, 'neorg')
 if not ok then
-  print 'neorg plugin is not installed'
   return
 end
 

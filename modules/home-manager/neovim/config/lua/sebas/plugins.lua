@@ -109,8 +109,11 @@ lazy.setup({
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
 
   {
-    'nvim-neorg/neorg',
-    build = ':Neorg sync-parsers',
-    dependencies = { { 'nvim-lua/plenary.nvim' } },
+    'nvim-orgmode/orgmode',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
+  'akinsho/org-bullets.nvim',
+  'lervag/wiki.vim',
+
+  'itchyny/calendar.vim',
 }, lazy_config)
