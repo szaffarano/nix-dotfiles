@@ -69,6 +69,8 @@
       awscli2
       aws-iam-authenticator
 
+      google-cloud-sdk
+
       rsync
 
       fontconfig
