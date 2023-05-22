@@ -1,0 +1,5 @@
+#+TITLE: {name}
+#+CREATED: {date} {time}
+#+AUTHOR: {{GetUserName}} ({{GetHostName}})
+
+* {name}

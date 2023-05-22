@@ -20,6 +20,19 @@ local lazy_config = {
       task = '📌',
     },
   },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'matchit',
+        'matchparen',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
 }
 
 lazy.setup({

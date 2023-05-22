@@ -16,8 +16,6 @@
     networkmanager
     blueberry
 
-    obsidian
-
     nettools
 
     opam

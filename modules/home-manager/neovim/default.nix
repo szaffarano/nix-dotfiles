@@ -22,5 +22,10 @@ _:
       source = ./config;
       recursive = true;
     };
+
+    xdg.dataFile."nvim/templates" = {
+      source = ./templates;
+      recursive = true;
+    };
   };
 }
