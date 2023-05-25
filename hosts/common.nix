@@ -50,6 +50,7 @@
       gopass
       pass
       yq
+      nodePackages.json-diff
 
       yubikey-personalization
       yubikey-personalization-gui
