@@ -40,6 +40,11 @@ in
         theme-pkg = pkgs.gnome-themes-extra;
       };
 
+      wezterm = {
+        fonts = font-mono // { size = 13; };
+        theme = "Catppuccin Frappe";
+      };
+
       kitty = {
         fonts = font-mono // { size = 13; };
         theme = "Catppuccin-Frappe";

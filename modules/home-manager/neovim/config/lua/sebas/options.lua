@@ -44,6 +44,7 @@ vim.bo.shiftwidth = 2
 vim.o.wrap = false
 
 vim.o.conceallevel = 2
+vim.opt.concealcursor = 'nc'
 
 -- popup menu options
 vim.o.pumblend = 17

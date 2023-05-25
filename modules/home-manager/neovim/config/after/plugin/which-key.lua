@@ -24,8 +24,6 @@ wk.setup {
     },
   },
 
-  operators = { gc = 'Comments' },
-
   icons = {
     breadcrumb = '»',
     separator = '➜',

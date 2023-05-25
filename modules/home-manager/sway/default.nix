@@ -13,13 +13,15 @@ _:
 
   config =
     let
-      terminalCmd = "kitty";
+      terminalCmd = "wezterm";
       fontConf = {
         names = [ theme.sway.fonts.name ];
         style = theme.sway.fonts.style;
         size = theme.sway.fonts.size;
       };
       wallpapersCommand = ./scripts/wallpaper.sh;
+      musicPlayerCommand = ./scripts/music-player.sh;
+      orgCommand = ./scripts/org.sh;
       lockCmd = ./scripts/swaylock.sh;
       lockCmdBeforeSleep = "${./scripts/swaylock.sh} 0";
 
@@ -45,7 +47,8 @@ _:
       waybar.enable = true;
 
       gtk.config.enable = true;
-      kitty.enable = true;
+      kitty.enable = false;
+      wezterm.enable = true;
       rofi.enable = true;
       zathura.enable = true;
       kanshi.enable = true;
@@ -93,7 +96,7 @@ _:
           workspace 1
         '';
 
-        config = {
+        config = rec {
           modifier = "Mod4";
           terminal = terminalCmd;
           fonts = fontConf;
@@ -113,10 +116,7 @@ _:
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
             { app_id = "transmission-qt"; }
-            {
-              app_id = "kitty";
-              title = "floating-terminal";
-            }
+            { app_id = "floating-terminal"; }
             { class = "^Keybase$"; }
             { class = "^JetBrains Toolbox$"; }
             { title = "tracker - .*"; }
@@ -183,8 +183,8 @@ _:
             { command = "'sleep ${startupCommandDellay} && nm-applet --indicator'"; }
             { command = "'sleep ${startupCommandDellay} && copyq'"; }
             { command = "'sleep ${startupCommandDellay} && slack -g error'"; }
-            { command = "kitty --title main-term"; }
-            { command = "kitty --title ncspot ncspot"; }
+            { command = ''${terminal} start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''; }
+            { command = "${terminal} start --class=music-player ncspot"; }
             {
               command = ''
                 swayidle -w \
@@ -199,10 +199,7 @@ _:
           assigns = {
             "1" = [{ app_id = "firefox"; }];
             "2" = [{ class = "jetbrains-idea.*"; }];
-            "3" = [{
-              app_id = "kitty";
-              title = "main-term";
-            }];
+            "3" = [{ app_id = "dev-terminal"; }];
           };
 
           output = {
@@ -254,14 +251,11 @@ _:
             }
             {
               command = "move to scratchpad";
-              criteria.class = "obsidian";
+              criteria = { app_id = "music-player"; };
             }
             {
               command = "move to scratchpad";
-              criteria = {
-                app_id = "kitty";
-                title = "ncspot";
-              };
+              criteria = { app_id = "org-mode"; };
             }
           ];
 
@@ -274,7 +268,7 @@ _:
             lib.mkOptionDefault {
               "${mod}+Return" = "exec ${terminal}";
               "${mod}+Shift+q" = "kill";
-              "${mod}+Shift+P" = "exec ${terminal} --title floating-terminal htop";
+              "${mod}+Shift+P" = "exec ${terminal} start --class=floating-terminal htop";
               "${mod}+d" = "exec ${menu}";
               "${mod}+q" = "exec --no-startup-id rofi -show window";
               "${mod}+F2" = "exec --no-startup-id rofi -show run";
@@ -359,14 +353,11 @@ _:
               "${mod}+Shift+minus" = "move scratchpad";
 
               "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
-              "${mod}+m" = ''[app_id="kitty" title="ncspot"] scratchpad show'';
-              "${mod}+o" = ''[class="obsidian"] scratchpad show'';
+              "${mod}+m" = ''exec ${musicPlayerCommand}; [app_id="music-player"] scratchpad show'';
+              "${mod}+o" = ''exec ${orgCommand}; [app_id="org-mode"] scratchpad show'';
               "${mod}+Shift+t" =
                 ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${mod}+p" = ''[class="Slack"] scratchpad show'';
-              "${mod}+Shift+m" = ''
-                exec kitty --title ncspot ncspot; [app_id="kitty" title="ncspot"] scratchpad show
-              '';
             };
 
           modes = {

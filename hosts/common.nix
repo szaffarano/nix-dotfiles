@@ -50,6 +50,7 @@
       gopass
       pass
       yq
+      nodePackages.json-diff
 
       yubikey-personalization
       yubikey-personalization-gui
@@ -59,6 +60,7 @@
       kubectx
       kubectl
       kustomize
+      minikube
 
       slack
       zoom-us
@@ -67,6 +69,8 @@
       aws-vault
       awscli2
       aws-iam-authenticator
+
+      google-cloud-sdk
 
       rsync
 

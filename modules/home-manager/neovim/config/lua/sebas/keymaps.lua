@@ -5,7 +5,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Copy to OS clipboard'
 vim.keymap.set('n', '<leader>Y', '"+yg_', { desc = 'Copy rest to OS clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P', { desc = 'Paste OS clipboard before' })
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste OS clipboard after' })
-vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d', { desc = 'Void delete' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '<cmd>bdelete<cr>', { desc = 'Delete buffer' })
 vim.keymap.set('n', '<leader>D', '"_dd', { desc = 'Void line to void' })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move block up' })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move block down' })
