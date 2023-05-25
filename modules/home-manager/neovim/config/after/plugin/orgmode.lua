@@ -46,26 +46,24 @@ orgmode.setup {
   win_border = 'single',
   mappings = {
     org = {
-      org_timestamp_up = '<C-k>',
-      org_timestamp_down = '<C-j>',
-      org_timestamp_up_day = '+',
-      org_timestamp_down_day = '-',
+      org_timestamp_up = '<A-k>',
+      org_timestamp_down = '<A-j>',
     },
   },
   org_capture_templates = {
     t = {
       description = 'Refile',
-      template = '* TODO %?\n  DEADLINE: %T',
+      template = '* TODO %?  :triage: \n  SCHEDULED: %T',
     },
     T = {
       description = 'Todo',
-      template = '* TODO %?\n  DEADLINE: %T',
+      template = '* TODO %? :personal:\n  SCHEDULED: %T',
       target = org_path 'todos.org',
       headline = 'Inbox',
     },
     w = {
       description = 'Work todo',
-      template = '* TODO %?  :work: \n  DEADLINE: %T',
+      template = '* TODO %?  :work: \n  SCHEDULED: %T',
       target = org_path 'work.org',
       headline = 'Inbox',
     },

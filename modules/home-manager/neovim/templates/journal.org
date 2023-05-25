@@ -3,3 +3,7 @@
 #+AUTHOR: {{GetUserName}} ({{GetHostName}})
 
 * {name}
+
+** Notes
+
+** Tasks

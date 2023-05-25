@@ -5,4 +5,4 @@
 * {{wiki#template#case_title {name}}}
 
 
-{{GetOriginLink More info here}}
+{{GetOriginLink Note created from here}}

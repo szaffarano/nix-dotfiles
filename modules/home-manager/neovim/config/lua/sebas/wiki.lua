@@ -19,9 +19,10 @@ function! GetOriginLink(ctx, prefix) abort
   endif
 
   let l:page = wiki#paths#shorten_relative(a:ctx.origin.file)
-  let l:page = wiki#template#case_title(a:ctx, fnamemodify(l:page, ':r'))
+  let l:page = fnamemodify(l:page, ':r')
+  let l:label = wiki#template#case_title(a:ctx, l:page)
 
-  return a:prefix . ': [[' . l:page . ']]'
+  return a:prefix . ': [[' . l:page . '][' . l:label . ']]'
 endfunction
 ]=]
 
