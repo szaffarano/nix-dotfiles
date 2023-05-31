@@ -151,6 +151,12 @@ _:
 
           startup = [
             {
+              command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";
+            }
+            {
+              command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";
+            }
+            {
               command =
                 "gsettings set org.gnome.desktop.interface gtk-theme '${theme.gtk.theme}'";
               always = true;
@@ -412,11 +418,15 @@ _:
       };
 
       programs.zsh.profileExtra = ''
-        export XDG_CURRENT_DESKTOP="sway";
-        export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"
-        export PATH="$PATH:$HOME/.nix-profile/bin"
-        export NO_AT_BRIDGE=1
         export _JAVA_AWT_WM_NONREPARENTING=1
+        export NO_AT_BRIDGE=1
+        export PATH="$PATH:$HOME/.nix-profile/bin"
+        export QT_QPA_PLATFORM=wayland
+        export SDL_VIDEODRIVER=wayland
+        export XDG_CURRENT_DESKTOP="sway";
+        export XDG_CURRENT_DESKTOP=sway
+        export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/local/share:/usr/share"
+        export XDG_SESSION_DESKTOP=sway
       '';
 
       programs.zsh.loginExtra = ''

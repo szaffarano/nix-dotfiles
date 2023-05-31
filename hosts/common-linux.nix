@@ -7,6 +7,7 @@
 
   copyq.enable = true;
   firefox.enable = true;
+  swappy.enable = true;
   programs.chromium.enable = true;
   services.syncthing.enable = true;
 
@@ -26,7 +27,6 @@
     # screenshots
     grim
     slurp
-    swappy
     sway-contrib.grimshot
 
     imagemagick
