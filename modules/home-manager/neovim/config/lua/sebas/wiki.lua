@@ -24,6 +24,18 @@ function! GetOriginLink(ctx, prefix) abort
 
   return a:prefix . ': [[' . l:page . '][' . l:label . ']]'
 endfunction
+
+
+function! GetQOD(ctx) abort
+  let l:resp = json_decode(system('curl --no-progress-meter https://api.quotable.io/random'))
+
+  let l:quote = "#+begin_quote
+  \\n" . l:resp.content .
+  \"\n---" . l:resp.author .
+  \"\n#+end_quote"
+
+  return l:quote
+endfunction
 ]=]
 
 vim.g.wiki_templates = {
