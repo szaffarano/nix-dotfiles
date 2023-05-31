@@ -18,6 +18,7 @@ inputs: {
   ncspot = import ./ncspot inputs;
   neovim = import ./neovim inputs;
   starship = import ./starship inputs;
+  swappy = import ./swappy inputs;
   sway = import ./sway inputs;
   theme = import ./theme inputs;
   tmux = import ./tmux inputs;
