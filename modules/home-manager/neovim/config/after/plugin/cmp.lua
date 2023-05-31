@@ -65,6 +65,7 @@ cmp.setup {
 
   sources = {
     { name = 'buffer', keyword_length = 5 },
+    { name = 'copilot', group_index = 2 },
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'orgmode' },

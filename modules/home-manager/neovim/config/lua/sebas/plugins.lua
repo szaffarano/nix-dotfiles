@@ -129,4 +129,9 @@ lazy.setup({
   'lervag/wiki.vim',
 
   'itchyny/calendar.vim',
+
+  {
+    'zbirenbaum/copilot.lua',
+    dependencies = { 'zbirenbaum/copilot-cmp' },
+  },
 }, lazy_config)
