@@ -20,8 +20,9 @@ _:
         size = theme.sway.fonts.size;
       };
       wallpapersCommand = ./scripts/wallpaper.sh;
-      musicPlayerCommand = ./scripts/music-player.sh;
-      orgCommand = ./scripts/org.sh;
+      musicPlayerCommand = "${toggleCommand} 'music-player' 'ncspot'";
+      orgCommand = "${toggleCommand} 'org-mode' 'vim +WikiIndex'";
+      toggleCommand = ./scripts/toggle-scratchpad.sh;
       lockCmd = ./scripts/swaylock.sh;
       lockCmdBeforeSleep = "${./scripts/swaylock.sh} 0";
 
