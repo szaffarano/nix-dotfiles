@@ -359,8 +359,8 @@ _:
               "${mod}+Shift+minus" = "move scratchpad";
 
               "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
-              "${mod}+m" = ''exec ${musicPlayerCommand}; [app_id="music-player"] scratchpad show'';
-              "${mod}+o" = ''exec ${orgCommand}; [app_id="org-mode"] scratchpad show'';
+              "${mod}+m" = "exec ${musicPlayerCommand}";
+              "${mod}+o" = ''exec ${orgCommand}'';
               "${mod}+Shift+t" =
                 ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${mod}+p" = ''[class="Slack"] scratchpad show'';

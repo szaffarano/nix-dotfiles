@@ -3,6 +3,9 @@ _:
   options.bat.enable = lib.mkEnableOption "bat";
 
   config = lib.mkIf config.bat.enable {
+    programs.zsh.shellAliases = {
+      cat = "bat";
+    };
     programs.bat = {
       enable = true;
       config = {
