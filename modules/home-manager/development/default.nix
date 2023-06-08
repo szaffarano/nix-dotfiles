@@ -28,7 +28,7 @@ in
         poetry
         pipx
 
-        asdf-vm
+        rtx # replacement for asdf
 
         nixfmt
         rustup

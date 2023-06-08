@@ -1,6 +1,6 @@
 _:
 { config, lib, pkgs, ... }:
-let extras = [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ];
+let extras = [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ./rtx.zsh ];
 in
 {
   options.zsh.enable = lib.mkEnableOption "zsh";
