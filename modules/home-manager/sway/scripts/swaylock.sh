@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-KEEP_LATESTS=10
+KEEP_LATESTS=20
 TIMEOUT_SECS=5
 DEBUG=0
 

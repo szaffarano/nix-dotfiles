@@ -51,6 +51,8 @@
       pass
       yq
       nodePackages.json-diff
+      usbutils
+      lshw
 
       yubikey-personalization
       yubikey-personalization-gui
@@ -70,7 +72,11 @@
       awscli2
       aws-iam-authenticator
 
-      google-cloud-sdk
+      (
+        google-cloud-sdk.withExtraComponents [
+          google-cloud-sdk.components.gke-gcloud-auth-plugin
+        ]
+      )
 
       rsync
 

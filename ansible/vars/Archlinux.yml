@@ -48,7 +48,6 @@ packages:
   - bluez
   - bluez-utils
   - pipewire
-  - pipewire-alsa
   - pipewire-jack
   - pipewire-pulse
   - gst-plugin-pipewire
