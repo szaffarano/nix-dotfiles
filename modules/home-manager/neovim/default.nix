@@ -12,6 +12,7 @@ _:
       vimAlias = true;
       vimdiffAlias = true;
       withPython3 = true;
+      withRuby = false;
 
       extraLuaConfig = builtins.readFile ./init.lua;
     };
