@@ -25,6 +25,8 @@ _:
       toggleCommand = ./scripts/toggle-scratchpad.sh;
       lockCmd = ./scripts/swaylock.sh;
       lockCmdBeforeSleep = "${./scripts/swaylock.sh} 0";
+      lockTimeoutSecs = 5 * 60;
+      sleepTimeoutSecs = 60 * 60;
 
       # arbitrary delay to wait until swaybar starts, otherwhise tray icons are not shown
       startupCommandDellay = "5";
@@ -195,8 +197,8 @@ _:
             {
               command = ''
                 swayidle -w \
-                   timeout 300 '${lockCmd}' \
-                   timeout 1800 'swaymsg "output * dpms off"' \
+                   timeout ${toString lockTimeoutSecs} '${lockCmd}' \
+                   timeout ${toString sleepTimeoutSecs} 'swaymsg "output * dpms off"' \
                    resume 'swaymsg "output * dpms on"' \
                    before-sleep '${lockCmdBeforeSleep}'
               '';
