@@ -10,9 +10,8 @@ _:
       enableFishIntegration = false;
       settings = {
         cmd_duration.disabled = false;
+        directory.truncation_length = 5;
         docker_context.disabled = false;
-        java.disabled = true;
-        kotlin.disabled = true;
         git_branch.disabled = false;
         git_commit.disabled = false;
         git_metrics.disabled = true;
@@ -22,6 +21,8 @@ _:
           ignore_submodules = true;
           untracked = "";
         };
+        java.disabled = true;
+        kotlin.disabled = true;
         package.disabled = false;
         python.disabled = false;
         status.disabled = false;
