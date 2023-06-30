@@ -7,7 +7,7 @@ in
   config = lib.mkIf config.zsh.enable {
     programs.zsh = {
       enable = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       sessionVariables = { EDITOR = "nvim"; };
       enableCompletion = true;
       enableVteIntegration = true;
