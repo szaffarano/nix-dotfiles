@@ -59,8 +59,9 @@
 
       (buku.override { withServer = true; })
 
-      kubectx
       kubectl
+      kubectx
+      kubernetes-helm
       kustomize
       minikube
 
