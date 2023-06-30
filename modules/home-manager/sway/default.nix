@@ -20,6 +20,7 @@ _:
         size = theme.sway.fonts.size;
       };
       wallpapersCommand = ./scripts/wallpaper.sh;
+      showKeyboardCommand = "swayimg ${./images/KB_Dvorak.png}";
       musicPlayerCommand = "${toggleCommand} 'music-player' 'ncspot'";
       orgCommand = "${toggleCommand} 'org-mode' 'vim +WikiIndex'";
       toggleCommand = ./scripts/toggle-scratchpad.sh;
@@ -227,7 +228,7 @@ _:
               repeat_delay = "250";
               repeat_rate = "25";
               xkb_layout = "us,us";
-              xkb_variant = "altgr-intl,dvorak-intl";
+              xkb_variant = "altgr-intl,dvorak";
               xkb_options = "grp:rctrl_toggle";
             };
             "type:touchpad" = {
@@ -279,7 +280,6 @@ _:
               "${mod}+Shift+q" = "kill";
               "${mod}+Shift+P" = "exec ${terminal} start --class=floating-terminal htop";
               "${mod}+d" = "exec ${menu}";
-              "${mod}+q" = "exec --no-startup-id rofi -show window";
               "${mod}+F2" = "exec --no-startup-id rofi -show run";
 
               "${mod}+Shift+w" = "exec ${pkgs.keepassxc}/bin/keepassxc";
@@ -363,6 +363,7 @@ _:
 
               "${mod}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
               "${mod}+m" = "exec ${musicPlayerCommand}";
+              "${mod}+q" = "exec ${showKeyboardCommand}";
               "${mod}+o" = ''exec ${orgCommand}'';
               "${mod}+Shift+t" =
                 ''[app_id="org.telegram.desktop"] scratchpad show'';
