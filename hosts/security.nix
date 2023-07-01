@@ -4,6 +4,7 @@
     packages = with pkgs; [
       wireshark
       psmisc
+      tor-browser-bundle-bin
     ];
   };
 }
