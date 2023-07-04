@@ -65,3 +65,4 @@ treesitter_configs.setup {
     },
   },
 }
+vim.treesitter.language.register('bash', 'zsh')
