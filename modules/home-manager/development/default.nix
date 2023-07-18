@@ -1,8 +1,5 @@
 _:
 { config, lib, pkgs, ... }:
-let
-  c = config.homeDirectory;
-in
 {
   options.development.enable = lib.mkEnableOption "development";
   options.development.intellij-idea-pkg = lib.mkOption {
