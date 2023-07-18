@@ -5,7 +5,10 @@
   ansible.enable = true;
   bat.enable = true;
   btop.enable = true;
-  development.enable = true;
+  development = {
+    enable = true;
+    intellij-idea-pkg = pkgs.jetbrains.idea-ultimate;
+  };
   direnv.enable = true;
   fzf.enable = true;
   keepassxc.enable = true;
@@ -53,6 +56,7 @@
       nodePackages.json-diff
       usbutils
       lshw
+      czkawka # duplicate files finder
 
       yubikey-personalization
       yubikey-personalization-gui
