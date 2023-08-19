@@ -17,6 +17,8 @@
     networkmanager
     blueberry
 
+    iw
+
     nettools
 
     opam

@@ -21,10 +21,6 @@ in
             tags = [ "defer:0" ];
           }
           {
-            name = "RiverGlide/zsh-goenv";
-            tags = [ "from:gitlab" ];
-          }
-          {
             name = "lukechilds/zsh-nvm";
           }
           {

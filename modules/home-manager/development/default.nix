@@ -27,6 +27,8 @@ _:
 
         rtx # replacement for asdf
 
+        go
+
         nixfmt
         rustup
 
