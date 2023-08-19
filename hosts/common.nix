@@ -57,6 +57,9 @@
       usbutils
       lshw
       czkawka # duplicate files finder
+      jless
+
+      helix
 
       yubikey-personalization
       yubikey-personalization-gui
@@ -68,6 +71,14 @@
       kubernetes-helm
       kustomize
       minikube
+      kind
+      argocd
+      k9s
+      kubeseal
+      kubeconform
+
+      shellcheck
+      shfmt
 
       slack
       zoom-us
@@ -80,6 +91,8 @@
       (
         google-cloud-sdk.withExtraComponents [
           google-cloud-sdk.components.gke-gcloud-auth-plugin
+          google-cloud-sdk.components.pubsub-emulator
+          google-cloud-sdk.components.cloud-firestore-emulator
         ]
       )
 
@@ -103,6 +116,7 @@
     export PATH="$PATH:$HOME/.nix-profile/bin"
     export PATH="$PATH:$HOME/.local/bin"
     export PATH="$PATH:$HOME/.bin"
+    export PATH="$PATH:$HOME/.tfenv/bin"
     export AWS_VAULT_BACKEND="pass";
   '';
 }
