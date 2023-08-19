@@ -31,7 +31,35 @@
               status = "disable";
             }
             {
+              criteria = "HDMI-A-1";
+              status = "enable";
+            }
+            {
               criteria = "DP-1";
+              status = "disable";
+            }
+          ];
+        };
+        docked-alt = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "DP-1";
+              status = "enable";
+            }
+          ];
+        };
+        docked-office = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "DP-2";
               status = "enable";
             }
           ];
