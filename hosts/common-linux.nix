@@ -21,6 +21,8 @@
 
     nettools
 
+    strace
+
     opam
 
     insomnia

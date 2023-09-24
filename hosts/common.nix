@@ -3,7 +3,7 @@
   fontconfig.enable = true;
 
   ansible.enable = true;
-  bat.enable = true;
+  bat.enable = false;
   btop.enable = true;
   development = {
     enable = true;
