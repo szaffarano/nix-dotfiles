@@ -10,14 +10,12 @@ inputs.home-manager.lib.homeManagerConfiguration {
     inherit system;
     config = {
       allowUnfreePredicate = (import ./non-free-config.nix inputs);
-      permittedInsecurePackages = [
-        "electron-21.4.0"
-      ];
+      permittedInsecurePackages = [ ];
     };
-    overlays = self.overlays;
+    overlays = inputs.overlays;
   };
 
-  modules = builtins.attrValues self.homeModules ++ [
+  modules = builtins.attrValues inputs.homeModules ++ [
     configFile
     inputs.nur.nixosModules.nur
     {

@@ -3,13 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    nur.url = "github:nix-community/NUR";
+
     nixgl = {
       url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nur.url = "github:nix-community/NUR";
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -17,10 +17,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,17 +30,18 @@
   };
   outputs = inputs:
     let
-      lib = import ./lib inputs;
       customOverlays = import ./overlays;
+      overlays = [ inputs.nixgl.overlay inputs.neovim-nightly-overlay.overlay ]
+        ++ builtins.attrValues customOverlays;
+
+      libInputs = inputs // {
+        overlays = overlays;
+        homeModules = import ./modules/home-manager inputs;
+      };
+
+      lib = import ./lib libInputs;
     in
     {
-      overlays = [
-        inputs.nixgl.overlay
-        inputs.neovim-nightly-overlay.overlay
-      ] ++ builtins.attrValues customOverlays;
-
-      homeModules = import ./modules/home-manager inputs;
-
       homeConfigurations = {
         "sebas@ubuntu" = lib.mkHome "sebas" "ubuntu" "x86_64-linux";
         "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
