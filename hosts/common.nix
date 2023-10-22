@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, lib, ... }: {
+{ pkgs, ... }: {
 
   fontconfig.enable = true;
 
@@ -12,7 +12,6 @@
   direnv.enable = true;
   fzf.enable = true;
   keepassxc.enable = true;
-  neovim.enable = true;
   starship.enable = true;
   tmux.enable = true;
   zsh.enable = true;

@@ -8,7 +8,7 @@ _:
     let
       sebasPublicKey = pkgs.fetchurl {
         url = "https://keys.openpgp.org/vks/v1/by-fingerprint/9AE57D3DE601A79560DD0F4B14F35C58A2191587";
-        sha256 = "sha256-AjutFST4fTkQWpUwRm/ww3+o0MiJxz6LFAzB5rLT9qM=";
+        sha256 = "sha256-H7mz2Cceoadwr4fH5Uo1H3CNcsN21KiW++HtdpDCaSg=";
       };
 
       sebasAtElasticPublicKey = pkgs.fetchurl {
