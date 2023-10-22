@@ -1,0 +1,6 @@
+# vim: ft=yaml
+
+ansible/roles/packages/defaults/main.yml var-naming[no-role-prefix]
+ansible/roles/packages/handlers/main.yml no-changed-when
+ansible/roles/system/defaults/main.yml var-naming[no-role-prefix]
+ansible/roles/system/defaults/main.yml var-naming[no-role-prefix]
