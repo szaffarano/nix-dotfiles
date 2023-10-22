@@ -13,8 +13,6 @@ for _, name in pairs { 'backupdir', 'directory', 'undodir' } do
   end
 end
 
-
-
 -- Helpful related items:
 --   1. :center, :left, :right
 --   2. gw{motion} - Put cursor back after formatting motion.
