@@ -1,3 +1,4 @@
+
 local M = {}
 
 local builtin = require 'telescope.builtin'
@@ -59,3 +60,4 @@ function M.grep_wiki()
 end
 
 return M
+

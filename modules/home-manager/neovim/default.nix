@@ -1,32 +1,56 @@
-_:
-{ config, lib, pkgs, ... }:
+{ ... }: {
+  imports = [
+    ./autocommands.nix
+    ./colorscheme.nix
+    ./keymappings.nix
+    ./options.nix
+    ./plugins
+  ];
 
-{
-  options.neovim.enable = lib.mkEnableOption "neovim";
+  home.sessionVariables.EDITOR = "nvim";
 
-  config = lib.mkIf config.neovim.enable {
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withPython3 = true;
-      withRuby = false;
+  programs.nixvim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    defaultEditor = true;
+    luaLoader.enable = true;
+    highlight.ExtraWhitespace.bg = "red";
+    match.ExtraWhitespace = "\\s\\+$";
+  };
 
-      extraLuaConfig = builtins.readFile ./init.lua;
-    };
+  xdg.dataFile."nvim/templates" = {
+    source = ./templates;
+    recursive = true;
+  };
 
-    home.packages = with pkgs; [ tree-sitter gcc ];
-
-    xdg.configFile.nvim = {
-      source = ./config;
-      recursive = true;
-    };
-
-    xdg.dataFile."nvim/templates" = {
-      source = ./templates;
-      recursive = true;
+  xdg.desktopEntries = {
+    nvim = {
+      name = "Neovim";
+      genericName = "Text Editor";
+      comment = "Edit text files";
+      exec = "nvim %F";
+      icon = "nvim";
+      mimeType = [
+        "text/english"
+        "text/plain"
+        "text/x-makefile"
+        "text/x-c++hdr"
+        "text/x-c++src"
+        "text/x-chdr"
+        "text/x-csrc"
+        "text/x-java"
+        "text/x-moc"
+        "text/x-pascal"
+        "text/x-tcl"
+        "text/x-tex"
+        "application/x-shellscript"
+        "text/x-c"
+        "text/x-c++"
+      ];
+      terminal = true;
+      type = "Application";
+      categories = [ "Utility" "TextEditor" ];
     };
   };
 }

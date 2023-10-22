@@ -26,4 +26,5 @@ inputs: {
   wezterm = import ./wezterm inputs;
   zsh = import ./zsh inputs;
   nix-index = inputs.nix-index-database.hmModules.nix-index;
+  nixvim = inputs.nixvim.homeManagerModules.nixvim;
 }
