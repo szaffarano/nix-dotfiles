@@ -118,6 +118,24 @@
           mode = "n";
         };
 
+        # move cursor in insert mode using ctrl-alt-...
+        "<C-M-h>" = {
+          action = "<Left>";
+          mode = [ "i" "c" "" ];
+        };
+        "<C-M-l>" = {
+          action = "<Right>";
+          mode = [ "i" "c" ];
+        };
+        "<C-M-j>" = {
+          action = "<Down>";
+          mode = [ "i" "c" ];
+        };
+        "<C-M-k>" = {
+          action = "<Up>";
+          mode = [ "i" "c" ];
+        };
+
         # move current line up/down
         # M = Alt key
         "<M-k>" = {

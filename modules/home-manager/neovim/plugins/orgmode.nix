@@ -1,5 +1,11 @@
 { pkgs, ... }: {
   programs.nixvim = {
+
+    options = {
+      conceallevel = 2;
+      concealcursor = "nc";
+    };
+
     extraConfigLuaPre = ''
       require('orgmode').setup_ts_grammar()
     '';
