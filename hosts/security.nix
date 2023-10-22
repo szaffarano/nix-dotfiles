@@ -5,6 +5,10 @@
       wireshark
       psmisc
       tor-browser-bundle-bin
+      age
+      ssh-to-age
+      age-plugin-yubikey
+      sops
     ];
   };
 }
