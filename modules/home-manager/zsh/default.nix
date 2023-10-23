@@ -1,6 +1,6 @@
 _:
 { config, lib, pkgs, ... }:
-let extras = [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ./rtx.zsh ./binds.zsh ];
+let extras = [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ./rtx.zsh ./binds.zsh ./breeze.zsh ];
 in
 {
   options.zsh.enable = lib.mkEnableOption "zsh";
@@ -22,6 +22,9 @@ in
           }
           {
             name = "lukechilds/zsh-nvm";
+          }
+          {
+            name = "scmbreeze/scm_breeze";
           }
           {
             name = "zsh-users/zsh-syntax-highlighting";
@@ -56,6 +59,7 @@ in
           }
         ];
       };
+
       shellAliases = {
         ls = "ls --color";
         ll = "ls -l";
@@ -63,10 +67,12 @@ in
         # TODO: move to k8s-related module
         k = "kubectl";
       };
+
       history = {
-        size = 10000;
+        size = 50000;
         path = "${config.xdg.dataHome}/zsh/history";
       };
+
       initExtra = lib.concatStringsSep "\n" (lib.lists.forEach extras (f:
         (builtins.readFile f)
       ));
