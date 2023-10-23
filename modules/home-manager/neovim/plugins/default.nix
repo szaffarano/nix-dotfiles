@@ -26,7 +26,7 @@
         enable = true;
         debounceDelay = 500;
         writeAllBuffers = true;
-        triggerEvents = [ "BufLeave" "BufWinLeave" "FocusLost" ];
+        triggerEvents = [ "FocusLost" ];
       };
 
       nvim-autopairs.enable = true;
