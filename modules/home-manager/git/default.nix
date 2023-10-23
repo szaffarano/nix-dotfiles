@@ -45,7 +45,10 @@ in
 
         delta = {
           enable = true;
-          options = { features = "chameleon"; };
+          options = {
+            features = "chameleon";
+            "side-by-side" = false;
+          };
         };
 
         extraConfig = {

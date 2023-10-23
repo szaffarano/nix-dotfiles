@@ -15,6 +15,18 @@
       };
     };
 
+    keymaps = [
+      {
+        key = "<leader>a";
+        action = "<cmd>Git blame<cr>";
+        mode = "n";
+        options = {
+          noremap = true;
+          silent = true;
+        };
+      }
+    ];
+
     extraPlugins = with pkgs.vimPlugins; [
       vim-rhubarb
     ];
