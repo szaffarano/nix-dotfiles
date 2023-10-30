@@ -4,6 +4,8 @@ local org_path = function(path)
   return ('%s/%s'):format(org_directory, pattern)
 end
 
+require('nvim-treesitter.configs').setup { highlight = { additional_vim_regex_highlighting = { 'org' } } }
+
 require('orgmode').setup {
   org_agenda_files = { org_path() },
   org_default_notes_file = org_path 'refile.org',
