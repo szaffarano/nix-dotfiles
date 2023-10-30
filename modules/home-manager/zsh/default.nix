@@ -41,11 +41,11 @@ in
           }
           {
             name = "scmbreeze/scm_breeze";
-            tags = [ "defer:3" ];
+            tags = [ "defer:2" ];
           }
           {
             name = "wfxr/forgit";
-            tags = [ "defer:1" ];
+            tags = [ "defer:3" ];
           }
           { name = "zpm-zsh/clipboard"; }
           { name = "zsh-users/zsh-autosuggestions"; }
