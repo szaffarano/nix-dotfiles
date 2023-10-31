@@ -1,4 +1,16 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  org-bullets-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "org-bullets.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "akinsho";
+      repo = "org-bullets.nvim";
+      rev = "6e0d60e901bb939eb526139cb1f8d59065132fd9";
+      sha256 = "sha256-x6S4WdgfUr7HGEHToSDy3pSHEwOPQalzWhBUipqMtnw=";
+    };
+  };
+in
+{
   programs.nixvim = {
 
     options = {
@@ -12,9 +24,9 @@
 
     extraConfigLua = builtins.readFile ./orgmode.lua;
 
-    # TODO: do I need 'akinsho/org-bullets.nvim'?
     extraPlugins = with pkgs.vimPlugins; [
       orgmode
+      org-bullets-nvim
     ];
 
     keymaps = [

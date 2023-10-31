@@ -45,3 +45,7 @@ require('orgmode').setup {
     },
   },
 }
+
+require('org-bullets').setup {
+  concealcursor = true,
+}
