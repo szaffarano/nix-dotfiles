@@ -51,6 +51,10 @@ in {
           action = "lsp_workspace_symbols";
           desc = "[S]search [W]orkspace [S]ymbols";
         };
+        "<leader>ss" = {
+          action = "lsp_document_symbols";
+          desc = "[S]search document [S]ymbols";
+        };
       });
 
       keymapsSilent = true;
