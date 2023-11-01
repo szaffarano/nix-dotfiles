@@ -26,6 +26,9 @@ systemd_services_userspace:
   - pipewire-pulse.service
   - keybase.service
   - kbfs.service
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
+  - xdg-desktop-portal-gtk
 
 packages:
   - avahi
@@ -64,7 +67,7 @@ packages:
   - dnsmasq
   - vde2
   - bridge-utils
-  - openbsd-netcat
+  - gnu-netcat
   - dmidecode
   - qemu
   - intel-ucode
