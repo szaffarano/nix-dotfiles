@@ -63,8 +63,6 @@
       yubikey-personalization
       yubikey-personalization-gui
 
-      (buku.override { withServer = true; })
-
       kubectl
       kubectx
       kubernetes-helm
