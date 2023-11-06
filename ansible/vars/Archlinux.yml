@@ -21,6 +21,7 @@ systemd_services:
   - paccache.timer
   - systemd-boot-update.service
   - thermald.service
+  - wol@phy0.service
 
 systemd_services_userspace:
   - pipewire-pulse.service

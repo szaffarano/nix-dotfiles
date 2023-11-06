@@ -63,6 +63,8 @@
       yubikey-personalization
       yubikey-personalization-gui
 
+      ethtool
+      solaar
       kubectl
       kubectx
       kubernetes-helm

@@ -56,6 +56,12 @@
     mode: "0644"
   when: lid_name is defined
 
+- name: Enable WoL
+  ansible.builtin.template:
+    src: systemd/wol@.service
+    dest: /etc/systemd/system/wol@.service
+    mode: "0644"
+
 - name: Enable FastConnectable blueetooth feature
   ansible.builtin.template:
     src: bluetooth/main.conf
