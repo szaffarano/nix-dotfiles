@@ -8,19 +8,25 @@ require('nvim-treesitter.configs').setup { highlight = { additional_vim_regex_hi
 
 require('orgmode').setup {
   org_agenda_files = { org_path() },
-  org_default_notes_file = org_path 'refile.org',
-  org_hide_emphasis_markers = true,
+  org_agenda_skip_deadline_if_done = false,
+  org_agenda_skip_scheduled_if_done = false,
   org_agenda_text_search_extra_files = { 'agenda-archives' },
-  org_agenda_start_on_weekday = false,
+  org_deadline_warning_days = 60,
+  org_default_notes_file = org_path 'refile.org',
+  org_log_into_drawer = 'LOGBOOK',
+  org_tags_column = 100,
   org_todo_keywords = { 'TODO(t)', 'PROGRESS(p)', '|', 'DONE(d)', 'REJECTED(r)' },
-  win_split_mode = 'float',
+
   win_border = 'single',
+  win_split_mode = 'auto',
+
   mappings = {
     org = {
       org_timestamp_up = '<A-k>',
       org_timestamp_down = '<A-j>',
     },
   },
+
   org_capture_templates = {
     t = {
       description = 'Refile',
