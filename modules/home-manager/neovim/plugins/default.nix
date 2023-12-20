@@ -11,9 +11,10 @@
     ./oil.nix
     ./orgmode.nix
     ./telescope.nix
+    ./toggleterm.nix
     ./treesitter.nix
-    ./wiki-vim.nix
     ./which-key.nix
+    ./wiki-vim.nix
   ];
 
   # TODO:
@@ -31,18 +32,11 @@
 
       nvim-autopairs.enable = true;
 
-      nvim-colorizer = {
-        enable = true;
-        userDefaultOptions.names = false;
-      };
-
       lastplace.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      vim-sleuth # manage shiftwitd and expand tab automagically
-      vim-gnupg # transparent gpg encryption
-      neoformat # TODO: is it still needed?
+      vim-gnupg
     ];
   };
 }
