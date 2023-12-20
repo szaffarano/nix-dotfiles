@@ -45,6 +45,7 @@
             enable = true;
             filetypes = [ "sh" "zsh" "bash" ];
           };
+          terraformls.enable = true;
           clangd.enable = true;
           gopls.enable = true;
           jsonls.enable = true;
