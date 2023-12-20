@@ -1,6 +1,6 @@
 {
   kitty = import ./kitty;
-  chromium = import ./chromium;
+  # chromium = import ./chromium;
   flameshot = import ./flameshot;
   slack = import ./slack;
 }
