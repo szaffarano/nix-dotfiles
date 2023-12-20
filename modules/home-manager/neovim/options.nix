@@ -51,8 +51,18 @@
       expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
       autoindent = true; # Do clever autoindenting
 
-      textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be
-      #   broken after white space to get this width.
+      textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
+
+      listchars = {
+        conceal = "┊";
+        # eol = "↲";
+        extends = "<";
+        nbsp = "␣";
+        precedes = ">";
+        tab = "» ";
+        trail = "·";
+      };
+      list = true;
 
       # Folding
       foldcolumn = "auto";

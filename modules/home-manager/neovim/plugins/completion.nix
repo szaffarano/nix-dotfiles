@@ -43,7 +43,7 @@
             modes = [ "i" "s" ];
             action = "cmp.mapping.select_next_item()";
           };
-          "<Cp>" = {
+          "<C-p>" = {
             modes = [ "i" "s" ];
             action = "cmp.mapping.select_prev_item()";
           };

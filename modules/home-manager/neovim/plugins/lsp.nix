@@ -4,6 +4,17 @@
   programs.nixvim = {
     extraConfigLua = "require'lspconfig'.ocamllsp.setup{}";
 
+    keymaps = [
+      {
+        key = "<leader>rls";
+        action = "<cmd>LspRestart<cr>";
+        options = {
+          desc = "[R]estart [L]anguage [S]erver]";
+        };
+      }
+    ];
+
+
     plugins = {
       lsp = {
         enable = true;
@@ -14,6 +25,7 @@
             # Navigate in diagnostics
             "<leader>k" = "goto_prev";
             "<leader>j" = "goto_next";
+            "<leader>e" = "open_float";
           };
 
           lspBuf = {
@@ -21,8 +33,10 @@
             gD = "references";
             gt = "type_definition";
             gi = "implementation";
+            ga = "code_action";
+            "<C-M-l>" = "format";
             K = "hover";
-            "<F2>" = "rename";
+            "<S-F6>" = "rename";
           };
         };
 
@@ -37,7 +51,11 @@
           lua-ls.enable = true;
           nil_ls.enable = true;
           pyright.enable = true;
-          rust-analyzer.enable = true;
+          rust-analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
           texlab.enable = true;
           tsserver.enable = true;
           yamlls.enable = true;

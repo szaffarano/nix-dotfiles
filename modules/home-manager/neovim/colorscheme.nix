@@ -1,8 +1,11 @@
 {
   programs.nixvim = {
     colorschemes = {
-      catppuccin = {
+      kanagawa = {
         enable = true;
+      };
+      catppuccin = {
+        enable = false;
         flavour = "frappe";
         showBufferEnd = true;
       };
