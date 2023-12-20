@@ -15,8 +15,6 @@
     vimAlias = true;
     defaultEditor = true;
     luaLoader.enable = true;
-    highlight.ExtraWhitespace.bg = "red";
-    match.ExtraWhitespace = "\\s\\+$";
   };
 
   xdg.dataFile."nvim/templates" = {

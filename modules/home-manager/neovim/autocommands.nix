@@ -9,7 +9,8 @@
     # Remove trailing whitespace on save
     {
       event = "BufWrite";
-      command = "%s/\\s\\+$//e";
+      # command = "%s/\\s\\+$//e|''";
+      command = "%s/\\s\\+$//e|norm!``";
     }
 
     # Open help in a vertical split

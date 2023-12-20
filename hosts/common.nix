@@ -26,6 +26,7 @@
       sd # sed replacement
       bandwhich
       newsboat # rss feeds reader
+      atop
 
       dig
       file

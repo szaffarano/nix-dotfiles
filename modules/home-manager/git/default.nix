@@ -98,6 +98,8 @@ in
         enable = true;
         extensions = [ pkgs.gh-dash ];
         settings = {
+          # Workaround for https://github.com/nix-community/home-manager/issues/4744
+          version = 1;
           git_protocol = "https";
           prompt = "enabled";
           editor = "nvim";
@@ -105,6 +107,15 @@ in
             co = "pr checkout";
             pv = "pr view";
           };
+        };
+      };
+      programs.gh-dash = {
+        enable = true;
+        settings = {
+          prSections = [{
+            title = "My Pull Requests";
+            filters = "is:open author:@me";
+          }];
         };
       };
     };
