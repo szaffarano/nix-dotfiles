@@ -4,12 +4,17 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    hardware.url = "github:nixos/nixos-hardware";
 
-    nur.url = "github:nix-community/NUR";
+    nix-colors.url = "github:misterio77/nix-colors";
 
-    nixgl = {
-      url = "github:guibou/nixGL";
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = { nixpkgs.follows = "nixpkgs"; };
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -17,6 +22,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprwm-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nur.url = "github:nix-community/NUR";
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
@@ -27,30 +39,47 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
-  outputs = inputs:
+
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      customOverlays = import ./overlays;
-      overlays = [ inputs.nixgl.overlay inputs.neovim-nightly-overlay.overlay ]
-        ++ builtins.attrValues customOverlays;
+      inherit (self) outputs;
 
-      libInputs = inputs // {
-        overlays = overlays;
-        homeModules = import ./modules/home-manager inputs;
-      };
-
-      lib = import ./lib libInputs;
+      localLib = import ./lib inputs;
+      lib = nixpkgs.lib // home-manager.lib // localLib;
+      systems = [ "x86_64-linux" ];
+      forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
+      pkgsFor = nixpkgs.legacyPackages;
     in
     {
+      inherit lib;
+
+      user = {
+        name = "sebas";
+        fullName = "Sebastian Zaffarano";
+        email = "sebas@zaffarano.com.ar";
+        gpgKey = "0x14F35C58A2191587";
+      };
+
+      disko = inputs.disko;
+
+      nixosModules = import ./modules/nixos { inherit inputs; };
+      homeManagerModules = import ./modules/home-manager;
+
+      overlays = import ./overlays { inherit inputs outputs; };
+
+
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+
+      devShells =
+        forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
+
+      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+
       homeConfigurations = {
-        "sebas@ubuntu" = lib.mkHome "sebas" "ubuntu" "x86_64-linux";
-        "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
-        "szaffarano@work" = lib.mkHome "szaffarano" "work" "x86_64-linux";
+        "sebas@pilsen" = lib.mkHome "sebas" "pilsen" "x86_64-linux";
+        # "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
+        # "szaffarano@work" = lib.mkHome "szaffarano" "work" "x86_64-linux";
       };
 
       darwinConfigurations = {

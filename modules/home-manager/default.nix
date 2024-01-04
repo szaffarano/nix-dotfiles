@@ -1,30 +1,8 @@
-inputs: {
-  ansible = import ./ansible inputs;
-  bat = import ./bat inputs;
-  btop = import ./btop inputs;
-  copyq = import ./copyq inputs;
-  development = import ./development inputs;
-  direnv = import ./direnv inputs;
-  firefox = import ./firefox inputs;
-  flameshot = import ./flameshot inputs;
-  fontconfig = import ./fontconfig inputs;
-  fzf = import ./fzf inputs;
-  git = import ./git inputs;
-  gpg-agent = import ./gpg-agent inputs;
-  gpg = import ./gpg inputs;
-  gtk = import ./gtk inputs;
-  keepassxc = import ./keepassxc inputs;
-  kitty = import ./kitty inputs;
-  ncspot = import ./ncspot inputs;
-  neovim = import ./neovim inputs;
-  starship = import ./starship inputs;
-  swappy = import ./swappy inputs;
-  sway = import ./sway inputs;
-  theme = import ./theme inputs;
-  tmux = import ./tmux inputs;
-  xdg = import ./xdg inputs;
-  wezterm = import ./wezterm inputs;
-  zsh = import ./zsh inputs;
-  nix-index = inputs.nix-index-database.hmModules.nix-index;
-  nixvim = inputs.nixvim.homeManagerModules.nixvim;
+{
+  bootstrap = import ./bootstrap;
+  desktop = import ./desktop;
+  develop = import ./develop;
+  fonts = import ./fonts;
+  sound = import ./sound;
+  terminal = import ./terminal;
 }
