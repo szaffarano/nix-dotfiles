@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let cfg = config.nixos.desktop.sway;
 
 in {
@@ -7,9 +7,5 @@ in {
   config = lib.mkIf cfg.enable {
     security.pam.services = { swaylock = { }; };
     programs.sway.enable = true;
-    xdg.portal = {
-      xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    };
   };
 }

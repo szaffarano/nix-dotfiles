@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let cfg = config.nixos.desktop;
 
 in {
@@ -20,6 +20,8 @@ in {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
+      xdgOpenUsePortal = false;
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     };
   };
 }
