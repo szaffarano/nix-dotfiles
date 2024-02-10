@@ -54,20 +54,12 @@
     {
       inherit lib;
 
-      user = {
-        name = "sebas";
-        fullName = "Sebastian Zaffarano";
-        email = "sebas@zaffarano.com.ar";
-        gpgKey = "0x14F35C58A2191587";
-      };
-
       disko = inputs.disko;
 
       nixosModules = import ./modules/nixos { inherit inputs; };
       homeManagerModules = import ./modules/home-manager;
 
       overlays = import ./overlays { inherit inputs outputs; };
-
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
@@ -77,7 +69,18 @@
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       homeConfigurations = {
-        "sebas@pilsen" = lib.mkHome "sebas" "pilsen" "x86_64-linux";
+        "sebas@pilsen" = lib.mkHome {
+          user = {
+            name = "sebas";
+            fullName = "Sebastian Zaffarano";
+            email = "sebas@zaffarano.com.ar";
+            gpgKey = "0x14F35C58A2191587";
+          };
+          host = {
+            name = "pilsen";
+            arch = "x86_64-linux";
+          };
+        };
         # "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
         # "szaffarano@work" = lib.mkHome "szaffarano" "work" "x86_64-linux";
       };

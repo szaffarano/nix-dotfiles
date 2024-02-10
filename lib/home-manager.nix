@@ -1,8 +1,8 @@
 { self, nixpkgs, ... }@inputs:
-user: host: system:
+config:
 let
-  configFile = ../users/${user}/${host}.nix;
-  outputs = self.outputs;
+  configFile = ../users/${config.user.name}/${config.host.name}.nix;
+  outputs = (self.outputs // { user = config.user; });
 in
 inputs.home-manager.lib.homeManagerConfiguration {
   modules = builtins.attrValues outputs.homeManagerModules ++ [
@@ -14,7 +14,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
   ];
 
   pkgs = import inputs.nixpkgs {
-    inherit system;
+    system = config.host.arch;
   };
 
   extraSpecialArgs = { inherit inputs outputs; };

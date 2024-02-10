@@ -1,8 +1,8 @@
 { lib, config, inputs, outputs, ... }:
-let inherit (inputs.nix-colors) colorSchemes;
-in {
-  imports = [ ];
-
+let
+  inherit (inputs.nix-colors) colorSchemes;
+in
+{
   config = {
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
