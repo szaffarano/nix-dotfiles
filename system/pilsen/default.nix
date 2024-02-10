@@ -19,7 +19,7 @@
   };
 
   nixos = {
-    hostName = "pilsen";
+    hostName = outputs.host.name;
     allowedUDPPorts = [ 22000 21027 ];
     audio.enable = true;
     bluetooth.enable = true;
@@ -31,10 +31,8 @@
       greeter.enable = false;
     };
     system = {
-      user = "sebas";
-      authorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-      ];
+      user = outputs.user.name;
+      authorizedKeys = outputs.user.authorizedKeys;
     };
   };
 
