@@ -5,7 +5,7 @@ let
 in
 nixpkgs.lib.nixosSystem {
   modules = [
-    ../system/${config.host.name}
+    "${self}/system/${config.host.name}"
     inputs.nix-index-database.nixosModules.nix-index
   ];
   specialArgs = { inherit inputs outputs; };

@@ -41,7 +41,7 @@ in
       };
 
       waybar = {
-        colors = with config.colorscheme.colors; {
+        colors = with config.colorscheme.palette; {
           c-bg-primary = "#${base00}";
           c-fg-primary = "#${base04}";
           c-fg-secondary = "#${base02}";

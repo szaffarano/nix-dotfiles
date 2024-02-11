@@ -9,7 +9,7 @@ let
     else
       "/share/icons/Papirus-Light";
 
-  inherit (config.colorscheme) colors kind;
+  inherit (config.colorscheme) palette kind;
 in
 with lib; {
   options.desktop.wayland.mako.enable = mkEnableOption "mako";
@@ -30,9 +30,9 @@ with lib; {
       height = 150;
       borderSize = 1;
       defaultTimeout = 12000;
-      backgroundColor = "#${colors.base00}dd";
-      borderColor = "#${colors.base03}dd";
-      textColor = "#${colors.base05}dd";
+      backgroundColor = "#${palette.base00}dd";
+      borderColor = "#${palette.base03}dd";
+      textColor = "#${palette.base05}dd";
       layer = "overlay";
     };
 

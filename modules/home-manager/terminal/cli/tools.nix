@@ -4,7 +4,7 @@ in with lib; {
   options.terminal.cli.tools.enable = mkEnableOption "tools";
 
   config = mkIf cfg.enable {
-    programs.rtx = {
+    programs.mise = {
       enable = true;
 
       enableZshIntegration = true;

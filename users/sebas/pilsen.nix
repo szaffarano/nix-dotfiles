@@ -39,16 +39,17 @@
     };
   };
 
-  programs.rtx.settings = {
+  programs.mise.settings = {
+    verbose = false;
+    experimental = true;
+    all_compile = false;
+  };
+
+  programs.mise.globalConfig = {
     tools = {
       node = "lts";
       python = "latest";
       yarn = "latest";
-    };
-
-    settings = {
-      verbose = true;
-      experimental = true;
     };
   };
 }
