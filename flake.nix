@@ -42,7 +42,6 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      # follows = "nixpkgs";
     };
   };
 

@@ -40,20 +40,20 @@
   };
 
   programs.mise = {
-  settings = {
-    verbose = false;
-    experimental = true;
-    all_compile = false;
-  };
+    settings = {
+      verbose = false;
+      experimental = true;
+      all_compile = false;
+    };
 
-  globalConfig = {
-    tools = {
-      node = "lts";
-      python = "latest";
-      yarn = "latest";
+    globalConfig = {
+      tools = {
+        node = "lts";
+        python = "latest";
+        yarn = "latest";
+      };
     };
   };
-  };
 
-    home.packages = with pkgs; [ sops ssh-to-age ];
+  home.packages = with pkgs; [ sops ssh-to-age ];
 }

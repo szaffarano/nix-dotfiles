@@ -6,16 +6,6 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: mixed-line-ending
-  - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.32.0
-    hooks:
-      - id: yamllint
-        args: [--format, parsable, --strict]
-  - repo: https://github.com/ansible/ansible-lint
-    rev: v6.21.1
-    hooks:
-      - id: ansible-lint
-        args: [--project-dir=ansible]
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.37.0
     hooks:
