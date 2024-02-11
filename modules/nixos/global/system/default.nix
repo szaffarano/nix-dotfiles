@@ -4,7 +4,9 @@ in with lib; {
   options.nixos.system = {
     user = mkOption {
       type = types.str;
-      default = "sebas";
+    };
+    hashedPasswordFile = mkOption {
+      type = types.str;
     };
     authorizedKeys = mkOption {
       type = types.listOf types.str;
@@ -27,7 +29,7 @@ in with lib; {
       isNormalUser = true;
       extraGroups = cfg.extraGroups;
       shell = pkgs.zsh;
-      initialPassword = "changeme!"; # TODO: improve it!!!!!!
+      hashedPasswordFile = cfg.hashedPasswordFile;
       openssh.authorizedKeys.keys = cfg.authorizedKeys;
       packages = [ pkgs.home-manager ];
     };

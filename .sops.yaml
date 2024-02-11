@@ -1,0 +1,13 @@
+keys:
+  - users:
+    - &sebas_pgp 9AE57D3DE601A79560DD0F4B14F35C58A2191587
+  - hosts:
+    - &pilsen age1jrfzk6cf2jjm7g7skvclh8napx6963edcm7pszjewlke0x7m3a9qv4mwam
+
+creation_rules:
+  - path_regex: secrets.ya?ml$
+    key_groups:
+    - age:
+      - *pilsen
+      pgp:
+      - *sebas_pgp

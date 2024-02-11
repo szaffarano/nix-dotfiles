@@ -6,10 +6,11 @@ in {
     ./bluetooth
     ./common
     ./hardware
-    ./system
+    ./locale
     ./openssh
     ./quietboot
-    ./locale
+    ./sops.nix
+    ./system
   ];
 
   options.nixos = {

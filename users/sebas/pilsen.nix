@@ -1,4 +1,4 @@
-{ inputs, outputs, ... }: {
+{ inputs, outputs, pkgs, ... }: {
 
   git = {
     enable = true;
@@ -39,17 +39,21 @@
     };
   };
 
-  programs.mise.settings = {
+  programs.mise = {
+  settings = {
     verbose = false;
     experimental = true;
     all_compile = false;
   };
 
-  programs.mise.globalConfig = {
+  globalConfig = {
     tools = {
       node = "lts";
       python = "latest";
       yarn = "latest";
     };
   };
+  };
+
+    home.packages = with pkgs; [ sops ssh-to-age ];
 }

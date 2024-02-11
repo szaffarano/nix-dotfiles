@@ -1,4 +1,4 @@
-{ inputs, outputs, ... }: {
+{ inputs, outputs, config, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -10,6 +10,7 @@
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   services.geoclue2.enable = true;
+  services.pcscd.enable = true;
   virtualisation = {
     libvirtd.enable = true;
     docker = {
@@ -32,8 +33,14 @@
     };
     system = {
       user = outputs.user.name;
+      hashedPasswordFile = config.sops.secrets.sebas-password.path;
       authorizedKeys = outputs.user.authorizedKeys;
     };
+  };
+
+  sops.secrets.sebas-password = {
+    sopsFile = ./secrets.yaml;
+    neededForUsers = true;
   };
 
   system.stateVersion = "23.05";
