@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./cloud
     ./direnv.nix
@@ -17,16 +17,15 @@
   options.terminal.cli = { };
 
   config = {
-
     terminal.cli = {
-      direnv.enable = true;
-      ncspot.enable = true;
-      net.enable = true;
-      pass.enable = true;
-      starship.enable = true;
-      tmux.enable = true;
-      tools.enable = true;
-      yubikey.enable = true;
+      direnv.enable = lib.mkDefault true;
+      ncspot.enable = lib.mkDefault true;
+      net.enable = lib.mkDefault true;
+      pass.enable = lib.mkDefault true;
+      starship.enable = lib.mkDefault true;
+      tmux.enable = lib.mkDefault true;
+      tools.enable = lib.mkDefault true;
+      yubikey.enable = lib.mkDefault true;
     };
 
     programs = {

@@ -43,6 +43,11 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
+
+    nix-ld-rs = {
+      url = "github:nix-community/nix-ld-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

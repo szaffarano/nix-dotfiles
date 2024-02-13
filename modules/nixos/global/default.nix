@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 let cfg = config.nixos;
 in {
   imports = [
@@ -68,7 +68,12 @@ in {
         enableZshIntegration = false;
         enableBashIntegration = false;
       };
-      nix-ld.enable = true;
+      nix-ld = {
+        enable = true;
+        package = inputs.nix-ld-rs.packages.${pkgs.hostPlatform.system}.nix-ld-rs;
+        libraries = [ ];
+      };
+
       zsh.enable = true;
     };
   };

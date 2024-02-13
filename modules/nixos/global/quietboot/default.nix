@@ -11,7 +11,7 @@ in {
 
     boot = {
       plymouth = {
-        enable = false;
+        enable = true;
         theme = "spinner";
       };
       loader.timeout = 3;

@@ -15,10 +15,19 @@
   };
 
   desktop.enable = false;
-  terminal.cli.cloud.enable = false;
+  terminal.cli = {
+    ncspot.enable = false;
+    cloud.enable = false;
+  };
+
   services.syncthing.enable = false;
   programs.nix-index.enable = true;
-  develop.enable = false;
+
+  develop = {
+    enable = true;
+    idea.enable = false;
+    ocaml.enable = false;
+  };
 
   terminal.zsh = {
     enable = true;

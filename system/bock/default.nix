@@ -19,6 +19,14 @@
     };
   };
 
+  virtualisation = {
+    libvirtd.enable = false;
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+    };
+  };
+
   sops.secrets = {
     sebas-password = {
       sopsFile = ./secrets.yaml;

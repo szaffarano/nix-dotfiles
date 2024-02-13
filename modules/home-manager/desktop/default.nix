@@ -27,13 +27,13 @@ in with lib; {
     ];
 
     desktop = {
-      audio.enable = true;
-      gui.enable = true;
-      messengers.enable = true;
-      terminal.enable = true;
-      tools.enable = true;
-      wayland.enable = true;
-      web.firefox.enable = true;
+      audio.enable = lib.mkDefault true;
+      gui.enable = lib.mkDefault true;
+      messengers.enable = lib.mkDefault true;
+      terminal.enable = lib.mkDefault true;
+      tools.enable = lib.mkDefault true;
+      wayland.enable = lib.mkDefault true;
+      web.firefox.enable = lib.mkDefault true;
     };
   };
 }
