@@ -28,6 +28,7 @@
       newsboat # rss feeds reader
       atop
 
+      powertop
       dig
       file
       fd

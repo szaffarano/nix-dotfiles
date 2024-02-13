@@ -21,8 +21,8 @@ _:
       };
       wallpapersCommand = ./scripts/wallpaper.sh;
       showKeyboardCommand = "swayimg ${./images/KB_Dvorak.png}";
-      musicPlayerCommand = "${toggleCommand} 'music-player' 'ncspot'";
-      orgCommand = "${toggleCommand} 'org-mode' 'vim +WikiIndex'";
+      musicPlayerCommand = "${toggleCommand} 'music_player' 'ncspot'";
+      orgCommand = "${toggleCommand} 'org_mode' 'vim +WikiIndex'";
       toggleCommand = ./scripts/toggle-scratchpad.sh;
       lockCmd = ./scripts/swaylock.sh;
       lockCmdBeforeSleep = "${./scripts/swaylock.sh} 0";
@@ -194,7 +194,7 @@ _:
             { command = "'sleep ${startupCommandDellay} && copyq'"; }
             { command = "'sleep ${startupCommandDellay} && slack -g error'"; }
             { command = ''${terminal} start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''; }
-            { command = "${terminal} start --class=music-player ncspot"; }
+            # { command = "${terminal} start --class=music_player ncspot"; }
             {
               command = ''
                 swayidle -w \
@@ -261,11 +261,11 @@ _:
             }
             {
               command = "move to scratchpad";
-              criteria = { app_id = "music-player"; };
+              criteria = { app_id = "music_player"; };
             }
             {
               command = "move to scratchpad";
-              criteria = { app_id = "org-mode"; };
+              criteria = { app_id = "org_mode"; };
             }
           ];
 

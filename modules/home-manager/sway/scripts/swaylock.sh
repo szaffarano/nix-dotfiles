@@ -21,17 +21,17 @@ img=$temp/lock.png
 
 [ -d "$temp" ] || mkdir -p "$temp"
 
-log "Downloading image"
+log "Downloading image: $TIMEOUT_SECS"
 
 if [ "$TIMEOUT_SECS" -gt 0 ]; then
-  img="$temp"/$(curl 'https://unsplash.it/1920/1080/?random' \
+  img=$(curl 'https://unsplash.it/1920/1080/?random' \
      -LJO -s --output-dir "$temp" --write-out '%{filename_effective}')
 else
-  img="$temp/$(ls -tr "$temp" | shuf -n 1)"
+  img="$(find "$temp" -maxdepth 1 -type f | shuf -n 1)"
   log "Image downloaded: $img"
 fi
 
-ls -tr "$temp" | head -n -$KEEP_LATESTS | xargs -I {} rm "$temp"/{}
+find "$temp" -maxdepth 1 -type f | head -n -$KEEP_LATESTS | xargs -I {} rm {}
 
 if [ "$TIMEOUT_SECS" -gt 0 ]; then
   log "Timeout set, waiting $TIMEOUT_SECS seconds"
@@ -39,7 +39,7 @@ if [ "$TIMEOUT_SECS" -gt 0 ]; then
   swayimg -s fit -f "$img" &
   PRE_PID=$!
 
-  sleep $TIMEOUT_SECS
+  sleep "$TIMEOUT_SECS"
 
   if ps -p "$PRE_PID" > /dev/null 2>&1; then
     log "Timeout reached, locking"

@@ -22,10 +22,7 @@ _:
       packages = with pkgs; [
         config.development.intellij-idea-pkg
 
-        poetry
-        pipx
-
-        rtx # replacement for asdf
+        mise # replacement for asdf
 
         go
 

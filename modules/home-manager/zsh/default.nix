@@ -2,7 +2,7 @@ _:
 { config, lib, pkgs, ... }:
 let
   extras =
-    [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ./rtx.zsh ./binds.zsh ./breeze.zsh ];
+    [ ./pyenv.zsh ./ocalm.zsh ./local.zsh ./mise.zsh ./binds.zsh ./breeze.zsh ];
 in
 {
   options.zsh.enable = lib.mkEnableOption "zsh";

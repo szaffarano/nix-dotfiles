@@ -13,6 +13,7 @@ _:
           font_size = ${builtins.toString theme.wezterm.fonts.size},
           color_scheme = "${theme.wezterm.theme}",
           hide_tab_bar_if_only_one_tab = true,
+          enable_wayland = true,
           window_padding = {
             left = 5,
             right = 10,
