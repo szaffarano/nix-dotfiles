@@ -44,6 +44,8 @@
       verbose = false;
       experimental = true;
       all_compile = false;
+      python_compile = false;
+      node_compile = false;
     };
 
     globalConfig = {
