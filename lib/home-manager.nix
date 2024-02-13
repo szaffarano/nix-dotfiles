@@ -5,12 +5,13 @@ let
   outputs = (self.outputs // { user = config.user; });
 in
 inputs.home-manager.lib.homeManagerConfiguration {
-  modules = builtins.attrValues outputs.homeManagerModules ++ [
+  modules = [
     configFile
     inputs.nix-colors.homeManagerModule
     inputs.nix-index-database.hmModules.nix-index
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nur.nixosModules.nur
+    "${self}/modules/home-manager"
   ];
 
   pkgs = import inputs.nixpkgs {

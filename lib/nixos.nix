@@ -5,6 +5,7 @@ let
 in
 nixpkgs.lib.nixosSystem {
   modules = [
+    "${self}/modules/nixos"
     "${self}/system/${config.host.name}"
     inputs.nix-index-database.nixosModules.nix-index
   ];

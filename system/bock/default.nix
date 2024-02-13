@@ -2,15 +2,16 @@
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
-
     inputs.home-manager.nixosModules.home-manager
+    inputs.disko.nixosModules.disko
 
     ./hardware-configuration.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ];
 
   nixos = {
     hostName = outputs.host.name;
-    audio.enable = true;
+    audio.enable = false;
+    disableWakeupLid = false;
     quietboot.enable = true;
     system = {
       user = outputs.user.name;

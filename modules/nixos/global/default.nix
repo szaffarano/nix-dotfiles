@@ -76,5 +76,7 @@ in {
 
       zsh.enable = true;
     };
+
+    nixos.audio.enable = false;
   };
 }
