@@ -3,11 +3,18 @@ keys:
     - &sebas_pgp 9AE57D3DE601A79560DD0F4B14F35C58A2191587
   - hosts:
     - &pilsen age1jrfzk6cf2jjm7g7skvclh8napx6963edcm7pszjewlke0x7m3a9qv4mwam
+    - &bock age1fjugcm60ad5tvunkm64xc7kwjraq2xr2q75uzxtxny67z7l4fqrqeadf7x
 
 creation_rules:
-  - path_regex: secrets.ya?ml$
+  - path_regex: system/pilsen/secrets.yaml
     key_groups:
     - age:
       - *pilsen
+      pgp:
+      - *sebas_pgp
+  - path_regex: system/bock/secrets.yaml
+    key_groups:
+    - age:
+      - *bock
       pgp:
       - *sebas_pgp

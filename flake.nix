@@ -54,22 +54,31 @@
       systems = [ "x86_64-linux" ];
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
       pkgsFor = nixpkgs.legacyPackages;
-      config = {
-        user = {
-          name = "sebas";
-          fullName = "Sebastian Zaffarano";
-          email = "sebas@zaffarano.com.ar";
-          gpgKey = "0x14F35C58A2191587";
-          authorizedKeys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-          ];
-        };
-        host = {
-          name = "pilsen";
-          arch = "x86_64-linux";
-        };
+      sebas = {
+        name = "sebas";
+        fullName = "Sebastian Zaffarano";
+        email = "sebas@zaffarano.com.ar";
+        gpgKey = "0x14F35C58A2191587";
+        authorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
+        ];
       };
-
+      bock = {
+        name = "bock";
+        arch = "x86_64-linux";
+      };
+      pilsen = {
+        name = "pilsen";
+        arch = "x86_64-linux";
+      };
+      sebas_at_bock = {
+        user = sebas;
+        host = bock;
+      };
+      sebas_at_pilsen = {
+        user = sebas;
+        host = pilsen;
+      };
     in
     {
       inherit lib;
@@ -89,11 +98,13 @@
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
-        pilsen = lib.mkNixOS config;
+        pilsen = lib.mkNixOS sebas_at_pilsen;
+        bock = lib.mkNixOS sebas_at_bock;
       };
 
       homeConfigurations = {
-        "sebas@pilsen" = lib.mkHome config;
+        "sebas@pilsen" = lib.mkHome sebas_at_pilsen;
+        "sebas@bock" = lib.mkHome sebas_at_bock;
         # "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
         # "szaffarano@work" = lib.mkHome "szaffarano" "work" "x86_64-linux";
       };
