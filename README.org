@@ -2,7 +2,8 @@
 :PROPERTIES:
 :CUSTOM_ID: nixos-based-dotfiles
 :END:
-[[https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml][[[https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg]]]]
+
+[[https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg]]
 
 ** Bootstrap
 :PROPERTIES:
