@@ -1,69 +1,69 @@
-# Nix Based dotfiles
+# NixOS Based dotfiles
 
 [![pre-commit](https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml)
 
-## Preconditions
+## Bootstrap
 
-### Bootstrap nix and home-manager
+### Preconditions
 
-```sh
-# only for archlinux, needed to build AUR packages
-sudo pacman -S --needed git base-devel
+1. Create a keypair for the target machine
 
-sh <(curl -L https://nixos.org/nix/install) --daemon
-
-mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" \
-        | tee ~/.config/nix/nix.conf
-
-# for linux
-nix build .#homeConfigurations.USER@host.activationPackage \
-        && ./result/activate
-
-# for Darwin
-
-nix build .#darwinConfigurations.szaffarano@macbook.system \
-    && printf 'run\tprivate/var/run\n' | sudo tee -a /etc/synthetic.conf \
-    && /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t \
-    && darwin-rebuild switch --flake .#USER@macbook
+```shell
+ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
 ```
 
-### System-level setup
+1. Generate an age recipient using the above public key (using the
+[ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
 
-Only meant to be used for non-nixos Linux environments
+```shell
+ssh-to-age  -i ssh_host_ed25519_key.pub -o <machine-name>.age.pub.txt
 
-```sh
-export LC_ALL=C.UTF-8
-cd ansible
-ansible-galaxy install -r requirements.yml --timeout 120
-ansible-playbook linux.yml -K -l dell.local
 ```
 
-### Update
+1. Update the [.sops.yaml](./.sops.yaml) configuration file adding the age
+recipient.
 
-```sh
-# for linux
-home-manager switch --flake .#$USER
+1. Generate secrets for this machine using both the root's and your own
+recipient.  Example for the OS user:
 
-# for darwin
-darwin-rebuild switch --flake .
+```shell
+# copy the output
+echo "<password>" | mkpasswd -s
+
+# add or edit the secrets.yaml file
+sops system/<machine-name>/secrets.yaml
 ```
 
-## TODO
+### New machine configuration
 
-### Tasks
+1. Based on an existent configuration, create a new one under
+[system](./system), e.g., `./system/<machine-name>/default.nix`. Pay attention
+to the [disko](https://github.com/nix-community/disko) configuration file to
+avoid any hard-to-recover mistake.
+1. Same as above but with home-manager configurations, under [users](./users),
+e.g., `./users/<user-name>/<machine-name>.nix`
+1. Boot the new machine using
+[nixos-anywhere](https://github.com/nix-community/nixos-anywhere).  Eventually
+you would need to install rsync, `nix-env -iA nixos.rsync`
+1. Run nixos-anywhere including the ssh keys generated as preconditions
 
-- [ ] Automate the bootstrap process
-- [X] Add flakes for other environments
-- [X] Bluetooth
-- [X] CopyQ config
-- [-] Syncthing config (only for linux systems)
-- [X] KeepassXC config
-- [X] git-credentials-keepass config
-- [ ] Add custom scripts to PATH
+```bash
+❯ tree /path/to/ssh/key
+/path/to/ssh/key
+└── etc
+    └── ssh_host_ed25519_key
 
-### OS Integrations
+❯ nix run github:nix-community/nixos-anywhere -- \
+    --flake .#<machine-name> \
+    --extra-files /path/to/ssh/key root@<new-machine-ip>
 
-- [X] Archlinux support
-- [X] Darwin support
-- [X] Ubuntu support
-- [ ] FreeBSD support
+```
+
+1. Once finished, login in the new machine, clone the repo and run home-manager
+
+```shell
+ssh <user-name>@<new-machine-ip>
+git clone https://github.com/szaffarano/nix-dotfiles .dotfiles
+cd .dotfiles
+home-manager switch --flake .
+```
