@@ -20,7 +20,7 @@ recipient.  Example for the OS user:
 
            # copy the output
             echo "<password>" | mkpasswd -s
-            
+
             # add or edit the secrets.yaml file
             sops system/<machine-name>/secrets.yaml
 
@@ -40,8 +40,9 @@ you would need to install rsync, `nix-env -iA nixos.rsync`
         ❯ tree /path/to/ssh/key
         /path/to/ssh/key
         └── etc
-            └── ssh_host_ed25519_key
-        
+            └── ssh
+                └── ssh_host_ed25519_key
+
         ❯ nix run github:nix-community/nixos-anywhere -- \
             --flake .#<machine-name> \
             --extra-files /path/to/ssh/key root@<new-machine-ip>
