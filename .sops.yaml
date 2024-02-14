@@ -2,7 +2,7 @@ keys:
   - users:
     - &sebas_pgp 9AE57D3DE601A79560DD0F4B14F35C58A2191587
   - hosts:
-    - &pilsen age1jrfzk6cf2jjm7g7skvclh8napx6963edcm7pszjewlke0x7m3a9qv4mwam
+    - &pilsen age1jn9egcppvq5n5lus9lx63sh8maw77w3f23dqz67e8tk7e6dlvf2qes0djq
     - &bock age13vhnxwmqlln7t6k8np3zsx59egu305nam9f3nqf962zcf7ll84gqzwmey4
 
 creation_rules:
