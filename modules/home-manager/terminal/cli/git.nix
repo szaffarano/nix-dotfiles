@@ -75,7 +75,7 @@ in
               new = "green bold";
             };
           };
-          credential.helper = "keepassxc --unlock 0";
+          credential.helper = (lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0");
           commit.gpgsign = true;
           init.defaultBranch = "master";
           fetch.prune = true;
@@ -87,12 +87,12 @@ in
 
       home = {
         packages = with pkgs;
-          [
+          (lib.optionals config.desktop.tools.keepassxc.enable [
             (git-credential-keepassxc.override {
               withNotification = true;
               withYubikey = true;
             })
-          ];
+          ]);
       };
 
       programs.gh = {

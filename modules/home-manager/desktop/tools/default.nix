@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 let cfg = config.desktop.tools;
 in with lib; {
+  imports = [ ./copyq ./gammastep ./keepassxc ./screenshot ./zathura ];
 
   options.desktop.tools.enable = mkEnableOption "desktop tools";
 
-  imports = [ ./copyq ./gammastep ./keepassxc ./screenshot ./zathura ];
   config = mkIf cfg.enable {
     desktop.tools = {
       copyq.enable = true;
