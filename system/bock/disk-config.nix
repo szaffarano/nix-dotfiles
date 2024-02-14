@@ -1,4 +1,4 @@
-{ config, disks ? [ "/dev/vda" ], ... }: {
+{ disks ? [ "/dev/vda" ], ... }: {
   disk = {
     disk-1 = {
       type = "disk";

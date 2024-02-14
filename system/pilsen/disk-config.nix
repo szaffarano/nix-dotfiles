@@ -1,4 +1,4 @@
-{ config, disks ? [ "/dev/vda" ], ... }: {
+{ disks ? [ "/dev/vda" ], ... }: {
   disk = {
     disk-1 = {
       type = "disk";
@@ -24,7 +24,7 @@
               type = "luks";
               name = "nixos";
               extraOpenArgs = [ "--allow-discards" ];
-              passwordFile = config.sops.secrets.sebas-password.path;
+              passwordFile = "/tmp/luks.txt";
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
