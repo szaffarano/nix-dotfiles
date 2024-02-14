@@ -33,8 +33,8 @@
    recipient. Example for the OS user:
 
    #+begin_example
-       # copy the output
-        echo "<password>" | mkpasswd -s
+        # copy the output
+        openssl passwd -6
 
         # add or edit the secrets.yaml file
         sops system/<machine-name>/secrets.yaml

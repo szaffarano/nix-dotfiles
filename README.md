@@ -18,8 +18,8 @@ recipient.
 1. Generate secrets for this machine using both the root's and your own
 recipient.  Example for the OS user:
 
-           # copy the output
-            echo "<password>" | mkpasswd -s
+            # copy the output
+            openssl passwd -6
 
             # add or edit the secrets.yaml file
             sops system/<machine-name>/secrets.yaml
