@@ -8,6 +8,9 @@
 
 1. Create a keypair for the target machine
 
+        # use a ramfs to not store the key in disk
+        sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
+        mkdir -p /tmp/pki/ram/etc/ssh && cd /tmp/pki/ram/etc/ssh
         ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
 1. Generate an age recipient using the above public key (using the
 [ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
@@ -18,7 +21,7 @@ recipient.
 1. Generate secrets for this machine using both the root's and your own
 recipient.  Example for the OS user:
 
-            # copy the output
+            # copy the following command output
             openssl passwd -6
 
             # add or edit the secrets.yaml file
@@ -37,15 +40,17 @@ e.g., `./users/<user-name>/<machine-name>.nix`
 you would need to install rsync, `nix-env -iA nixos.rsync`
 1. Run nixos-anywhere including the ssh keys generated as preconditions
 
-        ❯ tree /path/to/ssh/key
-        /path/to/ssh/key
+        tree /tmp/pki/ram
+        /tmp/pki/ram
         └── etc
             └── ssh
-                └── ssh_host_ed25519_key
+                ├── ssh_host_ed25519_key
+                ├── ssh_host_ed25519_key.age.pub
+                └── ssh_host_ed25519_key.pub
 
-        ❯ nix run github:nix-community/nixos-anywhere -- \
+        nix run github:nix-community/nixos-anywhere -- \
             --flake .#<machine-name> \
-            --extra-files /path/to/ssh/key root@<new-machine-ip>
+            --extra-files /tmp/pki/ram root@<new-machine-ip>
 1. Once finished, login in the new machine, clone the repo and run home-manager
 
         ssh <user-name>@<new-machine-ip>

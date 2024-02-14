@@ -2,8 +2,7 @@
 :PROPERTIES:
 :CUSTOM_ID: nixos-based-dotfiles
 :END:
-
-[[https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg]]
+[[[[https://github.com/szaffarano/nix-dotfiles/actions/workflows/pre-commit.yml/badge.svg]]]]
 
 ** Bootstrap
 :PROPERTIES:
@@ -16,6 +15,9 @@
 1. Create a keypair for the target machine
 
    #+begin_example
+    # use a ramfs to not store the key in disk
+    sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
+    mkdir -p /tmp/pki/ram/etc/ssh && cd /tmp/pki/ram/etc/ssh
     ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
    #+end_example
 
@@ -33,7 +35,7 @@
    recipient. Example for the OS user:
 
    #+begin_example
-        # copy the output
+        # copy the following command output
         openssl passwd -6
 
         # add or edit the secrets.yaml file
@@ -60,15 +62,17 @@
 4. Run nixos-anywhere including the ssh keys generated as preconditions
 
    #+begin_example
-    ❯ tree /path/to/ssh/key
-    /path/to/ssh/key
+    tree /tmp/pki/ram
+    /tmp/pki/ram
     └── etc
         └── ssh
-            └── ssh_host_ed25519_key
+            ├── ssh_host_ed25519_key
+            ├── ssh_host_ed25519_key.age.pub
+            └── ssh_host_ed25519_key.pub
 
-    ❯ nix run github:nix-community/nixos-anywhere -- \
+    nix run github:nix-community/nixos-anywhere -- \
         --flake .#<machine-name> \
-        --extra-files /path/to/ssh/key root@<new-machine-ip>
+        --extra-files /tmp/pki/ram root@<new-machine-ip>
    #+end_example
 
 5. Once finished, login in the new machine, clone the repo and run
