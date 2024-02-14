@@ -57,6 +57,7 @@ in {
       neovim
       p7zip
       pciutils
+      udisks
       unzip
       usbutils
       wget
@@ -75,7 +76,5 @@ in {
 
       zsh.enable = true;
     };
-
-    nixos.audio.enable = false;
   };
 }

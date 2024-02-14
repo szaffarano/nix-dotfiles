@@ -3,11 +3,11 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-
+    inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
 
     ./hardware-configuration.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ];
 
   services.geoclue2.enable = true;
   services.pcscd.enable = true;
