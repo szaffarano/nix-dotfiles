@@ -19,7 +19,7 @@
 
   disko.devices = import ./disk-config.nix {
     inherit lib;
-    disks = [ "/dev/sdb" ];
+    disks = [ "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_500GB_S1DHNSAFA54375P" ];
     config = config;
   };
 

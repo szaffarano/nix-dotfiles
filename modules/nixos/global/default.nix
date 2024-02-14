@@ -50,8 +50,11 @@ in {
       "w    /proc/acpi/wakeup     -    -    -    -   LID0"
     ];
 
+    services.udisks2.enable = true;
+
     environment.systemPackages = with pkgs; [
       curl
+      e2fsprogs
       git
       libinput
       neovim
