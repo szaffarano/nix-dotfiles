@@ -24,7 +24,6 @@
               type = "luks";
               name = "nixos";
               extraOpenArgs = [ "--allow-discards" ];
-              passwordFile = "/tmp/luks.txt";
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];

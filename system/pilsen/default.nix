@@ -43,10 +43,6 @@
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };
-
-    luks-password = {
-      sopsFile = ./secrets.yaml;
-    };
   };
 
   system.stateVersion = "23.05";
