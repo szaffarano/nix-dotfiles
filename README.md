@@ -8,31 +8,21 @@
 
 1. Create a keypair for the target machine
 
-```shell
-ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
-```
-
+        ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
 1. Generate an age recipient using the above public key (using the
 [ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
 
-```shell
-ssh-to-age  -i ssh_host_ed25519_key.pub -o <machine-name>.age.pub.txt
-
-```
-
+        ssh-to-age  -i ssh_host_ed25519_key.pub -o <machine-name>.age.pub.txt
 1. Update the [.sops.yaml](./.sops.yaml) configuration file adding the age
 recipient.
-
 1. Generate secrets for this machine using both the root's and your own
 recipient.  Example for the OS user:
 
-```shell
-# copy the output
-echo "<password>" | mkpasswd -s
-
-# add or edit the secrets.yaml file
-sops system/<machine-name>/secrets.yaml
-```
+           # copy the output
+            echo "<password>" | mkpasswd -s
+            
+            # add or edit the secrets.yaml file
+            sops system/<machine-name>/secrets.yaml
 
 ### New machine configuration
 
@@ -47,23 +37,17 @@ e.g., `./users/<user-name>/<machine-name>.nix`
 you would need to install rsync, `nix-env -iA nixos.rsync`
 1. Run nixos-anywhere including the ssh keys generated as preconditions
 
-```bash
-❯ tree /path/to/ssh/key
-/path/to/ssh/key
-└── etc
-    └── ssh_host_ed25519_key
-
-❯ nix run github:nix-community/nixos-anywhere -- \
-    --flake .#<machine-name> \
-    --extra-files /path/to/ssh/key root@<new-machine-ip>
-
-```
-
+        ❯ tree /path/to/ssh/key
+        /path/to/ssh/key
+        └── etc
+            └── ssh_host_ed25519_key
+        
+        ❯ nix run github:nix-community/nixos-anywhere -- \
+            --flake .#<machine-name> \
+            --extra-files /path/to/ssh/key root@<new-machine-ip>
 1. Once finished, login in the new machine, clone the repo and run home-manager
 
-```shell
-ssh <user-name>@<new-machine-ip>
-git clone https://github.com/szaffarano/nix-dotfiles .dotfiles
-cd .dotfiles
-home-manager switch --flake .
-```
+        ssh <user-name>@<new-machine-ip>
+        git clone https://github.com/szaffarano/nix-dotfiles .dotfiles
+        cd .dotfiles
+        home-manager switch --flake .
