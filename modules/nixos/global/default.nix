@@ -57,6 +57,7 @@ in {
       e2fsprogs
       git
       libinput
+      mkpasswd
       neovim
       p7zip
       pciutils
