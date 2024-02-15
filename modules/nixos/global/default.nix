@@ -56,6 +56,7 @@ in {
       curl
       e2fsprogs
       git
+      gptfdisk
       libinput
       mkpasswd
       neovim
