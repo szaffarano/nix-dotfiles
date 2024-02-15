@@ -29,6 +29,10 @@ in with lib; {
         GPG_TTY = "$(tty)";
       };
 
+      home.packages = with pkgs; [
+        pinentry-curses
+      ];
+
       services.gpg-agent = {
         enable = true;
         enableSshSupport = true;
