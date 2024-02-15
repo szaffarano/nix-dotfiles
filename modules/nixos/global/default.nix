@@ -62,6 +62,8 @@ in {
       neovim
       p7zip
       pciutils
+      rclone
+      restic
       udisks
       unzip
       usbutils
