@@ -32,13 +32,13 @@
     };
     system = {
       user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.sebas-password.path;
+      hashedPasswordFile = config.sops.secrets.szaffarano-password.path;
       authorizedKeys = outputs.user.authorizedKeys;
     };
   };
 
   sops.secrets = {
-    sebas-password = {
+    szaffarano-password = {
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };
