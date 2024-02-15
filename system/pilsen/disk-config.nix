@@ -18,11 +18,11 @@
               mountOptions = [ "defaults" ];
             };
           };
-          luks = {
+          pilsen = {
             size = "100%";
             content = {
               type = "luks";
-              name = "nixos";
+              name = "pilsen";
               extraOpenArgs = [ "--allow-discards" ];
               content = {
                 type = "btrfs";
