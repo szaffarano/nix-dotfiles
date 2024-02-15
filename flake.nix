@@ -59,7 +59,7 @@
       systems = [ "x86_64-linux" ];
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
       pkgsFor = nixpkgs.legacyPackages;
-      sebas = {
+      sebas_at_home = {
         name = "sebas";
         fullName = "Sebastian Zaffarano";
         email = "sebas@zaffarano.com.ar";
@@ -68,22 +68,40 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
         ];
       };
-      bock = {
+      szaffarano_at_elastic = {
+        name = "szaffarano";
+        fullName = "Sebastián Zaffarano";
+        email = "sebastian.zaffarano@elastic.co";
+        gpgKey = "0xB31A0D3EFDC15D4B";
+        authorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
+        ];
+      };
+      bock_host = {
         name = "bock";
         arch = "x86_64-linux";
       };
-      pilsen = {
+      pilsen_host = {
         name = "pilsen";
         arch = "x86_64-linux";
       };
-      sebas_at_bock = {
-        user = sebas;
-        host = bock;
+      zaffarano_host = {
+        name = "zaffarano";
+        arch = "x86_64-linux";
       };
-      sebas_at_pilsen = {
-        user = sebas;
-        host = pilsen;
+      bock = {
+        user = sebas_at_home;
+        host = bock_host;
       };
+      pilsen = {
+        user = sebas_at_home;
+        host = pilsen_host;
+      };
+      zaffarano = {
+        user = szaffarano_at_elastic;
+        host = zaffarano_host;
+      };
+
     in
     {
       inherit lib;
@@ -100,15 +118,15 @@
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
-        pilsen = lib.mkNixOS sebas_at_pilsen;
-        bock = lib.mkNixOS sebas_at_bock;
+        pilsen = lib.mkNixOS pilsen;
+        bock = lib.mkNixOS bock;
+        zaffarano = lib.mkNixOS zaffarano;
       };
 
       homeConfigurations = {
-        "sebas@pilsen" = lib.mkHome sebas_at_pilsen;
-        "sebas@bock" = lib.mkHome sebas_at_bock;
-        # "sebas@archlinux" = lib.mkHome "sebas" "archlinux" "x86_64-linux";
-        # "szaffarano@work" = lib.mkHome "szaffarano" "work" "x86_64-linux";
+        "sebas@pilsen" = lib.mkHome pilsen;
+        "sebas@bock" = lib.mkHome bock;
+        "szaffarano@elastic" = lib.mkHome zaffarano;
       };
 
       darwinConfigurations = {

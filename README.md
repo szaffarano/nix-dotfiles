@@ -12,10 +12,12 @@
         sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
         mkdir -p /tmp/pki/ram/etc/ssh && cd /tmp/pki/ram/etc/ssh
         ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
+        ssh-keygen -C root@zaffarano -f ssh_host_rsa_key
 1. Generate an age recipient using the above public key (using the
 [ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
 
-        ssh-to-age  -i ssh_host_ed25519_key.pub -o <machine-name>.age.pub.txt
+        ssh-to-age  -i ssh_host_ed25519_key.pub -o ssh_host_ed25519_key.pub.age
+        ssh-to-age -private-key  -i ssh_host_ed25519_key -o ssh_host_ed25519_key.age
 1. Update the [.sops.yaml](./.sops.yaml) configuration file adding the age
 recipient.
 1. Generate secrets for this machine using both the root's and your own
