@@ -23,7 +23,10 @@
   programs.nix-index.enable = true;
   develop = {
     enable = true;
-    idea.enable = true;
+    idea = {
+      enable = true;
+      ultimate = true;
+    };
     ocaml.enable = true;
   };
 
@@ -53,6 +56,7 @@
         node = "lts";
         python = "latest";
         yarn = "latest";
+        java = "temurin-21.0.2+13.0.LTS";
       };
     };
   };

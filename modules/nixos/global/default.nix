@@ -29,6 +29,11 @@ in {
       default = [ ];
       description = "The list of allowed UDP ports";
     };
+    allowedTCPPorts = lib.mkOption {
+      type = lib.types.listOf lib.types.int;
+      default = [ ];
+      description = "The list of allowed TCP ports";
+    };
   };
 
   config = {
@@ -37,6 +42,7 @@ in {
       domain = cfg.domain;
       networkmanager.enable = true;
       firewall.allowedUDPPorts = cfg.allowedUDPPorts;
+      firewall.allowedTCPPorts = cfg.allowedTCPPorts;
     };
 
     boot = {

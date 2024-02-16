@@ -86,7 +86,7 @@
         arch = "x86_64-linux";
       };
       zaffarano_host = {
-        name = "zaffarano";
+        name = "zaffarano-elastic";
         arch = "x86_64-linux";
       };
       bock = {
@@ -120,13 +120,13 @@
       nixosConfigurations = {
         pilsen = lib.mkNixOS pilsen;
         bock = lib.mkNixOS bock;
-        zaffarano = lib.mkNixOS zaffarano;
+        zaffarano-elastic = lib.mkNixOS zaffarano;
       };
 
       homeConfigurations = {
         "sebas@pilsen" = lib.mkHome pilsen;
         "sebas@bock" = lib.mkHome bock;
-        "szaffarano@zaffarano" = lib.mkHome zaffarano;
+        "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
       };
 
       darwinConfigurations = {

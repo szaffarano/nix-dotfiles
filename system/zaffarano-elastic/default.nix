@@ -18,9 +18,42 @@
     };
   };
 
+  systemd.services.ElasticEndpoint = {
+    wantedBy = [ "runlevel2.target" ];
+    description = "ElasticEndpoint";
+    unitConfig = {
+      StartLimitInterval = 600;
+      ConditionFileIsExecutable = "/opt/Elastic/Endpoint/elastic-endpoint";
+    };
+    serviceConfig = {
+      ExecStart = "/opt/Elastic/Endpoint/elastic-endpoint run";
+      Restart = "on-failure";
+      RestartSec = 15;
+      StartLimitBurst = 16;
+    };
+  };
+
+  systemd.services.elastic-agent = {
+    wantedBy = [ "multi-user.target" ];
+    description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
+    unitConfig = {
+      StartLimitInterval = 5;
+      ConditionFileIsExecutable = "/opt/Elastic/Agent/elastic-agent";
+    };
+    serviceConfig = {
+      ExecStart = "/opt/Elastic/Agent/elastic-agent";
+      WorkingDirectory = "/opt/Elastic/Agent";
+      Restart = "always";
+      RestartSec = 120;
+      KillMode = "process";
+      StartLimitBurst = 10;
+    };
+  };
+
   nixos = {
     hostName = outputs.host.name;
     allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22000 ];
     audio.enable = true;
     bluetooth.enable = true;
     disableWakeupLid = true;
