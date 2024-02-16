@@ -126,7 +126,7 @@
       homeConfigurations = {
         "sebas@pilsen" = lib.mkHome pilsen;
         "sebas@bock" = lib.mkHome bock;
-        "szaffarano@elastic" = lib.mkHome zaffarano;
+        "szaffarano@zaffarano" = lib.mkHome zaffarano;
       };
 
       darwinConfigurations = {

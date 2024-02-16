@@ -12,7 +12,7 @@
         sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
         mkdir -p /tmp/pki/ram/etc/ssh && cd /tmp/pki/ram/etc/ssh
         ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
-        ssh-keygen -C root@zaffarano -f ssh_host_rsa_key
+        ssh-keygen -t rsa -C <some comment> -f ssh_host_rsa_key
 1. Generate an age recipient using the above public key (using the
 [ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
 
@@ -49,6 +49,8 @@ you would need to install rsync, `nix-env -iA nixos.rsync`
                 ├── ssh_host_ed25519_key
                 ├── ssh_host_ed25519_key.age.pub
                 └── ssh_host_ed25519_key.pub
+
+        cp /tmp/pki/ram/etc/ssh/*pub .
 
         nix run github:nix-community/nixos-anywhere -- \
             --flake .#<machine-name> \
