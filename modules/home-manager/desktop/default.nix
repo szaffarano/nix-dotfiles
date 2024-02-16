@@ -23,6 +23,16 @@ in with lib; {
       tor-browser-bundle-bin
       transmission-qt
       ungoogled-chromium
+
+      fontconfig
+
+      liberation_ttf
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      (nerdfonts.override {
+        fonts = [ "FiraCode"  ];
+      })
     ];
 
     desktop = {
