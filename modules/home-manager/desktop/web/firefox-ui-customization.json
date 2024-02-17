@@ -1,0 +1,68 @@
+{
+  "placements": {
+    "widget-overflow-fixed-list": [],
+    "unified-extensions-area": [
+      "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action",
+      "_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action",
+      "_contain-facebook-browser-action",
+      "jid1-zadieub7xozojw_jetpack-browser-action",
+      "_c2c003ee-bd69-42a2-b0e9-6f34222cb046_-browser-action"
+    ],
+    "nav-bar": [
+      "back-button",
+      "forward-button",
+      "stop-reload-button",
+      "home-button",
+      "urlbar-container",
+      "downloads-button",
+      "library-button",
+      "_testpilot-containers-browser-action",
+      "_8a94c7c4-184c-453f-a5d1-3e319062f0a5_-browser-action",
+      "foxytab_eros_man-browser-action",
+      "simple-tab-groups_drive4ik-browser-action",
+      "ublock0_raymondhill_net-browser-action",
+      "simple-translate_sienori-browser-action",
+      "screenshot-button",
+      "unified-extensions-button",
+      "keepassxc-browser_keepassxc_org-browser-action"
+    ],
+    "toolbar-menubar": [
+      "menubar-items"
+    ],
+    "TabsToolbar": [
+      "tabbrowser-tabs",
+      "new-tab-button",
+      "alltabs-button"
+    ],
+    "PersonalToolbar": [
+      "import-button",
+      "personal-bookmarks"
+    ]
+  },
+  "seen": [
+    "save-to-pocket-button",
+    "developer-button",
+    "ublock0_raymondhill_net-browser-action",
+    "_testpilot-containers-browser-action",
+    "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action",
+    "_8a94c7c4-184c-453f-a5d1-3e319062f0a5_-browser-action",
+    "_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action",
+    "_contain-facebook-browser-action",
+    "foxytab_eros_man-browser-action",
+    "jid1-zadieub7xozojw_jetpack-browser-action",
+    "keepassxc-browser_keepassxc_org-browser-action",
+    "simple-tab-groups_drive4ik-browser-action",
+    "simple-translate_sienori-browser-action",
+    "_c2c003ee-bd69-42a2-b0e9-6f34222cb046_-browser-action"
+  ],
+  "dirtyAreaCache": [
+    "nav-bar",
+    "PersonalToolbar",
+    "toolbar-menubar",
+    "TabsToolbar",
+    "widget-overflow-fixed-list",
+    "unified-extensions-area"
+  ],
+  "currentVersion": 19,
+  "newElementCount": 5
+}

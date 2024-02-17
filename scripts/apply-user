@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+pushd ~/.dotfiles
+home-manager switch --flake .
+popd

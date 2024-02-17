@@ -1,29 +1,22 @@
-{ self, ... }@inputs:
-user: host: system:
+{ self, nixpkgs, ... }@inputs:
+config:
 let
-  configFile = import "${self}/hosts/${user}@${host}/home.nix" inputs;
-  homeDirectory = "/home/${user}";
-
+  configFile = "${self}/users/${config.user.name}/${config.host.name}.nix";
+  outputs = (self.outputs // { user = config.user; });
 in
 inputs.home-manager.lib.homeManagerConfiguration {
+  modules = [
+    configFile
+    inputs.nix-colors.homeManagerModule
+    inputs.nix-index-database.hmModules.nix-index
+    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nur.nixosModules.nur
+    "${self}/modules/home-manager"
+  ];
+
   pkgs = import inputs.nixpkgs {
-    inherit system;
-    config = {
-      allowUnfreePredicate = (import ./non-free-config.nix inputs);
-      permittedInsecurePackages = [ ];
-    };
-    overlays = inputs.overlays;
+    system = config.host.arch;
   };
 
-  modules = builtins.attrValues inputs.homeModules ++ [
-    configFile
-    inputs.nur.nixosModules.nur
-    {
-      home = {
-        username = user;
-        homeDirectory = homeDirectory;
-        stateVersion = "22.11";
-      };
-    }
-  ];
+  extraSpecialArgs = { inherit inputs outputs; };
 }
