@@ -31,7 +31,7 @@ in with lib; {
       noto-fonts-cjk
       noto-fonts-emoji
       (nerdfonts.override {
-        fonts = [ "FiraCode"  ];
+        fonts = [ "FiraCode" ];
       })
     ];
 

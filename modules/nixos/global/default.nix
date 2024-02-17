@@ -85,6 +85,40 @@ in {
       nix-ld = {
         enable = true;
         package = inputs.nix-ld-rs.packages.${pkgs.hostPlatform.system}.nix-ld-rs;
+        libraries = with pkgs; [
+          ncurses
+          cairo
+          cups
+          curl
+          dbus
+          expat
+          fontconfig
+          freetype
+          fuse3
+          gdk-pixbuf
+          glib
+          gtk3
+          icu
+          libappindicator-gtk3
+          libdrm
+          libnotify
+          libpulseaudio
+          libunwind
+          libusb1
+          libuuid
+          libxkbcommon
+          libxml2
+          mesa
+          nspr
+          nss
+          openssl
+          pango
+          pipewire
+          stdenv.cc.cc
+          systemd
+          vulkan-loader
+          zlib
+        ];
       };
 
       zsh.enable = true;

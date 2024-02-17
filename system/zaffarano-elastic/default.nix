@@ -1,4 +1,4 @@
-{ inputs, outputs, config, ... }: {
+{ inputs, outputs, config, pkgs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -19,7 +19,7 @@
   };
 
   systemd.services.ElasticEndpoint = {
-    wantedBy = [ "runlevel2.target" ];
+    wantedBy = [ "multi-user.target" ];
     description = "ElasticEndpoint";
     unitConfig = {
       StartLimitInterval = 600;
@@ -47,6 +47,19 @@
       RestartSec = 120;
       KillMode = "process";
       StartLimitBurst = 10;
+    };
+  };
+
+  systemd.services."wol@phy0" = {
+    wantedBy = [ "multi-user.target" ];
+    description = "Wake-on-LAN for phy0";
+    unitConfig = {
+      Requires = "network.target";
+      After = "network.target";
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
     };
   };
 

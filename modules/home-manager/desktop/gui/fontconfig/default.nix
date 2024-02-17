@@ -1,6 +1,7 @@
-{ config, lib, theme, ... }: let
+{ config, lib, theme, ... }:
+let
   cfg = config.desktop.gui.fontconfig;
-in 
+in
 with lib; {
   # options.desktop.gui.fontconfig.enable = lib.mkEnableOption "fontconfig";
   options.desktop.gui.fontconfig.enable = mkEnableOption "fontconfig";
