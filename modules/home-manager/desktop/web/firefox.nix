@@ -23,8 +23,8 @@ in {
           keepassxc-browser
           okta-browser-plugin
           pkgs.linguee-it
-          pkgs.simple-translate
           simple-tab-groups
+          simple-translate
           translate-web-pages
           ublock-origin
           vimium

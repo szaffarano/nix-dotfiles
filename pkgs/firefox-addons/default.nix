@@ -20,23 +20,6 @@ let
 in
 {
 
-  simple-translate = buildFirefoxXpiAddon {
-    pname = "simple-translate";
-    version = "2.8.2";
-    addonId = "simple-translate@sienori";
-    url =
-      "https://addons.mozilla.org/firefox/downloads/file/4165189/simple_translate-2.8.2.xpi";
-    sha256 = "sha256-jow68P+t/T/5koNV574ikr7+bE8OSD98N8LZo0pU80U=";
-    meta = with lib; {
-      homepage = "https://simple-translate.sienori.com/";
-      description =
-        "Quickly translate selected text on web page. In toolbar popup, you can translate input text.";
-      license = licenses.mpl20;
-      mozPermissions = [ "<all_urls>" "storage" "contextMenus" ];
-      platforms = platforms.all;
-    };
-  };
-
   linguee-it = buildFirefoxXpiAddon {
     pname = "linguee-it";
     version = "0.3.1";
