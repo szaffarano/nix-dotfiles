@@ -1,4 +1,4 @@
-{ inputs, outputs, config, ... }: {
+{ inputs, outputs, lib, config, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -15,6 +15,15 @@
     docker = {
       enable = true;
       storageDriver = "btrfs";
+    };
+  };
+
+  services = {
+    fwupd = {
+      enable = lib.mkDefault true;
+    };
+    thermald = {
+      enable = lib.mkDefault true;
     };
   };
 
