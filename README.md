@@ -6,7 +6,7 @@
 
 ### Preconditions
 
-1. Create a keypair for the target machine
+1. Create a ssh keypair for the target machine
 
         # use a ramfs to not store the key in disk
         sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
@@ -39,8 +39,9 @@ avoid any hard-to-recover mistake.
 e.g., `./users/<user-name>/<machine-name>.nix`
 1. Boot the new machine using
 [nixos-anywhere](https://github.com/nix-community/nixos-anywhere).  Eventually
-you would need to install rsync, `nix-env -iA nixos.rsync`
-1. Run nixos-anywhere including the ssh keys generated as preconditions
+you would need to install rsync, `nix-env -iA nixos.rsync` in the target machine.
+1. Run nixos-anywhere in the host machine, including the ssh keys generated as
+preconditions
 
         tree /tmp/pki/ram
         /tmp/pki/ram
@@ -50,7 +51,8 @@ you would need to install rsync, `nix-env -iA nixos.rsync`
                 ├── ssh_host_ed25519_key.age.pub
                 └── ssh_host_ed25519_key.pub
 
-        cp /tmp/pki/ram/etc/ssh/*pub .
+        # copy the pub keys as part of the new machine's configuration
+        cp /tmp/pki/ram/etc/ssh/*pub ./system/<machine-name>
 
         nix run github:nix-community/nixos-anywhere -- \
             --flake .#<machine-name> \
