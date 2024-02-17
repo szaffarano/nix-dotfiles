@@ -1,4 +1,4 @@
-{ inputs, outputs, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -60,6 +60,15 @@
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
+    };
+  };
+
+  services = {
+    fwupd = {
+      enable = lib.mkDefault true;
+    };
+    thermald = {
+      enable = lib.mkDefault true;
     };
   };
 
