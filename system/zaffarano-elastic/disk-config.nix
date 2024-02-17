@@ -23,7 +23,7 @@
             content = {
               type = "luks";
               name = "nixos";
-              extraOpenArgs = [ "--allow-discards" ];
+              extraOpenArgs = [ "--allow-discards" "--perf-no_read_workqueue" "--perf-no_write_workqueue" ];
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
