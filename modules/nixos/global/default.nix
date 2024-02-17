@@ -51,10 +51,14 @@ in {
       initrd.systemd.enable = true;
     };
 
-    systemd.tmpfiles.rules = lib.optionals cfg.disableWakeupLid [
-      #     Path                  Mode UID  GID  Age Argument
-      "w    /proc/acpi/wakeup     -    -    -    -   LID0"
-    ];
+    systemd.services.disable-LID0 = lib.optionals cfg.disableWakeupLid {
+      wantedBy = [ "multi-user.target" ];
+      description = "Disable wakeup on opening LID0";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.disable-lid}/bin/disable-lid";
+      };
+    };
 
     services.udisks2.enable = true;
 
