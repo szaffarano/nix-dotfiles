@@ -10,7 +10,6 @@
   ];
 
   services.geoclue2.enable = true;
-  services.pcscd.enable = true;
   virtualisation = {
     libvirtd.enable = true;
     docker = {
@@ -22,6 +21,7 @@
   nixos = {
     hostName = outputs.host.name;
     allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22000 ];
     audio.enable = true;
     bluetooth.enable = true;
     disableWakeupLid = true;
