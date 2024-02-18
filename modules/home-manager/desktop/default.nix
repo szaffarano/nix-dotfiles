@@ -22,7 +22,7 @@ in with lib; {
       speedcrunch
       tor-browser-bundle-bin
       transmission-qt
-      ungoogled-chromium
+      chromium
 
       fontconfig
 
