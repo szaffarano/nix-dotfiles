@@ -46,7 +46,7 @@ in {
           "browser.startup.homepage" = "https://start.duckduckgo.com";
           "browser.uiCustomization.state" =
             lib.readFile ./firefox-ui-customization.json;
-          "identity.fxaccounts.enabled" = false;
+          "identity.fxaccounts.enabled" = true;
           "privacy.trackingprotection.enabled" = true;
           "signon.rememberSignons" = false;
         };
