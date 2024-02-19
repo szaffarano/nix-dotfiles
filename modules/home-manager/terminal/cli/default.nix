@@ -32,15 +32,15 @@
       jq.enable = true;
       bash.enable = true;
 
-      bat = {
-        enable = true;
-        config.theme = "base16";
-      };
-
-      fzf = {
+      atuin = {
         enable = true;
         enableZshIntegration = true;
-        defaultOptions = [ "--height 40%" "--border" ];
+        flags = [
+          "--disable-up-arrow"
+        ];
+        settings = {
+          keymap_mode = "vim-insert";
+        };
       };
 
       btop = {
@@ -50,6 +50,17 @@
           vim_keys = true;
           proc_tree = true;
         };
+      };
+
+      bat = {
+        enable = true;
+        config.theme = "base16";
+      };
+
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+        defaultOptions = [ "--height 40%" "--border" ];
       };
     };
 
