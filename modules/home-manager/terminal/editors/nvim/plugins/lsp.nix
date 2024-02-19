@@ -16,6 +16,10 @@
 
 
     plugins = {
+      lsp-format = {
+        enable = true;
+      };
+
       lsp = {
         enable = true;
 
@@ -56,6 +60,9 @@
             enable = true;
             installCargo = true;
             installRustc = true;
+            settings = {
+              cargo.features = "all";
+            };
           };
           texlab.enable = true;
           tsserver.enable = true;
