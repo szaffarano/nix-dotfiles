@@ -42,6 +42,10 @@ with lib; {
 
         bind C-h previous-window
         bind C-l next-window
+
+        set -g focus-events on
+
+        set -g status-interval 1
       '';
     };
 
