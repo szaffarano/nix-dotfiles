@@ -35,12 +35,14 @@ in with lib; {
       (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
       glib
       grim
-      gtk3 # For gtk-launch
+      gthumb
+      gtk3
       imagemagick
       imv
       mimeo
       pulseaudio
       slurp
+      vlc
       waypipe
       weechat
       wf-recorder
@@ -63,9 +65,22 @@ in with lib; {
       mimeApps = {
         enable = true;
         defaultApplications = {
+          "application/octet-stream" = "org.gnome.gThumb.desktop"; # matplotlib figures
           "application/pdf" = "org.pwmt.zathura.desktop";
           "application/xhtml+xml" = "firefox.desktop";
+          "image/gif" = "org.gnome.gThumb.desktop";
+          "image/heif" = "org.gnome.gThumb.desktop";
+          "image/jpeg" = "org.gnome.gThumb.desktop";
+          "image/png" = "org.gnome.gThumb.desktop";
+          "image/webp" = "org.gnome.gThumb.desktop";
           "text/html" = "firefox.desktop";
+          "text/xml" = "firefox.desktop";
+          "video/mp4" = "vlc.desktop";
+          "video/quicktime" = "vlc.desktop";
+          "video/x-matroska" = "vlc.desktop";
+          "video/x-ms-wmv" = "vlc.desktop";
+          "x-scheme-handler/http" = "firefox.desktop";
+          "x-scheme-handler/https" = "firefox.desktop";
         };
       };
 

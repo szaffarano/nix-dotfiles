@@ -10,8 +10,17 @@ in with lib; {
       pre-commit
       go
       nixfmt
-      rustup
       hyperfine
+
+      # Rust (TODO: move to another place?)
+      bacon
+      cargo
+      gcc
+      rustc
+      rustfmt
     ];
+
+    # Rust (TODO: move to another place?)
+    home.sessionVariables.CARGO_HOME = "${config.xdg.dataHome}/cargo";
   };
 }
