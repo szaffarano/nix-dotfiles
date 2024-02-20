@@ -5,8 +5,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "akinsho";
       repo = "org-bullets.nvim";
-      rev = "6e0d60e901bb939eb526139cb1f8d59065132fd9";
-      sha256 = "sha256-x6S4WdgfUr7HGEHToSDy3pSHEwOPQalzWhBUipqMtnw=";
+      rev = "208b8519bccbb9b67deee7115fd6587983d279c1";
+      sha256 = "sha256-LEI+d9KKnm7ctOBLn3yDHVgoYHd9QrCyd+BXqpj2W98=";
     };
   };
 in
