@@ -6,7 +6,6 @@ in with lib; {
   options.terminal.cli.aws.enable = mkEnableOption "aws";
 
   config = mkIf cfg.enable {
-    # TODO: awscli2 is broken
-    home.packages = with pkgs; [ aws-vault aws-iam-authenticator ];
+    home.packages = with pkgs; [ awscli2 aws-vault aws-iam-authenticator ];
   };
 }
