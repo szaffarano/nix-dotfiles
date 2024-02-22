@@ -4,6 +4,7 @@
     ./completion.nix
     ./copilot.nix
     ./git.nix
+    ./harpoon.nix
     ./illuminate.nix
     ./indent-blankline.nix
     ./lsp.nix
@@ -37,6 +38,7 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       vim-gnupg
+      harpoon2
     ];
   };
 }
