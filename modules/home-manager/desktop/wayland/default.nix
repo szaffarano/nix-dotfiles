@@ -38,7 +38,6 @@ in with lib; {
       gthumb
       gtk3
       imagemagick
-      imv
       mimeo
       pulseaudio
       slurp
