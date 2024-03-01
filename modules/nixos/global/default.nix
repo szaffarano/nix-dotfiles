@@ -121,6 +121,11 @@ in {
           stdenv.cc.cc
           systemd
           vulkan-loader
+          xorg.libXext
+          xorg.libX11
+          xorg.libXrender
+          xorg.libXtst
+          xorg.libXi
           zlib
         ];
       };
