@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
-pushd ~/.dotfiles
+BASEDIR="$(realpath "$(dirname "$0")"/..)"
+
+pushd "$BASEDIR" > /dev/null
 home-manager switch --flake .
-popd
+popd > /dev/null
