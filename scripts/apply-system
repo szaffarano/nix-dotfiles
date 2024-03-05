@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-pushd ~/.dotfiles
+BASEDIR="$(realpath "$(dirname "$0")"/..)"
+
+pushd "$BASEDIR" > /dev/null
 sudo nixos-rebuild switch --flake .
-popd
+popd > /dev/null
