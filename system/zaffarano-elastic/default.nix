@@ -105,6 +105,12 @@
 
   system.stateVersion = "23.05";
 
+  powerManagement.powertop.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    powertop
+  ];
+
   #####################################################################################
   # Legacy configs: check where to move them
   #####################################################################################
