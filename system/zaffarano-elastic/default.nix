@@ -63,6 +63,10 @@
     };
   };
 
+  networking.extraHosts = ''
+    127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper
+  '';
+
   services = {
     fwupd = {
       enable = lib.mkDefault true;
