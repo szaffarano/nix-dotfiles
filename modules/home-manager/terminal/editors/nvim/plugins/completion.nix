@@ -4,6 +4,7 @@
 
     plugins = {
       luasnip.enable = true;
+
       cmp-buffer.enable = true;
       cmp-fuzzy-path.enable = true;
       cmp_luasnip.enable = true;
@@ -29,44 +30,38 @@
         };
       };
 
-      nvim-cmp = {
+      cmp = {
         enable = true;
 
-        snippet.expand = "luasnip";
+        settings = {
+          snippet.expand = "luasnip";
 
-        mapping = {
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<C-e>" = "cmp.mapping.close()"; # TODO: mapping.abort()?
-          "<C-n>" = {
-            # TODO: behavior = cmp.SelectBehavior.Insert
-            modes = [ "i" "s" ];
-            action = "cmp.mapping.select_next_item()";
-          };
-          "<C-p>" = {
-            modes = [ "i" "s" ];
-            action = "cmp.mapping.select_prev_item()";
+          mapping = {
+            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-f>" = "cmp.mapping.scroll_docs(4)";
+            "<C-e>" = "cmp.mapping.close()";
+            "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<c-y>" = "cmp.mapping.confirm({ select = true })";
+            "<tab>" = "cmp.config.disable";
           };
 
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<c-y>" = "cmp.mapping.confirm({ select = true })";
-          "<tab>" = "cmp.config.disable";
+          sources = [
+            { name = "path"; }
+            { name = "copilot"; }
+            { name = "nvim_lsp"; }
+            { name = "nvim_lua"; }
+            { name = "luasnip"; }
+            { name = "treesitter"; }
+            { name = "orgmode"; }
+            {
+              name = "buffer";
+              # Words from other open buffers can also be suggested.
+              option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
+            }
+          ];
         };
-
-        sources = [
-          { name = "path"; }
-          { name = "copilot"; }
-          { name = "nvim_lsp"; }
-          { name = "nvim_lua"; }
-          { name = "luasnip"; }
-          { name = "treesitter"; }
-          { name = "orgmode"; }
-          {
-            name = "buffer";
-            # Words from other open buffers can also be suggested.
-            option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
-          }
-        ];
       };
     };
 
