@@ -54,28 +54,27 @@
 
       bat = {
         enable = true;
-        config.theme = "base16";
       };
 
       fzf = {
         enable = true;
         enableZshIntegration = true;
-        defaultOptions = [ "--height 40%" "--border" ];
       };
     };
 
     home.packages = with pkgs; [
-      comma
       bc
       bottom
-      ncdu
+      comma
+      diffsitter
       eza
-      ripgrep
       fd
       httpie
-      diffsitter
-      timer
+      libqalculate
+      ncdu
       nixfmt
+      ripgrep
+      timer
     ];
   };
 }
