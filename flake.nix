@@ -71,8 +71,6 @@
       szaffarano_at_elastic = {
         name = "szaffarano";
         fullName = "Sebastián Zaffarano";
-        email = "sebastian.zaffarano@elastic.co";
-        gpgKey = "0xB31A0D3EFDC15D4B";
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
         ];
