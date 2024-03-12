@@ -4,15 +4,11 @@
     enable = true;
     user = {
       name = outputs.user.fullName;
-      email = outputs.user.email;
-      signingKey = outputs.user.gpgKey;
     };
   };
 
   gpg = {
     enable = true;
-    default-key = outputs.user.gpgKey;
-    trusted-key = outputs.user.gpgKey;
   };
 
   colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;

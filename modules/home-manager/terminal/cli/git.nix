@@ -3,9 +3,9 @@ let
   userOptions = with lib;
     types.submodule {
       options = {
-        name = mkOption { type = types.str; };
-        email = mkOption { type = types.str; };
-        signingKey = mkOption { type = types.str; };
+        name = mkOption { type = types.str; default = ""; };
+        email = mkOption { type = types.str; default = ""; };
+        signingKey = mkOption { type = types.str; default = ""; };
       };
     };
 in
@@ -52,7 +52,12 @@ in
         };
 
         extraConfig = {
-          user = config.git.user;
+          user = {
+            name = lib.mkIf (config.git.user.name != "") config.git.user.name;
+            email = lib.mkIf (config.git.user.email != "") config.git.user.email;
+            signingKey = lib.mkIf (config.git.user.signingKey != "") config.git.user.signingKey;
+          };
+
           log = {
             date = "iso";
             abbrevCommit = true;
@@ -82,7 +87,10 @@ in
           pull.ff = "only";
         };
 
-        includes = [{ path = delta.themes; }];
+        includes = [
+          { path = delta.themes; }
+          { path = "~/.config/git/config.local"; }
+        ];
       };
 
       home = {

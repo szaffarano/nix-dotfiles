@@ -3,8 +3,8 @@ let cfg = config.gpg;
 in with lib; {
   options.gpg = {
     enable = mkEnableOption "gpg";
-    default-key = mkOption { type = types.str; };
-    trusted-key = mkOption { type = types.str; };
+    default-key = mkOption { type = types.str; default = ""; };
+    trusted-key = mkOption { type = types.str; default = ""; };
   };
 
   config =
@@ -77,8 +77,8 @@ in with lib; {
           use-agent = true;
           throw-keyids = true;
 
-          default-key = config.gpg.default-key;
-          trusted-key = config.gpg.trusted-key;
+          default-key = lib.mkIf (config.gpg.default-key != "") config.gpg.default-key;
+          trusted-key = lib.mkIf (config.gpg.trusted-key != "") config.gpg.trusted-key;
           group =
             "keygroup = 0xFF00000000000001 0xFF00000000000002 ${config.gpg.trusted-key}";
         };
