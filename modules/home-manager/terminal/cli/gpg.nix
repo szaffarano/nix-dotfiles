@@ -36,7 +36,7 @@ in with lib; {
       services.gpg-agent = {
         enable = true;
         enableSshSupport = true;
-        pinentryFlavor = "qt";
+        pinentryPackage = pkgs.pinentry-qt;
 
         defaultCacheTtl = 28800;
         defaultCacheTtlSsh = 28800;
