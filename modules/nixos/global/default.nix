@@ -51,7 +51,7 @@ in {
       initrd.systemd.enable = true;
     };
 
-    systemd.services.disable-LID0 = lib.optionals cfg.disableWakeupLid {
+    systemd.services.disable-LID0 = lib.mkIf cfg.disableWakeupLid {
       wantedBy = [ "multi-user.target" ];
       description = "Disable wakeup on opening LID0";
       serviceConfig = {
