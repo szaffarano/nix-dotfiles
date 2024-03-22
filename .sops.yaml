@@ -4,6 +4,7 @@ keys:
   - hosts:
     - &pilsen age1jn9egcppvq5n5lus9lx63sh8maw77w3f23dqz67e8tk7e6dlvf2qes0djq
     - &bock age13vhnxwmqlln7t6k8np3zsx59egu305nam9f3nqf962zcf7ll84gqzwmey4
+    - &weisse age1vett5c0wd2p5gzua6569nyu45s8tq3a4wd3jm93nml3d458nlvjs6yp7gv
     - &elastic age1h0nqk3eneuz726km59keqrgew2q0zamcxr7hlumd8gjr5ppyv5fsaj6n7d
 
 creation_rules:
@@ -23,5 +24,11 @@ creation_rules:
     key_groups:
     - age:
       - *elastic
+      pgp:
+      - *sebas_pgp
+  - path_regex: system/weisse/secrets.yaml
+    key_groups:
+    - age:
+      - *weisse
       pgp:
       - *sebas_pgp

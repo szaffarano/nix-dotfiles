@@ -87,6 +87,10 @@
         name = "zaffarano-elastic";
         arch = "x86_64-linux";
       };
+      weisse_host = {
+        name = "weisse";
+        arch = "x86_64-linux";
+      };
       bock = {
         user = sebas_at_home;
         host = bock_host;
@@ -98,6 +102,10 @@
       zaffarano = {
         user = szaffarano_at_elastic;
         host = zaffarano_host;
+      };
+      weisse = {
+        user = sebas_at_home;
+        host = weisse_host;
       };
 
     in
@@ -118,12 +126,14 @@
       nixosConfigurations = {
         pilsen = lib.mkNixOS pilsen;
         bock = lib.mkNixOS bock;
+        weisse = lib.mkNixOS weisse;
         zaffarano-elastic = lib.mkNixOS zaffarano;
       };
 
       homeConfigurations = {
         "sebas@pilsen" = lib.mkHome pilsen;
         "sebas@bock" = lib.mkHome bock;
+        "sebas@weisse" = lib.mkHome weisse;
         "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
       };
 
