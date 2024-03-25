@@ -7,6 +7,13 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
+    wofi-power-menu = {
+      url = "github:szaffarano/wofi-power-menu";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "nixpkgs";
+      };
+    };
 
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";

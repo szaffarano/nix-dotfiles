@@ -650,7 +650,8 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "nur": "nur",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "wofi-power-menu": "wofi-power-menu"
       }
     },
     "sops-nix": {
@@ -729,6 +730,29 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "wofi-power-menu": {
+      "inputs": {
+        "flake-utils": [
+          "nixpkgs"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1711365847,
+        "narHash": "sha256-7sL6b1RP/uLIAA+OW8CYuBLtEajjnomGSQc5eRSZp3w=",
+        "owner": "szaffarano",
+        "repo": "wofi-power-menu",
+        "rev": "d71591f7ccb412a07a961a812d081847d4fb1cfa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "szaffarano",
+        "repo": "wofi-power-menu",
         "type": "github"
       }
     }

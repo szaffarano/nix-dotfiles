@@ -1,4 +1,4 @@
-{ theme, config, lib, pkgs, ... }:
+{ theme, config, lib, pkgs, inputs, ... }:
 let cfg = config.desktop.wayland.compositors.sway;
 in with lib; {
 
@@ -12,7 +12,7 @@ in with lib; {
       toggleScratchpad =
         "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
       wofi = "${pkgs.wofi}/bin/wofi";
-      wofiPowerMenu = "${pkgs.wofi-power-menu}/bin/wofi-power-menu";
+      wofiPowerMenu = "wofi-power-menu";
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
       ncspot = "${pkgs.ncspot}/bin/ncspot";
       passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
@@ -34,7 +34,9 @@ in with lib; {
       # TODO: use global theme
       xdg.configFile."sway/themes" = { source = "${catppuccin}/themes"; };
 
-      home.packages = [ ];
+      home.packages = [
+        inputs.wofi-power-menu.defaultPackage.${pkgs.system}
+      ];
 
       wayland.windowManager.sway = {
         enable = true;

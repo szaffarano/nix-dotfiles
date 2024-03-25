@@ -8,6 +8,5 @@ in
   lock-screen = pkgs.callPackage ./lock-screen { };
   toggle-sway-scratchpad = pkgs.callPackage ./toggle-sway-scratchpad { };
   wallpaper = pkgs.callPackage ./wallpaper { };
-  wofi-power-menu = pkgs.callPackage ./wofi-power-menu { };
   disable-lid = pkgs.callPackage ./disable-lid { };
 } // firefox-addons
