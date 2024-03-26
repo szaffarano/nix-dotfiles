@@ -15,6 +15,7 @@ in with lib; {
       # Rust (TODO: move to another place?)
       bacon
       cargo
+      clippy
       gcc
       rustc
       rustfmt

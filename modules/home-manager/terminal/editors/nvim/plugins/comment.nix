@@ -1,7 +1,7 @@
 {
-  programs.nixvim.plugins.comment-nvim = {
+  programs.nixvim.plugins.comment = {
     enable = true;
 
-    padding = true;
+    settings.padding = true;
   };
 }

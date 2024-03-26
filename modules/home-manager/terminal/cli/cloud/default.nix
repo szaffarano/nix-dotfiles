@@ -6,10 +6,11 @@ in with lib; {
   options.terminal.cli.cloud.enable = mkEnableOption "cloud";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ vault ];
+    home.packages = with pkgs; [ vault-bin ];
 
     terminal.cli = {
-      aws.enable = true;
+      # until https://github.com/NixOS/nixpkgs/issues/298023 is fixed
+      aws.enable = false;
       gcp.enable = true;
       k8s.enable = true;
     };

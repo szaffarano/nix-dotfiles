@@ -80,7 +80,7 @@ with lib; {
               "focused" = "";
               "default" = "";
             };
-            persistent_workspaces = {
+            persistent-workspaces = {
               "1" = [ ];
               "2" = [ ];
               "3" = [ ];
@@ -172,22 +172,11 @@ with lib; {
 
           clock =
             let zenity = "${pkgs.gnome.zenity}/bin/zenity";
-            in {
+            in
+            {
               format = "  {:%a %d %b %R %Z}";
               interval = 10;
-              tooltip = true;
-              tooltip-format = ''
-                <tt>{timezoned_time_list}
-                {:%B %Y}
-                {calendar}</tt>'';
               on-click = "${zenity} --calendar";
-              today-format = "<span color='red'><b>{}</b></span>";
-              timezones = [
-                "Europe/Stockholm"
-                "Europe/Helsinki"
-                "Europe/London"
-                "US/Michigan"
-              ];
             };
 
           tray = {
