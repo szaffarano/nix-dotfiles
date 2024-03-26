@@ -11,7 +11,6 @@
       url = "github:szaffarano/wofi-power-menu";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "nixpkgs";
       };
     };
 
