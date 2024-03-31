@@ -13,7 +13,7 @@ in
 {
   programs.nixvim = {
 
-    options = {
+    opts = {
       conceallevel = 2;
       concealcursor = "nc";
     };

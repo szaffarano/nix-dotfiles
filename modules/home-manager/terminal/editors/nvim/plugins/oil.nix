@@ -12,7 +12,9 @@
     # A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer.
     plugins.oil = {
       enable = true;
-      skipConfirmForSimpleEdits = true;
+      settings = {
+        skip_confirm_for_simple_edits = true;
+      };
     };
   };
 }

@@ -35,7 +35,7 @@ in with lib; {
       xdg.configFile."sway/themes" = { source = "${catppuccin}/themes"; };
 
       home.packages = [
-        inputs.wofi-power-menu.defaultPackage.${pkgs.system}
+        inputs.wofi-power-menu.packages.${pkgs.hostPlatform.system}.wofi-power-menu
       ];
 
       wayland.windowManager.sway = {

@@ -7,7 +7,7 @@
       loaded_python_provider = 0; # Python 2
     };
 
-    options = {
+    opts = {
       updatetime = 100; # Faster completion
       timeout = true;
       timeoutlen = 500;
