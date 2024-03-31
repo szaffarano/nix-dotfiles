@@ -19,6 +19,11 @@
   };
 
   services = {
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "both";
+    };
+
     fwupd = {
       enable = lib.mkDefault true;
     };
