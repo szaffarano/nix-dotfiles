@@ -9,8 +9,7 @@ in with lib; {
     home.packages = with pkgs; [ vault-bin ];
 
     terminal.cli = {
-      # until https://github.com/NixOS/nixpkgs/issues/298023 is fixed
-      aws.enable = false;
+      aws.enable = true;
       gcp.enable = true;
       k8s.enable = true;
     };
