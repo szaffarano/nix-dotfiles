@@ -69,7 +69,7 @@ in {
       gptfdisk
       libinput
       mkpasswd
-      neovim
+      neovim-unwrapped
       p7zip
       pciutils
       rclone
