@@ -18,7 +18,7 @@ in with lib; {
       passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
 
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${ncspot}'";
-      orgCommand = "${toggleScratchpad} 'orgMode' 'vim +WikiIndex'";
+      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
 
       # TODO integrate with config.colorscheme
       catppuccin = pkgs.fetchFromGitHub {
