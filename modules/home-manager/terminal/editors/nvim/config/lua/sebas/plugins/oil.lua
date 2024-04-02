@@ -1,5 +1,6 @@
 return { --  A vim-vinegar like file explorer that lets you edit your filesystem like a normal Neovim buffer.
   'stevearc/oil.nvim',
+  lazy = false,
   opts = {
     -- set to false to make some netrw-dependant plugins to work
     default_file_explorer = true,
