@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+BASEDIR="$(realpath "$(dirname "$0")"/..)"
+NVIM_CONFIG="$XDG_CONFIG_HOME"/nvim
+
+rm -rf "$NVIM_CONFIG" \
+  && ln -s "$BASEDIR"/modules/home-manager/terminal/editors/nvim/config "$NVIM_CONFIG"
