@@ -1,5 +1,9 @@
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
+  dependencies = {
+    'lewis6991/gitsigns.nvim',
+    'nvim-web-devicons',
+  },
   config = function()
     -- Better Around/Inside textobjects
     --
@@ -16,9 +20,6 @@ return { -- Collection of various small independent plugins/modules
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
 
-    local statusline = require 'mini.statusline'
-    statusline.setup { use_icons = true }
-
-    --  Check out: https://github.com/echasnovski/mini.nvim
+    require('mini.statusline').setup()
   end,
 }

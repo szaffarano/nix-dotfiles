@@ -5,6 +5,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
 
+    -- Enable completion triggered by <c-x><c-o>
+    -- vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
     --  To jump back, press <C-t>.
     map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
     map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -50,7 +53,6 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp'
 --  - settings (table): Override the default settings passed when initializing the server.
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 local servers = {
-  clangd = {},
   gopls = {},
   pyright = {},
   rust_analyzer = {},
@@ -81,22 +83,8 @@ local servers = {
   },
 }
 
-require('mason').setup()
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-  'stylua', -- Used to format Lua code
-})
-require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-require('mason-lspconfig').setup {
-  handlers = {
-    function(server_name)
-      local server = servers[server_name] or {}
-      -- This handles overriding only values explicitly passed
-      -- by the server configuration above. Useful when disabling
-      -- certain features of an LSP (for example, turning off formatting for tsserver)
-      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      require('lspconfig')[server_name].setup(server)
-    end,
-  },
-}
+local lspconfig = require 'lspconfig'
+for server_name, server in pairs(servers) do
+  server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+  lspconfig[server_name].setup(server)
+end
