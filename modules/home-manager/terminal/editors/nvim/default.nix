@@ -26,6 +26,7 @@
   home.packages = with pkgs; [
     markdownlint-cli
     tree-sitter
+    stylua
 
     shfmt
   ];
