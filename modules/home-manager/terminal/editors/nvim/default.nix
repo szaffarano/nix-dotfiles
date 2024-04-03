@@ -22,13 +22,33 @@
     recursive = true;
   };
 
-  # TODO: try to install nvim dependencies in this way instead of using mason
   home.packages = with pkgs; [
-    markdownlint-cli
     tree-sitter
+
+    # formatters
+    shfmt
     stylua
 
-    shfmt
+    # linters
+    markdownlint-cli
+    golangci-lint
+    shellcheck
+    hadolint
+    vale
+
+    # LSP servers
+    gopls
+    nil
+    nodePackages.typescript-language-server
+    lua-language-server
+    pyright
+    rust-analyzer
+    terraform-ls
+    yaml-language-server
+
+    # debug
+    delve
+    lldb
   ];
 
   xdg.desktopEntries = {
