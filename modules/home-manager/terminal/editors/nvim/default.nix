@@ -1,5 +1,14 @@
 # TODO: parameterize to enable or disable the module
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  treesitter-parsers = pkgs.symlinkJoin {
+    name = "treesitter-parsers";
+    paths = [
+      pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies
+    ];
+  };
+in
+{
   home.sessionVariables.EDITOR = "nvim";
 
   xdg.configFile.nvim = {
@@ -22,8 +31,14 @@
     recursive = true;
   };
 
+  xdg.dataFile."nvim/treesitter-parsers" = {
+    source = treesitter-parsers;
+  };
+
   home.packages = with pkgs; [
     tree-sitter
+    fswatch
+    nodePackages.neovim
 
     # formatters
     shfmt
