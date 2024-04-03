@@ -38,7 +38,6 @@ in
   home.packages = with pkgs; [
     tree-sitter
     fswatch
-    nodePackages.neovim
 
     # formatters
     shfmt
