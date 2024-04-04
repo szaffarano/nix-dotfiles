@@ -31,11 +31,18 @@ return {
     end, { desc = 'Harpoon Telescope Window' })
 
     vim.keymap.set('n', '<M-C-a>', function()
-      harpoon:list():append()
+      harpoon:list():add()
     end, { desc = 'Harpoon Append' })
 
     vim.keymap.set('n', '<M-C-e>', function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = 'Harpoon Window' })
+
+    vim.keymap.set('n', '<C-n>', function()
+      harpoon:list():prev()
+    end)
+    vim.keymap.set('n', '<C-p>', function()
+      harpoon:list():next()
+    end)
   end,
 }

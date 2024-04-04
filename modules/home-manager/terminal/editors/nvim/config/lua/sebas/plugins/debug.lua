@@ -3,6 +3,7 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui',
     'nvim-neotest/nvim-nio', -- Required dependency for nvim-dap-ui
+    'theHamsta/nvim-dap-virtual-text',
 
     -- language-specific debuggers configurations
     'leoluz/nvim-dap-go',
@@ -10,9 +11,10 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local dap_virtual_text = require 'nvim-dap-virtual-text'
 
-    -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F9>', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<S-F9>', dapui.toggle, { desc = 'Debug: See last session result.' })
     vim.keymap.set('n', '<F7>', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<F8>', dap.step_over, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<S-F8>', dap.step_out, { desc = 'Debug: Step Out' })
@@ -24,27 +26,11 @@ return {
     vim.keymap.set('n', '<Leader>df', function()
       ---@diagnostic disable-next-line: missing-fields
       require('dapui').float_element('scopes', { enter = true })
-    end)
+    end, { desc = 'Debug: Describe scope' })
 
     ---@diagnostic disable-next-line: missing-fields
-    dapui.setup {
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-      ---@diagnostic disable-next-line: missing-fields
-      controls = {
-        icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
-        },
-      },
-    }
-    vim.keymap.set('n', '<S-F9>', dapui.toggle, { desc = 'Debug: See last session result.' })
+    dapui.setup {}
+    dap_virtual_text.setup()
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
@@ -58,20 +44,6 @@ return {
       type = 'executable',
       command = 'lldb-vscode',
       name = 'lldb',
-    }
-
-    dap.configurations.rust = {
-      {
-        name = 'Launch',
-        type = 'lldb',
-        request = 'launch',
-        program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = false,
-        args = {},
-      },
     }
   end,
 }

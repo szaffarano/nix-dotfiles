@@ -9,7 +9,7 @@ in with lib; {
     home.packages = with pkgs; [
       pre-commit
       go
-      nixfmt
+      nixfmt-rfc-style
       hyperfine
 
       # Rust (TODO: move to another place?)
