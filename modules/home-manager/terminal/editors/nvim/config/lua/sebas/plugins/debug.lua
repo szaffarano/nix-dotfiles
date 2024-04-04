@@ -3,6 +3,7 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui',
     'nvim-neotest/nvim-nio', -- Required dependency for nvim-dap-ui
+    'theHamsta/nvim-dap-virtual-text',
 
     -- language-specific debuggers configurations
     'leoluz/nvim-dap-go',
@@ -10,6 +11,7 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local dap_virtual_text = require 'nvim-dap-virtual-text'
 
     vim.keymap.set('n', '<F9>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<S-F9>', dapui.toggle, { desc = 'Debug: See last session result.' })
@@ -28,6 +30,7 @@ return {
 
     ---@diagnostic disable-next-line: missing-fields
     dapui.setup {}
+    dap_virtual_text.setup()
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
