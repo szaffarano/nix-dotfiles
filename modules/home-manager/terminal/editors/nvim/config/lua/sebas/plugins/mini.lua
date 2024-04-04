@@ -2,7 +2,6 @@ return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   dependencies = {
     'lewis6991/gitsigns.nvim',
-    'nvim-web-devicons',
   },
   config = function()
     -- Better Around/Inside textobjects
@@ -19,7 +18,5 @@ return { -- Collection of various small independent plugins/modules
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
-
-    require('mini.statusline').setup()
   end,
 }
