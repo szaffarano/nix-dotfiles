@@ -72,7 +72,7 @@
       httpie
       libqalculate
       ncdu
-      nixfmt
+      nixfmt-rfc-style
       ripgrep
       timer
     ];
