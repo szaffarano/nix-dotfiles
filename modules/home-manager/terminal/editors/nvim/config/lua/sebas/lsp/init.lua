@@ -34,39 +34,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 local servers = {
-  gopls = {},
-  pyright = {},
-  rust_analyzer = {},
-  nil_ls = {},
-  terraformls = {},
-  yamlls = {},
-  ocamllsp = {},
-  grammarly = {},
-  bashls = {
-    filetypes = { 'sh', 'zsh', 'bash' },
-  },
-  jsonls = {},
-  tsserver = {}, -- TODO: https://github.com/pmizio/typescript-tools.nvim
-  lua_ls = {
-    -- cmd = {},
-    -- filetypes = {},
-    -- capabilities = {},
-    settings = {
-      Lua = {
-        completion = {
-          callSnippet = 'Replace',
-        },
-        -- diagnostics = { disable = { 'missing-fields' } },
-      },
-    },
-  },
+  'bashls',
+  'gopls',
+  'grammarly',
+  'jsonls',
+  'ltex',
+  'lua_ls',
+  'nil_ls',
+  'ocamllsp',
+  'pyright',
+  'rust_analyzer',
+  'terraformls',
+  'tsserver', -- TODO: https://github.com/pmizio/typescript-tools.nvim
+  'yamlls',
 }
 
 local lspconfig = require 'lspconfig'
-for server_name, server in pairs(servers) do
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+for _, server_name in ipairs(servers) do
+  local ok, server = pcall(require, 'sebas.lsp.servers.' .. server_name)
+  if not ok then
+    server = {}
+  end
   server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
   lspconfig[server_name].setup(server)
 end
