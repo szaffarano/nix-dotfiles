@@ -44,6 +44,7 @@ in
     stylua
 
     # linters
+    nodePackages.jsonlint
     markdownlint-cli
     golangci-lint
     shellcheck
@@ -52,12 +53,14 @@ in
 
     # LSP servers
     gopls
+    lua-language-server
+    ltex-ls
     nil
     nodePackages.typescript-language-server
-    lua-language-server
     pyright
     rust-analyzer
     terraform-ls
+    vscode-langservers-extracted
     yaml-language-server
 
     # debug
