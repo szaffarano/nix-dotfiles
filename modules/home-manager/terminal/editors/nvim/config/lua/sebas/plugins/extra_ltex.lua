@@ -5,9 +5,6 @@ return {
   config = function()
     require('ltex_extra').setup {
       server_opts = {
-        -- on_attach = function(client, bufnr)
-        -- print 'Attached!'
-        -- end,
         settings = {
           ltex = {
             language = 'en-US',
