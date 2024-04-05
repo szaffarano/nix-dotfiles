@@ -22,7 +22,6 @@ let
       description = "Package for ${kind} font profile";
       example = "pkgs.fira-code";
     };
-
   };
   cfg = config.fontProfiles;
 in
@@ -35,6 +34,9 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
-    home.packages = [ cfg.monospace.package cfg.regular.package ];
+    home.packages = [
+      cfg.monospace.package
+      cfg.regular.package
+    ];
   };
 }

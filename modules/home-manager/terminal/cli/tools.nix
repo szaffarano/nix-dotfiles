@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.cli.tools;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.terminal.cli.tools;
+in
+with lib;
+{
   options.terminal.cli.tools.enable = mkEnableOption "tools";
 
   config = mkIf cfg.enable {

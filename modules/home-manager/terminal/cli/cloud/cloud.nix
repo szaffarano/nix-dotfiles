@@ -1,7 +1,19 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.cli.cloud;
-in with lib; {
-  imports = [ ./aws.nix ./gcp.nix ./k8s.nix ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.terminal.cli.cloud;
+in
+with lib;
+{
+  imports = [
+    ./aws.nix
+    ./gcp.nix
+    ./k8s.nix
+  ];
 
   options.terminal.cli.cloud.enable = mkEnableOption "cloud";
 

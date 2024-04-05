@@ -1,6 +1,8 @@
 { config, lib, ... }:
-let cfg = config.nixos.quietboot;
-in {
+let
+  cfg = config.nixos.quietboot;
+in
+{
   options.nixos.quietboot.enable = lib.mkEnableOption "quiet boot";
 
   config = lib.mkIf cfg.enable {

@@ -1,6 +1,19 @@
-{ fetchurl, lib, stdenv }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+}:
 let
-  buildFirefoxXpiAddon = { pname, version, addonId, url, sha256, meta, ... }:
+  buildFirefoxXpiAddon =
+    {
+      pname,
+      version,
+      addonId,
+      url,
+      sha256,
+      meta,
+      ...
+    }:
     stdenv.mkDerivation {
       name = "${pname}-${version}";
 
@@ -24,8 +37,7 @@ in
     pname = "linguee-it";
     version = "0.3.1";
     addonId = "{8a94c7c4-184c-453f-a5d1-3e319062f0a5}";
-    url =
-      "https://addons.mozilla.org/firefox/downloads/file/541956/linguee_it-0.3.1.xpi";
+    url = "https://addons.mozilla.org/firefox/downloads/file/541956/linguee_it-0.3.1.xpi";
     sha256 = "sha256-Z72680IjrXznAD1Nf9zPImiH9vvZ8H8zuNPuKXwnGh8=";
     meta = with lib; {
       homepage = "https://github.com/renanbr/linguee-it";

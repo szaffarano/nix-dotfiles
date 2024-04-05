@@ -2,7 +2,11 @@
 { self, ... }@inputs:
 user: host: system:
 let
-  currentUser = { ${user} = { home = "/Users/${user}"; }; };
+  currentUser = {
+    ${user} = {
+      home = "/Users/${user}";
+    };
+  };
 
   nixpkgsConfig = {
     inherit system;
@@ -28,13 +32,16 @@ inputs.darwin.lib.darwinSystem {
     inputs.nur.nixosModules.nur
     {
       nixpkgs = nixpkgsConfig;
-      home-manager.sharedModules = builtins.attrValues homeManagerModules
-        ++ [ inputs.nur.nixosModules.nur ];
+      home-manager.sharedModules = builtins.attrValues homeManagerModules ++ [
+        inputs.nur.nixosModules.nur
+      ];
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users."${user}" = homeManagerConfig;
       home-manager.verbose = false;
     }
   ] ++ builtins.attrValues darwinModules;
-  specialArgs = { inherit self inputs currentUser; };
+  specialArgs = {
+    inherit self inputs currentUser;
+  };
 }

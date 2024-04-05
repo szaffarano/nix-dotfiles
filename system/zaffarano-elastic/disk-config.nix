@@ -1,4 +1,8 @@
-{ disks ? [ "/dev/vda" ], ... }: {
+{
+  disks ? [ "/dev/vda" ],
+  ...
+}:
+{
   disk = {
     disk-1 = {
       type = "disk";
@@ -23,22 +27,35 @@
             content = {
               type = "luks";
               name = "nixos";
-              extraOpenArgs = [ "--allow-discards" "--perf-no_read_workqueue" "--perf-no_write_workqueue" ];
+              extraOpenArgs = [
+                "--allow-discards"
+                "--perf-no_read_workqueue"
+                "--perf-no_write_workqueue"
+              ];
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                 };
               };

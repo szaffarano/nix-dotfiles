@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   imports = [
     ./cloud
     ./direnv.nix
@@ -35,9 +36,7 @@
       atuin = {
         enable = true;
         enableZshIntegration = true;
-        flags = [
-          "--disable-up-arrow"
-        ];
+        flags = [ "--disable-up-arrow" ];
         settings = {
           keymap_mode = "vim-insert";
         };

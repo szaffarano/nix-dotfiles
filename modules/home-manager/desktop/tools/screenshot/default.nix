@@ -1,11 +1,22 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.tools.screenshot;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.tools.screenshot;
+in
+with lib;
+{
 
   options.desktop.tools.screenshot.enable = mkEnableOption "screenshot";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ swappy sway-contrib.grimshot ];
+    home.packages = with pkgs; [
+      swappy
+      sway-contrib.grimshot
+    ];
 
     xdg.configFile."swappy/config".text = ''
       [Default]

@@ -3,7 +3,8 @@ let
   cfg = config.desktop.tools.zathura;
   inherit (config.colorscheme) palette;
 in
-with lib; {
+with lib;
+{
 
   options.desktop.tools.zathura.enable = mkEnableOption "zathura";
 

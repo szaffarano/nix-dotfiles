@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.sound;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.sound;
+in
+with lib;
+{
   options.sound.enable = mkEnableOption "sound";
 
   config = mkIf cfg.enable {

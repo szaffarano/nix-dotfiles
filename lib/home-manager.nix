@@ -14,9 +14,9 @@ inputs.home-manager.lib.homeManagerConfiguration {
     "${self}/modules/home-manager"
   ];
 
-  pkgs = import inputs.nixpkgs {
-    system = config.host.arch;
-  };
+  pkgs = import inputs.nixpkgs { system = config.host.arch; };
 
-  extraSpecialArgs = { inherit inputs outputs; };
+  extraSpecialArgs = {
+    inherit inputs outputs;
+  };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.terminal.cli.tmux;
   catppuccin = pkgs.fetchFromGitHub {
@@ -7,9 +12,9 @@ let
     rev = "4e48b09";
     sha256 = "sha256-bXEsxt4ozl3cAzV3ZyvbPsnmy0RAdpLxHwN82gvjLdU=";
   };
-
 in
-with lib; {
+with lib;
+{
   options.terminal.cli.tmux.enable = mkEnableOption "tmux";
 
   config = mkIf cfg.enable {
@@ -48,6 +53,5 @@ with lib; {
         set -g status-interval 1
       '';
     };
-
   };
 }

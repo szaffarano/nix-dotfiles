@@ -1,10 +1,21 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland.swaync;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland.swaync;
+in
+with lib;
+{
   options.desktop.wayland.swaync.enable = mkEnableOption "swaync";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ swaynotificationcenter libnotify ];
+    home.packages = with pkgs; [
+      swaynotificationcenter
+      libnotify
+    ];
 
     xdg.configFile.swaync-settings = {
       source = ./config.json;

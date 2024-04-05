@@ -1,11 +1,18 @@
-{ config, lib, pkgs, theme, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  theme,
+  ...
+}:
 let
   cfg = config.desktop.wayland.waybar;
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
   blueberry = "${pkgs.blueberry}/bin/blueberry";
   swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 in
-with lib; {
+with lib;
+{
   options.desktop.wayland.waybar.enable = mkEnableOption "waybar";
 
   config = mkIf cfg.enable {
@@ -31,7 +38,8 @@ with lib; {
               "custom/sep"
               "sway/scratchpad"
               "custom/sep"
-            ]) ++ (lib.optionals config.wayland.windowManager.hyprland.enable [
+            ])
+            ++ (lib.optionals config.wayland.windowManager.hyprland.enable [
               "hyprland/workspaces"
               "hyprland/submap"
             ]);
@@ -87,7 +95,9 @@ with lib; {
             };
           };
 
-          "sway/language" = { "format" = "{} {variant}"; };
+          "sway/language" = {
+            "format" = "{} {variant}";
+          };
 
           pulseaudio = {
             format = " {icon} {volume}%";
@@ -95,7 +105,11 @@ with lib; {
             format-bluetooth = " {icon} {volume}%";
             format-icons = {
               headphones = " ";
-              default = [ "" "" " " ];
+              default = [
+                ""
+                ""
+                " "
+              ];
             };
             on-click = pavucontrol;
           };
@@ -103,7 +117,10 @@ with lib; {
           "sway/scratchpad" = {
             format = "{icon} {count}";
             show-empty = true;
-            format-icons = [ " " " " ];
+            format-icons = [
+              " "
+              " "
+            ];
             tooltip = true;
             tooltip-format = "{app}: {title}";
           };
@@ -113,8 +130,7 @@ with lib; {
             format = " {status}";
             format-device-preference = [ "Keychron K2" ];
             format-connected = " {device_alias}";
-            format-connected-battery =
-              " {device_alias} {device_battery_percentage}%";
+            format-connected-battery = " {device_alias} {device_battery_percentage}%";
             tooltip-format = ''
               {controller_alias}	{controller_address}
               {num_connections} connected'';
@@ -122,10 +138,8 @@ with lib; {
               {controller_alias}	{controller_address}
               {num_connections} connected
               {device_enumerate}'';
-            tooltip-format-enumerate-connected =
-              "{device_alias}	{device_address}";
-            tooltip-format-enumerate-connected-battery =
-              "{device_alias}	{device_address}	{device_battery_percentage}%";
+            tooltip-format-enumerate-connected = "{device_alias}	{device_address}";
+            tooltip-format-enumerate-connected-battery = "{device_alias}	{device_address}	{device_battery_percentage}%";
           };
 
           network = {
@@ -159,7 +173,18 @@ with lib; {
               warning = "95";
               critical = "50";
             };
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
           };
 
           idle_inhibitor = {
@@ -171,7 +196,8 @@ with lib; {
           };
 
           clock =
-            let zenity = "${pkgs.gnome.zenity}/bin/zenity";
+            let
+              zenity = "${pkgs.gnome.zenity}/bin/zenity";
             in
             {
               format = "  {:%a %d %b %R %Z}";
@@ -184,7 +210,9 @@ with lib; {
             spacing = 10;
           };
 
-          "custom/sep" = { "format" = ""; };
+          "custom/sep" = {
+            "format" = "";
+          };
 
           disk = {
             format = " {free}";
@@ -210,12 +238,11 @@ with lib; {
         };
       };
 
-      style = builtins.replaceStrings
-        ((builtins.attrNames theme.waybar.colors)
-          ++ (builtins.attrNames theme.waybar.fonts))
-        ((builtins.attrValues theme.waybar.colors)
-          ++ (builtins.attrValues theme.waybar.fonts))
-        (builtins.readFile ./style.css);
+      style =
+        builtins.replaceStrings
+          ((builtins.attrNames theme.waybar.colors) ++ (builtins.attrNames theme.waybar.fonts))
+          ((builtins.attrValues theme.waybar.colors) ++ (builtins.attrValues theme.waybar.fonts))
+          (builtins.readFile ./style.css);
     };
   };
 }

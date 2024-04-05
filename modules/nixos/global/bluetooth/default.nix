@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.nixos.bluetooth;
-in {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.nixos.bluetooth;
+in
+{
   options.nixos.bluetooth.enable = lib.mkEnableOption "bluetooth";
 
   config = lib.mkIf cfg.enable {
@@ -9,13 +16,19 @@ in {
       settings = {
         "100-bluetooth_latency" = {
           "/sys/kernel/debug/bluetooth/hci0/conn_latency" = {
-            w = { argument = "0"; };
+            w = {
+              argument = "0";
+            };
           };
           "/sys/kernel/debug/bluetooth/hci0/conn_min_interval" = {
-            w = { argument = "15"; };
+            w = {
+              argument = "15";
+            };
           };
           "/sys/kernel/debug/bluetooth/hci0/conn_max_interval" = {
-            w = { argument = "30"; };
+            w = {
+              argument = "30";
+            };
           };
         };
       };

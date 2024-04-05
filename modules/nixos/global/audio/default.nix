@@ -1,6 +1,8 @@
 { config, lib, ... }:
-let cfg = config.nixos.audio;
-in {
+let
+  cfg = config.nixos.audio;
+in
+{
   options.nixos.audio.enable = lib.mkEnableOption "audio";
 
   config = lib.mkIf cfg.enable {

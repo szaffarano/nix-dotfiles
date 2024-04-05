@@ -24,19 +24,27 @@ in
         theme = "Adwaita-dark";
         cursor-theme = "Adwaita";
         icon-theme = "Papirus";
-        font = font // { size = 11; };
-        font-mono = fontMono // { size = 11; };
+        font = font // {
+          size = 11;
+        };
+        font-mono = fontMono // {
+          size = 11;
+        };
         icon-theme-pkg = pkgs.papirus-icon-theme;
         theme-pkg = pkgs.gnome-themes-extra;
       };
 
       wezterm = {
-        fonts = fontMono // { size = 13; };
+        fonts = fontMono // {
+          size = 13;
+        };
         theme = "Catppuccin Frappe";
       };
 
       kitty = {
-        fonts = fontMono // { size = 13; };
+        fonts = fontMono // {
+          size = 13;
+        };
         theme = "Catppuccin-Frappe";
       };
 

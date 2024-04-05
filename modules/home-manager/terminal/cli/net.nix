@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.cli.net;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.terminal.cli.net;
+in
+with lib;
+{
   options.terminal.cli.net.enable = mkEnableOption "net";
 
   config = mkIf cfg.enable {

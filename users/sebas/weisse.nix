@@ -1,4 +1,5 @@
-{ inputs, outputs, ... }: {
+{ inputs, outputs, ... }:
+{
 
   git = {
     enable = true;
@@ -29,7 +30,11 @@
 
   terminal.zsh = {
     enable = true;
-    extras = [ "local" "binds" "breeze" ];
+    extras = [
+      "local"
+      "binds"
+      "breeze"
+    ];
   };
 
   programs.mise = {

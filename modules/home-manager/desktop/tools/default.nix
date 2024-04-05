@@ -1,7 +1,21 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.tools;
-in with lib; {
-  imports = [ ./copyq ./gammastep ./keepassxc ./screenshot ./zathura ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.tools;
+in
+with lib;
+{
+  imports = [
+    ./copyq
+    ./gammastep
+    ./keepassxc
+    ./screenshot
+    ./zathura
+  ];
 
   options.desktop.tools.enable = mkEnableOption "desktop tools";
 

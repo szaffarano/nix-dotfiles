@@ -1,7 +1,18 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.develop;
-in with lib; {
-  imports = [ ./idea ./ocaml ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.develop;
+in
+with lib;
+{
+  imports = [
+    ./idea
+    ./ocaml
+  ];
 
   options.develop.enable = mkEnableOption "development tools";
 

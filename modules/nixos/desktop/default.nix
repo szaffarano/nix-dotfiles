@@ -1,8 +1,18 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.nixos.desktop;
-
-in {
-  imports = [ ./greeter ./hyprland ./sway ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.nixos.desktop;
+in
+{
+  imports = [
+    ./greeter
+    ./hyprland
+    ./sway
+  ];
 
   options.nixos.desktop.enable = lib.mkEnableOption "desktop";
 
@@ -15,7 +25,9 @@ in {
       };
     };
 
-    programs = { dconf.enable = true; };
+    programs = {
+      dconf.enable = true;
+    };
 
     xdg.portal = {
       enable = true;

@@ -1,11 +1,23 @@
-{ config, lib, theme, ... }:
-let cfg = config.desktop.terminal.wezterm;
-in with lib; {
+{
+  config,
+  lib,
+  theme,
+  ...
+}:
+let
+  cfg = config.desktop.terminal.wezterm;
+in
+with lib;
+{
 
   options.desktop.terminal.wezterm.enable = mkEnableOption "wezterm";
 
   config = mkIf cfg.enable {
-    home = { sessionVariables = { TERMINAL = "wezterm"; }; };
+    home = {
+      sessionVariables = {
+        TERMINAL = "wezterm";
+      };
+    };
 
     programs.wezterm = {
       enable = true;

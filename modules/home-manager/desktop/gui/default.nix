@@ -1,7 +1,14 @@
 { config, lib, ... }:
-let cfg = config.desktop.gui;
-in with lib; {
-  imports = [ ./gtk.nix ./qt.nix ./fontconfig ];
+let
+  cfg = config.desktop.gui;
+in
+with lib;
+{
+  imports = [
+    ./gtk.nix
+    ./qt.nix
+    ./fontconfig
+  ];
 
   options.desktop.gui.enable = mkEnableOption "gui";
 

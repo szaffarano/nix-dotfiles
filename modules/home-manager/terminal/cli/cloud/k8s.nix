@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.cli.k8s;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.terminal.cli.k8s;
+in
+with lib;
+{
   options.terminal.cli.k8s.enable = mkEnableOption "k8s";
 
   config = mkIf cfg.enable {

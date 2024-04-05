@@ -1,4 +1,11 @@
-{ inputs, outputs, lib, config, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  ...
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -34,7 +41,10 @@
 
   nixos = {
     hostName = outputs.host.name;
-    allowedUDPPorts = [ 22000 21027 ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
     allowedTCPPorts = [ 22000 ];
     audio.enable = true;
     bluetooth.enable = true;

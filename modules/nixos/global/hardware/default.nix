@@ -1,1 +1,4 @@
-{ ... }: { hardware.enableRedistributableFirmware = true; }
+{ ... }:
+{
+  hardware.enableRedistributableFirmware = true;
+}

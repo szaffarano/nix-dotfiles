@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.zsh;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.terminal.zsh;
+in
+with lib;
+{
   options.terminal.zsh = {
     enable = mkEnableOption "zsh";
     extras = mkOption {
@@ -65,12 +73,16 @@ in with lib; {
         path = "${config.xdg.dataHome}/zsh/history";
       };
 
-      initExtra = lib.concatStringsSep "\n" (lib.lists.forEach cfg.extras (f:
-        lib.concatStringsSep "\n" [
-          "# ${f}"
-          (builtins.readFile ./${f}.zsh)
-          "# /${f}"
-        ]));
+      initExtra = lib.concatStringsSep "\n" (
+        lib.lists.forEach cfg.extras (
+          f:
+          lib.concatStringsSep "\n" [
+            "# ${f}"
+            (builtins.readFile ./${f}.zsh)
+            "# /${f}"
+          ]
+        )
+      );
     };
   };
 }

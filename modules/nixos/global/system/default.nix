@@ -1,13 +1,18 @@
-{ lib, inputs, pkgs, config, ... }:
-let cfg = config.nixos.system;
-in with lib; {
+{
+  lib,
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
+let
+  cfg = config.nixos.system;
+in
+with lib;
+{
   options.nixos.system = {
-    user = mkOption {
-      type = types.str;
-    };
-    hashedPasswordFile = mkOption {
-      type = types.str;
-    };
+    user = mkOption { type = types.str; };
+    hashedPasswordFile = mkOption { type = types.str; };
     authorizedKeys = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -15,7 +20,13 @@ in with lib; {
     };
     extraGroups = mkOption {
       type = types.listOf types.str;
-      default = [ "wheel" "networkmanager" "video" "audio" ]
+      default =
+        [
+          "wheel"
+          "networkmanager"
+          "video"
+          "audio"
+        ]
         ++ (lib.optionals config.virtualisation.libvirtd.enable [ "libvirtd" ])
         ++ (lib.optionals config.virtualisation.docker.enable [ "docker" ]);
       description = "Groups to include the user";
@@ -37,8 +48,15 @@ in with lib; {
     nix = {
       package = lib.mkDefault pkgs.nix;
       settings = {
-        experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-        trusted-users = [ "root" "@wheel" ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "repl-flake"
+        ];
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
         auto-optimise-store = lib.mkDefault true;
         warn-dirty = false;
         flake-registry = ""; # Disable global flake registry

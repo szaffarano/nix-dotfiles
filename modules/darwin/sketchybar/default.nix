@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -15,9 +20,7 @@ in
 
 {
 
-  meta.maintainers = [
-    maintainers.azuwis or "azuwis"
-  ];
+  meta.maintainers = [ maintainers.azuwis or "azuwis" ];
 
   options = with types; {
     services.sketchybar.enable = mkOption {

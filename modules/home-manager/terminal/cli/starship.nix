@@ -1,6 +1,9 @@
 { config, lib, ... }:
-let cfg = config.terminal.cli.starship;
-in with lib; {
+let
+  cfg = config.terminal.cli.starship;
+in
+with lib;
+{
 
   options.terminal.cli.starship.enable = mkEnableOption "starship";
 

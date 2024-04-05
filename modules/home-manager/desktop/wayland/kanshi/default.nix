@@ -1,6 +1,9 @@
 { config, lib, ... }:
-let cfg = config.desktop.wayland.kanshi;
-in with lib; {
+let
+  cfg = config.desktop.wayland.kanshi;
+in
+with lib;
+{
   options.desktop.wayland.kanshi = {
     enable = mkEnableOption "kanshi";
     lockTime = mkOption {
@@ -16,10 +19,12 @@ in with lib; {
       systemdTarget = "graphical-session.target";
       profiles = {
         undocked = {
-          outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-          }];
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+            }
+          ];
         };
         docked = {
           outputs = [

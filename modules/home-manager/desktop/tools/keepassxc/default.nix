@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.tools.keepassxc;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.tools.keepassxc;
+in
+with lib;
+{
 
   options.desktop.tools.keepassxc.enable = mkEnableOption "keepassxc";
 

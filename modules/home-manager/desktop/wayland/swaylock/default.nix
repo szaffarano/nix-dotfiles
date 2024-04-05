@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.desktop.wayland.swaylock;
   inherit (config.colorscheme) palette;
 in
-with lib; {
+with lib;
+{
   options.desktop.wayland.swaylock.enable = mkEnableOption "swaylock";
 
   config = mkIf cfg.enable {

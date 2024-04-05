@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland.wofi;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland.wofi;
+in
+with lib;
+{
   options.desktop.wayland.wofi.enable = mkEnableOption "wofi";
 
   config = mkIf cfg.enable {

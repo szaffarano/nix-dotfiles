@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.gui.qt;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.gui.qt;
+in
+with lib;
+{
   imports = [ ];
 
   options.desktop.gui.qt.enable = mkEnableOption "gtk";

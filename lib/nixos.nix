@@ -9,5 +9,7 @@ nixpkgs.lib.nixosSystem {
     "${self}/system/${config.host.name}"
     inputs.nix-index-database.nixosModules.nix-index
   ];
-  specialArgs = { inherit inputs outputs; };
+  specialArgs = {
+    inherit inputs outputs;
+  };
 }

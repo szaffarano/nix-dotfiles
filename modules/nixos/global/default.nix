@@ -1,6 +1,14 @@
-{ inputs, config, lib, pkgs, ... }:
-let cfg = config.nixos;
-in {
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.nixos;
+in
+{
   imports = [
     ./audio
     ./bluetooth
@@ -47,7 +55,10 @@ in {
 
     boot = {
       kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
-      binfmt.emulatedSystems = [ "aarch64-linux" "i686-linux" ];
+      binfmt.emulatedSystems = [
+        "aarch64-linux"
+        "i686-linux"
+      ];
       initrd.systemd.enable = true;
     };
 

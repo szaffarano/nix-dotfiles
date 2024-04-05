@@ -1,12 +1,22 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland.compositors.hyprland;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland.compositors.hyprland;
+in
+with lib;
+{
 
-  options.desktop.wayland.compositors.hyprland.enable =
-    mkEnableOption "hyprland";
+  options.desktop.wayland.compositors.hyprland.enable = mkEnableOption "hyprland";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ inputs.hyprwm-contrib.grimblast hyprpicker ];
+    home.packages = with pkgs; [
+      inputs.hyprwm-contrib.grimblast
+      hyprpicker
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -27,7 +37,9 @@ in with lib; {
           "col.group_border" = "0xff${config.colorscheme.palette.base04}";
         };
 
-        animations = { enabled = false; };
+        animations = {
+          enabled = false;
+        };
 
         bind =
           let
@@ -36,26 +48,29 @@ in with lib; {
             wofi = "${config.programs.wofi.package}/bin/wofi";
             gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
             xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
-            defaultApp = type:
-              "${gtk-launch} $(${xdg-mime} query default ${type})";
+            defaultApp = type: "${gtk-launch} $(${xdg-mime} query default ${type})";
             terminal = config.home.sessionVariables.TERMINAL;
             editor = defaultApp "text/plain";
           in
-          [ "SUPER,Return,exec,${terminal}" "SUPER,v,exec,${editor}" ] ++
+          [
+            "SUPER,Return,exec,${terminal}"
+            "SUPER,v,exec,${editor}"
+          ]
+          ++
 
-          # Screen lock
-          (lib.optionals config.programs.swaylock.enable
-            [ "SUPER,backspace,exec,${swaylock}" ]) ++
+            # Screen lock
+            (lib.optionals config.programs.swaylock.enable [ "SUPER,backspace,exec,${swaylock}" ])
+          ++
 
-          # Notification manager
-          (lib.optionals config.services.mako.enable
-            [ "SUPER,w,exec,${makoctl} dismiss" ]) ++
+            # Notification manager
+            (lib.optionals config.services.mako.enable [ "SUPER,w,exec,${makoctl} dismiss" ])
+          ++
 
-          # Launcher
-          (lib.optionals config.programs.wofi.enable [
-            "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-            "SUPER,d,exec,${wofi} -S run"
-          ]);
+            # Launcher
+            (lib.optionals config.programs.wofi.enable [
+              "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
+              "SUPER,d,exec,${wofi} -S run"
+            ]);
       };
     };
   };

@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland;
+in
+with lib;
+{
 
   imports = [
     ./kanshi
@@ -32,7 +40,14 @@ in with lib; {
     };
 
     home.packages = with pkgs; [
-      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
+      (aspellWithDicts (
+        dicts: with dicts; [
+          en
+          en-computers
+          en-science
+          es
+        ]
+      ))
       glib
       grim
       gthumb
@@ -103,7 +118,9 @@ in with lib; {
         templates = "$HOME/Templates";
         videos = "$HOME/Videos";
 
-        extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots"; };
+        extraConfig = {
+          XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+        };
       };
     };
   };

@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   services.skhd = {
     enable = true;
     package = pkgs.skhd;

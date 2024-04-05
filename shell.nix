@@ -1,6 +1,8 @@
 { pkgs, inputs, ... }:
-let disko = inputs.disko.packages.${pkgs.system}.disko;
-in {
+let
+  disko = inputs.disko.packages.${pkgs.system}.disko;
+in
+{
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
     nativeBuildInputs = with pkgs; [
@@ -15,11 +17,12 @@ in {
     ];
   };
 
-  fhs = (pkgs.buildFHSEnv {
-    name = "fhs";
-    multiPkgs = pkgs: (with pkgs; [ zlib ]);
-    runScript = "zsh";
-  }).env;
+  fhs =
+    (pkgs.buildFHSEnv {
+      name = "fhs";
+      multiPkgs = pkgs: (with pkgs; [ zlib ]);
+      runScript = "zsh";
+    }).env;
 
   pythonDev = pkgs.mkShell {
     CONFIGURE_OPTS = "--with-openssl=${pkgs.openssl.dev}";
