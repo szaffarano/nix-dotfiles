@@ -42,6 +42,10 @@ in
     # formatters
     shfmt
     stylua
+    black
+    isort
+    prettierd
+    nixfmt-rfc-style
 
     # linters
     nodePackages.jsonlint

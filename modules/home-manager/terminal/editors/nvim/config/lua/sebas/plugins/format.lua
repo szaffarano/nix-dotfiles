@@ -17,6 +17,11 @@ return {
       lua = { 'stylua' },
       python = { 'isort', 'black' },
       javascript = { { 'prettierd', 'prettier' } },
+      nix = { 'nixfmt' },
+      zsh = { 'shfmt' },
+      sh = { 'shfmt' },
+      bash = { 'shfmt' },
+      rust = { 'rustfmt' },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
