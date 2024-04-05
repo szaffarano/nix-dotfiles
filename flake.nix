@@ -16,7 +16,9 @@
 
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     disko = {
@@ -56,7 +58,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
 
@@ -113,7 +121,6 @@
         user = sebas_at_home;
         host = weisse_host;
       };
-
     in
     {
       inherit lib;
@@ -124,10 +131,9 @@
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
-      devShells =
-        forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
 
-      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+      formatter = forEachSystem (pkgs: pkgs.nixfmt-rfc-style);
 
       nixosConfigurations = {
         pilsen = lib.mkNixOS pilsen;
@@ -144,8 +150,7 @@
       };
 
       darwinConfigurations = {
-        "szaffarano@macbook" =
-          lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
+        "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
     };
 }
