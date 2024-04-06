@@ -3,9 +3,7 @@
 let
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
-    paths = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies
-    ];
+    paths = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies ];
   };
 in
 {
@@ -69,7 +67,7 @@ in
 
     # debug
     delve
-    lldb
+    vscode-extensions.vadimcn.vscode-lldb.adapter
   ];
 
   xdg.desktopEntries = {
@@ -98,7 +96,10 @@ in
       ];
       terminal = true;
       type = "Application";
-      categories = [ "Utility" "TextEditor" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+      ];
     };
   };
 }

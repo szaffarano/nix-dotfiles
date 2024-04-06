@@ -1,4 +1,5 @@
 -- Thanks TJ DeVries for the following code:
+-- TODO deprecate once I finish configuring https://github.com/mrcjkb/rustaceanvim/
 local M = {}
 
 local ok, Job, dap

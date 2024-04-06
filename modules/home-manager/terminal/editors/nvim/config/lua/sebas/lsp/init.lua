@@ -2,7 +2,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
     local map = function(keys, func, desc)
-      vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+      if vim.fn.maparg(keys, 'n') == '' then
+        vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+      end
     end
 
     --  To jump back, press <C-t>.
@@ -44,7 +46,6 @@ local servers = {
   'nil_ls',
   'ocamllsp',
   'pyright',
-  'rust_analyzer',
   'terraformls',
   'tsserver', -- TODO: https://github.com/pmizio/typescript-tools.nvim
   'yamlls',
