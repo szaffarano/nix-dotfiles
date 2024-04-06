@@ -1,11 +1,25 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
-  userOptions = with lib;
+  userOptions =
+    with lib;
     types.submodule {
       options = {
-        name = mkOption { type = types.str; default = ""; };
-        email = mkOption { type = types.str; default = ""; };
-        signingKey = mkOption { type = types.str; default = ""; };
+        name = mkOption {
+          type = types.str;
+          default = "";
+        };
+        email = mkOption {
+          type = types.str;
+          default = "";
+        };
+        signingKey = mkOption {
+          type = types.str;
+          default = "";
+        };
       };
     };
 in
@@ -18,11 +32,9 @@ in
   config =
     let
       delta.themes = pkgs.fetchurl {
-        url =
-          "https://raw.githubusercontent.com/dandavison/delta/0.15.1/themes.gitconfig";
+        url = "https://raw.githubusercontent.com/dandavison/delta/0.15.1/themes.gitconfig";
         sha256 = "sha256-J/6+8kkxzSFPfYzAPAFd/vZrT6hXjd+N2+cWdb+/b8M=";
       };
-
     in
     lib.mkIf config.git.enable {
       programs.git = {
@@ -57,6 +69,15 @@ in
             email = lib.mkIf (config.git.user.email != "") config.git.user.email;
             signingKey = lib.mkIf (config.git.user.signingKey != "") config.git.user.signingKey;
           };
+
+          column.ui = "auto";
+
+          rerere.enable = true;
+
+          branch.sort = "-committerdate";
+
+          core.fsmonitor = true;
+          core.untrackedCache = true;
 
           log = {
             date = "iso";
@@ -94,7 +115,8 @@ in
       };
 
       home = {
-        packages = with pkgs;
+        packages =
+          with pkgs;
           (lib.optionals config.desktop.tools.keepassxc.enable [
             (git-credential-keepassxc.override {
               withNotification = true;
@@ -105,7 +127,10 @@ in
 
       programs.gh = {
         enable = true;
-        extensions = with pkgs; [ gh-dash gh-markdown-preview ];
+        extensions = with pkgs; [
+          gh-dash
+          gh-markdown-preview
+        ];
         settings = {
           git_protocol = "https";
           prompt = "enabled";
