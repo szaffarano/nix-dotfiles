@@ -12,7 +12,7 @@ return {
             setenceCacheSize = 2000,
             additionalRules = {
               enablePickyRules = true,
-              motherTongue = 'en',
+              motherTongue = 'es-AR',
               languageModel = '~/Documents/n-grams',
             },
           },
