@@ -1,6 +1,13 @@
-{ inputs, config, lib, pkgs, ... }:
-let cfg = config.nixos;
-in {
+{ inputs
+, config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.nixos;
+in
+{
   imports = [
     ./audio
     ./bluetooth
@@ -47,7 +54,10 @@ in {
 
     boot = {
       kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
-      binfmt.emulatedSystems = [ "aarch64-linux" "i686-linux" ];
+      binfmt.emulatedSystems = [
+        "aarch64-linux"
+        "i686-linux"
+      ];
       initrd.systemd.enable = true;
     };
 
@@ -90,12 +100,12 @@ in {
         enable = true;
         package = inputs.nix-ld-rs.packages.${pkgs.hostPlatform.system}.nix-ld-rs;
         libraries = with pkgs; [
-          ncurses
           cairo
           cups
           curl
           dbus
           expat
+          fontconfig
           fontconfig
           freetype
           fuse3
@@ -111,8 +121,10 @@ in {
           libusb1
           libuuid
           libxkbcommon
+          libxkbcommon
           libxml2
           mesa
+          ncurses
           nspr
           nss
           openssl
@@ -121,11 +133,12 @@ in {
           stdenv.cc.cc
           systemd
           vulkan-loader
-          xorg.libXext
+          wayland
           xorg.libX11
+          xorg.libXext
+          xorg.libXi
           xorg.libXrender
           xorg.libXtst
-          xorg.libXi
           zlib
         ];
       };
