@@ -2,7 +2,11 @@ require 'sebas.bootstrap'
 
 local ok, lazy = pcall(require, 'lazy')
 if ok then
-  lazy.setup('sebas.plugins', {})
+  lazy.setup('sebas.plugins', {
+    change_detection = {
+      notify = false,
+    },
+  })
 else
   print 'lazy.nvim not found'
 end
