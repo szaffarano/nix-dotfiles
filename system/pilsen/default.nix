@@ -1,4 +1,11 @@
-{ inputs, outputs, lib, config, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  ...
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -18,6 +25,11 @@
     };
   };
 
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = 300000;
+    "fs.inotify.max_queued_events" = 300000;
+  };
+
   services = {
     tailscale = {
       enable = true;
@@ -34,7 +46,10 @@
 
   nixos = {
     hostName = outputs.host.name;
-    allowedUDPPorts = [ 22000 21027 ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
     allowedTCPPorts = [ 22000 ];
     audio.enable = true;
     bluetooth.enable = true;

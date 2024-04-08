@@ -1,4 +1,5 @@
-{ inputs, outputs, pkgs, ... }: {
+{ inputs, outputs, ... }:
+{
 
   git = {
     enable = true;
@@ -29,7 +30,12 @@
 
   terminal.zsh = {
     enable = true;
-    extras = [ "local" "binds" "breeze" "ocaml" ];
+    extras = [
+      "local"
+      "binds"
+      "breeze"
+      "ocaml"
+    ];
   };
 
   dconf.settings = {
