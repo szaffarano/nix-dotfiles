@@ -1,4 +1,11 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel
@@ -16,6 +23,11 @@
       enable = true;
       storageDriver = "btrfs";
     };
+  };
+
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_watches" = 512000;
+    "fs.inotify.max_queued_events" = 512000;
   };
 
   systemd.services.ElasticEndpoint = {
@@ -78,7 +90,10 @@
 
   nixos = {
     hostName = outputs.host.name;
-    allowedUDPPorts = [ 22000 21027 ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
     allowedTCPPorts = [ 22000 ];
     audio.enable = true;
     bluetooth.enable = true;
@@ -107,9 +122,7 @@
 
   powerManagement.powertop.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    powertop
-  ];
+  environment.systemPackages = with pkgs; [ powertop ];
 
   #####################################################################################
   # Legacy configs: check where to move them
