@@ -54,6 +54,7 @@ in
     vale
 
     # LSP servers
+    codeium
     gopls
     lua-language-server
     ltex-ls
