@@ -111,7 +111,16 @@
     };
   };
 
+  networking.wg-quick.interfaces.wg0 = {
+    configFile = config.sops.secrets.wireguard.path;
+    autostart = false;
+  };
+
   sops.secrets = {
+    wireguard = {
+      format = "binary";
+      sopsFile = ./secrets.wireguard;
+    };
     szaffarano-password = {
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
