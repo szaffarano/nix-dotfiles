@@ -20,7 +20,7 @@ creation_rules:
       - *bock
       pgp:
       - *sebas_pgp
-  - path_regex: system/zaffarano/secrets.yaml
+  - path_regex: system/zaffarano-elastic/secrets.*
     key_groups:
     - age:
       - *elastic
