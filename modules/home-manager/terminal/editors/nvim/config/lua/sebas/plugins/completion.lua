@@ -66,15 +66,18 @@ return { -- Autocompletion
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'codeium' },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'copilot' },
           { name = 'orgmode' },
         },
+        ---@diagnostic disable-next-line: missing-fields
         formatting = {
           format = lspkind.cmp_format {
             mode = 'symbol_text',
             maxwidth = 50,
+            symbol_map = { Codeium = '' },
           },
         },
       }
