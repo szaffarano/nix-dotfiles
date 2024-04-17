@@ -1,4 +1,8 @@
-{ config, lib, theme, ... }:
+{ config
+, lib
+, theme
+, ...
+}:
 let
   cfg = config.desktop.gui.gtk;
 
@@ -8,7 +12,8 @@ let
   icon-theme-pkg = theme.gtk.icon-theme-pkg;
   theme-pkg = theme.gtk.theme-pkg;
 in
-with lib; {
+with lib;
+{
   imports = [ ];
 
   options.desktop.gui.gtk.enable = mkEnableOption "gtk";
@@ -31,10 +36,12 @@ with lib; {
     };
 
     # workaround for non-NixOS systems
-    home.file.".themes".source = config.lib.file.mkOutOfStoreSymlink
-      ("${config.home.homeDirectory}/.nix-profile/share/themes");
-    xdg.dataFile."icons".source = config.lib.file.mkOutOfStoreSymlink
-      ("${config.home.homeDirectory}/.nix-profile/share/icons");
+    home.file.".themes".source = config.lib.file.mkOutOfStoreSymlink (
+      "${config.home.homeDirectory}/.nix-profile/share/themes"
+    );
+    xdg.dataFile."icons".source = config.lib.file.mkOutOfStoreSymlink (
+      "${config.home.homeDirectory}/.nix-profile/share/icons"
+    );
 
     services.xsettingsd = {
       enable = true;
