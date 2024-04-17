@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop;
-in with lib; {
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.desktop;
+in
+with lib;
+{
   imports = [
     ./audio
     ./gui
@@ -30,9 +37,7 @@ in with lib; {
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override {
-        fonts = [ "FiraCode" ];
-      })
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
 
     desktop = {
@@ -50,13 +55,13 @@ in with lib; {
       monospace = {
         family = "sans-serif";
         name = "FiraCode Nerd Font";
-        size = "15px";
+        size = "11px";
         package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
       };
       regular = {
         family = "liberation-sans";
         name = "Liberation Sans";
-        size = "11px";
+        size = "10px";
         package = pkgs.liberation_ttf;
       };
     };
