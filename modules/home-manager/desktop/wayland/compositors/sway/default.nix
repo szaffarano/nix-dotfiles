@@ -1,6 +1,15 @@
-{ theme, config, lib, pkgs, inputs, ... }:
-let cfg = config.desktop.wayland.compositors.sway;
-in with lib; {
+{ theme
+, config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
+  cfg = config.desktop.wayland.compositors.sway;
+in
+with lib;
+{
 
   options.desktop.wayland.compositors.sway.enable = mkEnableOption "sway";
 
@@ -9,8 +18,7 @@ in with lib; {
       terminal = config.home.sessionVariables.TERMINAL;
       wallpaper = "${pkgs.wallpaper}/bin/wallpaper";
       lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
-      toggleScratchpad =
-        "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
+      toggleScratchpad = "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
       wofi = "${pkgs.wofi}/bin/wofi";
       wofiPowerMenu = "wofi-power-menu";
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
@@ -24,19 +32,18 @@ in with lib; {
       catppuccin = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "i3";
-        rev = "c89098f";
-        sha256 = "sha256-6Cvsmdl3OILz1vZovyBIuuSpm207I3W0dmUGowR9Ugk=";
+        rev = "9c430d7";
+        sha256 = "sha256-EHZ/D4PrFqwyTpfcst3+hSx6z4saVD1M9CfFqnWI6io=";
       };
-
     in
     mkIf cfg.enable {
 
       # TODO: use global theme
-      xdg.configFile."sway/themes" = { source = "${catppuccin}/themes"; };
+      xdg.configFile."sway/themes" = {
+        source = "${catppuccin}/themes";
+      };
 
-      home.packages = [
-        inputs.wofi-power-menu.packages.${pkgs.hostPlatform.system}.wofi-power-menu
-      ];
+      home.packages = [ inputs.wofi-power-menu.packages.${pkgs.hostPlatform.system}.wofi-power-menu ];
 
       wayland.windowManager.sway = {
         enable = true;
@@ -57,7 +64,9 @@ in with lib; {
             size = theme.sway.fonts.size;
           };
 
-          window = { titlebar = false; };
+          window = {
+            titlebar = false;
+          };
 
           bars = (lib.optionals config.programs.waybar.enable [ ]);
 
@@ -107,11 +116,12 @@ in with lib; {
           ];
 
           startup =
-            let configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
-            in [
+            let
+              configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
+            in
+            [
               {
-                command = ''
-                  ${terminal} start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
+                command = ''${terminal} start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
               }
               {
                 command = ''
@@ -135,11 +145,22 @@ in with lib; {
           output = {
             "*".bg = ''"$(${wallpaper})" fit'';
 
-            HDMI-A-1 = { scale = "1.25"; };
-            DP-1 = { scale = "1.25"; };
+            HDMI-A-1 = {
+              scale = "1";
+            };
+            DP-1 = {
+              scale = "1.25";
+            };
+            eDP-1 = {
+              scale = "1";
+            };
           };
 
-          seat = { "*" = { xcursor_theme = theme.gtk.cursor-theme; }; };
+          seat = {
+            "*" = {
+              xcursor_theme = theme.gtk.cursor-theme;
+            };
+          };
 
           input = {
             "type:keyboard" = {
@@ -179,24 +200,32 @@ in with lib; {
             }
             {
               command = "move to scratchpad";
-              criteria = { app_id = "musicPlayer"; };
+              criteria = {
+                app_id = "musicPlayer";
+              };
             }
             {
               command = "move to scratchpad";
-              criteria = { app_id = "orgMode"; };
+              criteria = {
+                app_id = "orgMode";
+              };
             }
           ];
 
           keybindings =
             let
               inherit (config.wayland.windowManager.sway.config)
-                left down up right modifier;
+                left
+                down
+                up
+                right
+                modifier
+                ;
             in
             lib.mkDefault {
               "${modifier}+Return" = "exec ${terminal}";
               "${modifier}+Shift+q" = "kill";
-              "${modifier}+Shift+P" =
-                "exec ${terminal} start --class=floating-terminal htop";
+              "${modifier}+Shift+P" = "exec ${terminal} start --class=floating-terminal htop";
               "${modifier}+d" = "exec ${wofi} -S run";
               "${modifier}+x" = "exec ${wofi} -S drun";
 
@@ -265,10 +294,8 @@ in with lib; {
               "Ctrl+Shift+Space" = "exec ${swayNcClient} --close-all";
 
               "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-              "XF86AudioRaiseVolume" =
-                "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-              "XF86AudioLowerVolume" =
-                "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+              "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+              "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
               "XF86AudioPlay" = "exec playerctl play-pause";
               "XF86AudioPause" = "exec playerctl pause";
               "XF86AudioNext" = "exec playerctl next";
@@ -280,12 +307,10 @@ in with lib; {
               "${modifier}+minus" = "scratchpad show";
               "${modifier}+Shift+minus" = "move scratchpad";
 
-              "${modifier}+Shift+s" =
-                ''[app_id="org.speedcrunch."] scratchpad show'';
+              "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
               "${modifier}+m" = "exec ${musicPlayerCommand}";
               "${modifier}+o" = "exec ${orgCommand}";
-              "${modifier}+Shift+t" =
-                ''[app_id="org.telegram.desktop"] scratchpad show'';
+              "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${modifier}+p" = ''[class="Slack"] scratchpad show'';
             };
 
@@ -338,7 +363,6 @@ in with lib; {
             background = "$base";
           };
         };
-
       };
 
       programs.zsh.loginExtra = ''
