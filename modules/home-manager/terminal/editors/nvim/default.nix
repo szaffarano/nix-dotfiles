@@ -54,6 +54,7 @@ in
     vale
 
     # LSP servers
+    clang-tools
     codeium
     gopls
     lua-language-server
@@ -68,7 +69,7 @@ in
 
     # debug
     delve
-    vscode-extensions.vadimcn.vscode-lldb.adapter
+    lldb
   ];
 
   xdg.desktopEntries = {

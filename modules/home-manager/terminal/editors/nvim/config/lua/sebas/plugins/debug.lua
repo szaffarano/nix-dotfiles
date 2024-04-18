@@ -30,7 +30,7 @@ return {
 
     ---@diagnostic disable-next-line: missing-fields
     dapui.setup {}
-    dap_virtual_text.setup()
+    dap_virtual_text.setup {}
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
@@ -44,6 +44,21 @@ return {
       type = 'executable',
       command = 'lldb-vscode',
       name = 'lldb',
+    }
+
+    -- c / cpp
+    dap.configurations.c = {
+      {
+        name = 'Launch',
+        type = 'lldb', -- same as rust
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+      },
     }
   end,
 }
