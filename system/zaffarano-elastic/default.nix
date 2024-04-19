@@ -80,6 +80,9 @@
   '';
 
   services = {
+    tailscale = {
+      enable = true;
+    };
     fwupd = {
       enable = lib.mkDefault true;
     };
