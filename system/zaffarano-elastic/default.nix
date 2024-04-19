@@ -1,9 +1,10 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 {
   imports = [
@@ -80,6 +81,9 @@
   '';
 
   services = {
+    tailscale = {
+      enable = true;
+    };
     fwupd = {
       enable = lib.mkDefault true;
     };
