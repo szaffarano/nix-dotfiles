@@ -1,7 +1,13 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   boot = {
     initrd = {
-      availableKernelModules = [ "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "usb_storage"
+        "sd_mod"
+        "sdhci_pci"
+      ];
       kernelModules = [ "kvm-intel" ];
     };
 

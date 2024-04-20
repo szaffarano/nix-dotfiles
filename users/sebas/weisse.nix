@@ -1,4 +1,10 @@
-{ inputs, outputs, ... }: {
+{
+  inputs,
+  outputs,
+  pkgs,
+  ...
+}:
+{
 
   git = {
     enable = true;
@@ -17,20 +23,26 @@
 
   colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
 
-  desktop.enable = false;
+  desktop.enable = true;
   terminal.cli.cloud.enable = false;
-  services.syncthing.enable = false;
+  services.syncthing.enable = true;
   programs.nix-index.enable = true;
   develop = {
-    enable = false;
+    enable = true;
     idea.enable = false;
     ocaml.enable = false;
   };
 
   terminal.zsh = {
     enable = true;
-    extras = [ "local" "binds" "breeze" ];
+    extras = [
+      "local"
+      "binds"
+      "breeze"
+    ];
   };
+
+  home.packages = [ pkgs.hello ];
 
   programs.mise = {
     settings = {
@@ -45,7 +57,6 @@
       tools = {
         node = "lts";
         python = "latest";
-        yarn = "latest";
       };
     };
   };
