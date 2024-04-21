@@ -1,8 +1,9 @@
-{ inputs
-, config
-, lib
-, pkgs
-, ...
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.nixos;
@@ -47,7 +48,10 @@ in
     networking = {
       hostName = cfg.hostName;
       domain = cfg.domain;
-      networkmanager.enable = true;
+      networkmanager = {
+        enable = true;
+        plugins = lib.mkForce [ ];
+      };
       firewall.allowedUDPPorts = cfg.allowedUDPPorts;
       firewall.allowedTCPPorts = cfg.allowedTCPPorts;
     };
