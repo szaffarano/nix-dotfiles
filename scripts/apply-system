@@ -4,6 +4,6 @@ set -euo pipefail
 
 BASEDIR="$(realpath "$(dirname "$0")"/..)"
 
-pushd "$BASEDIR" > /dev/null
-sudo nixos-rebuild switch --flake .
-popd > /dev/null
+pushd "$BASEDIR" >/dev/null
+cachix watch-exec szaffarano -- sudo nixos-rebuild switch --flake .
+popd >/dev/null

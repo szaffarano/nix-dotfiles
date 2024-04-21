@@ -7,9 +7,9 @@ NVIM_CONFIG="$XDG_CONFIG_HOME"/nvim
 
 [ -L "$NVIM_CONFIG" ] && rm "$NVIM_CONFIG"
 
-pushd "$BASEDIR" > /dev/null
-home-manager switch --flake . \
-  && systemctl --user restart \
+pushd "$BASEDIR" >/dev/null
+cachix watch-exec szaffarano -- home-manager switch --flake . &&
+  systemctl --user restart \
     copyq.service \
     fluidsynth.service \
     gammastep.service \
@@ -21,4 +21,4 @@ home-manager switch --flake . \
     syncthing.service \
     waybar.service \
     xsettingsd.service
-popd > /dev/null
+popd >/dev/null

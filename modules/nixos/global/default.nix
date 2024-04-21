@@ -47,7 +47,10 @@ in
     networking = {
       hostName = cfg.hostName;
       domain = cfg.domain;
-      networkmanager.enable = true;
+      networkmanager = {
+        enable = true;
+        plugins = lib.mkForce [ ];
+      };
       firewall.allowedUDPPorts = cfg.allowedUDPPorts;
       firewall.allowedTCPPorts = cfg.allowedTCPPorts;
     };
@@ -73,6 +76,7 @@ in
     services.udisks2.enable = true;
 
     environment.systemPackages = with pkgs; [
+      cachix
       curl
       e2fsprogs
       git
