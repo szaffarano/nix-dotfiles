@@ -73,6 +73,7 @@ in
     services.udisks2.enable = true;
 
     environment.systemPackages = with pkgs; [
+      cachix
       curl
       e2fsprogs
       git

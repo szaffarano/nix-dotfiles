@@ -1,6 +1,11 @@
 {
   description = "Sebas's home-manager configurations";
 
+  nixConfig.extra-substituters = [ "https://szaffarano.cachix.org" ];
+  nixConfig.extra-trusted-public-keys = [
+    "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
+  ];
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -16,7 +21,9 @@
 
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     disko = {
@@ -56,7 +63,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , ...
+    }@inputs:
     let
       inherit (self) outputs;
 
@@ -113,7 +125,6 @@
         user = sebas_at_home;
         host = weisse_host;
       };
-
     in
     {
       inherit lib;
@@ -124,8 +135,7 @@
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
-      devShells =
-        forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
 
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
@@ -144,8 +154,7 @@
       };
 
       darwinConfigurations = {
-        "szaffarano@macbook" =
-          lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
+        "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
     };
 }
