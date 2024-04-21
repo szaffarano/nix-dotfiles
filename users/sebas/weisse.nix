@@ -1,8 +1,7 @@
-{
-  inputs,
-  outputs,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, pkgs
+, ...
 }:
 {
 
@@ -41,8 +40,6 @@
       "breeze"
     ];
   };
-
-  home.packages = [ pkgs.hello ];
 
   programs.mise = {
     settings = {

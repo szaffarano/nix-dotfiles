@@ -81,16 +81,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    maliit-keyboard
-    sof-firmware
-  ];
-
-  boot = {
-    extraModprobeConfig = ''
-      options snd-intel-dspcfg dsp_driver=3 dyndbg=+pmf
-      options snd_sof_pci dyndbg=+pmf
-      options snd_sof dyndbg=+pmf
-    '';
-  };
+  environment.systemPackages = with pkgs; [ maliit-keyboard ];
 }

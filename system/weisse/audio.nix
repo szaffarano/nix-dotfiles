@@ -7,20 +7,20 @@ let
       wttsrc = fetchFromGitHub {
         owner = "WeirdTreeThing";
         repo = "chromebook-ucm-conf";
-        rev = "b6ce2a76f6360b87bfe593ff14dffc125fd9c671";
+        rev = "b6ce2a7";
         hash = "sha256-QRUKHd3RQmg1tnZU8KCW0AmDtfw/daOJ/H3XU5qWTCc=";
       };
       postInstall = ''
-        touch $out/chromebook.patched
+        echo "v0.4.1" > $out/chromebook.patched
 
-        cp -r $wttsrc/jsl/* $out/share/alsa/ucm2/conf.d
-
-        cp -r $wttsrc/common $out/share/alsa/ucm2
-        cp -r $wttsrc/codecs $out/share/alsa/ucm2
-        cp -r $wttsrc/platforms $out/share/alsa/ucm2
-
-        cp -r $wttsrc/sof-rt5682 $out/share/alsa/ucm2/conf.d
-        cp -r $wttsrc/sof-cs42l42 $out/share/alsa/ucm2/conf.d
+        # Asus Chromebook CX1400 (GALTIC)
+        #   ❯ aplay -l
+        #   card 0: sofrt5682 [sof-rt5682], device 0: Headphones (*) []
+        #   ....
+        cp -R $wttsrc/sof-rt5682 $out/share/alsa/ucm2/conf.d
+        cp -R $wttsrc/common/* $out/share/alsa/ucm2/common
+        cp -R $wttsrc/codecs/* $out/share/alsa/ucm2/codecs
+        cp -R $wttsrc/platforms/* $out/share/alsa/ucm2/platforms
       '';
     };
 in
@@ -33,18 +33,13 @@ in
 
   environment = {
     systemPackages = with pkgs; [
-      maliit-keyboard
+      alsa-ucm-conf
       sof-firmware
     ];
-    sessionVariables.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-chromebook}/share/alsa/ucm2";
+    sessionVariables = {
+      ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-chromebook}/share/alsa/ucm2";
+    };
   };
-
-  system.replaceRuntimeDependencies = with pkgs; [
-    ({
-      original = alsa-ucm-conf;
-      replacement = alsa-ucm-conf-chromebook;
-    })
-  ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -56,6 +51,7 @@ in
     };
     pulse.enable = true;
   };
+
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-increase-headroom.lua" ''
       rule = {
