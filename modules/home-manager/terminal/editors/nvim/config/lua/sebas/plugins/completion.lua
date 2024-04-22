@@ -12,7 +12,9 @@ return { -- Autocompletion
           {
             'rafamadriz/friendly-snippets',
             config = function()
+              local base = vim.fn.stdpath 'data'
               require('luasnip.loaders.from_vscode').lazy_load()
+              require('luasnip.loaders.from_vscode').lazy_load { paths = { base .. '/rust-snippets' } }
             end,
           },
         },
