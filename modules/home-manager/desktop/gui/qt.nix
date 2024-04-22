@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.gui.qt;
-in with lib; {
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.desktop.gui.qt;
+in
+with lib;
+{
   imports = [ ];
 
   options.desktop.gui.qt.enable = mkEnableOption "gtk";
@@ -8,7 +15,9 @@ in with lib; {
   config = mkIf cfg.enable {
     qt = {
       enable = true;
-      platformTheme = "gtk";
+      platformTheme = {
+        name = "gtk";
+      };
       style = {
         name = "gtk2";
         package = pkgs.qt6Packages.qt6gtk2;

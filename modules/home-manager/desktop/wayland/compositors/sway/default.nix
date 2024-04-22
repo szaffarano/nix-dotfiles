@@ -35,6 +35,7 @@ with lib;
         rev = "9c430d7";
         sha256 = "sha256-EHZ/D4PrFqwyTpfcst3+hSx6z4saVD1M9CfFqnWI6io=";
       };
+      themeVars = readFile "${catppuccin}/themes/catppuccin-mocha";
     in
     mkIf cfg.enable {
 
@@ -50,10 +51,14 @@ with lib;
         package = null;
         swaynag.enable = true;
 
-        extraConfigEarly = ''
-          include themes/catppuccin-mocha
-          workspace 1
-        '';
+        extraConfigEarly =
+          themeVars
+          + ''
+            # TODO it looks like the include stopped working and
+            # the variables defined there are not expanded anymore
+            # include themes/catppuccin-mocha
+            workspace 1
+          '';
 
         config = {
           modifier = "Mod4";
@@ -143,7 +148,8 @@ with lib;
           };
 
           output = {
-            "*".bg = ''"$(${wallpaper})" fit'';
+            # TODO stopped working, related to the theme
+            # "*".bg = ''"$(${wallpaper})" fit'';
 
             HDMI-A-1 = {
               scale = "1";
