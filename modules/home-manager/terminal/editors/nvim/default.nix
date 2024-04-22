@@ -5,6 +5,12 @@ let
     name = "treesitter-parsers";
     paths = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies ];
   };
+  rustSnippets = pkgs.fetchFromGitHub {
+    owner = "rust10x";
+    repo = "rust10x-vscode";
+    rev = "94e8b98";
+    hash = "sha256-4aA5QcaX+lA3S/d0R/aHX/W2wxhvMxaLd7/hmrvp4P8=";
+  };
 in
 {
   home.sessionVariables.EDITOR = "nvim";
@@ -22,6 +28,10 @@ in
       vi = "nvim";
       vim = "nvim";
     };
+  };
+
+  xdg.dataFile."nvim/rust-snippets" = {
+    source = rustSnippets;
   };
 
   xdg.dataFile."nvim/templates" = {
