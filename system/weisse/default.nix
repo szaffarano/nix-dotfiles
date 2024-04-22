@@ -16,6 +16,12 @@
     ./keyboard.nix
   ];
 
+  services = {
+    tailscale = {
+      enable = true;
+    };
+  };
+
   nixos = {
     hostName = outputs.host.name;
     allowedUDPPorts = [
