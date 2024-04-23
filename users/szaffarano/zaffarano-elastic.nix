@@ -44,11 +44,14 @@
     };
   };
 
+  home.sessionVariables = {
+    MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
+  };
+
   programs.mise = {
     settings = {
       verbose = false;
       experimental = true;
-      legacy_version_file = false;
       all_compile = false;
       python_compile = false;
       node_compile = false;
