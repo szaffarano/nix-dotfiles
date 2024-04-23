@@ -3,7 +3,13 @@
 set -euo pipefail
 
 BASEDIR="$(realpath "$(dirname "$0")"/..)"
+CACHIX_PREFIX="cachix watch-exec szaffarano --"
+
+if [ -n "${DISABLE_CACHIX_PUSH:-}" ]; then
+  echo "Cachix push disabled"
+  CACHIX_PREFIX=""
+fi
 
 pushd "$BASEDIR" >/dev/null
-cachix watch-exec szaffarano -- sudo nixos-rebuild switch --flake .
+$CACHIX_PREFIX sudo nixos-rebuild switch --flake .
 popd >/dev/null
