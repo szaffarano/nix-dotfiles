@@ -1,9 +1,10 @@
-{ theme
-, config
-, lib
-, pkgs
-, inputs
-, ...
+{
+  theme,
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
 }:
 let
   cfg = config.desktop.wayland.compositors.sway;
@@ -142,9 +143,9 @@ with lib;
             ];
 
           assigns = {
-            "1" = [{ app_id = "firefox"; }];
-            "2" = [{ class = "jetbrains-idea.*"; }];
-            "3" = [{ app_id = "dev-terminal"; }];
+            "1" = [ { app_id = "firefox"; } ];
+            "2" = [ { class = "jetbrains-idea.*"; } ];
+            "3" = [ { app_id = "dev-terminal"; } ];
           };
 
           output = {
@@ -202,7 +203,7 @@ with lib;
             }
             {
               command = "move to scratchpad";
-              criteria.class = "Slack";
+              criteria.app_id = "Slack";
             }
             {
               command = "move to scratchpad";
@@ -317,7 +318,7 @@ with lib;
               "${modifier}+m" = "exec ${musicPlayerCommand}";
               "${modifier}+o" = "exec ${orgCommand}";
               "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
-              "${modifier}+p" = ''[class="Slack"] scratchpad show'';
+              "${modifier}+p" = ''[app_id="Slack"] scratchpad show'';
             };
 
           modes = {
