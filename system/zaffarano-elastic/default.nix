@@ -1,9 +1,10 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 {
   imports = [
@@ -105,6 +106,7 @@
     desktop = {
       enable = true;
       sway.enable = true;
+      hyprland.enable = true;
       greeter.enable = false;
     };
     system = {

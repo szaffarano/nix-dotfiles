@@ -373,7 +373,7 @@
         "type": "github"
       }
     },
-    "hyprwm-contrib": {
+    "hyprland-contrib": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -660,7 +660,7 @@
         "disko": "disko",
         "hardware": "hardware",
         "home-manager": "home-manager",
-        "hyprwm-contrib": "hyprwm-contrib",
+        "hyprland-contrib": "hyprland-contrib",
         "neovim-nightly": "neovim-nightly",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",

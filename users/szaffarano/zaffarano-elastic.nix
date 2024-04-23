@@ -14,7 +14,11 @@
 
   colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
 
-  desktop.enable = true;
+  desktop = {
+    enable = true;
+    wayland.compositors.hyprland.enable = true;
+  };
+
   terminal.cli.cloud.enable = true;
   services.syncthing.enable = true;
   programs.nix-index.enable = true;

@@ -5,6 +5,7 @@
     "https://nix-community.cachix.org"
     "https://szaffarano.cachix.org"
   ];
+
   nixConfig.extra-trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
@@ -40,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprwm-contrib = {
+    hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -68,10 +69,11 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , ...
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
     }@inputs:
     let
       inherit (self) outputs;

@@ -1,61 +1,101 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland.compositors.hyprland;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland.compositors.hyprland;
+in
+with lib;
+{
 
-  options.desktop.wayland.compositors.hyprland.enable =
-    mkEnableOption "hyprland";
+  options.desktop.wayland.compositors.hyprland.enable = mkEnableOption "hyprland";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ inputs.hyprwm-contrib.grimblast hyprpicker ];
+    home.packages = with pkgs; [
+      inputs.hyprland-contrib.packages.${pkgs.hostPlatform.system}.grimblast
+      hyprpicker
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
 
       settings = {
+        "$terminal" = "${pkgs.wezterm}/bin/wezterm";
+
         input = {
           kb_layout = "us";
-          touchpad.disable_while_typing = false;
+          kb_variant = "";
+          kb_model = "";
+          kb_options = "";
+          kb_rules = "";
+
+          follow_mouse = 1;
+
+          touchpad = {
+            disable_while_typing = true;
+            natural_scroll = true;
+            clickfinger_behavior = true;
+          };
         };
+
+        gestures = {
+          workspace_swipe = false;
+        };
+
         general = {
           gaps_in = 5;
           gaps_out = 2;
-          border_size = 2.1;
-          cursor_inactive_timeout = 4;
-          "col.active_border" = "0xff${config.colorscheme.palette.base0C}";
-          "col.inactive_border" = "0xff${config.colorscheme.palette.base02}";
-          "col.group_border_active" = "0xff${config.colorscheme.palette.base0B}";
-          "col.group_border" = "0xff${config.colorscheme.palette.base04}";
+          border_size = 2;
+          # cursor_inactive_timeout = 4;
+          #   "col.active_border" = "0xff${config.colorscheme.palette.base0C}";
+          #   "col.inactive_border" = "0xff${config.colorscheme.palette.base02}";
+          #   "col.group_border_active" = "0xff${config.colorscheme.palette.base0B}";
+          #   "col.group_border" = "0xff${config.colorscheme.palette.base04}";
         };
 
-        animations = { enabled = false; };
+        animations = {
+          enabled = false;
+        };
+
+        binds = {
+          workspace_back_and_forth = true;
+        };
+
+        master = {
+          new_is_master = true;
+        };
 
         bind =
           let
-            swaylock = "${config.programs.swaylock.package}/bin/swaylock";
             makoctl = "${config.services.mako.package}/bin/makoctl";
             wofi = "${config.programs.wofi.package}/bin/wofi";
-            gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
-            xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
-            defaultApp = type:
-              "${gtk-launch} $(${xdg-mime} query default ${type})";
-            terminal = config.home.sessionVariables.TERMINAL;
-            editor = defaultApp "text/plain";
+            wofiPowerMenu = "wofi-power-menu";
           in
-          [ "SUPER,Return,exec,${terminal}" "SUPER,v,exec,${editor}" ] ++
+          [
+            "SUPER,Return,exec,$terminal"
+            "SUPER, 1, workspace, 1"
+            "SUPER, 2, workspace, 2"
+            "SUPER, 3, workspace, 3"
+            "SUPER, 4, workspace, 4"
+          ]
+          ++
 
-          # Screen lock
-          (lib.optionals config.programs.swaylock.enable
-            [ "SUPER,backspace,exec,${swaylock}" ]) ++
+            # Screen lock
+            (lib.optionals config.programs.swaylock.enable [ "SUPER,backspace,exec,${wofiPowerMenu}" ])
+          ++
 
-          # Notification manager
-          (lib.optionals config.services.mako.enable
-            [ "SUPER,w,exec,${makoctl} dismiss" ]) ++
+            # Notification manager
+            (lib.optionals config.services.mako.enable [ "SUPER,w,exec,${makoctl} dismiss" ])
+          ++
 
-          # Launcher
-          (lib.optionals config.programs.wofi.enable [
-            "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-            "SUPER,d,exec,${wofi} -S run"
-          ]);
+            # Launcher
+            (lib.optionals config.programs.wofi.enable [
+              "SUPER,x,exec,${wofi} -S drun"
+              "SUPER,d,exec,${wofi} -S run"
+            ]);
       };
     };
   };

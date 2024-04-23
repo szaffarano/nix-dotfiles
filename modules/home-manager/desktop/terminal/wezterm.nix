@@ -1,11 +1,23 @@
-{ config, lib, theme, ... }:
-let cfg = config.desktop.terminal.wezterm;
-in with lib; {
+{
+  config,
+  lib,
+  theme,
+  ...
+}:
+let
+  cfg = config.desktop.terminal.wezterm;
+in
+with lib;
+{
 
   options.desktop.terminal.wezterm.enable = mkEnableOption "wezterm";
 
   config = mkIf cfg.enable {
-    home = { sessionVariables = { TERMINAL = "wezterm"; }; };
+    home = {
+      sessionVariables = {
+        TERMINAL = "wezterm";
+      };
+    };
 
     programs.wezterm = {
       enable = true;
@@ -13,9 +25,15 @@ in with lib; {
       extraConfig = ''
         local act = wezterm.action
         local wezterm = require 'wezterm'
+        local enable_wayland = true
+
+        -- https://github.com/wez/wezterm/issues/5103
+        if os.getenv("XDG_CURRENT_DESKTOP") == "Hyprland" then
+          enable_wayland = false
+        end
 
         return {
-          enable_wayland = true,
+          enable_wayland = enable_wayland,
           font = wezterm.font("${theme.wezterm.fonts.name}"),
           font_size = ${builtins.toString theme.wezterm.fonts.size},
           color_scheme = "${theme.wezterm.theme}",

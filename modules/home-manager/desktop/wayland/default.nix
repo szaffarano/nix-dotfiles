@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.desktop.wayland;
+in
+with lib;
+{
 
   imports = [
     ./kanshi
@@ -17,22 +25,29 @@ in with lib; {
 
   config = mkIf cfg.enable {
     desktop.wayland = {
-      mako.enable = false;
-      wofi.enable = true;
-      waybar.enable = true;
-      kanshi.enable = true;
-      swayidle.enable = true;
-      swaylock.enable = true;
-      swaync.enable = true;
+      mako.enable = lib.mkDefault false;
+      wofi.enable = lib.mkDefault true;
+      waybar.enable = lib.mkDefault true;
+      kanshi.enable = lib.mkDefault true;
+      swayidle.enable = lib.mkDefault true;
+      swaylock.enable = lib.mkDefault true;
+      swaync.enable = lib.mkDefault true;
 
       compositors = {
-        hyprland.enable = false;
-        sway.enable = true;
+        hyprland.enable = lib.mkDefault false;
+        sway.enable = lib.mkDefault true;
       };
     };
 
     home.packages = with pkgs; [
-      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science es ]))
+      (aspellWithDicts (
+        dicts: with dicts; [
+          en
+          en-computers
+          en-science
+          es
+        ]
+      ))
       glib
       grim
       gthumb
@@ -103,7 +118,9 @@ in with lib; {
         templates = "$HOME/Templates";
         videos = "$HOME/Videos";
 
-        extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots"; };
+        extraConfig = {
+          XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+        };
       };
     };
   };
