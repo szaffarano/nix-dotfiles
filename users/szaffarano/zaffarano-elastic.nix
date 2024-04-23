@@ -1,4 +1,5 @@
-{ inputs, outputs, ... }: {
+{ inputs, outputs, ... }:
+{
 
   git = {
     enable = true;
@@ -28,7 +29,12 @@
 
   terminal.zsh = {
     enable = true;
-    extras = [ "local" "binds" "breeze" "ocaml" ];
+    extras = [
+      "local"
+      "binds"
+      "breeze"
+      "ocaml"
+    ];
   };
 
   dconf.settings = {
@@ -42,6 +48,7 @@
     settings = {
       verbose = false;
       experimental = true;
+      legacy_version_file = false;
       all_compile = false;
       python_compile = false;
       node_compile = false;
@@ -53,6 +60,8 @@
         python = "latest";
         yarn = "latest";
         java = "temurin-21.0.2+13.0.LTS";
+        terraform = "latest";
+        tflint = "latest";
       };
     };
   };

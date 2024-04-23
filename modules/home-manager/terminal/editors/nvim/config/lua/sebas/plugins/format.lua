@@ -23,6 +23,7 @@ return {
       sh = { 'shfmt' },
       bash = { 'shfmt' },
       rust = { 'rustfmt' },
+      terraform = { 'terraform_fmt' },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
