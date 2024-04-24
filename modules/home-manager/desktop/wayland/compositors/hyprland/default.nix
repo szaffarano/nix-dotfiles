@@ -31,10 +31,7 @@ with lib;
       configPackages = [ hyprland ];
     };
 
-    home.packages = with pkgs; [
-      hyprpicker
-      inputs.hyprland-contrib.grimblast
-    ];
+    home.packages = with pkgs; [ hyprpicker ];
 
     home.sessionVariables = {
       XCURSOR_SIZE = 16;
