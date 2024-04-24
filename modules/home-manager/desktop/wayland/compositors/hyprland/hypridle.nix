@@ -24,7 +24,7 @@ with lib;
         }
 
         listener {
-          timeout =300 
+          timeout =300
           on-timeout = loginctl lock-session
         }
 
@@ -35,7 +35,7 @@ with lib;
         }
 
         listener {
-          timeout =1800 
+          timeout =1800
           on-timeout = systemctl suspend
         }
       '';
