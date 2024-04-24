@@ -1,12 +1,17 @@
 # inspired by https://nixos.wiki/wiki/Sway
-{ config, pkgs, lib, writeTextFile }:
+{
+  config,
+  pkgs,
+  lib,
+  writeTextFile,
+}:
 (writeTextFile {
   name = "configure-gtk";
   destination = "/bin/configure-gtk";
   executable = true;
   text =
     let
-      schema = pkgs.gsettings-desktop-schemas; # pkgs.gsettings-desktop-schemas;
+      schema = pkgs.gsettings-desktop-schemas;
       datadir = "${schema}/share/gsettings-schemas/${schema.name}";
       gsettings = "${pkgs.glib.bin}/bin/gsettings";
     in
@@ -33,7 +38,8 @@
       ${gsettings} set "$gnome_schema" monospace-font-name "$monospace_font 12"
       echo "Done!"
     '';
-}) // {
+})
+// {
   meta = with lib; {
     licenses = licenses.mit;
     platforms = platforms.all;

@@ -76,7 +76,6 @@ in
       ++ (lib.mapAttrsToList (key: direction: "$mod,${key},movefocus,${direction}") directions)
       ++ (lib.mapAttrsToList (key: direction: "$modSHIFT,${key},swapwindow,${direction}") directions)
 
-      ++ (lib.optionals config.programs.swaylock.enable [ ])
       ++ (lib.optionals config.desktop.wayland.swaync.enable (
         let
           swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";

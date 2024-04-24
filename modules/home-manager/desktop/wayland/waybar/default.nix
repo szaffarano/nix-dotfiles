@@ -60,7 +60,8 @@ with lib;
             "custom/sep"
             "battery"
             "custom/sep"
-            "sway/language"
+            (lib.optionalString config.wayland.windowManager.hyprland.enable "hyprland/language")
+            (lib.optionalString config.wayland.windowManager.sway.enable "sway/language")
             "custom/sep"
             "network"
             "custom/sep"
@@ -77,6 +78,7 @@ with lib;
             disable-scroll = true;
             all-outputs = true;
             format = "{name}: {icon}";
+            sort-by = "number";
             format-icons = {
               "1" = "";
               "2" = "";
@@ -99,6 +101,7 @@ with lib;
             disable-scroll = true;
             all-outputs = true;
             format = "{name}: {icon}";
+            sort-by = "number";
             format-icons = {
               "1" = "";
               "2" = "";
@@ -120,6 +123,10 @@ with lib;
 
           "sway/language" = {
             "format" = "{} {variant}";
+          };
+
+          "hyprland/language" = {
+            "format" = "{variant}";
           };
 
           pulseaudio = {

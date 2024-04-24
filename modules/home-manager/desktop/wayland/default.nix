@@ -29,11 +29,9 @@ with lib;
       wofi.enable = lib.mkDefault true;
       waybar.enable = lib.mkDefault true;
       kanshi.enable = lib.mkDefault true;
-      swayidle.enable = lib.mkDefault true;
-      swaylock.enable = lib.mkDefault true;
-      swaync.enable = lib.mkDefault true;
 
       compositors = {
+        enable = lib.mkDefault true;
         hyprland.enable = lib.mkDefault false;
         sway.enable = lib.mkDefault true;
       };
