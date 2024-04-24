@@ -38,6 +38,13 @@ with lib;
       XCURSOR_THEME = theme.gtk.cursor-theme;
     };
 
+    programs.zsh.loginExtra = ''
+      if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+        exec ${hyprland}/bin/Hyprland \
+          > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
+      fi
+    '';
+
     wayland.windowManager.hyprland = {
       enable = true;
       package = hyprland;
