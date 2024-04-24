@@ -15,7 +15,7 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     programs.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.hostPlatform.system}.hyprland;
+      package = pkgs.inputs.hyprland.hyprland;
     };
     nix.settings = {
       substituters = [ "https://hyprland.cachix.org" ];

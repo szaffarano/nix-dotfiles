@@ -14,7 +14,7 @@ with lib;
 
   config = mkIf cfg.enable {
 
-    home.packages = [ inputs.wofi-power-menu.packages.${pkgs.hostPlatform.system}.wofi-power-menu ];
+    home.packages = [ pkgs.inputs.wofi-tools.wofi-power-menu ];
 
     programs.wofi = {
       enable = true;

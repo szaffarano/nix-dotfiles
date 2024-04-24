@@ -841,7 +841,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "sops-nix": "sops-nix",
-        "wofi-power-menu": "wofi-power-menu"
+        "wofi-tools": "wofi-tools"
       }
     },
     "sops-nix": {
@@ -970,7 +970,7 @@
         "type": "github"
       }
     },
-    "wofi-power-menu": {
+    "wofi-tools": {
       "inputs": {
         "flake-utils": "flake-utils_5",
         "nixpkgs": [

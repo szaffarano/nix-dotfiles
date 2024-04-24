@@ -1,7 +1,8 @@
-{ config
-, lib
-, theme
-, ...
+{
+  config,
+  lib,
+  theme,
+  ...
 }:
 let
   cfg = config.desktop.gui.gtk;

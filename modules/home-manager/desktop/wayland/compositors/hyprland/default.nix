@@ -2,12 +2,15 @@
   config,
   lib,
   pkgs,
-  inputs,
+  theme,
   ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
+  hyprland = pkgs.inputs.hyprland.hyprland;
   terminal = "${pkgs.wezterm}/bin/wezterm";
+  xdph = pkgs.inputs.hyprland.xdg-desktop-portal-hyprland.override { inherit hyprland; };
+  hyprlockCmd = "${pkgs.hyprlock}/bin/hyprlock";
 in
 with lib;
 {
@@ -19,13 +22,23 @@ with lib;
 
     desktop.wayland.swaync.enable = true;
 
+    xdg.portal = {
+      extraPortals = [ xdph ];
+      configPackages = [ hyprland ];
+    };
+
     home.packages = with pkgs; [
-      inputs.hyprland-contrib.packages.${pkgs.hostPlatform.system}.grimblast
       hypridle
       hyprlock
       hyprpicker
+      inputs.hyprland-contrib.grimblast
       pyprland
     ];
+
+    home.sessionVariables = {
+      XCURSOR_SIZE = 16;
+      XCURSOR_THEME = theme.gtk.cursor-theme;
+    };
 
     systemd.user.services.pyprland = {
       Unit = {
@@ -66,7 +79,7 @@ with lib;
         dots_center = false
         outer_color = rgb(0, 0, 0)
         inner_color = rgb(200, 200, 200)
-        font_color = rgb(10, 10, 10)
+        font_color = rgb(60, 90, 30)
         fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
         fade_on_empty = true
         placeholder_text = <i>Input Password...</i>
@@ -89,19 +102,13 @@ with lib;
     '';
     xdg.configFile."hypr/hypridle.conf".text = ''
       general {
-        lock_cmd = pidof hyprlock || hyprlock
+        lock_cmd = pidof hyprlock || ${hyprlockCmd}
         before_sleep_cmd = loginctl lock-session
         after_sleep_cmd = hyprctl dispatch dpms on
       }
 
       listener {
-        timeout = 150
-        on-timeout = brightnessctl -s set 10
-        on-resume = brightnessctl -r
-      }
-
-      listener {
-        timeout = 300
+        timeout =300 
         on-timeout = loginctl lock-session
       }
 
@@ -112,7 +119,7 @@ with lib;
       }
 
       listener {
-        timeout = 1800
+        timeout =1800 
         on-timeout = systemctl suspend
       }
     '';
@@ -147,7 +154,7 @@ with lib;
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.hostPlatform.system}.hyprland;
+      package = hyprland;
 
       settings = {
         "$terminal" = terminal;
@@ -198,9 +205,15 @@ with lib;
           workspace_back_and_forth = true;
         };
 
-        "exec-once" = [
-          ''$terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
-        ] ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
+        "exec-once" =
+          let
+            configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
+          in
+          [
+            ''$terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
+            ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
+          ]
+          ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
 
         windowrulev2 = [
           "workspace 1,class:^(firefox)$"
