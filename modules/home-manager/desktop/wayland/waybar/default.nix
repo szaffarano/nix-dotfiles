@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, theme
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  theme,
+  ...
 }:
 let
   cfg = config.desktop.wayland.waybar;
@@ -73,6 +74,28 @@ with lib;
           ];
 
           "sway/workspaces" = {
+            disable-scroll = true;
+            all-outputs = true;
+            format = "{name}: {icon}";
+            format-icons = {
+              "1" = "";
+              "2" = "";
+              "3" = "";
+              "4" = "";
+              "5" = "";
+              "6" = "";
+              "7" = "";
+              "urgent" = "";
+              "focused" = "";
+              "default" = "";
+            };
+            persistent-workspaces = {
+              "1" = [ ];
+              "2" = [ ];
+              "3" = [ ];
+            };
+          };
+          "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
             format = "{name}: {icon}";
