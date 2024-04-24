@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  theme,
-  ...
+{ config
+, lib
+, pkgs
+, theme
+, ...
 }:
 let
   cfg = config.desktop.wayland.waybar;

@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  outputs,
-  pkgs,
-  ...
+{ config
+, lib
+, outputs
+, pkgs
+, ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -41,33 +40,34 @@ with lib;
         }
       '';
 
-    xdg.configFile."hypr/hypridle-test.conf".text = outputs.lib.toHyprconf {
-      general =
-        let
-          hyprlockCmd = "${pkgs.hyprlock}/bin/hyprlock";
-        in
-        {
-          lock_cmd = "pidof hyprlock || ${hyprlockCmd}";
-          before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
-        };
+    xdg.configFile."hypr/hypridle-test.conf".text = outputs.lib.toHyprconf
+      {
+        general =
+          let
+            hyprlockCmd = "${pkgs.hyprlock}/bin/hyprlock";
+          in
+          {
+            lock_cmd = "pidof hyprlock || ${hyprlockCmd}";
+            before_sleep_cmd = "loginctl lock-session";
+            after_sleep_cmd = "hyprctl dispatch dpms on";
+          };
 
-      # TODO not working, `toHyprconf` doesn't support attrsets
-      # listener = [
-      #   {
-      #     timeout = 300;
-      #     on-timeout = "loginctl lock-session";
-      #   }
-      #   {
-      #     timeout = 380;
-      #     on-timeout = "hyprctl dispatch dpms off";
-      #     on-resume = "hyprctl dispatch dpms on";
-      #   }
-      #   {
-      #     timeout = 1800;
-      #     on-timeout = "systemctl suspend";
-      #   }
-      # ];
-    } 0;
+        # TODO not working, `toHyprconf` doesn't support attrsets
+        # listener = [
+        #   {
+        #     timeout = 300;
+        #     on-timeout = "loginctl lock-session";
+        #   }
+        #   {
+        #     timeout = 380;
+        #     on-timeout = "hyprctl dispatch dpms off";
+        #     on-resume = "hyprctl dispatch dpms on";
+        #   }
+        #   {
+        #     timeout = 1800;
+        #     on-timeout = "systemctl suspend";
+        #   }
+        # ];
+      } 0;
   };
 }

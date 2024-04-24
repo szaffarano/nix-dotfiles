@@ -1,9 +1,9 @@
 # inspired by https://nixos.wiki/wiki/Sway
-{
-  config,
-  pkgs,
-  lib,
-  writeTextFile,
+{ config
+, pkgs
+, lib
+, writeTextFile
+,
 }:
 (writeTextFile {
   name = "configure-gtk";
@@ -39,7 +39,7 @@
       echo "Done!"
     '';
 })
-// {
+  // {
   meta = with lib; {
     licenses = licenses.mit;
     platforms = platforms.all;
