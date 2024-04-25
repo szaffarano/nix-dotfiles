@@ -143,26 +143,26 @@ with lib;
           "float,class:^(orgmode)$"
           "size 70% 80%,class:^(orgmode)$"
           "center,class:^(orgmode)$"
-          "opacity 0.9 0.3,class:^(orgmode)$"
+          "opacity 0.9,class:^(orgmode)$"
           "workspace special:orgmode,class:^(orgmode)$"
 
           "float,class:^(musicPlayer)$"
           "size 50% 50%,class:^(musicPlayer)$"
           "center,class:^(musicPlayer)$"
-          "opacity 0.7 0.3,class:^(musicPlayer)$"
+          "opacity 0.9,class:^(musicPlayer)$"
           "workspace special:musicPlayer,class:^(musicPlayer)$"
 
           "float,class:^(Slack)$"
           "size 70% 80%,class:^(Slack)$"
           "center,class:^(Slack)$"
-          "opacity 0.9 0.3,class:^(Slack)$"
+          "opacity 0.9,class:^(Slack)$"
           "stayfocused, class:^(Slack)$"
           "workspace special:Slack,class:^(Slack)$"
 
           "float,class:^(org\.telegram\.desktop)$"
           "size 50% 40%,class:^(org\.telegram\.desktop)$"
           "center,class:^(org\.telegram\.desktop)$"
-          "opacity 0.9 0.3, class:^(org\.telegram\.desktop)$"
+          "opacity 0.9, class:^(org\.telegram\.desktop)$"
           "workspace special:telegram,class:^(org\.telegram\.desktop)$"
         ];
       };
