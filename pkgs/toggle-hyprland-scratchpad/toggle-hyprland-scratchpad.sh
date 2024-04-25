@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEBUG=false
+DEBUG=${DEBUG_TOGGLE_SCRATCHPAD:-false}
 
 function log {
   msg=$1
@@ -11,13 +11,13 @@ function log {
 
 function die {
   msg=$1
+  echo "$msg" >>/tmp/toggle.log
   echo "$msg" >&2
-  echo "$msg" | tee -a /tmp/toggle.log
   exit 1
 }
 
 function find_pid {
-  local retries=10
+  local retries=20
   local workspace="$1"
   while ((retries > 0)); do
     pid=$(hyprctl clients -j | jq ".[] | select (.class == \"$workspace\") | .pid")
@@ -25,12 +25,18 @@ function find_pid {
       echo -n "$pid"
       break
     fi
-    sleep .5
+    sleep .1
     retries=$((retries - 1))
   done
 }
 
+function usage {
+  die "Usage: toggle-hyprland-scratchpad [raw|wrap] <workspace> <cmd>"
+}
+
 function main {
+  [ $# -eq 3 ] || usage
+
   local mode="$1"
   local workspace="$2"
   local cmd="$3"
@@ -40,17 +46,17 @@ function main {
   pid=$(hyprctl clients -j | jq ".[] | select (.class == \"$workspace\") | .pid")
 
   if [ -z "$pid" ]; then
-    log "App is not running, about to launch it..."
+    log "App on workspace [$workspace] is not running, about to launch it..."
 
     case "$mode" in
     wrap)
-      nohup wezterm start --class="$workspace" zsh --login -c "$cmd" &
+      nohup wezterm start --class="$workspace" zsh --login -c "$cmd" >/dev/null &
       ;;
     raw)
       eval "$cmd" &
       ;;
     *)
-      log "Unknown mode $mode"
+      die "Unknown mode $mode"
       ;;
     esac
 
@@ -60,9 +66,9 @@ function main {
     fi
 
     log "Moving $pid to workspace special"
-    hyprctl dispatch movetoworkspacesilent special:"$workspace",pid:"$pid"
+    hyprctl dispatch movetoworkspace special:"$workspace",pid:"$pid"
   else
-    log "Toggle workspace $workspace"
+    log "App on workspace [$workspace] already  launched, toggling it"
     hyprctl dispatch togglespecialworkspace "$workspace"
   fi
 }

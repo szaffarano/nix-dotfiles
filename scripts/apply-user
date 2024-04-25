@@ -25,6 +25,5 @@ $CACHIX_PREFIX home-manager switch --flake . &&
     playerctld.service \
     syncthing.service \
     waybar.service \
-    xsettingsd.service &&
-  (command -v pypr >/dev/null && pypr reload)
+    xsettingsd.service
 popd >/dev/null
