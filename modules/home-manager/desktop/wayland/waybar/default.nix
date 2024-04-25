@@ -59,7 +59,8 @@ with lib;
             "custom/sep"
             "battery"
             "custom/sep"
-            "sway/language"
+            (lib.optionalString config.wayland.windowManager.hyprland.enable "hyprland/language")
+            (lib.optionalString config.wayland.windowManager.sway.enable "sway/language")
             "custom/sep"
             "network"
             "custom/sep"
@@ -76,6 +77,7 @@ with lib;
             disable-scroll = true;
             all-outputs = true;
             format = "{name}: {icon}";
+            sort-by = "number";
             format-icons = {
               "1" = "";
               "2" = "";
@@ -94,9 +96,33 @@ with lib;
               "3" = [ ];
             };
           };
+          "hyprland/workspaces" = {
+            format = "{name}: {icon}";
+            sort-by = "number";
+            format-icons = {
+              "1" = "";
+              "2" = "";
+              "3" = "";
+              "4" = "";
+              "5" = "";
+              "6" = "";
+              "7" = "";
+              "urgent" = "";
+              "default" = "";
+            };
+            persistent-workspaces = {
+              "1" = [ ];
+              "2" = [ ];
+              "3" = [ ];
+            };
+          };
 
           "sway/language" = {
             "format" = "{} {variant}";
+          };
+
+          "hyprland/language" = {
+            "format" = "{variant}";
           };
 
           pulseaudio = {

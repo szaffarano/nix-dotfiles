@@ -102,7 +102,7 @@ in
       };
       nix-ld = {
         enable = true;
-        package = inputs.nix-ld-rs.packages.${pkgs.hostPlatform.system}.nix-ld-rs;
+        package = pkgs.inputs.nix-ld-rs.nix-ld-rs;
         libraries = with pkgs; [
           cairo
           cups

@@ -1,9 +1,19 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.wayland.wofi;
-in with lib; {
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}:
+let
+  cfg = config.desktop.wayland.wofi;
+in
+with lib;
+{
   options.desktop.wayland.wofi.enable = mkEnableOption "wofi";
 
   config = mkIf cfg.enable {
+
+    home.packages = [ pkgs.inputs.wofi-tools.wofi-power-menu ];
 
     programs.wofi = {
       enable = true;

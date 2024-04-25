@@ -23,7 +23,6 @@ $CACHIX_PREFIX home-manager switch --flake . &&
     network-manager-applet.service \
     pasystray.service \
     playerctld.service \
-    swayidle.service \
     syncthing.service \
     waybar.service \
     xsettingsd.service

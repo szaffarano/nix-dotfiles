@@ -5,6 +5,7 @@
     "https://nix-community.cachix.org"
     "https://szaffarano.cachix.org"
   ];
+
   nixConfig.extra-trusted-public-keys = [
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
@@ -16,7 +17,7 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
-    wofi-power-menu = {
+    wofi-tools = {
       url = "github:szaffarano/wofi-power-menu";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -40,9 +41,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprwm-contrib = {
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
 
     nur.url = "github:nix-community/NUR";

@@ -78,6 +78,11 @@ window#waybar {
   margin: 0px;
 }
 
+#workspaces button.active {
+  border-bottom: 2px solid @warning;
+  color: @warning;
+}
+
 #workspaces button.focused {
   border-bottom: 2px solid @warning;
   color: @warning;

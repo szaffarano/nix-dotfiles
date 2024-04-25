@@ -38,13 +38,14 @@ with lib;
       themeVars = readFile "${catppuccin}/themes/catppuccin-mocha";
     in
     mkIf cfg.enable {
+      desktop.wayland.swayidle.enable = true;
+      desktop.wayland.swaylock.enable = true;
+      desktop.wayland.swaync.enable = true;
 
       # TODO: use global theme
       xdg.configFile."sway/themes" = {
         source = "${catppuccin}/themes";
       };
-
-      home.packages = [ inputs.wofi-power-menu.packages.${pkgs.hostPlatform.system}.wofi-power-menu ];
 
       wayland.windowManager.sway = {
         enable = true;
@@ -377,11 +378,6 @@ with lib;
             > ~/.cache/sway.log 2>~/.cache/sway.err.log
         fi
       '';
-
-      services = {
-        pasystray.enable = true;
-        network-manager-applet.enable = true;
-      };
 
       systemd.user.targets.sway-session-shutdown = {
         Unit = {
