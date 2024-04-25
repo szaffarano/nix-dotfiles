@@ -97,8 +97,6 @@ with lib;
             };
           };
           "hyprland/workspaces" = {
-            disable-scroll = true;
-            all-outputs = true;
             format = "{name}: {icon}";
             sort-by = "number";
             format-icons = {
@@ -110,7 +108,6 @@ with lib;
               "6" = "";
               "7" = "";
               "urgent" = "";
-              "focused" = "";
               "default" = "";
             };
             persistent-workspaces = {

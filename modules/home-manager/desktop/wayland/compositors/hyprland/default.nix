@@ -121,15 +121,17 @@ with lib;
 
         windowrulev2 = [
           # workaround for https://github.com/wez/wezterm/issues/5103
-          "float,initialclass:^(org.wezfurlong.wezterm)$"
-          "tile,initialclass:^(org.wezfurlong.wezterm)$"
+          "float,class:^(org\.wezfurlong\.wezterm)$"
+          "tile,class:^(org\.wezfurlong\.wezterm)$"
 
-          "workspace 1,class:^(firefox)$"
-          "workspace 2,class:^(jetbrains-idea)$"
-          "workspace 3,class:^(dev-terminal)$"
+          "workspace name:1,class:^(firefox)$"
+          "workspace name:2,class:^(jetbrains-idea)$"
+          "workspace name:3,class:^(dev-terminal)$"
 
-          "float,class:^(com.github.hluk.copyq)$"
-          "float,class:^(org.keepassxc.KeePassXC)$"
+          "float,class:^(org\.keepassxc\.KeePassXC)$"
+          "opacity 0.8 0.3,class:^(org\.keepassxc\.KeePassXC)$"
+          "float,class:^(com\.github\.hluk\.copyq)$"
+          "opacity 0.8 0.3,class:^(com\.github\.hluk\.copyq)$"
           "float,class:^(nm-connection-editor)$"
           "float,class:^(blueberry.py)$"
           "float,class:^(transmission-qt)$"
