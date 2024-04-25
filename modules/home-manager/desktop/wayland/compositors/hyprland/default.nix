@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  theme,
-  ...
+{ config
+, lib
+, pkgs
+, theme
+, ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -105,7 +104,7 @@ with lib;
             configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
           in
           [
-            ''$terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
+            ''[float;tile] $terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
             ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
           ]
           ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
@@ -121,6 +120,10 @@ with lib;
           ];
 
         windowrulev2 = [
+          # workaround for https://github.com/wez/wezterm/issues/5103
+          "float,initialclass:^(org.wezfurlong.wezterm)$"
+          "tile,initialclass:^(org.wezfurlong.wezterm)$"
+
           "workspace 1,class:^(firefox)$"
           "workspace 2,class:^(jetbrains-idea)$"
           "workspace 3,class:^(dev-terminal)$"
@@ -136,29 +139,28 @@ with lib;
           "center,class:^(pavucontrol)$"
 
           "float,class:^(orgmode)$"
-          "size 70% 70%,class:^(orgmode)$"
+          "size 70% 80%,class:^(orgmode)$"
           "center,class:^(orgmode)$"
-          "opacity 0.9 0.4, class:^(orgmode)$"
-          "stayfocused, class:^(orgmode)$"
+          "opacity 0.9 0.3,class:^(orgmode)$"
           "workspace special:orgmode,class:^(orgmode)$"
 
           "float,class:^(musicPlayer)$"
           "size 50% 50%,class:^(musicPlayer)$"
           "center,class:^(musicPlayer)$"
-          "opacity 0.9 0.4, class:^(musicPlayer)$"
+          "opacity 0.7 0.3,class:^(musicPlayer)$"
           "workspace special:musicPlayer,class:^(musicPlayer)$"
 
           "float,class:^(Slack)$"
-          "size 70% 70%,class:^(Slack)$"
+          "size 70% 80%,class:^(Slack)$"
           "center,class:^(Slack)$"
-          "opacity 0.9 0.4, class:^(Slack)$"
+          "opacity 0.9 0.3,class:^(Slack)$"
           "stayfocused, class:^(Slack)$"
           "workspace special:Slack,class:^(Slack)$"
 
           "float,class:^(org\.telegram\.desktop)$"
-          "size 70% 70%,class:^(org\.telegram\.desktop)$"
+          "size 50% 40%,class:^(org\.telegram\.desktop)$"
           "center,class:^(org\.telegram\.desktop)$"
-          "opacity 0.9 0.4, class:^(org\.telegram\.desktop)$"
+          "opacity 0.9 0.3, class:^(org\.telegram\.desktop)$"
           "workspace special:telegram,class:^(org\.telegram\.desktop)$"
         ];
       };

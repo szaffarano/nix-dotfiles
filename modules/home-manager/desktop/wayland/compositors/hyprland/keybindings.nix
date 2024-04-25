@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -60,9 +59,9 @@ with lib;
         let
           toggleScratchpad = "${pkgs.toggle-hyprland-scratchpad}/bin/toggle-hyprland-scratchpad";
         in
-        # toggleScratchpad = "/tmp/toggle.sh";
         [
-          "$mod, Return, exec, $terminal"
+          # workaround for https://github.com/wez/wezterm/issues/5103
+          "$mod, Return, exec, [float;tile] $terminal start --always-new-process"
           "$mod_SHIFT, Q, killactive"
           "$mod, F, fullscreen"
 

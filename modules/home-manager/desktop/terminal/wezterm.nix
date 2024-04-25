@@ -24,15 +24,9 @@ with lib;
       extraConfig = ''
         local act = wezterm.action
         local wezterm = require 'wezterm'
-        local enable_wayland = true
-
-        -- https://github.com/wez/wezterm/issues/5103
-        if os.getenv("XDG_CURRENT_DESKTOP") == "Hyprland" then
-          enable_wayland = false
-        end
 
         return {
-          enable_wayland = enable_wayland,
+          enable_wayland = true,
           font = wezterm.font("${theme.wezterm.fonts.name}"),
           font_size = ${builtins.toString theme.wezterm.fonts.size},
           color_scheme = "${theme.wezterm.theme}",
