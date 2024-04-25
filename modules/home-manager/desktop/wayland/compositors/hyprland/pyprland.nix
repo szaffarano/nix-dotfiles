@@ -46,14 +46,17 @@ with lib;
             position = "25% 25%";
             unfocus = "hide";
             lazy = true;
+            preserve_aspect = true;
           };
 
           slack = {
-            command = "${pkgs.slack}/bin/slack";
+            command = "${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
             class = "Slack";
             size = "70% 70%";
-            position = "15% 15%";
-            lazy = true;
+            lazy = false;
+            animation = "";
+            preserve_aspect = true;
+            allow_special_workspaces = false;
           };
 
           orgmode = {
@@ -63,6 +66,7 @@ with lib;
             position = "15% 15%";
             unfocus = "hide";
             lazy = true;
+            preserve_aspect = true;
           };
         };
     };

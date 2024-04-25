@@ -49,7 +49,17 @@ with lib;
         "SUPER,mouse:273,resizewindow"
       ];
 
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ];
+
       bind =
+        let
+          toggleScratchpad = "${pkgs.toggle-hyprland-scratchpad}/bin/toggle-hyprland-scratchpad";
+        in
+        # toggleScratchpad = "/tmp/toggle.sh";
         [
           "$mod, Return, exec, $terminal"
           "$mod_SHIFT, Q, killactive"
@@ -59,21 +69,18 @@ with lib;
           "$mod SHIFT,f,fullscreen,0"
           "$mod,space,togglefloating"
 
-          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPause, exec, playerctl play-pause"
           ", XF86AudioNext, exec, playerctl next"
           ", XF86AudioPrev, exec, playerctl previous"
 
-          "$mod, o, exec, pypr toggle orgmode"
-          "$mod, m, exec, pypr toggle musicPlayer"
-          "$mod, p, exec, pypr toggle slack"
+          ''$mod, o, exec, ${toggleScratchpad} wrap orgmode "nvim +WikiIndex"''
+          ''$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ncspot''
+          ''$mod, p, exec, ${toggleScratchpad} raw Slack "slack --enable-features=UseOzonePlatform --ozone-platform=wayland"''
         ]
 
-        ++ (map (n: "SUPER,${n},workspace,name:${n}") workspaces)
-        ++ (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
+        ++ (map (n: "$mod,${n},workspace,name:${n}") workspaces)
+        ++ (map (n: "$modSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
 
         ++ (mapAttrsToList (key: direction: "$mod,${key},movefocus,${direction}") directions)
         ++ (mapAttrsToList (key: direction: "$modSHIFT,${key},swapwindow,${direction}") directions)
@@ -92,13 +99,13 @@ with lib;
           let
             passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
           in
-          [ "SUPER_SHIFT,w,exec,${passwordManager}" ]
+          [ "$mod_SHIFT,w,exec,${passwordManager}" ]
         ))
         ++ (optionals config.services.mako.enable (
           let
             makoctl = "${config.services.mako.package}/bin/makoctl";
           in
-          [ "SUPER,w,exec,${makoctl} dismiss" ]
+          [ "$mod,w,exec,${makoctl} dismiss" ]
         ))
         ++ (optionals config.programs.wofi.enable (
           let
@@ -106,9 +113,9 @@ with lib;
             wofiPowerMenu = "wofi-power-menu";
           in
           [
-            "SUPER,x,exec,${wofi} -S drun"
-            "SUPER,d,exec,${wofi} -S run"
-            "SUPER,backspace,exec,${wofiPowerMenu}"
+            "$mod,x,exec,${wofi} -S drun"
+            "$mod,d,exec,${wofi} -S run"
+            "$mod,backspace,exec,${wofiPowerMenu}"
           ]
         ));
     };

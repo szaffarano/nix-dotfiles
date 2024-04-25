@@ -6,12 +6,17 @@ let
       let
         indent = concatStrings (replicate indentLevel "  ");
 
-        sections = filterAttrs (n: v: isAttrs v && n != "device") attrs;
+        sections = filterAttrs (n: v: (isAttrs v || hasComplexElements v) && n != "device") attrs;
 
-        mkSection = n: attrs: ''
-          ${indent}${n} {
-          ${toHyprconf attrs (indentLevel + 1)}${indent}}
-        '';
+        mkSection =
+          n: attrs:
+          if !(hasComplexElements attrs) then
+            ''
+              ${indent}${n} {
+              ${toHyprconf attrs (indentLevel + 1)}${indent}}
+            ''
+          else
+            concatStringsSep "\n" (lists.map (nested: mkSection n nested) attrs);
 
         mkDeviceCategory = device: ''
           ${indent}device {
@@ -30,7 +35,7 @@ let
           listsAsDuplicateKeys = true;
           inherit indent;
         };
-        allFields = filterAttrs (n: v: !(isAttrs v) && n != "device") attrs;
+        allFields = filterAttrs (n: v: !(isAttrs v) && n != "device" && !(hasComplexElements v)) attrs;
 
         importantFields = filterAttrs
           (
@@ -39,6 +44,8 @@ let
           allFields;
 
         fields = builtins.removeAttrs allFields (mapAttrsToList (n: _: n) importantFields);
+
+        hasComplexElements = a: isList a && all (v: isAttrs v) a;
       in
       mkFields importantFields
       + deviceCategory

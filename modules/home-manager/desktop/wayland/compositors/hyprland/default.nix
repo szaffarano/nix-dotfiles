@@ -18,7 +18,6 @@ with lib;
     ./hyprlock.nix
     ./keybindings.nix
     ./hypridle.nix
-    ./pyprland.nix
   ];
 
   config = mkIf cfg.enable {
@@ -57,9 +56,10 @@ with lib;
         general = {
           layout = "dwindle";
           gaps_out = 2;
+          gaps_in = 2;
           border_size = 2;
           cursor_inactive_timeout = 10;
-          resize_corner = 1;
+          resize_on_border = true;
           "col.active_border" = "rgba(eeeeeeee) rgba(777777ee) 45deg";
           "col.inactive_border" = "rgba(595959aa)";
         };
@@ -80,6 +80,7 @@ with lib;
           kb_options = "grp:rctrl_ralt_toggle";
           repeat_rate = 25;
           repeat_delay = 250;
+
           follow_mouse = 0;
 
           touchpad = {
@@ -90,8 +91,8 @@ with lib;
 
         # https://wiki.hyprland.org/Configuring/Variables/#misc
         misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
+          disable_hyprland_logo = false;
+          disable_splash_rendering = false;
         };
 
         binds = {
@@ -122,6 +123,23 @@ with lib;
           "float,class:^(pavucontrol)$"
           "size 60% 60%,class:^(pavucontrol)$"
           "center,class:^(pavucontrol)$"
+
+          "float,class:^(orgmode)$"
+          "size 70% 70%,class:^(orgmode)$"
+          "center,class:^(orgmode)$"
+          "opacity 0.9 0.4, class:^(orgmode)$"
+          "stayfocused, class:^(orgmode)$"
+
+          "float,class:^(musicPlayer)$"
+          "size 50% 50%,class:^(musicPlayer)$"
+          "center,class:^(musicPlayer)$"
+          "opacity 0.9 0.4, class:^(musicPlayer)$"
+
+          "float,class:^(Slack)$"
+          "size 70% 70%,class:^(Slack)$"
+          "center,class:^(Slack)$"
+          "opacity 0.9 0.4, class:^(Slack)$"
+          "stayfocused, class:^(Slack)$"
         ];
       };
     };
