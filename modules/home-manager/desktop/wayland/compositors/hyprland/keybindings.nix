@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -74,9 +75,10 @@ with lib;
           ", XF86AudioNext, exec, playerctl next"
           ", XF86AudioPrev, exec, playerctl previous"
 
-          ''$mod, o, exec, ${toggleScratchpad} wrap orgmode "nvim +WikiIndex"''
-          ''$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ncspot''
-          ''$mod, p, exec, ${toggleScratchpad} raw Slack "slack --enable-features=UseOzonePlatform --ozone-platform=wayland"''
+          "$mod, o, exec, ${toggleScratchpad} wrap orgmode 'nvim +WikiIndex'"
+          "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ncspot"
+          "$mod, p, togglespecialworkspace, Slack"
+          "$mod_SHIFT, t, togglespecialworkspace, telegram"
         ]
 
         ++ (map (n: "$mod,${n},workspace,name:${n}") workspaces)

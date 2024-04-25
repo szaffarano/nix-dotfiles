@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, theme
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  theme,
+  ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -109,6 +110,16 @@ with lib;
           ]
           ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
 
+        workspace =
+          let
+            telegram = "${pkgs.telegram-desktop}/bin/telegram-desktop";
+            slack = "${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
+          in
+          [
+            "special:telegram, on-created-empty:${telegram}"
+            "special:Slack, on-created-empty:${slack}"
+          ];
+
         windowrulev2 = [
           "workspace 1,class:^(firefox)$"
           "workspace 2,class:^(jetbrains-idea)$"
@@ -129,17 +140,26 @@ with lib;
           "center,class:^(orgmode)$"
           "opacity 0.9 0.4, class:^(orgmode)$"
           "stayfocused, class:^(orgmode)$"
+          "workspace special:orgmode,class:^(orgmode)$"
 
           "float,class:^(musicPlayer)$"
           "size 50% 50%,class:^(musicPlayer)$"
           "center,class:^(musicPlayer)$"
           "opacity 0.9 0.4, class:^(musicPlayer)$"
+          "workspace special:musicPlayer,class:^(musicPlayer)$"
 
           "float,class:^(Slack)$"
           "size 70% 70%,class:^(Slack)$"
           "center,class:^(Slack)$"
           "opacity 0.9 0.4, class:^(Slack)$"
           "stayfocused, class:^(Slack)$"
+          "workspace special:Slack,class:^(Slack)$"
+
+          "float,class:^(org\.telegram\.desktop)$"
+          "size 70% 70%,class:^(org\.telegram\.desktop)$"
+          "center,class:^(org\.telegram\.desktop)$"
+          "opacity 0.9 0.4, class:^(org\.telegram\.desktop)$"
+          "workspace special:telegram,class:^(org\.telegram\.desktop)$"
         ];
       };
     };
