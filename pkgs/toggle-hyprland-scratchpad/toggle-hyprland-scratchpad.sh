@@ -50,7 +50,7 @@ function main {
 
     case "$mode" in
     wrap)
-      hyprctl dispatch exec "[float] wezterm start --always-new-process --class=\"$workspace\" zsh --login -c \"$cmd\""
+      hyprctl dispatch -- exec "[float] wezterm start --always-new-process --class=\"$workspace\" zsh --login -c \"$cmd\""
       ;;
     raw)
       eval "$cmd" &
