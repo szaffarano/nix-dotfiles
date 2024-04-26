@@ -63,11 +63,23 @@ with lib;
           # workaround for https://github.com/wez/wezterm/issues/5103
           "$mod, Return, exec, [float;tile] $terminal start --always-new-process"
           "$mod_SHIFT, Q, killactive"
-          "$mod, F, fullscreen"
 
-          "$mod,f,fullscreen,1"
-          "$mod SHIFT,f,fullscreen,0"
+          "$mod,f,fullscreen,0"
+          "$mod_SHIFT,f,fullscreen,1"
           "$mod,space,togglefloating"
+          "$mod,s,togglesplit"
+
+          "$mod,minus,splitratio,-0.25"
+          "$mod_SHIFT,minus,splitratio,-0.3333333"
+
+          "$mod,equal,splitratio,0.25"
+          "$mod_SHIFT,equal,splitratio,0.3333333"
+
+          "$mod,g,togglegroup"
+          "$mod,t,lockactivegroup,toggle"
+          "$mod_CTRL,l,changegroupactive,f"
+          "$mod_CTRL,h,changegroupactive,b"
+          "$mod_SHIFT,g,moveoutofgroup"
 
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPause, exec, playerctl play-pause"
@@ -84,7 +96,8 @@ with lib;
         ++ (map (n: "$modSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
 
         ++ (mapAttrsToList (key: direction: "$mod,${key},movefocus,${direction}") directions)
-        ++ (mapAttrsToList (key: direction: "$modSHIFT,${key},swapwindow,${direction}") directions)
+        ++ (mapAttrsToList (key: direction: "$mod_SHIFT,${key},swapwindow,${direction}") directions)
+        ++ (mapAttrsToList (key: direction: "$mod_ALT,${key},movewindoworgroup,${direction}") directions)
 
         ++ (optionals config.desktop.wayland.swaync.enable (
           let

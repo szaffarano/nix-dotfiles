@@ -47,6 +47,14 @@ with lib;
     wayland.windowManager.hyprland = {
       enable = true;
       package = hyprland;
+      systemd = {
+        enable = true;
+        # Same as default, but stop graphical-session too
+        extraCommands = lib.mkBefore [
+          "systemctl --user stop graphical-session.target"
+          "systemctl --user start hyprland-session.target"
+        ];
+      };
 
       settings = {
         "$terminal" = terminal;
@@ -55,18 +63,36 @@ with lib;
         # https://wiki.hyprland.org/Configuring/Variables/#general
         general = {
           layout = "dwindle";
-          gaps_out = 2;
-          gaps_in = 2;
-          border_size = 2;
+          gaps_out = 1;
+          gaps_in = 1;
+          border_size = 1;
           cursor_inactive_timeout = 10;
           resize_on_border = true;
           "col.active_border" = "rgba(eeeeeeee) rgba(777777ee) 45deg";
           "col.inactive_border" = "rgba(595959aa)";
         };
 
+        group = {
+          "col.border_active" = "rgba(eeeeeeee) rgba(777777ee) 45deg";
+          "col.border_inactive" = "rgba(595959aa)";
+          groupbar.font_size = 11;
+        };
+
         # https://wiki.hyprland.org/Configuring/Variables/#decoration
         decoration = {
-          rounding = 2;
+          rounding = 1;
+          drop_shadow = 0;
+          active_opacity = 0.97;
+          inactive_opacity = 0.77;
+          fullscreen_opacity = 1.0;
+          blur = {
+            enabled = true;
+            size = 5;
+            passes = 3;
+            new_optimizations = true;
+            ignore_opacity = true;
+            popups = true;
+          };
         };
 
         animations = {
@@ -91,12 +117,20 @@ with lib;
 
         # https://wiki.hyprland.org/Configuring/Variables/#misc
         misc = {
-          disable_hyprland_logo = false;
-          disable_splash_rendering = false;
+          close_special_on_empty = true;
+          focus_on_activate = true;
+          new_window_takes_over_fullscreen = 2;
         };
 
         binds = {
           workspace_back_and_forth = true;
+          movefocus_cycles_fullscreen = false;
+        };
+
+        # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
+        dwindle = {
+          split_width_multiplier = 1.35;
+          pseudotile = true;
         };
 
         exec-once =
@@ -111,13 +145,22 @@ with lib;
 
         workspace =
           let
-            telegram = "${pkgs.telegram-desktop}/bin/telegram-desktop";
-            slack = "${pkgs.slack}/bin/slack --enable-features=UseOzonePlatform --ozone-platform=wayland";
+            telegram = lib.getExe pkgs.telegram-desktop;
+            slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
           in
           [
             "special:telegram, on-created-empty:${telegram}"
             "special:Slack, on-created-empty:${slack}"
           ];
+        layerrule = [
+          "animation fade,waybar"
+          "blur,waybar"
+          "ignorezero,waybar"
+          "blur,swaync-control-center"
+          "ignorezero,swaync-control-center"
+          "blur,wofi"
+          "ignorezero,wofi"
+        ];
 
         windowrulev2 = [
           # workaround for https://github.com/wez/wezterm/issues/5103
@@ -129,9 +172,7 @@ with lib;
           "workspace name:3,class:^(dev-terminal)$"
 
           "float,class:^(org\.keepassxc\.KeePassXC)$"
-          "opacity 0.8 0.3,class:^(org\.keepassxc\.KeePassXC)$"
           "float,class:^(com\.github\.hluk\.copyq)$"
-          "opacity 0.8 0.3,class:^(com\.github\.hluk\.copyq)$"
           "float,class:^(nm-connection-editor)$"
           "float,class:^(blueberry.py)$"
           "float,class:^(transmission-qt)$"
@@ -143,26 +184,22 @@ with lib;
           "float,class:^(orgmode)$"
           "size 70% 80%,class:^(orgmode)$"
           "center,class:^(orgmode)$"
-          "opacity 0.9,class:^(orgmode)$"
           "workspace special:orgmode,class:^(orgmode)$"
 
           "float,class:^(musicPlayer)$"
           "size 50% 50%,class:^(musicPlayer)$"
           "center,class:^(musicPlayer)$"
-          "opacity 0.9,class:^(musicPlayer)$"
           "workspace special:musicPlayer,class:^(musicPlayer)$"
 
           "float,class:^(Slack)$"
           "size 70% 80%,class:^(Slack)$"
           "center,class:^(Slack)$"
-          "opacity 0.9,class:^(Slack)$"
           "stayfocused, class:^(Slack)$"
           "workspace special:Slack,class:^(Slack)$"
 
           "float,class:^(org\.telegram\.desktop)$"
           "size 50% 40%,class:^(org\.telegram\.desktop)$"
           "center,class:^(org\.telegram\.desktop)$"
-          "opacity 0.9, class:^(org\.telegram\.desktop)$"
           "workspace special:telegram,class:^(org\.telegram\.desktop)$"
         ];
       };

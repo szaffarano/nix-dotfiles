@@ -23,7 +23,7 @@ with lib;
         input-field = {
           hide_input = false;
 
-          size = "250, 40";
+          size = "200, 30";
 
           outer_color = "rgb(151515)";
           inner_color = "rgb(200, 200, 200)";

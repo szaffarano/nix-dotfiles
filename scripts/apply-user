@@ -14,16 +14,5 @@ fi
 [ -L "$NVIM_CONFIG" ] && rm "$NVIM_CONFIG"
 
 pushd "$BASEDIR" >/dev/null
-$CACHIX_PREFIX home-manager switch --flake . &&
-  systemctl --user restart \
-    copyq.service \
-    fluidsynth.service \
-    gammastep.service \
-    kanshi.service \
-    network-manager-applet.service \
-    pasystray.service \
-    playerctld.service \
-    syncthing.service \
-    waybar.service \
-    xsettingsd.service
+$CACHIX_PREFIX home-manager switch --flake .
 popd >/dev/null
