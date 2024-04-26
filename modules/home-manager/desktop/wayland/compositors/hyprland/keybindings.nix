@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -64,7 +63,6 @@ with lib;
           # workaround for https://github.com/wez/wezterm/issues/5103
           "$mod, Return, exec, [float;tile] $terminal start --always-new-process"
           "$mod_SHIFT, Q, killactive"
-          "$mod, F, fullscreen"
 
           "$mod,f,fullscreen,0"
           "$mod_SHIFT,f,fullscreen,1"
