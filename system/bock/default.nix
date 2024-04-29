@@ -1,7 +1,11 @@
-{ inputs, outputs, config, ... }: {
+{ inputs
+, outputs
+, config
+, ...
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-intel
     inputs.home-manager.nixosModules.home-manager
     inputs.disko.nixosModules.disko
 
