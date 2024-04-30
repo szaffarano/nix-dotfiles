@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.desktop;
@@ -24,7 +25,12 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       anki
+
+      # books
       calibre
+      foliate
+      koodo-reader
+
       qview
       speedcrunch
       tor-browser-bundle-bin
