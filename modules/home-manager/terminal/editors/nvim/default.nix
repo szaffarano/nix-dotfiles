@@ -64,8 +64,10 @@ in
     vale
 
     # LSP servers
+    asm-lsp
     clang-tools
     codeium
+    dockerfile-language-server-nodejs
     gopls
     lua-language-server
     ltex-ls

@@ -37,8 +37,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local servers = {
+  'asm_lsp',
   'bashls',
   'clangd',
+  'dockerls',
   'gopls',
   'grammarly',
   'jsonls',
