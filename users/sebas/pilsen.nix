@@ -26,6 +26,7 @@
     enable = true;
     idea.enable = true;
     ocaml.enable = true;
+    asm.enable = true;
   };
 
   terminal.zsh = {

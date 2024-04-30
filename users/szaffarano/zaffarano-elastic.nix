@@ -30,6 +30,7 @@
       ultimate = true;
     };
     ocaml.enable = true;
+    asm.enable = true;
   };
 
   terminal.zsh = {

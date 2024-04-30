@@ -1,9 +1,15 @@
 { config, lib, ... }:
-let cfg = config.terminal.cli.ncspot;
-in with lib; {
+let
+  cfg = config.terminal.cli.ncspot;
+in
+with lib;
+{
   options.terminal.cli.ncspot.enable = mkEnableOption "ncspot";
 
   config = mkIf cfg.enable {
+    programs.spotify-player = {
+      enable = true;
+    };
     programs.ncspot = {
       enable = true;
       settings = {
@@ -30,7 +36,6 @@ in with lib; {
           cmdline_bg = "black";
           search_match = "light red";
         };
-
       };
     };
   };
