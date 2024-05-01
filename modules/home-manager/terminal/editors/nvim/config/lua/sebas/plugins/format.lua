@@ -21,6 +21,7 @@ return {
       nix = { 'nixfmt' },
       zsh = { 'shfmt' },
       sh = { 'shfmt' },
+      asm = { 'nasmfmt' },
       bash = { 'shfmt' },
       rust = { 'rustfmt' },
       terraform = { 'terraform_fmt' },
@@ -33,6 +34,11 @@ return {
       return { timeout_ms = 500, lsp_fallback = true }
     end,
     formatters = {
+      nasmfmt = {
+        command = 'nasmfmt',
+        args = { '$FILENAME' },
+        stdin = false,
+      },
       shfmt = {
         prepend_args = { '-i', '2' },
       },
