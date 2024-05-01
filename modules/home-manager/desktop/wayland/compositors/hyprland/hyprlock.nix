@@ -14,6 +14,9 @@ with lib;
     home.packages = with pkgs; [ hyprlock ];
     xdg.configFile."hypr/hyprlock.conf".text = outputs.lib.toHyprconf
       {
+        general = {
+          grace = 5;
+        };
         background = {
           path = "screenshot";
           noise = 5.0e-2;

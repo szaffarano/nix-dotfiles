@@ -16,11 +16,12 @@ with lib;
       {
         general =
           let
-            hyprlockCmd = "${pkgs.hyprlock}/bin/hyprlock";
+            lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
+            lockCmdImmediate = "${pkgs.hyprlock}/bin/hyprlock --immediate";
           in
           {
-            lock_cmd = "pidof hyprlock || ${hyprlockCmd}";
-            before_sleep_cmd = "loginctl lock-session";
+            lock_cmd = "pidof hyprlock || ${lockCmd}";
+            before_sleep_cmd = "pidof hyprlock || ${lockCmdImmediate}";
             after_sleep_cmd = "hyprctl dispatch dpms on";
           };
 
