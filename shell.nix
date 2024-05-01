@@ -5,6 +5,7 @@ in
 {
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
     nativeBuildInputs = with pkgs; [
       age
       disko
@@ -12,6 +13,8 @@ in
       gnupg
       home-manager
       nix
+      openssl
+      pkg-config
       sops
       ssh-to-age
     ];
