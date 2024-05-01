@@ -133,6 +133,8 @@ with lib;
           pseudotile = true;
         };
 
+        monitor = [ "eDP-1,1920x1080@60,0x0,1" ];
+
         exec-once =
           let
             configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
