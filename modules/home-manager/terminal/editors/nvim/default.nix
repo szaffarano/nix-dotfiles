@@ -48,12 +48,14 @@ in
     fswatch
 
     # formatters
-    shfmt
-    stylua
+    asmfmt
     black
     isort
-    prettierd
+    nasmfmt
     nixfmt-rfc-style
+    prettierd
+    shfmt
+    stylua
 
     # linters
     nodePackages.jsonlint
@@ -69,8 +71,8 @@ in
     codeium
     dockerfile-language-server-nodejs
     gopls
-    lua-language-server
     ltex-ls
+    lua-language-server
     nil
     nodePackages.typescript-language-server
     pyright
@@ -81,6 +83,7 @@ in
 
     # debug
     delve
+    gdb
     lldb
   ];
 

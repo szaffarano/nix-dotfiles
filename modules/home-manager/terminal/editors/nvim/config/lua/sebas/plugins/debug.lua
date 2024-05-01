@@ -46,6 +46,29 @@ return {
       name = 'lldb',
     }
 
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'gdb',
+      args = { '-i', 'dap' },
+    }
+
+    -- asm
+    dap.configurations.asm = {
+      {
+        name = 'Launch',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = false,
+        stopAtBeginningOfMainSubprogram = true,
+      },
+    }
+
     -- c / cpp
     dap.configurations.c = {
       {
