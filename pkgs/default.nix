@@ -3,13 +3,14 @@
 }:
 let
   firefox-addons = import ./firefox-addons { inherit (pkgs) fetchurl stdenv lib; };
+  callPackage = pkgs.lib.callPackageWith (pkgs // packages);
+  packages = {
+    configure-gtk = callPackage ./configure-gtk { };
+    lock-screen = callPackage ./lock-screen { };
+    toggle-sway-scratchpad = callPackage ./toggle-sway-scratchpad { };
+    toggle-hyprland-scratchpad = callPackage ./toggle-hyprland-scratchpad { };
+    wallpaper = callPackage ./wallpaper { };
+    disable-lid = callPackage ./disable-lid { };
+  };
 in
-{
-  configure-gtk = pkgs.callPackage ./configure-gtk { };
-  lock-screen = pkgs.callPackage ./lock-screen { };
-  toggle-sway-scratchpad = pkgs.callPackage ./toggle-sway-scratchpad { };
-  toggle-hyprland-scratchpad = pkgs.callPackage ./toggle-hyprland-scratchpad { };
-  wallpaper = pkgs.callPackage ./wallpaper { };
-  disable-lid = pkgs.callPackage ./disable-lid { };
-}
-  // firefox-addons
+packages // firefox-addons
