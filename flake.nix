@@ -144,8 +144,6 @@
     {
       inherit lib;
 
-      disko = inputs.disko;
-
       overlays = import ./overlays { inherit inputs outputs; };
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
