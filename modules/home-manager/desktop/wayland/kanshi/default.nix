@@ -1,6 +1,13 @@
-{ config, lib, ... }:
-let cfg = config.desktop.wayland.kanshi;
-in with lib; {
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.desktop.wayland.kanshi;
+in
+with lib;
+{
   options.desktop.wayland.kanshi = {
     enable = mkEnableOption "kanshi";
     lockTime = mkOption {
@@ -11,17 +18,21 @@ in with lib; {
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [ kanshi ];
+
     services.kanshi = {
       enable = true;
       systemdTarget = "graphical-session.target";
       profiles = {
         undocked = {
-          outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-          }];
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+            }
+          ];
         };
-        docked = {
+        home = {
           outputs = [
             {
               criteria = "eDP-1";
@@ -29,46 +40,6 @@ in with lib; {
             }
             {
               criteria = "HDMI-A-1";
-              status = "enable";
-            }
-          ];
-        };
-        docked-work = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "HDMI-A-1";
-              status = "enable";
-            }
-            {
-              criteria = "DP-1";
-              status = "disable";
-            }
-          ];
-        };
-        docked-alt = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "DP-1";
-              status = "enable";
-            }
-          ];
-        };
-        docked-office = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "DP-2";
               status = "enable";
             }
           ];
