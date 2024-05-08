@@ -133,7 +133,11 @@ with lib;
           pseudotile = true;
         };
 
-        monitor = [ "eDP-1,1920x1080@60,0x0,1" ];
+        monitor = [
+          "eDP-1,highres,auto,1"
+          "HDMI-A-1,highres,auto,1"
+          ",preferred,auto,1"
+        ];
 
         exec-once =
           let

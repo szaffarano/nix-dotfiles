@@ -2,11 +2,13 @@
   description = "Sebas's home-manager configurations";
 
   nixConfig.extra-substituters = [
+    "https://hyprland.cachix.org"
     "https://nix-community.cachix.org"
     "https://szaffarano.cachix.org"
   ];
 
   nixConfig.extra-trusted-public-keys = [
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
   ];
@@ -141,8 +143,6 @@
     in
     {
       inherit lib;
-
-      disko = inputs.disko;
 
       overlays = import ./overlays { inherit inputs outputs; };
 
