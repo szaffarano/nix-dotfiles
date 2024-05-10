@@ -16,8 +16,8 @@ with lib;
       {
         general =
           let
-            lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
-            lockCmdImmediate = "${pkgs.hyprlock}/bin/hyprlock --immediate";
+            lockCmd = lib.getExe pkgs.hyprlock;
+            lockCmdImmediate = "${lib.getExe pkgs.hyprlock} --immediate";
           in
           {
             lock_cmd = "pidof hyprlock || ${lockCmd}";
@@ -31,7 +31,7 @@ with lib;
             on-timeout = "loginctl lock-session";
           }
           {
-            timeout = 380;
+            timeout = 600;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }

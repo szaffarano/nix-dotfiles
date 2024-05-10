@@ -6,9 +6,7 @@
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
-  hyprland = pkgs.inputs.hyprland.hyprland;
   terminal = "${pkgs.wezterm}/bin/wezterm";
-  xdph = pkgs.inputs.hyprland.xdg-desktop-portal-hyprland.override { inherit hyprland; };
 in
 with lib;
 {
@@ -24,12 +22,6 @@ with lib;
 
     desktop.wayland.swaync.enable = true;
 
-    # TODO review
-    xdg.portal = {
-      extraPortals = [ xdph ];
-      configPackages = [ hyprland ];
-    };
-
     home.packages = with pkgs; [ hyprpicker ];
 
     home.sessionVariables = {
@@ -39,14 +31,13 @@ with lib;
 
     programs.zsh.loginExtra = ''
       if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-        exec ${hyprland}/bin/Hyprland \
+        exec ${lib.getExe pkgs.hyprland} \
           > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
       fi
     '';
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = hyprland;
       systemd = {
         enable = true;
         # Same as default, but stop graphical-session too

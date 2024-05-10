@@ -41,8 +41,8 @@ with lib;
 
     wayland.windowManager.hyprland.settings =
       let
-        grimblast = "${pkgs.inputs.hyprland-contrib.grimblast}/bin/grimblast";
-        swappy = "${pkgs.swappy}/bin/swappy";
+        grimblast = lib.getExe pkgs.inputs.hyprland-contrib.grimblast;
+        swappy = lib.getExe pkgs.swappy;
       in
       lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
         bind = [
