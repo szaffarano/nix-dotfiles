@@ -57,7 +57,7 @@ with lib;
 
       bind =
         let
-          toggleScratchpad = "${pkgs.toggle-hyprland-scratchpad}/bin/toggle-hyprland-scratchpad";
+          toggleScratchpad = lib.getExe pkgs.toggle-hyprland-scratchpad;
         in
         [
           # workaround for https://github.com/wez/wezterm/issues/5103

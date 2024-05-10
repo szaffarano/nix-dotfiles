@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.nixos.desktop.hyprland;
 in
@@ -13,7 +9,6 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     programs.hyprland = {
       enable = true;
-      package = pkgs.inputs.hyprland.hyprland;
     };
   };
 }
