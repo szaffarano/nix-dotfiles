@@ -2,15 +2,19 @@
 { self, ... }@inputs:
 user: host: system:
 let
-  currentUser = { ${user} = { home = "/Users/${user}"; }; };
+  currentUser = {
+    ${user} = {
+      home = "/Users/${user}";
+    };
+  };
 
   nixpkgsConfig = {
     inherit system;
-    overlays = self.overlays;
+    inherit (self) overlays;
     config = {
       modules = [ inputs.nur.nixosModules.nur ];
       allowUnfree = true;
-      allowUnfreePredicate = (import ./non-free-config.nix inputs);
+      allowUnfreePredicate = import ./non-free-config.nix inputs;
     };
   };
 
@@ -28,13 +32,16 @@ inputs.darwin.lib.darwinSystem {
     inputs.nur.nixosModules.nur
     {
       nixpkgs = nixpkgsConfig;
-      home-manager.sharedModules = builtins.attrValues homeManagerModules
-        ++ [ inputs.nur.nixosModules.nur ];
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users."${user}" = homeManagerConfig;
-      home-manager.verbose = false;
+      home-manager = {
+        sharedModules = builtins.attrValues homeManagerModules ++ [ inputs.nur.nixosModules.nur ];
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users."${user}" = homeManagerConfig;
+        verbose = false;
+      };
     }
   ] ++ builtins.attrValues darwinModules;
-  specialArgs = { inherit self inputs currentUser; };
+  specialArgs = {
+    inherit self inputs currentUser;
+  };
 }

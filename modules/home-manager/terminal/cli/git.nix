@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   userOptions =
@@ -101,7 +102,7 @@ in
               new = "green bold";
             };
           };
-          credential.helper = (lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0");
+          credential.helper = lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0";
           commit.gpgsign = true;
           init.defaultBranch = "master";
           fetch.prune = true;

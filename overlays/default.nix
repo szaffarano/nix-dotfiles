@@ -1,7 +1,7 @@
-{ outputs, inputs }:
+{ inputs, ... }:
 {
 
-  additions = final: prev: import ../pkgs { pkgs = final; };
+  additions = final: _: import ../pkgs { pkgs = final; };
 
   neovim = inputs.neovim-nightly.overlay;
 

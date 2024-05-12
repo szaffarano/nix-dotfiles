@@ -1,9 +1,9 @@
-{ theme
-, config
-, lib
-, pkgs
-, inputs
-, ...
+{
+  theme,
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.desktop.wayland.compositors.sway;
@@ -16,7 +16,6 @@ with lib;
   config =
     let
       terminal = config.home.sessionVariables.TERMINAL;
-      wallpaper = "${pkgs.wallpaper}/bin/wallpaper";
       lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
       toggleScratchpad = "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
       wofi = "${pkgs.wofi}/bin/wofi";
@@ -38,9 +37,13 @@ with lib;
       themeVars = readFile "${catppuccin}/themes/catppuccin-mocha";
     in
     mkIf cfg.enable {
-      desktop.wayland.swayidle.enable = true;
-      desktop.wayland.swaylock.enable = true;
-      desktop.wayland.swaync.enable = true;
+      desktop = {
+        wayland = {
+          swayidle.enable = true;
+          swaylock.enable = true;
+          swaync.enable = true;
+        };
+      };
 
       # TODO: use global theme
       xdg.configFile."sway/themes" = {
@@ -65,16 +68,15 @@ with lib;
           modifier = "Mod4";
           workspaceAutoBackAndForth = true;
           fonts = {
+            inherit (theme.sway.fonts) style size;
             names = [ theme.sway.fonts.name ];
-            style = theme.sway.fonts.style;
-            size = theme.sway.fonts.size;
           };
 
           window = {
             titlebar = false;
           };
 
-          bars = (lib.optionals config.programs.waybar.enable [ ]);
+          bars = lib.optionals config.programs.waybar.enable [ ];
 
           floating.criteria = [
             { app_id = "^pavucontrol$"; }
@@ -143,9 +145,9 @@ with lib;
             ];
 
           assigns = {
-            "1" = [{ app_id = "firefox"; }];
-            "2" = [{ class = "jetbrains-idea.*"; }];
-            "3" = [{ app_id = "dev-terminal"; }];
+            "1" = [ { app_id = "firefox"; } ];
+            "2" = [ { class = "jetbrains-idea.*"; } ];
+            "3" = [ { app_id = "dev-terminal"; } ];
           };
 
           output = {

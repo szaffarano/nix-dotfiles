@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.nixos;
@@ -44,8 +45,7 @@ in
 
   config = {
     networking = {
-      hostName = cfg.hostName;
-      domain = cfg.domain;
+      inherit (cfg) domain hostName;
       networkmanager = {
         enable = true;
         plugins = lib.mkForce [ ];

@@ -1,9 +1,10 @@
-{ outputs, pkgs, ... }: {
+{ outputs, pkgs, ... }:
+{
   git = {
     enable = true;
     user = {
+      inherit (outputs.user) email;
       name = outputs.user.fullName;
-      email = outputs.user.email;
       signingKey = outputs.user.gpgKey;
     };
   };
@@ -31,7 +32,11 @@
 
   terminal.zsh = {
     enable = true;
-    extras = [ "local" "binds" "breeze" ];
+    extras = [
+      "local"
+      "binds"
+      "breeze"
+    ];
   };
 
   programs.mise = {
@@ -53,5 +58,8 @@
   };
 
   sound.enable = false;
-  home.packages = with pkgs; [ sops ssh-to-age ];
+  home.packages = with pkgs; [
+    sops
+    ssh-to-age
+  ];
 }

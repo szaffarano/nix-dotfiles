@@ -1,15 +1,11 @@
-{ inputs
-, outputs
-, pkgs
-, ...
-}:
+{ inputs, outputs, ... }:
 {
 
   git = {
     enable = true;
     user = {
+      inherit (outputs.user) email;
       name = outputs.user.fullName;
-      email = outputs.user.email;
       signingKey = outputs.user.gpgKey;
     };
   };

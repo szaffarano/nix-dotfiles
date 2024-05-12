@@ -1,22 +1,24 @@
 { pkgs, inputs, ... }:
 let
-  disko = inputs.disko.packages.${pkgs.system}.disko;
+  inherit (inputs.disko.packages.${pkgs.system}) disko;
 in
 {
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+
     nativeBuildInputs = with pkgs; [
       age
+      deadnix
       disko
       git
       gnupg
-      home-manager
       nix
       openssl
       pkg-config
       sops
       ssh-to-age
+      statix
     ];
   };
 

@@ -1,9 +1,10 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 {
   imports = [
@@ -15,7 +16,6 @@
     ./hardware-configuration.nix
   ];
 
-  services.geoclue2.enable = true;
   virtualisation = {
     libvirtd.enable = true;
     docker = {
@@ -29,48 +29,50 @@
     "fs.inotify.max_queued_events" = 512000;
   };
 
-  systemd.services.ElasticEndpoint = {
-    wantedBy = [ "multi-user.target" ];
-    description = "ElasticEndpoint";
-    unitConfig = {
-      StartLimitInterval = 600;
-      ConditionFileIsExecutable = "/opt/Elastic/Endpoint/elastic-endpoint";
+  systemd.services = {
+    ElasticEndpoint = {
+      wantedBy = [ "multi-user.target" ];
+      description = "ElasticEndpoint";
+      unitConfig = {
+        StartLimitInterval = 600;
+        ConditionFileIsExecutable = "/opt/Elastic/Endpoint/elastic-endpoint";
+      };
+      serviceConfig = {
+        ExecStart = "/opt/Elastic/Endpoint/elastic-endpoint run";
+        Restart = "on-failure";
+        RestartSec = 15;
+        StartLimitBurst = 16;
+      };
     };
-    serviceConfig = {
-      ExecStart = "/opt/Elastic/Endpoint/elastic-endpoint run";
-      Restart = "on-failure";
-      RestartSec = 15;
-      StartLimitBurst = 16;
-    };
-  };
 
-  systemd.services.elastic-agent = {
-    wantedBy = [ "multi-user.target" ];
-    description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
-    unitConfig = {
-      StartLimitInterval = 5;
-      ConditionFileIsExecutable = "/opt/Elastic/Agent/elastic-agent";
+    elastic-agent = {
+      wantedBy = [ "multi-user.target" ];
+      description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
+      unitConfig = {
+        StartLimitInterval = 5;
+        ConditionFileIsExecutable = "/opt/Elastic/Agent/elastic-agent";
+      };
+      serviceConfig = {
+        ExecStart = "/opt/Elastic/Agent/elastic-agent";
+        WorkingDirectory = "/opt/Elastic/Agent";
+        Restart = "always";
+        RestartSec = 120;
+        KillMode = "process";
+        StartLimitBurst = 10;
+      };
     };
-    serviceConfig = {
-      ExecStart = "/opt/Elastic/Agent/elastic-agent";
-      WorkingDirectory = "/opt/Elastic/Agent";
-      Restart = "always";
-      RestartSec = 120;
-      KillMode = "process";
-      StartLimitBurst = 10;
-    };
-  };
 
-  systemd.services."wol@phy0" = {
-    wantedBy = [ "multi-user.target" ];
-    description = "Wake-on-LAN for phy0";
-    unitConfig = {
-      Requires = "network.target";
-      After = "network.target";
-    };
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
+    "wol@phy0" = {
+      wantedBy = [ "multi-user.target" ];
+      description = "Wake-on-LAN for phy0";
+      unitConfig = {
+        Requires = "network.target";
+        After = "network.target";
+      };
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
+      };
     };
   };
 
@@ -79,6 +81,8 @@
   '';
 
   services = {
+    geoclue2.enable = true;
+    upower.enable = true;
     tailscale = {
       enable = true;
     };
@@ -108,9 +112,9 @@
       greeter.enable = false;
     };
     system = {
+      inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;
       hashedPasswordFile = config.sops.secrets.szaffarano-password.path;
-      authorizedKeys = outputs.user.authorizedKeys;
     };
   };
 
@@ -141,8 +145,6 @@
   #####################################################################################
 
   zramSwap.enable = true;
-
-  services.upower.enable = true;
 
   # TODO: parameterize
   services.udev.extraRules = ''

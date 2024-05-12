@@ -24,9 +24,8 @@
   };
 
   disko.devices = import ./disk-config.nix {
-    inherit lib;
+    inherit lib config;
     disks = [ "/dev/disk/by-id/mmc-TY2964_0x325f92cb" ];
-    config = config;
   };
 
   networking.useDHCP = lib.mkDefault true;

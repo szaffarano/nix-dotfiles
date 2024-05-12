@@ -1,7 +1,8 @@
-{ inputs
-, outputs
-, config
-, ...
+{
+  inputs,
+  outputs,
+  config,
+  ...
 }:
 {
   imports = [
@@ -18,9 +19,9 @@
     disableWakeupLid = false;
     quietboot.enable = true;
     system = {
+      inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;
       hashedPasswordFile = config.sops.secrets.sebas-password.path;
-      authorizedKeys = outputs.user.authorizedKeys;
     };
   };
 

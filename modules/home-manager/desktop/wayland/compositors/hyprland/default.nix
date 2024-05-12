@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, theme
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  theme,
+  ...
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
@@ -138,7 +139,7 @@ with lib;
             ''[float;tile] $terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
             ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
           ]
-          ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
+          ++ (lib.optionals config.desktop.tools.keepassxc.enable [ "${pkgs.keepassxc}/bin/keepassxc" ]);
 
         workspace =
           let
