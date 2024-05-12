@@ -1,9 +1,8 @@
-{
-  lib,
-  inputs,
-  pkgs,
-  config,
-  ...
+{ lib
+, inputs
+, pkgs
+, config
+, ...
 }:
 let
   cfg = config.nixos.system;
@@ -41,7 +40,6 @@ with lib;
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = cfg.authorizedKeys;
-      packages = [ pkgs.home-manager ];
     };
 
     nix = {

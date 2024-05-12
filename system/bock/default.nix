@@ -1,8 +1,7 @@
-{
-  inputs,
-  outputs,
-  config,
-  ...
+{ inputs
+, outputs
+, config
+, ...
 }:
 {
   imports = [

@@ -1,9 +1,8 @@
-{
-  theme,
-  config,
-  lib,
-  pkgs,
-  ...
+{ theme
+, config
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.desktop.wayland.compositors.sway;
@@ -145,9 +144,9 @@ with lib;
             ];
 
           assigns = {
-            "1" = [ { app_id = "firefox"; } ];
-            "2" = [ { class = "jetbrains-idea.*"; } ];
-            "3" = [ { app_id = "dev-terminal"; } ];
+            "1" = [{ app_id = "firefox"; }];
+            "2" = [{ class = "jetbrains-idea.*"; }];
+            "3" = [{ app_id = "dev-terminal"; }];
           };
 
           output = {
