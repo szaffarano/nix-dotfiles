@@ -1,10 +1,10 @@
 { lib, config, ... }:
 let
-  cfg = config.hm;
+  cfg = config.home.custom;
 in
 {
   options = with lib; {
-    hm.allowed-unfree-packages =
+    home.custom.allowed-unfree-packages =
       with types;
       mkOption {
         type = listOf package;
@@ -20,7 +20,7 @@ in
   };
   config =
     let
-      packageNames = map lib.getName cfg.unfree-packages;
+      packageNames = map lib.getName cfg.allowed-unfree-packages;
     in
     {
       nixpkgs.config.allowUnfreePredicate = lib.mkDefault (

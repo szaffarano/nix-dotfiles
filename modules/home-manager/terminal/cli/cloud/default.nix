@@ -17,8 +17,10 @@ with lib;
   options.terminal.cli.cloud.enable = mkEnableOption "cloud";
 
   config = mkIf cfg.enable {
-    custom.unfree.packages = with pkgs; [ vault-bin ];
-    home.packages = with pkgs; [ vault-bin ];
+    home = {
+      custom.allowed-unfree-packages = with pkgs; [ vault-bin ];
+      packages = with pkgs; [ vault-bin ];
+    };
 
     terminal.cli = {
       aws.enable = true;

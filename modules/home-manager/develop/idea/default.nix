@@ -21,8 +21,8 @@ with lib;
     in
     lib.mkIf cfg.enable {
 
-      custom.unfree.packages = with pkgs; lib.optionals cfg.ultimate [ jetbrains.idea-ultimate ];
       home = {
+        custom.allowed-unfree-packages = with pkgs; lib.optionals cfg.ultimate [ jetbrains.idea-ultimate ];
         packages = [ package ];
         file.".ideavimrc" = {
           source = ./ideavimrc;
