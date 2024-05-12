@@ -11,9 +11,6 @@ in
   config = {
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
-      config = {
-        allowUnfreePredicate = outputs.lib.unfreePredicate;
-      };
     };
 
     programs = {

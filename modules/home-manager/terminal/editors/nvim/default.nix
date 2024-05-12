@@ -87,6 +87,8 @@ in
     lldb
   ];
 
+  custom.unfree.packages = [ pkgs.codeium ];
+
   xdg.desktopEntries = {
     nvim = {
       name = "Neovim";

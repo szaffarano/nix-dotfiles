@@ -5,9 +5,6 @@
   };
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
-    config = {
-      allowUnfreePredicate = outputs.lib.unfreePredicate;
-    };
   };
   # Fix for qt6 plugins
   environment.profileRelativeSessionVariables = {

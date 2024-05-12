@@ -6,5 +6,6 @@
     ./fonts
     ./sound
     ./terminal
+    ./unfree.nix
   ];
 }

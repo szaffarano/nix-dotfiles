@@ -11,6 +11,10 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.browserpass.enable = true;
+    custom.unfree.packages = with config.nur.repos.rycee.firefox-addons; [
+      grammarly
+      okta-browser-plugin
+    ];
     programs.firefox = {
       enable = true;
       package = with pkgs; firefox-wayland;

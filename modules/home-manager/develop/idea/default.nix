@@ -20,6 +20,8 @@ with lib;
       package = if cfg.ultimate then jetbrains.idea-ultimate else jetbrains.idea-community;
     in
     lib.mkIf cfg.enable {
+
+      custom.unfree.packages = with pkgs; lib.optionals cfg.ultimate [ jetbrains.idea-ultimate ];
       home = {
         packages = [ package ];
         file.".ideavimrc" = {
