@@ -1,4 +1,9 @@
-{ lib, config, inputs, outputs, ... }:
+{ lib
+, config
+, inputs
+, outputs
+, ...
+}:
 let
   inherit (inputs.nix-colors) colorSchemes;
 in
@@ -6,7 +11,9 @@ in
   config = {
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
-      config = { allowUnfreePredicate = outputs.lib.unfreePredicate; };
+      config = {
+        allowUnfreePredicate = outputs.lib.unfreePredicate;
+      };
     };
 
     programs = {
@@ -19,7 +26,9 @@ in
       homeDirectory = lib.mkDefault "/home/${config.home.username}";
       stateVersion = lib.mkDefault "23.05";
       sessionPath = [ "$HOME/.local/bin" ];
-      sessionVariables = { FLAKE = "$HOME/.dotfiles"; };
+      sessionVariables = {
+        FLAKE = "$HOME/.dotfiles";
+      };
     };
 
     colorscheme = lib.mkDefault colorSchemes.dracula;

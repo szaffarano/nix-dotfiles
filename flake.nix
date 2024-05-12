@@ -1,17 +1,19 @@
 {
   description = "Sebas's home-manager configurations";
 
-  nixConfig.extra-substituters = [
-    "https://hyprland.cachix.org"
-    "https://nix-community.cachix.org"
-    "https://szaffarano.cachix.org"
-  ];
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://szaffarano.cachix.org"
+    ];
 
-  nixConfig.extra-trusted-public-keys = [
-    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
-  ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -19,6 +21,7 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
+
     wofi-tools = {
       url = "github:szaffarano/wofi-power-menu";
       inputs = {
@@ -55,11 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -71,10 +69,11 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , ...
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
     }@inputs:
     let
       inherit (self) outputs;
@@ -149,14 +148,23 @@
         bock = lib.mkNixOS bock;
         weisse = lib.mkNixOS weisse;
         zaffarano-elastic = lib.mkNixOS zaffarano;
+
+        # example
+        # a-zaffarano-elastic = lib.machine {
+        #   hostname = "";
+        #   system = ""
+        #   users = [
+        #     sebas
+        #   ];
+        # };
       };
 
-      homeConfigurations = {
-        "sebas@pilsen" = lib.mkHome pilsen;
-        "sebas@bock" = lib.mkHome bock;
-        "sebas@weisse" = lib.mkHome weisse;
-        "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
-      };
+      # homeConfigurations = {
+      #   "sebas@pilsen" = lib.mkHome pilsen;
+      #   "sebas@bock" = lib.mkHome bock;
+      #   "sebas@weisse" = lib.mkHome weisse;
+      #   "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
+      # };
 
       darwinConfigurations = {
         "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";

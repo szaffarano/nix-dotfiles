@@ -1,8 +1,13 @@
-{ inputs, outputs, ... }: {
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+{ inputs, outputs, ... }:
+{
+  home-manager.extraSpecialArgs = {
+    inherit inputs outputs;
+  };
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
-    config = { allowUnfreePredicate = outputs.lib.unfreePredicate; };
+    config = {
+      allowUnfreePredicate = outputs.lib.unfreePredicate;
+    };
   };
   # Fix for qt6 plugins
   environment.profileRelativeSessionVariables = {

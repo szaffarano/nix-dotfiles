@@ -100,6 +100,7 @@ in
         enableZshIntegration = false;
         enableBashIntegration = false;
       };
+      nix-index-database.comma.enable = true;
       nix-ld = {
         enable = true;
         package = pkgs.inputs.nix-ld-rs.nix-ld-rs;
