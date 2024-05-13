@@ -1,20 +1,21 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 let
   cfg = config.nixos;
 in
 {
   imports = [
-    ./audio
-    ./bluetooth
-    ./common
-    ./hardware
-    ./locale
-    ./openssh
-    ./quietboot
+    ./audio.nix
+    ./bluetooth.nix
+    ./misc.nix
+    ./hardware.nix
+    ./locale.nix
+    ./openssh.nix
+    ./quietboot.nix
     ./sops.nix
     ./system
   ];

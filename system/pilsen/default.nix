@@ -1,8 +1,9 @@
-{ inputs
-, outputs
-, lib
-, config
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  ...
 }:
 {
   imports = [
@@ -56,6 +57,8 @@
   hardware.bluetooth.enable = true;
   services.openssh.enable = true;
   nixos.custom.quietboot = true;
+  hardware.opengl.enable = true;
+  programs.dconf.enable = true;
 
   nixos = {
     hostName = outputs.host.name;
@@ -65,9 +68,6 @@
     ];
     allowedTCPPorts = [ 22000 ];
     disableWakeupLid = true;
-    desktop = {
-      enable = true;
-    };
     system = {
       inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;

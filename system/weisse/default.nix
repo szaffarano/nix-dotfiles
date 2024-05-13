@@ -1,7 +1,8 @@
-{ inputs
-, outputs
-, config
-, ...
+{
+  inputs,
+  outputs,
+  config,
+  ...
 }:
 {
   imports = [
@@ -28,6 +29,8 @@
   hardware.bluetooth.enable = true;
   services.openssh.enable = true;
   nixos.custom.quietboot = true;
+  hardware.opengl.enable = true;
+  programs.dconf.enable = true;
 
   nixos = {
     hostName = outputs.host.name;
@@ -41,10 +44,6 @@
       inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;
       hashedPasswordFile = config.sops.secrets.sebas-password.path;
-    };
-
-    desktop = {
-      enable = true;
     };
   };
 
