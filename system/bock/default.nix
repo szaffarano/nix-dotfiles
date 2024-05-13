@@ -12,11 +12,11 @@
     ./hardware-configuration.nix
   ];
 
+  nixos.custom.quietboot = true;
+
   nixos = {
     hostName = outputs.host.name;
-    audio.enable = false;
     disableWakeupLid = false;
-    quietboot.enable = true;
     system = {
       inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;

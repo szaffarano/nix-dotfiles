@@ -24,6 +24,10 @@
   services.greetd.enable = false;
   programs.hyprland.enable = true;
   programs.sway.enable = false;
+  sound.enable = true;
+  hardware.bluetooth.enable = true;
+  services.openssh.enable = true;
+  nixos.custom.quietboot = true;
 
   nixos = {
     hostName = outputs.host.name;
@@ -32,10 +36,7 @@
       21027
     ];
     allowedTCPPorts = [ 22000 ];
-    audio.enable = true;
-    bluetooth.enable = true;
     disableWakeupLid = false;
-    quietboot.enable = true;
     system = {
       inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;

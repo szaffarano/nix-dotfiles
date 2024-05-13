@@ -1,15 +1,11 @@
 { config, lib, ... }:
-let cfg = config.nixos.audio;
-in {
-  options.nixos.audio.enable = lib.mkEnableOption "audio";
-
-  config = lib.mkIf cfg.enable {
-    security.rtkit.enable = true;
-    sound.enable = true;
+{
+  config = lib.mkIf config.sound.enable {
+    security.rtkit.enable = lib.mkDefault true;
     services.pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa.enable = true;
+      enable = lib.mkDefault true;
+      pulse.enable = lib.mkDefault true;
+      alsa.enable = lib.mkDefault true;
     };
   };
 }

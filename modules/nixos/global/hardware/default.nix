@@ -1,1 +1,4 @@
-_: { hardware.enableRedistributableFirmware = true; }
+{ lib, ... }:
+{
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
+}

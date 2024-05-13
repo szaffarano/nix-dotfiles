@@ -1,9 +1,6 @@
 { config, lib, ... }:
-let cfg = config.nixos.quietboot;
-in {
-  options.nixos.quietboot.enable = lib.mkEnableOption "quiet boot";
-
-  config = lib.mkIf cfg.enable {
+{
+  config = lib.mkIf config.nixos.custom.quietboot {
     console = {
       useXkbConfig = true;
       earlySetup = false;
@@ -11,11 +8,11 @@ in {
 
     boot = {
       plymouth = {
-        enable = true;
-        theme = "spinner";
+        enable = lib.mkDefault true;
+        theme = lib.mkDefault "spinner";
       };
-      loader.timeout = 3;
-      kernelParams = [
+      loader.timeout = lib.mkDefault 3;
+      kernelParams = lib.mkDefault [
         "quiet"
         "loglevel=3"
         "systemd.show_status=auto"
@@ -24,7 +21,7 @@ in {
         "vt.global_cursor_default=0"
       ];
       consoleLogLevel = lib.mkDefault 0;
-      initrd.verbose = false;
+      initrd.verbose = lib.mkDefault false;
     };
   };
 }

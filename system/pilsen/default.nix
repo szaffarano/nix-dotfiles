@@ -52,6 +52,10 @@
   services.greetd.enable = false;
   programs.hyprland.enable = false;
   programs.sway.enable = true;
+  sound.enable = true;
+  hardware.bluetooth.enable = true;
+  services.openssh.enable = true;
+  nixos.custom.quietboot = true;
 
   nixos = {
     hostName = outputs.host.name;
@@ -60,10 +64,7 @@
       21027
     ];
     allowedTCPPorts = [ 22000 ];
-    audio.enable = true;
-    bluetooth.enable = true;
     disableWakeupLid = true;
-    quietboot.enable = true;
     desktop = {
       enable = true;
     };
