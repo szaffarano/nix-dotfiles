@@ -1,14 +1,6 @@
 { config, lib, ... }:
-let
-  cfg = config.nixos.desktop.hyprland;
-in
 {
-  options.nixos.desktop.hyprland.enable = lib.mkEnableOption "hyprland";
-
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf config.programs.hyprland.enable {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    programs.hyprland = {
-      enable = true;
-    };
   };
 }

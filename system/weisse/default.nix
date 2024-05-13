@@ -21,6 +21,10 @@
     };
   };
 
+  services.greetd.enable = false;
+  programs.hyprland.enable = true;
+  programs.sway.enable = false;
+
   nixos = {
     hostName = outputs.host.name;
     allowedUDPPorts = [
@@ -37,11 +41,9 @@
       user = outputs.user.name;
       hashedPasswordFile = config.sops.secrets.sebas-password.path;
     };
+
     desktop = {
       enable = true;
-      sway.enable = false;
-      hyprland.enable = true;
-      greeter.enable = false;
     };
   };
 

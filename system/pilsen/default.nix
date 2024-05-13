@@ -49,6 +49,10 @@
     '';
   };
 
+  services.greetd.enable = false;
+  programs.hyprland.enable = false;
+  programs.sway.enable = true;
+
   nixos = {
     hostName = outputs.host.name;
     allowedUDPPorts = [
@@ -62,8 +66,6 @@
     quietboot.enable = true;
     desktop = {
       enable = true;
-      sway.enable = true;
-      greeter.enable = false;
     };
     system = {
       inherit (outputs.user) authorizedKeys;
