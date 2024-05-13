@@ -1,14 +1,17 @@
-{ lib
-, inputs
-, pkgs
-, config
-, ...
+{
+  lib,
+  inputs,
+  pkgs,
+  config,
+  ...
 }:
 let
   cfg = config.nixos.system;
 in
 with lib;
 {
+  imports = [ ./nix.nix ];
+
   options.nixos.system = {
     user = mkOption { type = types.str; };
     hashedPasswordFile = mkOption { type = types.str; };
@@ -33,43 +36,12 @@ with lib;
   };
 
   config = {
-    # If set to true, you are free to add new users and groups to the system with the ordinary useradd and groupadd commands
-    users.mutableUsers = false;
+    users.mutableUsers = lib.mkDefault false;
     users.users."${cfg.user}" = {
       inherit (cfg) hashedPasswordFile extraGroups;
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = cfg.authorizedKeys;
-    };
-
-    nix = {
-      package = lib.mkDefault pkgs.nix;
-      settings = {
-        experimental-features = [
-          "nix-command"
-          "flakes"
-          "repl-flake"
-        ];
-        trusted-users = [
-          "root"
-          "@wheel"
-        ];
-        auto-optimise-store = lib.mkDefault true;
-        warn-dirty = false;
-        flake-registry = ""; # Disable global flake registry
-      };
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than +3";
-      };
-
-      # To make nix3 commands consistent with the flake
-      registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-      # Add nixpkgs input to NIX_PATH
-      # This lets nix2 commands still use <nixpkgs>
-      nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
     };
   };
 }
