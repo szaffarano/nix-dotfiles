@@ -1,7 +1,8 @@
-{ inputs
-, outputs
-, config
-, ...
+{
+  inputs,
+  outputs,
+  config,
+  ...
 }:
 {
   imports = [
@@ -21,15 +22,17 @@
     };
   };
 
-  services.greetd.enable = false;
-  programs.hyprland.enable = true;
-  programs.sway.enable = false;
-  sound.enable = true;
   hardware.bluetooth.enable = true;
-  services.openssh.enable = true;
-  nixos.custom.quietboot = true;
   hardware.opengl.enable = true;
-  programs.dconf.enable = true;
+  nixos.custom.quietboot = true;
+  programs = {
+    dconf.enable = true;
+    hyprland.enable = true;
+    sway.enable = false;
+  };
+  services.greetd.enable = false;
+  services.openssh.enable = true;
+  sound.enable = true;
 
   nixos = {
     hostName = outputs.host.name;
