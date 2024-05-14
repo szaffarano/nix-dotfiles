@@ -23,17 +23,19 @@ with lib;
     services.kanshi = {
       enable = true;
       systemdTarget = "graphical-session.target";
-      profiles = {
-        undocked = {
-          outputs = [
+      settings = [
+        {
+          profile.name = "undocked";
+          profile.outputs = [
             {
               criteria = "eDP-1";
               status = "enable";
             }
           ];
-        };
-        home = {
-          outputs = [
+        }
+        {
+          profile.name = "home";
+          profile.outputs = [
             {
               criteria = "eDP-1";
               status = "disable";
@@ -43,8 +45,8 @@ with lib;
               status = "enable";
             }
           ];
-        };
-      };
+        }
+      ];
     };
   };
 }
