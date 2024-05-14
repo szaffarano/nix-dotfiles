@@ -82,54 +82,6 @@
       systems = [ "x86_64-linux" ];
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
       pkgsFor = nixpkgs.legacyPackages;
-      sebas_at_home = {
-        name = "sebas";
-        fullName = "Sebastian Zaffarano";
-        email = "sebas@zaffarano.com.ar";
-        gpgKey = "0x14F35C58A2191587";
-        authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-        ];
-      };
-      szaffarano_at_elastic = {
-        name = "szaffarano";
-        fullName = "Sebastián Zaffarano";
-        authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-        ];
-      };
-      bock_host = {
-        name = "bock";
-        arch = "x86_64-linux";
-      };
-      pilsen_host = {
-        name = "pilsen";
-        arch = "x86_64-linux";
-      };
-      zaffarano_host = {
-        name = "zaffarano-elastic";
-        arch = "x86_64-linux";
-      };
-      weisse_host = {
-        name = "weisse";
-        arch = "x86_64-linux";
-      };
-      bock = {
-        user = sebas_at_home;
-        host = bock_host;
-      };
-      pilsen = {
-        user = sebas_at_home;
-        host = pilsen_host;
-      };
-      zaffarano = {
-        user = szaffarano_at_elastic;
-        host = zaffarano_host;
-      };
-      weisse = {
-        user = sebas_at_home;
-        host = weisse_host;
-      };
     in
     {
       # inherit lib;
@@ -152,23 +104,7 @@
             inherit inputs outputs localLib;
           };
         };
-
-        # example
-        # a-zaffarano-elastic = lib.machine {
-        #   hostname = "";
-        #   system = ""
-        #   users = [
-        #     sebas
-        #   ];
-        # };
       };
-
-      # homeConfigurations = {
-      #   "sebas@pilsen" = lib.mkHome pilsen;
-      #   "sebas@bock" = lib.mkHome bock;
-      #   "sebas@weisse" = lib.mkHome weisse;
-      #   "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
-      # };
 
       darwinConfigurations = {
         "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
