@@ -1,10 +1,9 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
 }:
 {
   imports = [
@@ -105,21 +104,17 @@
   programs.dconf.enable = true;
 
   nixos = {
-    hostName = outputs.host.name;
-    allowedUDPPorts = [
-      22000
-      21027
-    ];
-    allowedTCPPorts = [ 22000 ];
     disableWakeupLid = true;
-
-    system = {
-      inherit (outputs.user) authorizedKeys;
-      user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.szaffarano-password.path;
+  };
+  networking = {
+    firewall = {
+      allowedUDPPorts = [
+        22000
+        21027
+      ];
+      allowedTCPPorts = [ 22000 ];
     };
   };
-
   networking.wg-quick.interfaces.wg0 = {
     configFile = config.sops.secrets.wireguard.path;
     autostart = false;

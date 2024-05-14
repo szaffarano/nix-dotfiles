@@ -1,13 +1,4 @@
-{
-  lib,
-  inputs,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.nixos.system;
-in
+{ lib, config, ... }:
 with lib;
 {
   imports = [ ./nix.nix ];
@@ -32,16 +23,6 @@ with lib;
         ++ (lib.optionals config.virtualisation.libvirtd.enable [ "libvirtd" ])
         ++ (lib.optionals config.virtualisation.docker.enable [ "docker" ]);
       description = "Groups to include the user";
-    };
-  };
-
-  config = {
-    users.mutableUsers = lib.mkDefault false;
-    users.users."${cfg.user}" = {
-      inherit (cfg) hashedPasswordFile extraGroups;
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = cfg.authorizedKeys;
     };
   };
 }

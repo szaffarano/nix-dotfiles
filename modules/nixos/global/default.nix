@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.nixos;
@@ -26,32 +25,14 @@ in
       type = lib.types.str;
       description = "The hostname of the machine";
     };
-    domain = lib.mkOption {
-      type = lib.types.str;
-      default = "zaffarano.com.ar";
-      description = "The domain of the machine";
-    };
-    allowedUDPPorts = lib.mkOption {
-      type = lib.types.listOf lib.types.int;
-      default = [ ];
-      description = "The list of allowed UDP ports";
-    };
-    allowedTCPPorts = lib.mkOption {
-      type = lib.types.listOf lib.types.int;
-      default = [ ];
-      description = "The list of allowed TCP ports";
-    };
   };
 
   config = {
     networking = {
-      inherit (cfg) domain hostName;
       networkmanager = {
         enable = true;
         plugins = lib.mkForce [ ];
       };
-      firewall.allowedUDPPorts = cfg.allowedUDPPorts;
-      firewall.allowedTCPPorts = cfg.allowedTCPPorts;
     };
 
     boot = {

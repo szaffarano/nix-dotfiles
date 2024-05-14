@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 {
   config =
@@ -11,7 +10,7 @@
       xdg.portal = {
         enable = lib.mkDefault true;
         wlr.enable = lib.mkDefault true;
-        xdgOpenUsePortal = lib.mkDefault true;
+        xdgOpenUsePortal = lib.mkDefault false;
         extraPortals =
           with pkgs;
           lib.mkDefault [

@@ -1,11 +1,7 @@
-{ inputs, outputs, ... }:
+{ inputs, ... }:
 {
-
   git = {
     enable = true;
-    user = {
-      name = outputs.user.fullName;
-    };
   };
 
   gpg = {

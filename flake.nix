@@ -143,9 +143,9 @@
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
-        pilsen = lib.mkNixOS pilsen;
-        bock = lib.mkNixOS bock;
-        weisse = lib.mkNixOS weisse;
+        # pilsen = lib.mkNixOS pilsen;
+        # bock = lib.mkNixOS bock;
+        # weisse = lib.mkNixOS weisse;
         zaffarano-elastic = lib.mkNixOS zaffarano;
 
         # example
