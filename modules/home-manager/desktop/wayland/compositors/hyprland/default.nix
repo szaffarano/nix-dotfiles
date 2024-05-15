@@ -160,6 +160,11 @@ with lib;
         ];
 
         windowrulev2 = [
+          "noanim,class:^(flameshot)$"
+          "float,class:^(flameshot)$"
+          "fakefullscreen,class:^(flameshot)$"
+          "stayfocused,class:^(flameshot)$"
+
           # workaround for https://github.com/wez/wezterm/issues/5103
           "float,class:^(org\.wezfurlong\.wezterm)$"
           "tile,class:^(org\.wezfurlong\.wezterm)$"

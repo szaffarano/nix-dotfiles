@@ -3,10 +3,10 @@
 , localLib
 , config
 , pkgs
+, flakeRoot
 , ...
 }:
 {
-
   imports = [
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
@@ -14,8 +14,9 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
 
-    ../../modules/nixos
     ./hardware-configuration.nix
+
+    "${flakeRoot}/modules/nixos"
   ];
 
   users = {
@@ -35,6 +36,7 @@
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
+        # TODO: use https://github.com/szaffarano.keys
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
       ];
     };
@@ -51,8 +53,9 @@
         inputs.nix-colors.homeManagerModule
         inputs.nix-index-database.hmModules.nix-index
         inputs.nur.nixosModules.nur
-        ../../modules/home-manager
-        ../../users/szaffarano/zaffarano-elastic.nix
+
+        "${flakeRoot}/modules/home-manager"
+        "${flakeRoot}/users/szaffarano/zaffarano-elastic.nix"
       ];
       config = {
         git = {
@@ -125,19 +128,14 @@
   };
 
   services = {
-    greetd.enable = false;
+    greetd.enable = true;
     openssh.enable = true;
     geoclue2.enable = true;
     upower.enable = true;
-    tailscale = {
-      enable = true;
-    };
-    fwupd = {
-      enable = lib.mkDefault true;
-    };
-    thermald = {
-      enable = lib.mkDefault true;
-    };
+    tailscale.enable = true;
+    fwupd.enable = true;
+    thermald.enable = true;
+
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
       ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
@@ -164,12 +162,9 @@
   };
 
   networking = {
-    domain = lib.mkDefault "zaffarano.com.ar";
+    domain = "zaffarano.com.ar";
     hostName = "zaffarano-elastic";
-    extraHosts = ''
-      127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper
-    '';
-
+    extraHosts = "127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper";
     firewall = {
       allowedUDPPorts = [
         22000

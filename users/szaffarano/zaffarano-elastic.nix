@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   git = {
     enable = true;
@@ -15,7 +15,10 @@
     wayland.compositors.hyprland.enable = true;
     wayland.compositors.sway.enable = false;
   };
-
+  services.flameshot = {
+    enable = true;
+    package = pkgs.flameshot-grim;
+  };
   terminal.cli.cloud.enable = true;
   services.syncthing.enable = true;
   programs.nix-index.enable = true;
