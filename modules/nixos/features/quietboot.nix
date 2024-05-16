@@ -1,12 +1,17 @@
 { config, lib, ... }:
+let
+  feature_name = "quietboot";
+
+  enabled = builtins.elem feature_name config.nixos.custom.features.enable;
+in
 {
-  config = lib.mkIf config.nixos.custom.quietboot {
-    console = {
+  config = {
+    console = lib.mkIf enabled {
       useXkbConfig = true;
       earlySetup = false;
     };
 
-    boot = {
+    boot = lib.mkIf enabled {
       plymouth = {
         enable = lib.mkDefault true;
         theme = lib.mkDefault "spinner";
@@ -23,5 +28,7 @@
       consoleLogLevel = lib.mkDefault 0;
       initrd.verbose = lib.mkDefault false;
     };
+
+    nixos.custom.features.register = feature_name;
   };
 }

@@ -1,11 +1,12 @@
 { inputs
-, lib
 , localLib
 , config
-, pkgs
 , flakeRoot
 , ...
 }:
+let
+  szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" { username = "szaffarano"; };
+in
 {
   imports = [
     inputs.disko.nixosModules.disko
@@ -17,30 +18,8 @@
     ./hardware-configuration.nix
 
     "${flakeRoot}/modules/nixos"
+    szaffarano
   ];
-
-  users = {
-    mutableUsers = false;
-    users.szaffarano = {
-      hashedPasswordFile = config.sops.secrets.szaffarano-password.path;
-      extraGroups =
-        [
-          "wheel"
-          "networkmanager"
-          "video"
-          "audio"
-        ]
-        ++ (lib.optionals config.virtualisation.libvirtd.enable [ "libvirtd" ])
-        ++ (lib.optionals config.virtualisation.docker.enable [ "docker" ]);
-
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = [
-        # TODO: use https://github.com/szaffarano.keys
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-      ];
-    };
-  };
 
   home-manager = {
     useGlobalPkgs = false;
@@ -67,98 +46,30 @@
     };
   };
 
-  virtualisation = {
-    libvirtd.enable = true;
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-    };
-  };
-
-  boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" = 512000;
-    "fs.inotify.max_queued_events" = 512000;
-  };
-
-  systemd.services = {
-    ElasticEndpoint = {
-      wantedBy = [ "multi-user.target" ];
-      description = "ElasticEndpoint";
-      unitConfig = {
-        StartLimitInterval = 600;
-        ConditionFileIsExecutable = "/opt/Elastic/Endpoint/elastic-endpoint";
-      };
-      serviceConfig = {
-        ExecStart = "/opt/Elastic/Endpoint/elastic-endpoint run";
-        Restart = "on-failure";
-        RestartSec = 15;
-        StartLimitBurst = 16;
-      };
-    };
-
-    elastic-agent = {
-      wantedBy = [ "multi-user.target" ];
-      description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
-      unitConfig = {
-        StartLimitInterval = 5;
-        ConditionFileIsExecutable = "/opt/Elastic/Agent/elastic-agent";
-      };
-      serviceConfig = {
-        ExecStart = "/opt/Elastic/Agent/elastic-agent";
-        WorkingDirectory = "/opt/Elastic/Agent";
-        Restart = "always";
-        RestartSec = 120;
-        KillMode = "process";
-        StartLimitBurst = 10;
-      };
-    };
-
-    "wol@phy0" = {
-      wantedBy = [ "multi-user.target" ];
-      description = "Wake-on-LAN for phy0";
-      unitConfig = {
-        Requires = "network.target";
-        After = "network.target";
-      };
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
-      };
-    };
-  };
-
   services = {
-    greetd.enable = true;
-    openssh.enable = true;
-    geoclue2.enable = true;
-    upower.enable = true;
-    tailscale.enable = true;
-    fwupd.enable = true;
-    thermald.enable = true;
-
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
       ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
     '';
   };
 
-  hardware = {
-    bluetooth.enable = true;
-    opengl.enable = true;
-  };
-
-  nixos.custom.quietboot = true;
-
-  programs = {
-    dconf.enable = true;
-    hyprland.enable = true;
-    sway.enable = false;
-  };
-
-  sound.enable = true;
-
-  nixos = {
-    disableWakeupLid = true;
+  nixos.custom = {
+    quietboot = true;
+    wol.phyname = "phy0";
+    power.lid = {
+      name = "LID0";
+      action = "disable";
+    };
+    features.enable = [
+      "audio"
+      "desktop"
+      "elastic-endpoint"
+      "hyprland"
+      "laptop"
+      "quietboot"
+      "sensible"
+      "virtualisation"
+    ];
   };
 
   networking = {
@@ -190,10 +101,4 @@
   };
 
   system.stateVersion = "23.05";
-
-  powerManagement.powertop.enable = true;
-
-  environment.systemPackages = with pkgs; [ powertop ];
-
-  zramSwap.enable = true;
 }

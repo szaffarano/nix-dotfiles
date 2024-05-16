@@ -1,11 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  cfg = config.nixos;
-in
+{ lib, pkgs, ... }:
 {
   imports = [
     ./audio.nix
@@ -14,13 +7,11 @@ in
     ./hardware.nix
     ./locale.nix
     ./openssh.nix
-    ./quietboot.nix
     ./sops.nix
     ./system
   ];
 
   options.nixos = {
-    disableWakeupLid = lib.mkEnableOption "disableWakeupLid";
     hostName = lib.mkOption {
       type = lib.types.str;
       description = "The hostname of the machine";
@@ -42,15 +33,6 @@ in
         "i686-linux"
       ];
       initrd.systemd.enable = true;
-    };
-
-    systemd.services.disable-LID0 = lib.mkIf cfg.disableWakeupLid {
-      wantedBy = [ "multi-user.target" ];
-      description = "Disable wakeup on opening LID0";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.disable-lid}/bin/disable-lid";
-      };
     };
 
     services.udisks2.enable = true;
