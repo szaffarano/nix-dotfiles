@@ -12,6 +12,8 @@ in
       fwupd.enable = true;
     };
 
+    networking = lib.mkIf enabled { domain = "zaffarano.com.ar"; };
+
     boot.kernel.sysctl = lib.mkIf enabled {
       "fs.inotify.max_user_watches" = 512000;
       "fs.inotify.max_queued_events" = 512000;

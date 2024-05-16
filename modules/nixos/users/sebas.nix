@@ -1,8 +1,12 @@
-{ username ? "sebas"
+{ hostName
+, userName ? "sebas"
 ,
 }:
 { config
 , lib
+, localLib
+, flakeRoot
+, inputs
 , pkgs
 , ...
 }:
@@ -14,8 +18,8 @@ let
 in
 {
   users = {
-    users.${username} = {
-      hashedPasswordFile = config.sops.secrets."${username}-password".path;
+    users.${userName} = {
+      hashedPasswordFile = config.sops.secrets."${userName}-password".path;
       extraGroups =
         [
           "wheel"
@@ -29,6 +33,31 @@ in
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile keys);
+    };
+  };
+
+  home-manager = {
+    useGlobalPkgs = false;
+    useUserPackages = true;
+    extraSpecialArgs = {
+      inherit localLib;
+    };
+    users.${userName} = {
+      imports = [
+        inputs.nix-colors.homeManagerModule
+        inputs.nix-index-database.hmModules.nix-index
+        inputs.nur.nixosModules.nur
+
+        "${flakeRoot}/modules/home-manager"
+        "${flakeRoot}/users/${userName}/${hostName}.nix"
+      ];
+      config = {
+        git = {
+          user = {
+            name = "Sebastián Zaffarano";
+          };
+        };
+      };
     };
   };
 }

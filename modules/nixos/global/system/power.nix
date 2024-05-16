@@ -4,6 +4,7 @@
 , ...
 }:
 let
+  phyname = config.nixos.custom.power.wol.phyname;
   lid = config.nixos.custom.power.wakeup.lid.name;
   action = config.nixos.custom.power.wakeup.lid.action;
   devices = config.nixos.custom.power.wakeup.devices;
@@ -24,7 +25,21 @@ in
         ExecStart = "${lib.getExe pkgs.sync-lid} ${action} ${lid}";
       };
     };
+
+    "wol@${phyname}" = lib.mkIf (phyname != null) {
+      wantedBy = [ "multi-user.target" ];
+      description = "Wake-on-LAN for ${phyname}";
+      unitConfig = {
+        Requires = "network.target";
+        After = "network.target";
+      };
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${lib.getExe pkgs.iw} ${phyname} wowlan enable magic-packet";
+      };
+    };
   };
+
   services = {
     udev.extraRules = lib.concatStringsSep "\n" extraUdevRules;
   };

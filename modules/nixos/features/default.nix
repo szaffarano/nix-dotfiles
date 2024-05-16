@@ -8,6 +8,7 @@
     ./quietboot.nix
     ./sensible.nix
     ./sway.nix
+    ./syncthing.nix
     ./virtualisation.nix
   ];
 }
