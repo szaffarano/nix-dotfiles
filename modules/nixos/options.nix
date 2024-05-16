@@ -3,12 +3,28 @@
   options = with lib; {
     nixos.custom = {
       debug = mkEnableOption "debug NixOS";
-      quietboot = mkEnableOption "quiet boot options";
       wol.phyname = mkOption {
         type = types.str;
         default = null;
       };
-      power.lid =
+      power.wakeup.devices =
+        with types;
+        mkOption {
+          type = listOf (submodule {
+            options = {
+              idProduct = mkOption { type = str; };
+              idVendor = mkOption { type = str; };
+              action = mkOption {
+                type = enum [
+                  "enabled"
+                  "disabled"
+                ];
+                default = "enabled";
+              };
+            };
+          });
+        };
+      power.wakeup.lid =
         with types;
         mkOption {
           type = submodule {

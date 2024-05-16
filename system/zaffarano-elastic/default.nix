@@ -46,19 +46,25 @@ in
     };
   };
 
-  services = {
-    udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
-      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
-    '';
-  };
-
   nixos.custom = {
-    quietboot = true;
     wol.phyname = "phy0";
-    power.lid = {
-      name = "LID0";
-      action = "disable";
+    power.wakeup = {
+      devices = [
+        {
+          idVendor = "046d";
+          idProduct = "c52b";
+          action = "enabled";
+        }
+        {
+          idVendor = "05ac";
+          idProduct = "024f";
+          action = "enabled";
+        }
+      ];
+      lid = {
+        name = "LID0";
+        action = "disable";
+      };
     };
     features.enable = [
       "audio"
