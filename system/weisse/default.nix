@@ -1,51 +1,43 @@
-{ inputs
-, outputs
-, config
-, ...
-}:
+{ inputs, flakeRoot, ... }:
+let
+  userName = "sebas";
+  hostName = "weisse";
+
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName; };
+in
 {
   imports = [
+    inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-    inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-index-database.nixosModules.nix-index
 
     ./audio.nix
     ./hardware-configuration.nix
     ./keyboard.nix
+
+    "${flakeRoot}/modules/nixos"
+
+    sebas
   ];
 
-  services = {
-    tailscale = {
-      enable = true;
-    };
-  };
-
-  hardware.bluetooth.enable = true;
-  hardware.opengl.enable = true;
-  nixos.custom.quietboot = true;
-  programs = {
-    dconf.enable = true;
-    hyprland.enable = true;
-    sway.enable = false;
-  };
-  services.greetd.enable = false;
-  services.openssh.enable = true;
-  sound.enable = true;
-
-  nixos = {
-    hostName = outputs.host.name;
-    allowedUDPPorts = [
-      22000
-      21027
+  nixos.custom = {
+    features.enable = [
+      "audio"
+      "desktop"
+      "elastic-endpoint"
+      "hyprland"
+      "laptop"
+      "quietboot"
+      "sensible"
+      "syncthing"
+      "virtualisation"
     ];
-    allowedTCPPorts = [ 22000 ];
-    disableWakeupLid = false;
-    system = {
-      inherit (outputs.user) authorizedKeys;
-      user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.sebas-password.path;
-    };
+  };
+
+  networking = {
+    inherit hostName;
   };
 
   # TODO move to module?

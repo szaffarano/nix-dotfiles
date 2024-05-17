@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options = with lib; {
     home.custom = {
@@ -15,6 +15,22 @@
             option alows modules to include in this list the non-free packages they
             want to install.
           '';
+        };
+      features =
+        with types;
+        mkOption {
+          type = submodule {
+            options = {
+              register = mkOption {
+                type = lines;
+                default = "";
+              };
+              enable = mkOption {
+                type = listOf (enum (lib.splitString "\n" config.home.custom.features.register));
+                default = [ ];
+              };
+            };
+          };
         };
     };
   };

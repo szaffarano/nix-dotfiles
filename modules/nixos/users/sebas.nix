@@ -1,5 +1,6 @@
 { hostName
 , userName ? "sebas"
+, email ? "sebas@zaffarano.com.ar"
 ,
 }:
 { config
@@ -15,6 +16,21 @@ let
     url = "https://github.com/szaffarano.keys";
     hash = "sha256-swpi92w8GVs+9csXZBfNCLQ2GGYyKEk9ErrrbsOJY1E=";
   };
+
+  gpgKeys = builtins.readFile (
+    pkgs.fetchurl {
+      url = "https://api.github.com/users/szaffarano/gpg_keys";
+      hash = "sha256-m1cJvSno+jIDvdimLV1I2kpY02661nVZaTF/DMtr+DU=";
+    }
+  );
+
+  userGpgKeys = builtins.map (k: k.key_id) (
+    builtins.filter (e: !e.revoked && (builtins.elemAt e.emails 0).email == email) (
+      builtins.fromJSON gpgKeys
+    )
+  );
+
+  hasGpgKeys = (builtins.length userGpgKeys) > 0;
 in
 {
   users = {
@@ -52,9 +68,21 @@ in
         "${flakeRoot}/users/${userName}/${hostName}.nix"
       ];
       config = {
-        git = {
-          user = {
-            name = "Sebastián Zaffarano";
+        home.custom.features.enable = [ "gh" ];
+        programs = {
+          gpg = {
+            enable = true;
+            settings = {
+              trusted-key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
+              default-key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
+            };
+          };
+
+          git = {
+            enable = true;
+            userEmail = email;
+            userName = "Sebastián Zaffarano";
+            signing.key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
           };
         };
       };

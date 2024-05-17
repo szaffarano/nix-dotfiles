@@ -6,8 +6,11 @@
 let
   userName = "szaffarano";
   hostName = "zaffarano-elastic";
+  email = "sebastian.zaffarano@elastic.co";
 
-  szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName; };
+  szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName email;
+  };
 in
 {
   imports = [

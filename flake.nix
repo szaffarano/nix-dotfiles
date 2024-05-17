@@ -82,6 +82,16 @@
 
       localLib = import ./lib inputs;
 
+      flakeRoot = self;
+      specialArgs = {
+        inherit
+          inputs
+          outputs
+          localLib
+          flakeRoot
+          ;
+      };
+
       forEachSystem = f: lib.genAttrs systems (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
@@ -93,26 +103,19 @@
 
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
-      nixosConfigurations =
-        let
-          flakeRoot = self;
-        in
-        {
-          # pilsen = lib.mkNixOS pilsen;
-          # bock = lib.mkNixOS bock;
-          # weisse = lib.mkNixOS weisse;
-          zaffarano-elastic = nixpkgs.lib.nixosSystem {
-            modules = [ "${self}/system/zaffarano-elastic" ];
-            specialArgs = {
-              inherit
-                inputs
-                outputs
-                localLib
-                flakeRoot
-                ;
-            };
-          };
+      nixosConfigurations = {
+        # pilsen = lib.mkNixOS pilsen;
+        # bock = lib.mkNixOS bock;
+        weisse = nixpkgs.lib.nixosSystem {
+          modules = [ "${self}/system/weisse" ];
+          inherit specialArgs;
         };
+
+        zaffarano-elastic = nixpkgs.lib.nixosSystem {
+          modules = [ "${self}/system/zaffarano-elastic" ];
+          inherit specialArgs;
+        };
+      };
 
       darwinConfigurations = {
         "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";

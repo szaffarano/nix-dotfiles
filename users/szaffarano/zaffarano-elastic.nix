@@ -1,14 +1,8 @@
 { inputs, pkgs, ... }:
 {
-  git = {
-    enable = true;
-  };
-
-  gpg = {
-    enable = true;
-  };
-
   colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
+
+  home.custom.features.enable = [ ];
 
   desktop = {
     enable = true;

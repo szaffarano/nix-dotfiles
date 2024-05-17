@@ -25,6 +25,7 @@
                   };
                 };
               });
+              default = [ ];
             };
           lid =
             with types;
@@ -33,7 +34,7 @@
                 options = {
                   name = mkOption {
                     type = str;
-                    default = null;
+                    default = "";
                   };
                   action = mkOption {
                     type = enum [
@@ -44,6 +45,7 @@
                   };
                 };
               };
+              default = { };
             };
         };
       };

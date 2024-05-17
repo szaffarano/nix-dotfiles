@@ -4,9 +4,10 @@
 , ...
 }:
 let
+  lidConfig = config.nixos.custom.power.wakeup.lid;
   phyname = config.nixos.custom.power.wol.phyname;
-  lid = config.nixos.custom.power.wakeup.lid.name;
-  action = config.nixos.custom.power.wakeup.lid.action;
+  lidName = lidConfig.name;
+  actionAction = lidConfig.action;
   devices = config.nixos.custom.power.wakeup.devices;
   extraUdevRules = map
     (
@@ -16,13 +17,13 @@ let
     devices;
 in
 {
-  systemd.services = lib.mkIf (lid != null) {
-    "${action}-${lid}" = lib.mkIf (lid != null) {
+  systemd.services = lib.mkIf (lidName != "") {
+    "${actionAction}-${lidName}" = lib.mkIf (lidName != null) {
       wantedBy = [ "multi-user.target" ];
-      description = "${action} wakeup on opening LID0";
+      description = "${actionAction} wakeup on opening LID0";
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.sync-lid} ${action} ${lid}";
+        ExecStart = "${lib.getExe pkgs.sync-lid} ${actionAction} ${lidName}";
       };
     };
 
