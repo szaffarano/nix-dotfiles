@@ -26,7 +26,7 @@ let
 
         deviceCategory = optionalString (hasAttr "device" attrs) (
           if isList attrs.device then
-            (concatMapStringsSep "\n" (d: mkDeviceCategory d) attrs.device)
+            (concatMapStringsSep "\n" mkDeviceCategory attrs.device)
           else
             mkDeviceCategory attrs.device
         );
@@ -45,7 +45,7 @@ let
 
         fields = builtins.removeAttrs allFields (mapAttrsToList (n: _: n) importantFields);
 
-        hasComplexElements = a: isList a && all (v: isAttrs v) a;
+        hasComplexElements = a: isList a && all isAttrs a;
       in
       mkFields importantFields
       + deviceCategory

@@ -1,48 +1,43 @@
-{ inputs
-, outputs
-, config
-, ...
-}:
+{ inputs, flakeRoot, ... }:
+let
+  userName = "sebas";
+  hostName = "weisse";
+
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName; };
+in
 {
   imports = [
+    inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-    inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-index-database.nixosModules.nix-index
 
     ./audio.nix
     ./hardware-configuration.nix
     ./keyboard.nix
+
+    "${flakeRoot}/modules/nixos"
+
+    sebas
   ];
 
-  services = {
-    tailscale = {
-      enable = true;
-    };
+  nixos.custom = {
+    features.enable = [
+      "audio"
+      "desktop"
+      "elastic-endpoint"
+      "hyprland"
+      "laptop"
+      "quietboot"
+      "sensible"
+      "syncthing"
+      "virtualisation"
+    ];
   };
 
-  nixos = {
-    hostName = outputs.host.name;
-    allowedUDPPorts = [
-      22000
-      21027
-    ];
-    allowedTCPPorts = [ 22000 ];
-    audio.enable = true;
-    bluetooth.enable = true;
-    disableWakeupLid = false;
-    quietboot.enable = true;
-    system = {
-      user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.sebas-password.path;
-      authorizedKeys = outputs.user.authorizedKeys;
-    };
-    desktop = {
-      enable = true;
-      sway.enable = false;
-      hyprland.enable = true;
-      greeter.enable = false;
-    };
+  networking = {
+    inherit hostName;
   };
 
   # TODO move to module?

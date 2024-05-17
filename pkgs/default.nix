@@ -7,10 +7,11 @@ let
   packages = {
     configure-gtk = callPackage ./configure-gtk { };
     lock-screen = callPackage ./lock-screen { };
+    flameshot-grim = callPackage ./flameshot { };
     toggle-sway-scratchpad = callPackage ./toggle-sway-scratchpad { };
     toggle-hyprland-scratchpad = callPackage ./toggle-hyprland-scratchpad { };
     wallpaper = callPackage ./wallpaper { };
-    disable-lid = callPackage ./disable-lid { };
+    sync-lid = callPackage ./sync-lid { };
   };
 in
 packages // firefox-addons

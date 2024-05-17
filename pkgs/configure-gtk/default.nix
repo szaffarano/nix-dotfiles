@@ -1,6 +1,5 @@
 # inspired by https://nixos.wiki/wiki/Sway
-{ config
-, pkgs
+{ pkgs
 , lib
 , writeTextFile
 ,

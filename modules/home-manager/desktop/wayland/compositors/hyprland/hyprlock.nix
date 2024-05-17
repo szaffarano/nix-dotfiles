@@ -1,7 +1,7 @@
 { config
 , lib
-, outputs
 , theme
+, localLib
 , pkgs
 , ...
 }:
@@ -12,7 +12,7 @@ with lib;
 {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ hyprlock ];
-    xdg.configFile."hypr/hyprlock.conf".text = outputs.lib.toHyprconf
+    xdg.configFile."hypr/hyprlock.conf".text = localLib.toHyprconf
       {
         general = {
           grace = 5;

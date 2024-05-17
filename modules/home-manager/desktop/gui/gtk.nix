@@ -6,11 +6,13 @@
 let
   cfg = config.desktop.gui.gtk;
 
-  font = theme.gtk.font;
-  icon-theme = theme.gtk.icon-theme;
+  inherit (theme.gtk)
+    font
+    icon-theme
+    icon-theme-pkg
+    theme-pkg
+    ;
   gtk-theme = theme.gtk.theme;
-  icon-theme-pkg = theme.gtk.icon-theme-pkg;
-  theme-pkg = theme.gtk.theme-pkg;
 in
 with lib;
 {
@@ -22,8 +24,7 @@ with lib;
     gtk = {
       enable = true;
       font = {
-        name = font.name;
-        size = font.size;
+        inherit (font) size name;
       };
       iconTheme = {
         name = icon-theme;
@@ -36,12 +37,8 @@ with lib;
     };
 
     # workaround for non-NixOS systems
-    home.file.".themes".source = config.lib.file.mkOutOfStoreSymlink (
-      "${config.home.homeDirectory}/.nix-profile/share/themes"
-    );
-    xdg.dataFile."icons".source = config.lib.file.mkOutOfStoreSymlink (
-      "${config.home.homeDirectory}/.nix-profile/share/icons"
-    );
+    home.file.".themes".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-profile/share/themes";
+    xdg.dataFile."icons".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-profile/share/icons";
 
     services.xsettingsd = {
       enable = true;

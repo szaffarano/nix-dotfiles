@@ -1,6 +1,6 @@
 { config
 , lib
-, outputs
+, localLib
 , pkgs
 , ...
 }:
@@ -12,7 +12,7 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ hypridle ];
 
-    xdg.configFile."hypr/hypridle.conf".text = outputs.lib.toHyprconf
+    xdg.configFile."hypr/hypridle.conf".text = localLib.toHyprconf
       {
         general =
           let

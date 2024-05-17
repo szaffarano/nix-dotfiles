@@ -2,7 +2,9 @@
 config:
 let
   configFile = "${self}/users/${config.user.name}/${config.host.name}.nix";
-  outputs = (self.outputs // { user = config.user; });
+  outputs = self.outputs // {
+    inherit (config) user;
+  };
 in
 inputs.home-manager.lib.homeManagerConfiguration {
   modules = [
@@ -14,9 +16,9 @@ inputs.home-manager.lib.homeManagerConfiguration {
     "${self}/modules/home-manager"
   ];
 
-  pkgs = import inputs.nixpkgs {
-    system = config.host.arch;
-  };
+  pkgs = import inputs.nixpkgs { system = config.host.arch; };
 
-  extraSpecialArgs = { inherit inputs outputs; };
+  extraSpecialArgs = {
+    inherit inputs outputs;
+  };
 }

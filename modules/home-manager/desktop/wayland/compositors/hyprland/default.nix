@@ -138,7 +138,7 @@ with lib;
             ''[float;tile] $terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
             ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
           ]
-          ++ (lib.optionals config.desktop.tools.keepassxc.enable ([ "${pkgs.keepassxc}/bin/keepassxc" ]));
+          ++ (lib.optionals config.desktop.tools.keepassxc.enable [ "${pkgs.keepassxc}/bin/keepassxc" ]);
 
         workspace =
           let
@@ -160,6 +160,11 @@ with lib;
         ];
 
         windowrulev2 = [
+          "noanim,class:^(flameshot)$"
+          "float,class:^(flameshot)$"
+          "fakefullscreen,class:^(flameshot)$"
+          "stayfocused,class:^(flameshot)$"
+
           # workaround for https://github.com/wez/wezterm/issues/5103
           "float,class:^(org\.wezfurlong\.wezterm)$"
           "tile,class:^(org\.wezfurlong\.wezterm)$"

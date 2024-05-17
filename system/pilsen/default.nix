@@ -14,7 +14,6 @@
     ./hardware-configuration.nix
   ];
 
-  services.geoclue2.enable = true;
   virtualisation = {
     libvirtd.enable = true;
     docker = {
@@ -29,6 +28,7 @@
   };
 
   services = {
+    geoclue2.enable = true;
     tailscale = {
       enable = true;
       useRoutingFeatures = "both";
@@ -40,7 +40,26 @@
     thermald = {
       enable = lib.mkDefault true;
     };
+    upower.enable = true;
+
+    # TODO: parameterize
+    udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
+      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
+    '';
   };
+
+  hardware.bluetooth.enable = true;
+  hardware.opengl.enable = true;
+  nixos.custom.quietboot = true;
+  programs = {
+    dconf.enable = true;
+    hyprland.enable = false;
+    sway.enable = true;
+  };
+  services.greetd.enable = false;
+  services.openssh.enable = true;
+  sound.enable = true;
 
   nixos = {
     hostName = outputs.host.name;
@@ -49,19 +68,11 @@
       21027
     ];
     allowedTCPPorts = [ 22000 ];
-    audio.enable = true;
-    bluetooth.enable = true;
     disableWakeupLid = true;
-    quietboot.enable = true;
-    desktop = {
-      enable = true;
-      sway.enable = true;
-      greeter.enable = false;
-    };
     system = {
+      inherit (outputs.user) authorizedKeys;
       user = outputs.user.name;
       hashedPasswordFile = config.sops.secrets.sebas-password.path;
-      authorizedKeys = outputs.user.authorizedKeys;
     };
   };
 
@@ -79,12 +90,4 @@
   #####################################################################################
 
   zramSwap.enable = true;
-
-  services.upower.enable = true;
-
-  # TODO: parameterize
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
-    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
-  '';
 }

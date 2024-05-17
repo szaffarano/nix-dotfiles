@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 
 with lib;
 
@@ -15,27 +19,25 @@ in
 
 {
 
-  meta.maintainers = [
-    maintainers.azuwis or "azuwis"
-  ];
+  meta.maintainers = [ maintainers.azuwis or "azuwis" ];
 
   options = with types; {
-    services.sketchybar.enable = mkOption {
-      type = bool;
-      default = false;
-      description = "Whether to enable the sketchybar";
-    };
-
-    services.sketchybar.package = mkOption {
-      type = path;
-      description = "The sketchybar package to use.";
-      default = pkgs.sketchybar;
-    };
-
-    services.sketchybar.pluginsDir = mkOption {
-      type = path;
-      description = "Directory containing sketchybar plugins";
-      default = null;
+    services.sketchybar = {
+      enable = mkOption {
+        type = bool;
+        default = false;
+        description = "Whether to enable the sketchybar";
+      };
+      package = mkOption {
+        type = path;
+        description = "The sketchybar package to use.";
+        default = pkgs.sketchybar;
+      };
+      pluginsDir = mkOption {
+        type = path;
+        description = "Directory containing sketchybar plugins";
+        default = null;
+      };
     };
 
     services.sketchybar.config = mkOption {
@@ -56,12 +58,14 @@ in
     environment.systemPackages = [ cfg.package ];
 
     launchd.user.agents.sketchybar = {
-      serviceConfig.ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
-      serviceConfig.EnvironmentVariables = {
-        PATH = "${cfg.package}/bin:${cfg.pluginsDir}:${config.environment.systemPath}";
-        XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
+      serviceConfig = {
+        ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        EnvironmentVariables = {
+          PATH = "${cfg.package}/bin:${cfg.pluginsDir}:${config.environment.systemPath}";
+          XDG_CONFIG_HOME = mkIf (cfg.config != "") "${configHome}";
+        };
       };
     };
   };

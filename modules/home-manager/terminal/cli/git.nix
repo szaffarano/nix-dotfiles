@@ -4,31 +4,11 @@
 , ...
 }:
 let
-  userOptions =
-    with lib;
-    types.submodule {
-      options = {
-        name = mkOption {
-          type = types.str;
-          default = "";
-        };
-        email = mkOption {
-          type = types.str;
-          default = "";
-        };
-        signingKey = mkOption {
-          type = types.str;
-          default = "";
-        };
-      };
-    };
+  gh_feature = "gh";
+
+  gh_enabled = builtins.elem gh_feature config.home.custom.features.enable;
 in
 {
-  options.git = {
-    enable = lib.mkEnableOption "git";
-    user = lib.mkOption { type = userOptions; };
-  };
-
   config =
     let
       delta.themes = pkgs.fetchurl {
@@ -36,9 +16,8 @@ in
         sha256 = "sha256-J/6+8kkxzSFPfYzAPAFd/vZrT6hXjd+N2+cWdb+/b8M=";
       };
     in
-    lib.mkIf config.git.enable {
-      programs.git = {
-        enable = true;
+    {
+      programs.git = lib.mkIf config.programs.git.enable {
         package = pkgs.gitAndTools.gitFull;
 
         aliases = {
@@ -64,12 +43,6 @@ in
         };
 
         extraConfig = {
-          user = {
-            name = lib.mkIf (config.git.user.name != "") config.git.user.name;
-            email = lib.mkIf (config.git.user.email != "") config.git.user.email;
-            signingKey = lib.mkIf (config.git.user.signingKey != "") config.git.user.signingKey;
-          };
-
           column.ui = "auto";
 
           rerere.enable = true;
@@ -101,7 +74,7 @@ in
               new = "green bold";
             };
           };
-          credential.helper = (lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0");
+          credential.helper = lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0";
           commit.gpgsign = true;
           init.defaultBranch = "master";
           fetch.prune = true;
@@ -115,6 +88,7 @@ in
       };
 
       home = {
+        custom.features.register = "gh";
         packages =
           with pkgs;
           (lib.optionals config.desktop.tools.keepassxc.enable [
@@ -125,7 +99,7 @@ in
           ]);
       };
 
-      programs.gh = {
+      programs.gh = lib.mkIf gh_enabled {
         enable = true;
         extensions = with pkgs; [
           gh-dash

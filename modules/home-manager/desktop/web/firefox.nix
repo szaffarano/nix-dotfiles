@@ -1,10 +1,20 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.web.firefox;
-in {
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.desktop.web.firefox;
+in
+{
   options.desktop.web.firefox.enable = lib.mkEnableOption "firefox";
 
   config = lib.mkIf cfg.enable {
     programs.browserpass.enable = true;
+    home.custom.allowed-unfree-packages = with config.nur.repos.rycee.firefox-addons; [
+      grammarly
+      okta-browser-plugin
+    ];
     programs.firefox = {
       enable = true;
       package = with pkgs; firefox-wayland;
@@ -44,8 +54,7 @@ in {
           "browser.shell.checkDefaultBrowser" = false;
           "browser.shell.defaultBrowserCheckCount" = 1;
           "browser.startup.homepage" = "https://start.duckduckgo.com";
-          "browser.uiCustomization.state" =
-            lib.readFile ./firefox-ui-customization.json;
+          "browser.uiCustomization.state" = lib.readFile ./firefox-ui-customization.json;
           "identity.fxaccounts.enabled" = true;
           "privacy.trackingprotection.enabled" = true;
           "signon.rememberSignons" = false;

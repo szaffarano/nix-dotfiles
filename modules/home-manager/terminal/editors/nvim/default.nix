@@ -13,13 +13,6 @@ let
   };
 in
 {
-  home.sessionVariables.EDITOR = "nvim";
-
-  xdg.configFile.nvim = {
-    source = ./config;
-    recursive = true;
-  };
-
   programs.zsh = {
     sessionVariables = {
       EDITOR = "nvim";
@@ -30,62 +23,75 @@ in
     };
   };
 
-  xdg.dataFile."nvim/rust-snippets" = {
-    source = rustSnippets;
+  xdg = {
+    configFile.nvim = {
+      source = ./config;
+      recursive = true;
+    };
+
+    dataFile = {
+      "nvim/rust-snippets" = {
+        source = rustSnippets;
+      };
+
+      "nvim/templates" = {
+        source = ./templates;
+        recursive = true;
+      };
+
+      "nvim/treesitter-parsers" = {
+        source = treesitter-parsers;
+      };
+    };
   };
 
-  xdg.dataFile."nvim/templates" = {
-    source = ./templates;
-    recursive = true;
+  home = {
+    sessionVariables.EDITOR = "nvim";
+    custom.allowed-unfree-packages = [ pkgs.codeium ];
+    packages = with pkgs; [
+      tree-sitter
+      fswatch
+
+      # formatters
+      asmfmt
+      black
+      isort
+      nasmfmt
+      nixfmt-rfc-style
+      prettierd
+      shfmt
+      stylua
+
+      # linters
+      nodePackages.jsonlint
+      markdownlint-cli
+      golangci-lint
+      shellcheck
+      hadolint
+      vale
+
+      # LSP servers
+      asm-lsp
+      clang-tools
+      codeium
+      dockerfile-language-server-nodejs
+      gopls
+      ltex-ls
+      lua-language-server
+      nil
+      nodePackages.typescript-language-server
+      pyright
+      rust-analyzer
+      terraform-ls
+      vscode-langservers-extracted
+      yaml-language-server
+
+      # debug
+      delve
+      gdb
+      lldb
+    ];
   };
-
-  xdg.dataFile."nvim/treesitter-parsers" = {
-    source = treesitter-parsers;
-  };
-
-  home.packages = with pkgs; [
-    tree-sitter
-    fswatch
-
-    # formatters
-    asmfmt
-    black
-    isort
-    nasmfmt
-    nixfmt-rfc-style
-    prettierd
-    shfmt
-    stylua
-
-    # linters
-    nodePackages.jsonlint
-    markdownlint-cli
-    golangci-lint
-    shellcheck
-    hadolint
-    vale
-
-    # LSP servers
-    asm-lsp
-    clang-tools
-    codeium
-    dockerfile-language-server-nodejs
-    gopls
-    ltex-ls
-    lua-language-server
-    nil
-    nodePackages.typescript-language-server
-    pyright
-    rust-analyzer
-    terraform-ls
-    vscode-langservers-extracted
-    yaml-language-server
-
-    # debug
-    delve
-    gdb
-    lldb
-  ];
 
   xdg.desktopEntries = {
     nvim = {

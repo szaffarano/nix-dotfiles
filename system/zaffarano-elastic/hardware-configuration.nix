@@ -1,7 +1,17 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "rtsx_pci_sdmmc" "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
+      availableKernelModules = [
+        "ahci"
+        "rtsx_pci_sdmmc"
+        "xhci_pci"
+        "thunderbolt"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "sdhci_pci"
+      ];
       kernelModules = [ "kvm-intel" ];
     };
 
@@ -18,9 +28,8 @@
   };
 
   disko.devices = import ./disk-config.nix {
-    inherit lib;
+    inherit lib config;
     disks = [ "/dev/disk/by-id/nvme-KINGSTON_SNV2S1000G_50026B76863BE669" ];
-    config = config;
   };
 
   networking.useDHCP = lib.mkDefault true;

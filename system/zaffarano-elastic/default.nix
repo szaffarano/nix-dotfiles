@@ -1,122 +1,74 @@
 { inputs
-, outputs
-, lib
 , config
-, pkgs
+, flakeRoot
 , ...
 }:
+let
+  userName = "szaffarano";
+  hostName = "zaffarano-elastic";
+  email = "sebastian.zaffarano@elastic.co";
+
+  szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName email;
+  };
+in
 {
   imports = [
+    inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-    inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-index-database.nixosModules.nix-index
 
     ./hardware-configuration.nix
+
+    "${flakeRoot}/modules/nixos"
+
+    szaffarano
   ];
 
-  services.geoclue2.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
+  nixos.custom = {
+    power = {
+      wol.phyname = "phy0";
+      wakeup = {
+        devices = [
+          {
+            idVendor = "046d";
+            idProduct = "c52b";
+            action = "enabled";
+          }
+          {
+            idVendor = "05ac";
+            idProduct = "024f";
+            action = "enabled";
+          }
+        ];
+        lid = {
+          name = "LID0";
+          action = "disable";
+        };
+      };
     };
-  };
-
-  boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" = 512000;
-    "fs.inotify.max_queued_events" = 512000;
-  };
-
-  systemd.services.ElasticEndpoint = {
-    wantedBy = [ "multi-user.target" ];
-    description = "ElasticEndpoint";
-    unitConfig = {
-      StartLimitInterval = 600;
-      ConditionFileIsExecutable = "/opt/Elastic/Endpoint/elastic-endpoint";
-    };
-    serviceConfig = {
-      ExecStart = "/opt/Elastic/Endpoint/elastic-endpoint run";
-      Restart = "on-failure";
-      RestartSec = 15;
-      StartLimitBurst = 16;
-    };
-  };
-
-  systemd.services.elastic-agent = {
-    wantedBy = [ "multi-user.target" ];
-    description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
-    unitConfig = {
-      StartLimitInterval = 5;
-      ConditionFileIsExecutable = "/opt/Elastic/Agent/elastic-agent";
-    };
-    serviceConfig = {
-      ExecStart = "/opt/Elastic/Agent/elastic-agent";
-      WorkingDirectory = "/opt/Elastic/Agent";
-      Restart = "always";
-      RestartSec = 120;
-      KillMode = "process";
-      StartLimitBurst = 10;
-    };
-  };
-
-  systemd.services."wol@phy0" = {
-    wantedBy = [ "multi-user.target" ];
-    description = "Wake-on-LAN for phy0";
-    unitConfig = {
-      Requires = "network.target";
-      After = "network.target";
-    };
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.iw}/bin/iw phy0 wowlan enable magic-packet";
-    };
-  };
-
-  networking.extraHosts = ''
-    127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper
-  '';
-
-  services = {
-    tailscale = {
-      enable = true;
-    };
-    fwupd = {
-      enable = lib.mkDefault true;
-    };
-    thermald = {
-      enable = lib.mkDefault true;
-    };
-  };
-
-  nixos = {
-    hostName = outputs.host.name;
-    allowedUDPPorts = [
-      22000
-      21027
+    features.enable = [
+      "audio"
+      "desktop"
+      "elastic-endpoint"
+      "hyprland"
+      "laptop"
+      "quietboot"
+      "sensible"
+      "syncthing"
+      "virtualisation"
     ];
-    allowedTCPPorts = [ 22000 ];
-    audio.enable = true;
-    bluetooth.enable = true;
-    disableWakeupLid = true;
-    quietboot.enable = true;
-    desktop = {
-      enable = true;
-      sway.enable = false;
-      hyprland.enable = true;
-      greeter.enable = false;
-    };
-    system = {
-      user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.szaffarano-password.path;
-      authorizedKeys = outputs.user.authorizedKeys;
-    };
   };
 
-  networking.wg-quick.interfaces.wg0 = {
-    configFile = config.sops.secrets.wireguard.path;
-    autostart = false;
+  networking = {
+    inherit hostName;
+    extraHosts = "127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper";
+    wg-quick.interfaces.wg0 = {
+      configFile = config.sops.secrets.wireguard.path;
+      autostart = false;
+    };
   };
 
   sops.secrets = {
@@ -131,22 +83,4 @@
   };
 
   system.stateVersion = "23.05";
-
-  powerManagement.powertop.enable = true;
-
-  environment.systemPackages = with pkgs; [ powertop ];
-
-  #####################################################################################
-  # Legacy configs: check where to move them
-  #####################################################################################
-
-  zramSwap.enable = true;
-
-  services.upower.enable = true;
-
-  # TODO: parameterize
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
-    ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="024f", ATTR{power/wakeup}="enabled"
-  '';
 }

@@ -1,25 +1,18 @@
-{ inputs, outputs, ... }:
+{ inputs, pkgs, ... }:
 {
-
-  git = {
-    enable = true;
-    user = {
-      name = outputs.user.fullName;
-    };
-  };
-
-  gpg = {
-    enable = true;
-  };
-
   colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
+
+  home.custom.features.enable = [ ];
 
   desktop = {
     enable = true;
     wayland.compositors.hyprland.enable = true;
     wayland.compositors.sway.enable = false;
   };
-
+  services.flameshot = {
+    enable = true;
+    package = pkgs.flameshot-grim;
+  };
   terminal.cli.cloud.enable = true;
   services.syncthing.enable = true;
   programs.nix-index.enable = true;

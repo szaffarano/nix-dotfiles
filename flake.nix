@@ -1,17 +1,19 @@
 {
   description = "Sebas's home-manager configurations";
 
-  nixConfig.extra-substituters = [
-    "https://hyprland.cachix.org"
-    "https://nix-community.cachix.org"
-    "https://szaffarano.cachix.org"
-  ];
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://szaffarano.cachix.org"
+    ];
 
-  nixConfig.extra-trusted-public-keys = [
-    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
-  ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "szaffarano.cachix.org-1:T4qYO8SxoCddCRetQDQFUDc+tuBZyL7HuGcisMj4wiM="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -19,6 +21,7 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
+
     wofi-tools = {
       url = "github:szaffarano/wofi-power-menu";
       inputs = {
@@ -55,11 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
     };
@@ -71,71 +69,28 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , ...
-    }@inputs:
+    { self, nixpkgs, ... }@inputs:
     let
+      systems = [ "x86_64-linux" ];
+
       inherit (self) outputs;
+      inherit (nixpkgs) lib;
 
       localLib = import ./lib inputs;
-      lib = nixpkgs.lib // home-manager.lib // localLib;
-      systems = [ "x86_64-linux" ];
-      forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
-      pkgsFor = nixpkgs.legacyPackages;
-      sebas_at_home = {
-        name = "sebas";
-        fullName = "Sebastian Zaffarano";
-        email = "sebas@zaffarano.com.ar";
-        gpgKey = "0x14F35C58A2191587";
-        authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-        ];
+
+      flakeRoot = self;
+      specialArgs = {
+        inherit
+          inputs
+          outputs
+          localLib
+          flakeRoot
+          ;
       };
-      szaffarano_at_elastic = {
-        name = "szaffarano";
-        fullName = "Sebastián Zaffarano";
-        authorizedKeys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGM8VrSbHicyD5mOAivseLz0khnvj4sDqkfnFyipqXCg cardno:19_255_309"
-        ];
-      };
-      bock_host = {
-        name = "bock";
-        arch = "x86_64-linux";
-      };
-      pilsen_host = {
-        name = "pilsen";
-        arch = "x86_64-linux";
-      };
-      zaffarano_host = {
-        name = "zaffarano-elastic";
-        arch = "x86_64-linux";
-      };
-      weisse_host = {
-        name = "weisse";
-        arch = "x86_64-linux";
-      };
-      bock = {
-        user = sebas_at_home;
-        host = bock_host;
-      };
-      pilsen = {
-        user = sebas_at_home;
-        host = pilsen_host;
-      };
-      zaffarano = {
-        user = szaffarano_at_elastic;
-        host = zaffarano_host;
-      };
-      weisse = {
-        user = sebas_at_home;
-        host = weisse_host;
-      };
+
+      forEachSystem = f: lib.genAttrs systems (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
-      inherit lib;
-
       overlays = import ./overlays { inherit inputs outputs; };
 
       packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
@@ -145,17 +100,17 @@
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
 
       nixosConfigurations = {
-        pilsen = lib.mkNixOS pilsen;
-        bock = lib.mkNixOS bock;
-        weisse = lib.mkNixOS weisse;
-        zaffarano-elastic = lib.mkNixOS zaffarano;
-      };
+        # pilsen = lib.mkNixOS pilsen;
+        # bock = lib.mkNixOS bock;
+        weisse = nixpkgs.lib.nixosSystem {
+          modules = [ "${self}/system/weisse" ];
+          inherit specialArgs;
+        };
 
-      homeConfigurations = {
-        "sebas@pilsen" = lib.mkHome pilsen;
-        "sebas@bock" = lib.mkHome bock;
-        "sebas@weisse" = lib.mkHome weisse;
-        "szaffarano@zaffarano-elastic" = lib.mkHome zaffarano;
+        zaffarano-elastic = nixpkgs.lib.nixosSystem {
+          modules = [ "${self}/system/zaffarano-elastic" ];
+          inherit specialArgs;
+        };
       };
 
       darwinConfigurations = {
