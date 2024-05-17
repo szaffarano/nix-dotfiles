@@ -4,11 +4,11 @@
 , ...
 }:
 let
+  inherit (config.nixos.custom.power.wol) phyname;
+  inherit (config.nixos.custom.power.wakeup) devices;
   lidConfig = config.nixos.custom.power.wakeup.lid;
-  phyname = config.nixos.custom.power.wol.phyname;
   lidName = lidConfig.name;
   actionAction = lidConfig.action;
-  devices = config.nixos.custom.power.wakeup.devices;
   extraUdevRules = map
     (
       d:
