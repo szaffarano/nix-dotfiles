@@ -1,4 +1,4 @@
-{ inputs, outputs, ... }:
+{ outputs, ... }:
 {
 
   git = {
@@ -15,8 +15,6 @@
     default-key = outputs.user.gpgKey;
     trusted-key = outputs.user.gpgKey;
   };
-
-  colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
 
   desktop.enable = true;
   terminal.cli.cloud.enable = true;

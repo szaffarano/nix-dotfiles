@@ -1,7 +1,6 @@
 { config
 , lib
 , pkgs
-, theme
 , ...
 }:
 let
@@ -266,10 +265,26 @@ with lib;
       };
 
       style =
-        builtins.replaceStrings
-          ((builtins.attrNames theme.waybar.colors) ++ (builtins.attrNames theme.waybar.fonts))
-          ((builtins.attrValues theme.waybar.colors) ++ (builtins.attrValues theme.waybar.fonts))
-          (builtins.readFile ./style.css);
+        with config.scheme.withHashtag;
+        let
+          font = config.fontProfiles.monospace;
+        in
+        ''
+          @define-color bg ${base00};
+          @define-color critical ${base09};
+          @define-color warning ${base0B};
+          @define-color ok ${base0A};
+          @define-color fg ${base04};
+          @define-color fg2 ${base02};
+          @define-color muted ${base0F};
+          @define-color neutral ${base06};
+
+          * {
+              font-family: ${font.name}, ${font.family};
+              font-size: ${font.size};
+          }
+        ''
+        + builtins.readFile ./style.css;
     };
   };
 }

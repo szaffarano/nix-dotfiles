@@ -4,10 +4,12 @@
 , outputs
 , ...
 }:
-let
-  inherit (inputs.nix-colors) colorSchemes;
-in
 {
+  imports = [
+    inputs.base16.nixosModule
+    inputs.nix-index-database.hmModules.nix-index
+    inputs.nur.nixosModules.nur
+  ];
   config = {
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
@@ -34,7 +36,6 @@ in
     };
 
     home = {
-      username = lib.mkDefault outputs.user.name;
       homeDirectory = lib.mkDefault "/home/${config.home.username}";
       stateVersion = lib.mkDefault "23.05";
       sessionPath = [ "$HOME/.local/bin" ];
@@ -43,8 +44,8 @@ in
       };
     };
 
-    colorscheme = lib.mkDefault colorSchemes.dracula;
+    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/nord.yaml";
 
-    home.file.".colorscheme".text = config.colorscheme.slug;
+    home.file.".colorscheme".text = config.scheme.slug;
   };
 }
