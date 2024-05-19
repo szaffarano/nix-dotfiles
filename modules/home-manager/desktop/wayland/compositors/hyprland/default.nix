@@ -58,7 +58,7 @@ with lib;
         # https://wiki.hyprland.org/Configuring/Variables/#general
         general = {
           layout = "dwindle";
-          gaps_out = 1;
+          gaps_out = 3;
           gaps_in = 1;
           border_size = 1;
           cursor_inactive_timeout = 10;
@@ -71,16 +71,16 @@ with lib;
           "col.border_inactive" = rgb scheme.base0D;
           "col.border_active" = rgb scheme.base06;
           "col.border_locked_active" = rgb scheme.base06;
-          groupbar.font_size = 11;
+          groupbar.font_size = config.fontProfiles.monospace.sizeAsInt;
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#decoration
         decoration = {
-          rounding = 1;
+          rounding = 3;
           drop_shadow = 0;
           "col.shadow" = rgba scheme.base00 "99";
-          active_opacity = 0.97;
-          inactive_opacity = 0.77;
+          active_opacity = 0.99;
+          inactive_opacity = 0.93;
           fullscreen_opacity = 1.0;
           blur = {
             enabled = true;
