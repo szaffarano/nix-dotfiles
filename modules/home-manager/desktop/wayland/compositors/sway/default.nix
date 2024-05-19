@@ -26,14 +26,10 @@ with lib;
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${ncspot}'";
       orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
 
-      # TODO integrate with config.colorscheme
-      catppuccin = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "i3";
-        rev = "9c430d7";
-        sha256 = "sha256-EHZ/D4PrFqwyTpfcst3+hSx6z4saVD1M9CfFqnWI6io=";
-      };
-      themeVars = readFile "${catppuccin}/themes/catppuccin-mocha";
+      text = config.scheme.base05;
+      urgent = config.scheme.base08;
+      focused = config.scheme.base0A;
+      unfocused = config.scheme.base03;
     in
     mkIf cfg.enable {
       desktop = {
@@ -44,31 +40,21 @@ with lib;
         };
       };
 
-      # TODO: use global theme
-      xdg.configFile."sway/themes" = {
-        source = "${catppuccin}/themes";
-      };
-
       wayland.windowManager.sway = {
         enable = true;
         package = null;
         swaynag.enable = true;
 
-        extraConfigEarly =
-          themeVars
-          + ''
-            # TODO it looks like the include stopped working and
-            # the variables defined there are not expanded anymore
-            # include themes/catppuccin-mocha
-            workspace 1
-          '';
+        extraConfigEarly = ''
+          workspace 1
+        '';
 
         config = {
           modifier = "Mod4";
           workspaceAutoBackAndForth = true;
-          fonts = {
-            inherit (theme.sway.fonts) style size;
-            names = [ theme.sway.fonts.name ];
+          fonts = with config.fontProfiles.monospace; {
+            names = [ name ];
+            size = sizeAsInt * 0.9;
           };
 
           window = {
@@ -150,7 +136,7 @@ with lib;
           };
 
           output = {
-            # TODO stopped working, related to the theme
+            # TODO stopped working
             # "*".bg = ''"$(${wallpaper})" fit'';
 
             HDMI-A-1 = {
@@ -332,44 +318,39 @@ with lib;
               Escape = "mode default";
             };
           };
-          colors = {
-            unfocused = {
-              background = "$base";
-              border = "$mauve";
-              childBorder = "$mauve";
-              indicator = "$rosewater";
-              text = "$text";
+          colors =
+            let
+              background = config.scheme.base00;
+              indicator = config.scheme.base0B;
+            in
+            {
+              inherit background;
+              urgent = {
+                inherit background indicator text;
+                border = urgent;
+                childBorder = urgent;
+              };
+              focused = {
+                inherit background indicator text;
+                border = focused;
+                childBorder = focused;
+              };
+              focusedInactive = {
+                inherit background indicator text;
+                border = unfocused;
+                childBorder = unfocused;
+              };
+              unfocused = {
+                inherit background indicator text;
+                border = unfocused;
+                childBorder = unfocused;
+              };
+              placeholder = {
+                inherit background indicator text;
+                border = unfocused;
+                childBorder = unfocused;
+              };
             };
-            focused = {
-              background = "$base";
-              border = "$pink";
-              childBorder = "$pink";
-              indicator = "$rosewater";
-              text = "$pink";
-            };
-            focusedInactive = {
-              background = "$base";
-              border = "$mauve";
-              childBorder = "$mauve";
-              indicator = "$rosewater";
-              text = "$text";
-            };
-            urgent = {
-              background = "$base";
-              border = "$peach";
-              childBorder = "$peach";
-              indicator = "$overlay0";
-              text = "$peach";
-            };
-            placeholder = {
-              background = "$base";
-              border = "$overlay0";
-              childBorder = "$overlay0";
-              indicator = "$overlay0";
-              text = "$text";
-            };
-            background = "$base";
-          };
         };
       };
 

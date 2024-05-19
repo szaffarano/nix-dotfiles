@@ -7,7 +7,6 @@
 , lib
 , localLib
 , flakeRoot
-, inputs
 , pkgs
 , ...
 }:

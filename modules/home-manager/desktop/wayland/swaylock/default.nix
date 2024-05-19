@@ -1,9 +1,20 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
   cfg = config.desktop.wayland.swaylock;
-  inherit (config.colorscheme) palette;
+  colors = config.scheme.withHashtag;
+  inside = colors.base01;
+  outside = colors.base01;
+  ring = colors.base05;
+  text = colors.base05;
+  positive = colors.base0B;
+  negative = colors.base08;
 in
-with lib; {
+with lib;
+{
   options.desktop.wayland.swaylock.enable = mkEnableOption "swaylock";
 
   config = mkIf cfg.enable {
@@ -19,24 +30,28 @@ with lib; {
         indicator-radius = 50;
         indicator-idle-visible = true;
 
-        ring-color = "#${palette.base02}";
-        inside-wrong-color = "#${palette.base08}";
-        ring-wrong-color = "#${palette.base08}";
-        key-hl-color = "#${palette.base0B}";
-        bs-hl-color = "#${palette.base08}";
-        ring-ver-color = "#${palette.base09}";
-        inside-ver-color = "#${palette.base09}";
-        inside-color = "#${palette.base01}";
-        text-color = "#${palette.base07}";
-        text-clear-color = "#${palette.base01}";
-        text-ver-color = "#${palette.base01}";
-        text-wrong-color = "#${palette.base01}";
-        text-caps-lock-color = "#${palette.base07}";
-        inside-clear-color = "#${palette.base0C}";
-        ring-clear-color = "#${palette.base0C}";
-        inside-caps-lock-color = "#${palette.base09}";
-        ring-caps-lock-color = "#${palette.base02}";
-        separator-color = "#${palette.base02}";
+        color = outside;
+        scaling = "fill";
+        inside-color = inside;
+        inside-clear-color = inside;
+        inside-caps-lock-color = inside;
+        inside-ver-color = inside;
+        inside-wrong-color = inside;
+        key-hl-color = positive;
+        layout-bg-color = inside;
+        layout-border-color = ring;
+        layout-text-color = text;
+        ring-color = ring;
+        ring-clear-color = negative;
+        ring-caps-lock-color = ring;
+        ring-ver-color = positive;
+        ring-wrong-color = negative;
+        separator-color = "00000000";
+        text-color = text;
+        text-clear-color = text;
+        text-caps-lock-color = text;
+        text-ver-color = text;
+        text-wrong-color = text;
       };
     };
   };

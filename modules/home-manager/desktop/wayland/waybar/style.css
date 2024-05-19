@@ -16,7 +16,7 @@
 
   to {
     color: white;
-    background-color: red;
+    background-color: @warning;
   }
 }
 

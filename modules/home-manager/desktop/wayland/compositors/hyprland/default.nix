@@ -5,8 +5,11 @@
 , ...
 }:
 let
+  inherit (config) scheme;
   cfg = config.desktop.wayland.compositors.hyprland;
   terminal = "${pkgs.wezterm}/bin/wezterm";
+  rgb = color: "rgb(${color})";
+  rgba = color: alpha: "rgba(${color}${alpha})";
 in
 with lib;
 {
@@ -60,13 +63,14 @@ with lib;
           border_size = 1;
           cursor_inactive_timeout = 10;
           resize_on_border = true;
-          "col.active_border" = "rgba(eeeeeeee) rgba(777777ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
+          "col.active_border" = rgb scheme.base0A;
+          "col.inactive_border" = rgb scheme.base03;
         };
 
         group = {
-          "col.border_active" = "rgba(eeeeeeee) rgba(777777ee) 45deg";
-          "col.border_inactive" = "rgba(595959aa)";
+          "col.border_inactive" = rgb scheme.base0D;
+          "col.border_active" = rgb scheme.base06;
+          "col.border_locked_active" = rgb scheme.base06;
           groupbar.font_size = 11;
         };
 
@@ -74,6 +78,7 @@ with lib;
         decoration = {
           rounding = 1;
           drop_shadow = 0;
+          "col.shadow" = rgba scheme.base00 "99";
           active_opacity = 0.97;
           inactive_opacity = 0.77;
           fullscreen_opacity = 1.0;
@@ -112,6 +117,7 @@ with lib;
           close_special_on_empty = true;
           focus_on_activate = true;
           new_window_takes_over_fullscreen = 2;
+          background_color = rgb scheme.base00;
         };
 
         binds = {

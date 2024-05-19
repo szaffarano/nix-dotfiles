@@ -1,12 +1,14 @@
 { config
 , lib
-, theme
 , localLib
 , pkgs
 , ...
 }:
 let
+  inherit (config) scheme;
   cfg = config.desktop.wayland.compositors.hyprland;
+  rgb = color: "rgb(${color})";
+  rgba = color: alpha: "rgba(${color}${alpha})";
 in
 with lib;
 {
@@ -27,19 +29,19 @@ with lib;
 
           size = "200, 30";
 
-          outer_color = "rgb(151515)";
-          inner_color = "rgb(200, 200, 200)";
-          font_color = "rgb(10, 10, 10)";
+          outer_color = rgb scheme.base0A;
+          inner_color = rgb scheme.base00;
+          font_color = rgb scheme.base06;
 
           dots_size = "0.20";
           dots_spacing = "0.1";
         };
 
         label = {
-          color = "rgba(100, 100, 100, 1.0)";
+          color = rgba scheme.base0A "1.0";
           position = "0, 20";
-          font_family = theme.fonts."f-mono";
-          font_size = 35;
+          font_family = config.fontProfiles.monospace.name;
+          font_size = config.fontProfiles.monospace.sizeAsInt * 3;
           halign = "center";
           text = ''cmd[update:10000] echo "<b>$(date '+%H:%M')</b>"'';
           valign = "center";

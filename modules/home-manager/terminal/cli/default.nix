@@ -10,7 +10,7 @@
     ./pass.nix
     ./ssh.nix
     ./starship.nix
-    ./tmux.nix
+    ./tmux
     ./tools.nix
     ./yubikey.nix
   ];
