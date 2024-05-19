@@ -15,6 +15,7 @@ in
       gnupg
       nix
       openssl
+      matugen
       pkg-config
       sops
       ssh-to-age

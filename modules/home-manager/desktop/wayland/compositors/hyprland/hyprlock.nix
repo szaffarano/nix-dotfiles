@@ -17,10 +17,9 @@ with lib;
         general = {
           grace = 5;
         };
+
         background = {
-          path = "screenshot";
-          noise = 5.0e-2;
-          blur_passes = 1;
+          path = "${config.home.homeDirectory}/Pictures/screen-lock.png";
         };
 
         input-field = {
