@@ -19,6 +19,7 @@
   // {
   meta = with lib; {
     licenses = licenses.mit;
+    mainProgram = "wallpaper";
     platforms = platforms.all;
   };
 }
