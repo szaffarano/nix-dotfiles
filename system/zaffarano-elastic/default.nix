@@ -1,7 +1,8 @@
-{ inputs
-, config
-, flakeRoot
-, ...
+{
+  inputs,
+  config,
+  flakeRoot,
+  ...
 }:
 let
   userName = "szaffarano";
@@ -54,6 +55,7 @@ in
       "desktop"
       "elastic-endpoint"
       "hyprland"
+      "sway"
       "laptop"
       "quietboot"
       "sensible"
@@ -61,6 +63,7 @@ in
       "virtualisation"
     ];
   };
+  services.greetd.enable = true;
 
   networking = {
     inherit hostName;

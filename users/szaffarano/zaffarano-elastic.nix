@@ -5,7 +5,7 @@
   desktop = {
     enable = true;
     wayland.compositors.hyprland.enable = true;
-    wayland.compositors.sway.enable = false;
+    wayland.compositors.sway.enable = true;
   };
   services.flameshot = {
     enable = true;

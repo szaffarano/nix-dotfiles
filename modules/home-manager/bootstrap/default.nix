@@ -44,7 +44,7 @@
       };
     };
 
-    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/catppuccin-frappe.yaml";
+    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/nord.yaml";
 
     home.file.".colorscheme".text = config.scheme.slug;
   };

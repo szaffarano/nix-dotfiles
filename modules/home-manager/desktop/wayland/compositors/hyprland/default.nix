@@ -61,10 +61,13 @@ with lib;
           gaps_out = 3;
           gaps_in = 1;
           border_size = 1;
-          cursor_inactive_timeout = 10;
           resize_on_border = true;
           "col.active_border" = rgb scheme.base0A;
           "col.inactive_border" = rgb scheme.base03;
+        };
+
+        cursor = {
+          inactive_timeout = 10;
         };
 
         group = {

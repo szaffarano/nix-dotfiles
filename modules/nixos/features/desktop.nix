@@ -7,8 +7,8 @@ in
 {
   config = {
     services = lib.mkIf enabled {
-      greetd.enable = true;
-      geoclue2.enable = true;
+      greetd.enable = lib.mkDefault false;
+      geoclue2.enable = lib.mkDefault true;
     };
 
     hardware = lib.mkIf enabled {
