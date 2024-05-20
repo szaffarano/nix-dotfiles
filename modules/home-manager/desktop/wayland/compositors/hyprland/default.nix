@@ -71,7 +71,12 @@ with lib;
           "col.border_inactive" = rgb scheme.base0D;
           "col.border_active" = rgb scheme.base06;
           "col.border_locked_active" = rgb scheme.base06;
-          groupbar.font_size = config.fontProfiles.monospace.sizeAsInt;
+          groupbar = {
+            font_size = config.fontProfiles.monospace.sizeAsInt;
+            text_color = rgb scheme.base05;
+            "col.active" = rgb scheme.base02;
+            "col.inactive" = rgb scheme.base01;
+          };
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#decoration
