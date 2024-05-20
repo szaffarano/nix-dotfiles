@@ -71,6 +71,10 @@
       url = "github:haozeke/base16-zathura";
       flake = false;
     };
+    base16-vim = {
+      url = "github:tinted-theming/base16-vim";
+      flake = false;
+    };
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
