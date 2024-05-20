@@ -17,6 +17,7 @@ with lib;
     ./tools
     ./wayland
     ./web/firefox.nix
+    ./web/chromium.nix
   ];
 
   options.desktop.enable = mkEnableOption "desktop";
@@ -53,22 +54,9 @@ with lib;
       tools.enable = lib.mkDefault true;
       wayland.enable = lib.mkDefault true;
       web.firefox.enable = lib.mkDefault true;
+      web.chromium.enable = lib.mkDefault true;
     };
 
-    fontProfiles = {
-      enable = lib.mkDefault true;
-      monospace = {
-        family = "sans-serif";
-        name = "FiraCode Nerd Font";
-        size = "11px";
-        package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
-      };
-      regular = {
-        family = "liberation-sans";
-        name = "Liberation Sans";
-        size = "10px";
-        package = pkgs.liberation_ttf;
-      };
-    };
+    fontProfiles.enable = lib.mkDefault true;
   };
 }

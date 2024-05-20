@@ -20,8 +20,6 @@
 
     hardware.url = "github:nixos/nixos-hardware";
 
-    nix-colors.url = "github:misterio77/nix-colors";
-
     wofi-tools = {
       url = "github:szaffarano/wofi-power-menu";
       inputs = {
@@ -65,6 +63,21 @@
     nix-ld-rs = {
       url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # themes
+    base16.url = "github:SenchoPens/base16.nix";
+    base16-zathura = {
+      url = "github:haozeke/base16-zathura";
+      flake = false;
+    };
+    base16-vim = {
+      url = "github:tinted-theming/base16-vim";
+      flake = false;
+    };
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
     };
   };
 

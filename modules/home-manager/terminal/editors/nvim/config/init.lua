@@ -1,5 +1,9 @@
 require 'sebas.bootstrap'
 
+vim.cmd.colorscheme 'base16-scheme'
+vim.g.base16_colorspace = 256
+vim.g.base16_background_transparent = 1
+
 local ok, lazy = pcall(require, 'lazy')
 if ok then
   lazy.setup('sebas.plugins', {

@@ -1,14 +1,11 @@
-{ config
-, lib
-, theme
-, ...
-}:
+{ config, lib, ... }:
 let
+  inherit (config.fontProfiles) monospace;
+  inherit (config) scheme;
   cfg = config.desktop.terminal.wezterm;
 in
 with lib;
 {
-
   options.desktop.terminal.wezterm.enable = mkEnableOption "wezterm";
 
   config = mkIf cfg.enable {
@@ -27,9 +24,9 @@ with lib;
 
         return {
           enable_wayland = true,
-          font = wezterm.font("${theme.wezterm.fonts.name}"),
-          font_size = ${builtins.toString theme.wezterm.fonts.size},
-          color_scheme = "${theme.wezterm.theme}",
+          font = wezterm.font("${monospace.name}"),
+          font_size = ${builtins.toString (monospace.sizeAsInt * 0.9)},
+          color_scheme = "${scheme.slug}",
 
           window_padding = {
             left = 5,

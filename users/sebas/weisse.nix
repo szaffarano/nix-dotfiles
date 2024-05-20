@@ -1,7 +1,4 @@
-{ inputs, ... }:
-{
-  colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
-
+_: {
   desktop = {
     enable = true;
     wayland.compositors.hyprland.enable = true;

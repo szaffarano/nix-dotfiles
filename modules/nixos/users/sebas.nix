@@ -7,7 +7,6 @@
 , lib
 , localLib
 , flakeRoot
-, inputs
 , pkgs
 , ...
 }:
@@ -60,10 +59,6 @@ in
     };
     users.${userName} = {
       imports = [
-        inputs.nix-colors.homeManagerModule
-        inputs.nix-index-database.hmModules.nix-index
-        inputs.nur.nixosModules.nur
-
         "${flakeRoot}/modules/home-manager"
         "${flakeRoot}/users/${userName}/${hostName}.nix"
       ];

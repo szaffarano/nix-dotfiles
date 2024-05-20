@@ -1,7 +1,5 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
-  colorscheme = inputs.nix-colors.colorschemes.tokyo-night-storm;
-
   home.custom.features.enable = [ ];
 
   desktop = {

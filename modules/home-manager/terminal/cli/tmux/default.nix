@@ -1,15 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
   cfg = config.terminal.cli.tmux;
-  catppuccin = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "tmux";
-    rev = "4e48b09";
-    sha256 = "sha256-bXEsxt4ozl3cAzV3ZyvbPsnmy0RAdpLxHwN82gvjLdU=";
-  };
-
+  theme = config.scheme { templateRepo = ./.; };
 in
-with lib; {
+with lib;
+{
   options.terminal.cli.tmux.enable = mkEnableOption "tmux";
 
   config = mkIf cfg.enable {
@@ -29,10 +28,6 @@ with lib; {
       ];
 
       extraConfig = ''
-        run-shell "${catppuccin}/catppuccin.tmux"
-
-        set -g @catppuccin_flavour 'mocha'
-
         set-option -sa terminal-features ',xterm-256color:RGB'
         set -g status-position top
 
@@ -46,8 +41,9 @@ with lib; {
         set -g focus-events on
 
         set -g status-interval 1
+
+        source-file ${theme}
       '';
     };
-
   };
 }
