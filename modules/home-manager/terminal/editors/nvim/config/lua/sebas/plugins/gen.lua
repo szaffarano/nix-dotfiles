@@ -1,7 +1,7 @@
 return {
   'David-Kunz/gen.nvim',
   opts = {
-    model = 'zephyr',
+    model = 'mistral',
     display_mode = 'split',
     show_model = 'true',
     init = '',

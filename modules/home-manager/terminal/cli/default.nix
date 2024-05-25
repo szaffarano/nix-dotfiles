@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{ pkgs
+, config
+, lib
+, ...
+}:
 {
   imports = [
     ./cloud
@@ -56,6 +60,31 @@
       };
 
       fzf = {
+        enable = true;
+        enableZshIntegration = true;
+
+        colors = with config.scheme.withHashtag; {
+          "bg+" = base01;
+          bg = base00;
+          spinner = base0C;
+          hl = base0D;
+          fg = base04;
+          header = base0D;
+          info = base0A;
+          pointer = base0C;
+          marker = base0C;
+          "fg+" = base06;
+          prompt = base0A;
+          "hl+" = base0D;
+        };
+      };
+
+      yazi = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      zoxide = {
         enable = true;
         enableZshIntegration = true;
       };
