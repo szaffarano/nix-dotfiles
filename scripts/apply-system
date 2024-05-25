@@ -4,6 +4,9 @@ set -euo pipefail
 
 BASEDIR="$(realpath "$(dirname "$0")"/..)"
 CACHIX_PREFIX="cachix watch-exec szaffarano --"
+NVIM_CONFIG="$XDG_CONFIG_HOME"/nvim
+
+[ -L "$NVIM_CONFIG" ] && rm "$NVIM_CONFIG" && mv "$NVIM_CONFIG.bkp" "$NVIM_CONFIG"
 
 if [ -n "${DISABLE_CACHIX_PUSH:-}" ]; then
   echo "Cachix push disabled"
