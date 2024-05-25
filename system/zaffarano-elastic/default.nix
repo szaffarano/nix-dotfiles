@@ -54,6 +54,7 @@ in
       "desktop"
       "elastic-endpoint"
       "hyprland"
+      "sway"
       "laptop"
       "quietboot"
       "sensible"
@@ -61,6 +62,7 @@ in
       "virtualisation"
     ];
   };
+  services.greetd.enable = true;
 
   networking = {
     inherit hostName;

@@ -34,7 +34,7 @@ with lib;
           ];
         }
         {
-          profile.name = "home";
+          profile.name = "docked-home";
           profile.outputs = [
             {
               criteria = "eDP-1";

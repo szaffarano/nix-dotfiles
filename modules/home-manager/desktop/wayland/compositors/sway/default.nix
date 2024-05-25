@@ -137,7 +137,7 @@ with lib;
 
           output = {
             # TODO stopped working
-            # "*".bg = ''"$(${wallpaper})" fit'';
+            "*".bg = "${config.scheme.withHashtag.base01} solid_color";
 
             HDMI-A-1 = {
               scale = "1";
@@ -171,7 +171,7 @@ with lib;
             };
             "type:pointer" = {
               accel_profile = "flat";
-              pointer_accel = "1";
+              pointer_accel = "0.5";
             };
           };
 
@@ -190,7 +190,7 @@ with lib;
             }
             {
               command = "move to scratchpad";
-              criteria.app_id = "Slack";
+              criteria.class = "Slack";
             }
             {
               command = "move to scratchpad";
@@ -305,7 +305,7 @@ with lib;
               "${modifier}+m" = "exec ${musicPlayerCommand}";
               "${modifier}+o" = "exec ${orgCommand}";
               "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
-              "${modifier}+p" = ''[app_id="Slack"] scratchpad show'';
+              "${modifier}+p" = ''[class="Slack"] scratchpad show'';
             };
 
           modes = {
