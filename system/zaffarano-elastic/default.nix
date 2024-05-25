@@ -54,10 +54,11 @@ in
       "desktop"
       "elastic-endpoint"
       "hyprland"
-      "sway"
       "laptop"
+      "ollama"
       "quietboot"
       "sensible"
+      "sway"
       "syncthing"
       "virtualisation"
     ];
