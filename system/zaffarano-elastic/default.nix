@@ -1,8 +1,7 @@
-{
-  inputs,
-  config,
-  flakeRoot,
-  ...
+{ inputs
+, config
+, flakeRoot
+, ...
 }:
 let
   userName = "szaffarano";
