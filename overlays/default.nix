@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
 
-  additions = final: _: import ../pkgs { pkgs = final; };
+  additions =
+    final: _:
+    import ../pkgs {
+      inherit inputs;
+      pkgs = final;
+    };
 
   neovim = inputs.neovim-nightly.overlays.default;
   hyprland = import ./hyprland.nix;

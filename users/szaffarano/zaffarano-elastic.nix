@@ -41,6 +41,8 @@
     };
   };
 
+  home.packages = with pkgs; [ bazel_5_1_1 ];
+
   home.sessionVariables = {
     MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
   };
