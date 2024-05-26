@@ -45,6 +45,7 @@
 
   home.sessionVariables = {
     MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
+    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
   };
 
   programs.mise = {
