@@ -35,7 +35,10 @@
       initrd.systemd.enable = true;
     };
 
-    services.udisks2.enable = true;
+    services = {
+      udisks2.enable = true;
+      envfs.enable = true;
+    };
 
     environment.systemPackages = with pkgs; [
       cachix

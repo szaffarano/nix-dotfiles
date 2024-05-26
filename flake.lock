@@ -410,6 +410,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-bazel-5_1_1": {
+      "locked": {
+        "lastModified": 1656353127,
+        "narHash": "sha256-mwEZf4KWcetDICn8j9sh5CGoKjM4MTy2WuspZK1ULfk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9cbcd62ada85e015e8117bd7e901bf40b6c767bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9cbcd62ada85e015e8117bd7e901bf40b6c767bc",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1716061101,
@@ -497,6 +513,7 @@
         "nix-index-database": "nix-index-database",
         "nix-ld-rs": "nix-ld-rs",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-bazel-5_1_1": "nixpkgs-bazel-5_1_1",
         "nur": "nur",
         "sops-nix": "sops-nix",
         "tt-schemes": "tt-schemes",
