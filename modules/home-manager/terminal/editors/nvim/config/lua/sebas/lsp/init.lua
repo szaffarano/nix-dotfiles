@@ -42,7 +42,6 @@ local servers = {
   'clangd',
   'dockerls',
   'gopls',
-  'grammarly',
   'jsonls',
   'ltex',
   'lua_ls',

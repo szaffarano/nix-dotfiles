@@ -44,30 +44,10 @@
   home.packages = [ inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5 ];
 
   home.sessionVariables = {
-    MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
     LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
   };
 
-  programs.mise = {
-    settings = {
-      verbose = false;
-      experimental = true;
-      all_compile = false;
-      python_compile = false;
-      node_compile = false;
-    };
-
-    globalConfig = {
-      tools = {
-        node = "lts";
-        python = "latest";
-        yarn = "latest";
-        java = "temurin-21.0.2+13.0.LTS";
-        terraform = "latest";
-        tflint = "latest";
-      };
-    };
-  };
+  programs.mise.enable = true;
 
   sound.enable = true;
 }
