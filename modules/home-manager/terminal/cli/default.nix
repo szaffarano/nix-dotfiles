@@ -92,6 +92,7 @@
 
     home.packages = with pkgs; [
       bc
+      boot-status
       bottom
       diffsitter
       eza

@@ -40,6 +40,7 @@ in
     home.file = lib.mkIf node_installed {
       ".default-npm-packages".text = lib.mkDefault ''
         bash-language-server
+        yarn
       '';
     };
   };
