@@ -14,7 +14,7 @@ return {
           -- use cmp-copilot instead
           enabled = false,
         },
-        copilot_node_command = vim.fn.expand '$HOME' .. '/.local/share/mise/installs/node/lts/bin/node',
+        copilot_node_command = vim.fn.expand '$HOME' .. '/.local/share/mise/shims/node',
       }
     end,
   },
