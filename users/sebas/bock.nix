@@ -39,23 +39,7 @@
     ];
   };
 
-  programs.mise = {
-    settings = {
-      verbose = false;
-      experimental = true;
-      all_compile = false;
-      python_compile = false;
-      node_compile = false;
-    };
-
-    globalConfig = {
-      tools = {
-        node = "lts";
-        python = "latest";
-        yarn = "latest";
-      };
-    };
-  };
+  programs.mise.enable = true;
 
   sound.enable = false;
   home.packages = with pkgs; [

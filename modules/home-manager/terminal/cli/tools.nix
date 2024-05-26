@@ -1,17 +1,16 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.terminal.cli.tools;
-in with lib; {
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.terminal.cli.tools;
+in
+with lib;
+{
   options.terminal.cli.tools.enable = mkEnableOption "tools";
 
   config = mkIf cfg.enable {
-    programs.mise = {
-      enable = true;
-
-      enableZshIntegration = true;
-      enableBashIntegration = false;
-      enableFishIntegration = false;
-    };
-
     home.packages = with pkgs; [
       atop
       broot # interactive tree view, a fuzzy search
