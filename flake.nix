@@ -17,7 +17,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs_bazel.url = "github:nixos/nixpkgs/9cbcd62ada85"; # needed to install bazel 5.1.1
+    nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/9cbcd62ada85e015e8117bd7e901bf40b6c767bc";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -107,7 +107,7 @@
     {
       overlays = import ./overlays { inherit inputs outputs; };
 
-      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs inputs; });
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
 
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
 

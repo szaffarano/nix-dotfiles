@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.custom.features.enable = [ ];
 
@@ -41,7 +41,7 @@
     };
   };
 
-  home.packages = with pkgs; [ bazel_5_1_1 ];
+  home.packages = [ inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5 ];
 
   home.sessionVariables = {
     MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
