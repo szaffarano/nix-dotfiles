@@ -22,8 +22,17 @@ in
     sebas
   ];
 
+  security.rtkit.enable = true;
+  sound.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+  };
+
   nixos.custom = {
     features.enable = [
+      "audio"
       "desktop"
       "elastic-endpoint"
       "sway"
@@ -57,6 +66,4 @@ in
   };
 
   system.stateVersion = "23.05";
-
-  zramSwap.enable = true;
 }
