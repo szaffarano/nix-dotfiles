@@ -53,7 +53,6 @@ in
       "audio"
       "desktop"
       "elastic-endpoint"
-      "hyprland"
       "laptop"
       "ollama"
       "quietboot"
