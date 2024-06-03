@@ -79,6 +79,16 @@
         };
       };
 
+      ripgrep = {
+        enable = true;
+        arguments = [
+          "--max-columns-preview"
+          "--colors=line:style:bold"
+          "--no-line-number"
+          "--hidden"
+        ];
+      };
+
       yazi = {
         enable = true;
         enableZshIntegration = true;
@@ -101,7 +111,6 @@
       libqalculate
       ncdu
       nixfmt-rfc-style
-      ripgrep
       timer
     ];
   };
