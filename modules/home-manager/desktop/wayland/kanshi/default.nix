@@ -46,6 +46,19 @@ with lib;
             }
           ];
         }
+        {
+          profile.name = "docked-home-sw";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "DP-1";
+              status = "enable";
+            }
+          ];
+        }
       ];
     };
   };
