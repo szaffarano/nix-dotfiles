@@ -190,6 +190,10 @@ with lib;
             }
             {
               command = "move to scratchpad";
+              criteria.app_id = "Slack";
+            }
+            {
+              command = "move to scratchpad";
               criteria.class = "Slack";
             }
             {
