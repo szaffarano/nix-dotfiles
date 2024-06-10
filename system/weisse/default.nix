@@ -1,4 +1,8 @@
-{ inputs, flakeRoot, ... }:
+{ inputs
+, flakeRoot
+, pkgs
+, ...
+}:
 let
   userName = "sebas";
   hostName = "weisse";
@@ -22,12 +26,22 @@ in
     sebas
   ];
 
+  # boot.kernelPackages =  inputs.nixpkgs-kernel.legacyPackages.${pkgs.hostPlatform.system}.linuxKernel.packages.linux_zen;
+
+  security.rtkit.enable = true;
+  sound.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+  };
+
   nixos.custom = {
     features.enable = [
       "audio"
       "desktop"
       "elastic-endpoint"
-      "hyprland"
+      "sway"
       "laptop"
       "quietboot"
       "sensible"
@@ -35,6 +49,7 @@ in
       "virtualisation"
     ];
   };
+  services.greetd.enable = true;
 
   networking = {
     inherit hostName;
@@ -57,6 +72,4 @@ in
   };
 
   system.stateVersion = "23.05";
-
-  zramSwap.enable = true;
 }
