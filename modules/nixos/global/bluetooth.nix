@@ -1,14 +1,9 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, ... }:
 {
   config = lib.mkIf config.hardware.bluetooth.enable {
     hardware = {
       bluetooth = {
         powerOnBoot = lib.mkDefault true;
-        package = lib.mkDefault pkgs.bluez5-experimental;
         settings = lib.mkDefault {
           General = {
             FastConnectable = true;
