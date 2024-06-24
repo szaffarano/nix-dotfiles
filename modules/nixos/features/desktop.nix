@@ -13,7 +13,7 @@ in
 
     hardware = lib.mkIf enabled {
       bluetooth.enable = true;
-      opengl.enable = true;
+      graphics.enable = true;
     };
     programs = lib.mkIf enabled { dconf.enable = true; };
 
