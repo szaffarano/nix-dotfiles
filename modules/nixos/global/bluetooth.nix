@@ -1,9 +1,23 @@
-{ config, lib, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 {
   config = lib.mkIf config.hardware.bluetooth.enable {
     hardware = {
       bluetooth = {
         powerOnBoot = lib.mkDefault true;
+        package = lib.mkDefault (
+          pkgs.bluez5-experimental.overrideAttrs rec {
+            version = "5.76";
+            src = pkgs.fetchurl {
+              url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
+              hash = "sha256-VeLGRZCa2C2DPELOhewgQ04O8AcJQbHqtz+s3SQLvWM=";
+            };
+
+          }
+        );
         settings = lib.mkDefault {
           General = {
             FastConnectable = true;
