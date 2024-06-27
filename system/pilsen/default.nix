@@ -50,7 +50,7 @@
   };
 
   hardware.bluetooth.enable = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   nixos.custom.quietboot = true;
   programs = {
     dconf.enable = true;
