@@ -39,4 +39,5 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
+  environment.etc."modprobe.d/iwlmvm.conf".text = "options iwlmvm power_scheme=1";
 }
