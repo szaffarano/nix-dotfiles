@@ -40,13 +40,11 @@ in
     features.enable = [
       "audio"
       "desktop"
-      "elastic-endpoint"
       "sway"
       "laptop"
       "quietboot"
       "sensible"
       "syncthing"
-      "virtualisation"
     ];
   };
   services.greetd.enable = true;
