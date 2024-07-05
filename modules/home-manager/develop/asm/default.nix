@@ -15,7 +15,7 @@ with lib;
     lib.mkIf cfg.enable {
       home = {
         packages = [
-          gnome.ghex
+          ghex
           nasm
         ];
       };
