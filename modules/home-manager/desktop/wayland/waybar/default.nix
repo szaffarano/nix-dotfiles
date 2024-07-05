@@ -223,7 +223,7 @@ with lib;
 
           clock =
             let
-              zenity = "${pkgs.gnome.zenity}/bin/zenity";
+              zenity = "${pkgs.zenity}/bin/zenity";
             in
             {
               format = "  {:%a %d %b %R %Z}";

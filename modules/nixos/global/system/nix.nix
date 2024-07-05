@@ -24,7 +24,7 @@
       gc = lib.mkDefault {
         automatic = true;
         dates = "weekly";
-        options = "--delete-older-than +3";
+        options = "--delete-older-than 3d";
       };
 
       # To make nix3 commands consistent with the flake

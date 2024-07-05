@@ -34,7 +34,7 @@ with lib;
       qview
       speedcrunch
       tor-browser-bundle-bin
-      transmission-qt
+      transmission_4-qt
       chromium
 
       fontconfig
