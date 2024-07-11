@@ -44,7 +44,10 @@
   home.packages = [ inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5 ];
 
   home.sessionVariables = {
-    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
+    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+      pkgs.systemd
+      (pkgs.libgcc.lib)
+    ]}";
   };
 
   programs.mise.enable = true;
