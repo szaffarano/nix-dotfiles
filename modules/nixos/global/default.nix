@@ -70,6 +70,8 @@
         enable = true;
         package = pkgs.inputs.nix-ld-rs.nix-ld-rs;
         libraries = with pkgs; [
+          alsa-lib
+          at-spi2-core
           cairo
           cups
           curl
@@ -105,8 +107,13 @@
           vulkan-loader
           wayland
           xorg.libX11
+          xorg.libxcb
+          xorg.libXcomposite
+          xorg.libXdamage
           xorg.libXext
+          xorg.libXfixes
           xorg.libXi
+          xorg.libXrandr
           xorg.libXrender
           xorg.libXtst
           zlib

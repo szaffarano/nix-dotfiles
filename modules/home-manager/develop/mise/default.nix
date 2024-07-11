@@ -26,6 +26,7 @@ in
           java = "temurin-21.0.3+9.0.LTS";
           node = "lts";
           python = "latest";
+          ruff = "latest";
           terraform = "latest";
           tflint = "latest";
           usage = "latest";
