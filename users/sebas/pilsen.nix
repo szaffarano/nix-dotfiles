@@ -1,29 +1,22 @@
-{ outputs, ... }:
+{ pkgs, ... }:
 {
+  home.custom.features.enable = [ ];
 
-  git = {
+  desktop = {
     enable = true;
-    user = {
-      inherit (outputs.user) email;
-      name = outputs.user.fullName;
-      signingKey = outputs.user.gpgKey;
-    };
+    wayland.compositors.hyprland.enable = false;
+    wayland.compositors.sway.enable = true;
   };
-
-  gpg = {
-    enable = true;
-    default-key = outputs.user.gpgKey;
-    trusted-key = outputs.user.gpgKey;
-  };
-
-  desktop.enable = true;
   terminal.cli.cloud.enable = true;
   services.syncthing.enable = true;
   programs.nix-index.enable = true;
   develop = {
     enable = true;
-    idea.enable = true;
-    ocaml.enable = true;
+    idea = {
+      enable = false;
+      ultimate = false;
+    };
+    ocaml.enable = false;
     asm.enable = true;
   };
 
@@ -42,6 +35,12 @@
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
+  };
+
+  home.packages = [ ];
+
+  home.sessionVariables = {
+    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
   };
 
   programs.mise.enable = true;
