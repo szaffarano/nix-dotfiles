@@ -126,6 +126,11 @@
           modules = [ "${self}/system/zaffarano-elastic" ];
           inherit specialArgs;
         };
+
+        pilsen = nixpkgs.lib.nixosSystem {
+          modules = [ "${self}/system/pilsen" ];
+          inherit specialArgs;
+        };
       };
 
       darwinConfigurations = {

@@ -11,6 +11,7 @@ in
       age
       deadnix
       disko
+      cachix
       git
       gnupg
       nix
