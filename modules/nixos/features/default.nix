@@ -1,6 +1,5 @@
 {
   imports = [
-    ./audio.nix
     ./desktop.nix
     ./elastic-endpoint.nix
     ./hyprland.nix

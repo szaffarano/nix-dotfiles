@@ -48,7 +48,6 @@ in
       };
     };
     features.enable = [
-      "audio"
       "desktop"
       "laptop"
       "ollama"
