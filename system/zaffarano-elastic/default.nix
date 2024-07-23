@@ -50,7 +50,6 @@ in
       };
     };
     features.enable = [
-      "audio"
       "desktop"
       "elastic-endpoint"
       "laptop"

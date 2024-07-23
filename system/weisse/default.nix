@@ -29,7 +29,6 @@ in
   # boot.kernelPackages =  inputs.nixpkgs-kernel.legacyPackages.${pkgs.hostPlatform.system}.linuxKernel.packages.linux_zen;
 
   security.rtkit.enable = true;
-  sound.enable = true;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -38,7 +37,6 @@ in
 
   nixos.custom = {
     features.enable = [
-      "audio"
       "desktop"
       "sway"
       "laptop"
