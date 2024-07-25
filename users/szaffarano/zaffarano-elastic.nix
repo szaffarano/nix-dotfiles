@@ -41,7 +41,10 @@
     };
   };
 
-  home.packages = [ inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5 ];
+  home.packages = [
+    inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5
+    pkgs.mercurial
+  ];
 
   home.sessionVariables = {
     LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
