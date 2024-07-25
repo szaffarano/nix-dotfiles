@@ -62,6 +62,8 @@
       fzf = {
         enable = true;
         enableZshIntegration = true;
+        changeDirWidgetCommand = "fd --type d";
+        fileWidgetCommand = "fd --type f";
 
         colors = with config.scheme.withHashtag; {
           "bg+" = base01;
