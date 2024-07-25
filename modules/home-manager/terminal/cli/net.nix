@@ -18,6 +18,7 @@ with lib;
       iw
       netcat-gnu
       nettools
+      nmap
       traceroute
       whois
     ];
