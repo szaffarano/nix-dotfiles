@@ -145,6 +145,9 @@ with lib;
             DP-1 = {
               scale = "1.25";
             };
+            DP-2 = {
+              scale = "1.25";
+            };
             eDP-1 = {
               scale = "1";
             };
