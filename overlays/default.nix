@@ -4,7 +4,6 @@
   additions = final: _: import ../pkgs { pkgs = final; };
 
   neovim = inputs.neovim-nightly.overlays.default;
-  hyprland = import ./hyprland.nix;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
