@@ -19,10 +19,10 @@ with lib;
       enable = true;
       systemd.enable = true;
 
-      # package = pkgs.waybar.override {
-      #   hyprlandSupport = false;
-      #   experimentalPatches = true;
-      # };
+      package = pkgs.waybar.override {
+        hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
+        experimentalPatches = true;
+      };
 
       settings = {
         primary = {
