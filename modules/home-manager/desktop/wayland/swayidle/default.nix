@@ -8,7 +8,6 @@ let
 
   lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
   pgrep = "${pkgs.procps}/bin/pgrep";
-  hyprctl = lib.getExe config.wayland.windowManager.hyprland.package;
   swaymsg = lib.getExe pkgs.sway;
 
   isLocked = "${pgrep} -x swaylock";
@@ -64,11 +63,18 @@ with lib;
         ++
 
         # Turn off displays (hyprland)
-        (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-          timeout = 60;
-          command = "${hyprctl} dispatch dpms off";
-          resumeCommand = "${hyprctl} dispatch dpms on";
-        }))
+        (lib.optionals config.wayland.windowManager.hyprland.enable (
+          afterLockTimeout (
+            let
+              hyprctl = lib.getExe config.wayland.windowManager.hyprland.package;
+            in
+            {
+              timeout = 60;
+              command = "${hyprctl} dispatch dpms off";
+              resumeCommand = "${hyprctl} dispatch dpms on";
+            }
+          )
+        ))
         ++
 
         # Turn off displays (sway)

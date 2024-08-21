@@ -44,6 +44,12 @@
   home.packages = [
     inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5
     pkgs.mercurial
+    (pkgs.bats.withLibraries (p: [
+      p.bats-support
+      p.bats-assert
+      p.bats-file
+      p.bats-detik
+    ]))
   ];
 
   home.sessionVariables = {
