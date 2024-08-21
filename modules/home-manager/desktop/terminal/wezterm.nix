@@ -35,6 +35,9 @@ with lib;
             bottom = 5,
           },
 
+          -- TODO: remove once https://github.com/wez/wezterm/issues/5990 is fixed
+          front_end = "WebGpu",
+
           keys = {
             { key = '/', mods = 'CTRL', action = act.QuickSelect },
           },
