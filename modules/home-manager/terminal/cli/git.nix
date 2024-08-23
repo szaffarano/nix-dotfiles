@@ -21,17 +21,20 @@ in
         package = pkgs.gitAndTools.gitFull;
 
         aliases = {
-          st = "status";
-          ci = "commit";
           br = "branch";
+          ci = "commit";
           co = "checkout";
-          df = "diff";
-          dc = "diff --cached";
-          sho = "show --name-only";
-          shf = "show --name-only --format=''";
-          cpx = "cherry-pick -x";
           cpa = "cherry-pick --abort";
           cpc = "cherry-pick --continue";
+          cpx = "cherry-pick -x";
+          dc = "diff --cached";
+          df = "diff";
+          shf = "show --name-only --format=''";
+          sho = "show --name-only";
+          st = "status";
+          wa = "worktree add";
+          wl = "worktree list";
+          wr = "worktree remove";
         };
 
         delta = {
