@@ -48,6 +48,7 @@ local servers = {
   'nil_ls',
   'ocamllsp',
   'ruff',
+  'pyright',
   'terraformls',
   'tsserver', -- TODO: https://github.com/pmizio/typescript-tools.nvim
   'yamlls',
