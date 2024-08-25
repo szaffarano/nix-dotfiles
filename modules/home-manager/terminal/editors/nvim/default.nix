@@ -74,8 +74,7 @@ in
 
       # formatters
       asmfmt
-      black
-      isort
+      ruff
       nasmfmt
       nixfmt-rfc-style
       prettierd
