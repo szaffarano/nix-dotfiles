@@ -15,7 +15,7 @@ with lib;
       };
     };
 
-    programs.wezterm = {
+    programs.wezterm = lib.mkIf cfg.enable {
       enable = true;
 
       extraConfig = ''

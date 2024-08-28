@@ -7,7 +7,7 @@
 let
   inherit (config) scheme;
   cfg = config.desktop.wayland.compositors.hyprland;
-  terminal = "${pkgs.wezterm}/bin/wezterm";
+  terminal = config.home.sessionVariables.TERMINAL;
   rgb = color: "rgb(${color})";
   rgba = color: alpha: "rgba(${color}${alpha})";
 in
@@ -150,7 +150,7 @@ with lib;
             configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
           in
           [
-            ''[float;tile] $terminal start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
+            ''[float;tile] $terminal -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
             ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
           ]
           ++ (lib.optionals config.desktop.tools.keepassxc.enable [ "${pkgs.keepassxc}/bin/keepassxc" ]);

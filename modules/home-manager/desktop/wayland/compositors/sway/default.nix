@@ -114,7 +114,7 @@ with lib;
             in
             [
               {
-                command = ''${terminal} start --class=dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
+                command = ''${terminal} -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
               }
               {
                 command = ''
@@ -143,10 +143,10 @@ with lib;
               scale = "1";
             };
             DP-1 = {
-              scale = "1.25";
+              scale = "1.5";
             };
             DP-2 = {
-              scale = "1.25";
+              scale = "1.5";
             };
             eDP-1 = {
               scale = "1";
@@ -226,7 +226,7 @@ with lib;
             lib.mkDefault {
               "${modifier}+Return" = "exec ${terminal}";
               "${modifier}+Shift+q" = "kill";
-              "${modifier}+Shift+P" = "exec ${terminal} start --class=floating-terminal htop";
+              "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal htop";
               "${modifier}+d" = "exec ${wofi} -S run";
               "${modifier}+x" = "exec ${wofi} -S drun";
 
