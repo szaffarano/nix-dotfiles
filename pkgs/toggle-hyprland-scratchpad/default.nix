@@ -2,7 +2,7 @@
 , writeShellApplication
 , fd
 , hyprland
-, wezterm
+, foot
 , jq
 ,
 }:
@@ -10,7 +10,7 @@
   name = "toggle-hyprland-scratchpad";
   runtimeInputs = [
     fd
-    wezterm
+    foot
     jq
     hyprland
   ];
