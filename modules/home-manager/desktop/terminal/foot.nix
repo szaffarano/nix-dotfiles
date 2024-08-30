@@ -20,6 +20,7 @@ with lib;
       settings = {
         main = {
           font = "${monospace.name}:size=${builtins.toString (monospace.sizeAsInt * 0.9)}";
+          selection-target = "both";
         };
         colors = with config.scheme; {
           foreground = "${base05-hex}";
