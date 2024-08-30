@@ -106,7 +106,6 @@
       bc
       boot-status
       bottom
-      (lib.hiPrio uutils-coreutils-noprefix)
       diffsitter
       eza
       fd
