@@ -103,6 +103,7 @@
     };
 
     home.packages = with pkgs; [
+      arch
       bc
       boot-status
       bottom
