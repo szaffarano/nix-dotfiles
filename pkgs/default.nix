@@ -5,6 +5,7 @@ let
   firefox-addons = import ./firefox-addons { inherit (pkgs) fetchurl stdenv lib; };
   callPackage = pkgs.lib.callPackageWith (pkgs // packages);
   packages = {
+    arch = callPackage ./arch { };
     boot-status = callPackage ./boot-status { };
     configure-gtk = callPackage ./configure-gtk { };
     flameshot-grim = callPackage ./flameshot { };
