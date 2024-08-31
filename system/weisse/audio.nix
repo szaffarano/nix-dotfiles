@@ -1,17 +1,18 @@
 { pkgs, ... }:
 
 let
+  rev = "cadc325194f7dbbff6ef29caa589c5f976d4ed2b";
+  hash = "sha256-BQfbNV3fPdayodqIyo2lHnekbpFikSS7oz5Nkh60xO4=";
   alsa-ucm-conf-chromebook =
     with pkgs;
     alsa-ucm-conf.overrideAttrs {
       wttsrc = fetchFromGitHub {
+        inherit rev hash;
         owner = "WeirdTreeThing";
         repo = "chromebook-ucm-conf";
-        rev = "b6ce2a7";
-        hash = "sha256-QRUKHd3RQmg1tnZU8KCW0AmDtfw/daOJ/H3XU5qWTCc=";
       };
       postInstall = ''
-        echo "v0.4.1" > $out/chromebook.patched
+        echo "${rev}" > $out/chromebook.patched
 
         # Asus Chromebook CX1400 (GALTIC)
         #   ❯ aplay -l
