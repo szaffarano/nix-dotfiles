@@ -141,6 +141,7 @@ with lib;
 
         monitor = [
           "eDP-1,highres,auto,1"
+          "DP-1,highres,auto,1.5"
           "HDMI-A-1,highres,auto,1"
           ",preferred,auto,1"
         ];
@@ -175,11 +176,6 @@ with lib;
         ];
 
         windowrulev2 = [
-          "noanim,class:^(flameshot)$"
-          "float,class:^(flameshot)$"
-          "fakefullscreen,class:^(flameshot)$"
-          "stayfocused,class:^(flameshot)$"
-
           # workaround for https://github.com/wez/wezterm/issues/5103
           "float,class:^(org\.wezfurlong\.wezterm)$"
           "tile,class:^(org\.wezfurlong\.wezterm)$"

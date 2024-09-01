@@ -12,6 +12,7 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ hypridle ];
 
+    services.hypridle.enable = true;
     xdg.configFile."hypr/hypridle.conf".text = localLib.toHyprconf
       {
         general =
