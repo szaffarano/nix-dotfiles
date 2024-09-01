@@ -61,7 +61,7 @@ with lib;
         in
         [
           # workaround for https://github.com/wez/wezterm/issues/5103
-          "$mod, Return, exec, [float;tile] $terminal start --always-new-process"
+          "$mod, Return, exec, [float;tile] $terminal"
           "$mod_SHIFT, Q, killactive"
 
           "$mod,f,fullscreen,0"

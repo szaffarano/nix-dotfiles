@@ -38,7 +38,7 @@ in
   nixos.custom = {
     features.enable = [
       "desktop"
-      "sway"
+      "hyprland"
       "laptop"
       "quietboot"
       "sensible"

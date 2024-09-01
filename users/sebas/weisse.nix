@@ -1,8 +1,8 @@
 _: {
   desktop = {
     enable = true;
-    wayland.compositors.hyprland.enable = false;
-    wayland.compositors.sway.enable = true;
+    wayland.compositors.hyprland.enable = true;
+    wayland.compositors.sway.enable = false;
   };
 
   terminal.cli.cloud.enable = false;
