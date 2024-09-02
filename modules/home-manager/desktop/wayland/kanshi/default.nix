@@ -54,20 +54,7 @@ with lib;
               status = "disable";
             }
             {
-              criteria = "DP-1";
-              status = "enable";
-            }
-          ];
-        }
-        {
-          profile.name = "docked-home-alt-sw";
-          profile.outputs = [
-            {
-              criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "DP-2";
+              criteria = "LG Electronics LG HDR 4K 301MAPNGQZ84";
               status = "enable";
             }
           ];
