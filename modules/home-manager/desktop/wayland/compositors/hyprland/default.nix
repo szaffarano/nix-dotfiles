@@ -140,8 +140,7 @@ with lib;
         };
 
         monitor = [
-          "eDP-1,highres,auto,1"
-          "DP-1,highres,auto,1.5"
+          "desc:LG Electronics LG HDR 4K 301MAPNGQZ84,2560x1440,auto,1"
           "HDMI-A-1,highres,auto,1"
           ",preferred,auto,1"
         ];
