@@ -11,7 +11,7 @@ return {
   {
     'rebelot/kanagawa.nvim',
     priority = 1000,
-    enabled = true,
+    enabled = false,
     init = function()
       vim.cmd.colorscheme 'kanagawa'
     end,
