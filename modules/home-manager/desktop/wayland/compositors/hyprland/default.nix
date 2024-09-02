@@ -175,10 +175,6 @@ with lib;
         ];
 
         windowrulev2 = [
-          # workaround for https://github.com/wez/wezterm/issues/5103
-          "float,class:^(org\.wezfurlong\.wezterm)$"
-          "tile,class:^(org\.wezfurlong\.wezterm)$"
-
           "workspace name:1,class:^(firefox)$"
           "workspace name:2,class:^(jetbrains-idea)$"
           "workspace name:3,class:^(dev-terminal)$"
@@ -188,6 +184,8 @@ with lib;
           "float,class:^(nm-connection-editor)$"
           "float,class:^(blueberry.py)$"
           "float,class:^(transmission-qt)$"
+
+          "float,class:^(org.pulseaudio.pavucontrol)$"
 
           "float,class:^(pavucontrol)$"
           "size 60% 60%,class:^(pavucontrol)$"

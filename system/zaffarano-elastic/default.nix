@@ -52,11 +52,11 @@ in
     features.enable = [
       "desktop"
       "elastic-endpoint"
+      "hyprland"
       "laptop"
       "ollama"
       "quietboot"
       "sensible"
-      "sway"
       "syncthing"
       "virtualisation"
     ];
