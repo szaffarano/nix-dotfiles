@@ -1,5 +1,9 @@
 # TODO: parameterize to enable or disable the module
-{ pkgs, ... }:
+{ pkgs
+, inputs
+, config
+, ...
+}:
 let
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
@@ -30,17 +34,17 @@ in
     withNodeJs = false;
     withPython3 = false;
     package = pkgs.neovim-unwrapped;
-    # plugins = [
-    #   (pkgs.vimPlugins.base16-vim.overrideAttrs (
-    #     old:
-    #     let
-    #       schemeFile = config.scheme inputs.base16-vim;
-    #     in
-    #     {
-    #       patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim'';
-    #     }
-    #   ))
-    # ];
+    plugins = [
+      (pkgs.vimPlugins.base16-vim.overrideAttrs (
+        old:
+        let
+          schemeFile = config.scheme inputs.base16-vim;
+        in
+        {
+          patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim'';
+        }
+      ))
+    ];
   };
 
   xdg = {
