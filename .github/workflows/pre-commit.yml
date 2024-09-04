@@ -1,7 +1,7 @@
 ---
 name: CI
 
-"on":
+on:
   pull_request:
   push:
     branches:
@@ -27,3 +27,4 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix flake check
       - run: nix flake show
+
