@@ -5,7 +5,7 @@
     packages = [
       pkgs.rdkafka
       (inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5.overrideAttrs
-        (oldAttrs: {
+        (_oldAttrs: {
           flag = "rebuilt";
         })
       )
