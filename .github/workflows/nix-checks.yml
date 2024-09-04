@@ -1,0 +1,25 @@
+name: Nix code analysis
+
+on: [push]
+
+jobs:
+  deadnix:
+    name: Deadnix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: cachix/install-nix-action@v27
+      - uses: cachix/cachix-action@v15
+        with:
+          name: deadnix
+      - uses: astro/deadnix-action@main
+  statix:
+    name: Statix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: cachix/install-nix-action@v27
+      - uses: cachix/cachix-action@v15
+        with:
+          name: statix
+      - uses: jocelynthode/statix-action@master

@@ -1,6 +1,13 @@
 { pkgs, ... }:
 {
-  home.custom.features.enable = [ ];
+  home = {
+    custom.features.enable = [ ];
+    packages = [ ];
+
+    sessionVariables = {
+      LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
+    };
+  };
 
   desktop = {
     enable = true;
@@ -35,12 +42,6 @@
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
-  };
-
-  home.packages = [ ];
-
-  home.sessionVariables = {
-    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
   };
 
   programs.mise.enable = true;
