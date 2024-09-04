@@ -36,7 +36,7 @@ in
     package = pkgs.neovim-unwrapped;
     plugins = [
       (pkgs.vimPlugins.base16-vim.overrideAttrs (
-        old:
+        _old:
         let
           schemeFile = config.scheme inputs.base16-vim;
         in
