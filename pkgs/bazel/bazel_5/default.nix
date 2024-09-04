@@ -674,7 +674,7 @@ stdenv.mkDerivation rec {
     # on branch/tag information which we don't have with tarball releases.
     # Note that .bazelversion is always correct and is based on bazel-*
     # executable name, version checks should work fine
-    export EMBED_LABEL="${version}- (@non-git)"
+    export EMBED_LABEL="${version}"
     ${bash}/bin/bash ./bazel_src/compile.sh
     ./bazel_src/scripts/generate_bash_completion.sh \
         --bazel=./bazel_src/output/bazel \
