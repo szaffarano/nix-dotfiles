@@ -1,6 +1,5 @@
 { inputs
 , flakeRoot
-, pkgs
 , ...
 }:
 let
@@ -29,10 +28,15 @@ in
   # boot.kernelPackages =  inputs.nixpkgs-kernel.legacyPackages.${pkgs.hostPlatform.system}.linuxKernel.packages.linux_zen;
 
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
+  services = {
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
+    };
+    greetd.enable = true;
+    # TODO move to module?
+    printing.enable = true;
   };
 
   nixos.custom = {
@@ -45,14 +49,10 @@ in
       "syncthing"
     ];
   };
-  services.greetd.enable = true;
 
   networking = {
     inherit hostName;
   };
-
-  # TODO move to module?
-  services.printing.enable = true;
 
   boot.kernelParams = [
     "nosgx"
