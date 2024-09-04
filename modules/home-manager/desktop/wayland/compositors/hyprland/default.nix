@@ -70,6 +70,10 @@ with lib;
           inactive_timeout = 10;
         };
 
+        debug = {
+          disable_logs = false;
+        };
+
         group = {
           "col.border_inactive" = rgb scheme.base0D;
           "col.border_active" = rgb scheme.base06;

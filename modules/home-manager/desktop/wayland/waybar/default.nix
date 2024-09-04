@@ -121,7 +121,7 @@ with lib;
           };
 
           "hyprland/language" = {
-            "format" = "{variant}";
+            format = "US {variant}";
           };
 
           pulseaudio = {

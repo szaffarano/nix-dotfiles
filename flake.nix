@@ -103,7 +103,19 @@
           ;
       };
 
-      forEachSystem = f: lib.genAttrs systems (sys: f nixpkgs.legacyPackages.${sys});
+      forEachSystem =
+        f:
+        lib.genAttrs systems (
+          system:
+          f (
+            import nixpkgs {
+              inherit system;
+              config.permittedInsecurePackages = [
+                "python-2.7.18.8" # needed by bazel 5.1.1
+              ];
+            }
+          )
+        );
     in
     {
       overlays = import ./overlays { inherit inputs outputs; };

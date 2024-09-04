@@ -36,7 +36,7 @@ in
     package = pkgs.neovim-unwrapped;
     plugins = [
       (pkgs.vimPlugins.base16-vim.overrideAttrs (
-        old:
+        _:
         let
           schemeFile = config.scheme inputs.base16-vim;
         in
@@ -108,6 +108,7 @@ in
       terraform-ls
       # TODO: uncomment when the package is fixed vscode-langservers-extracted
       yaml-language-server
+      vscode-langservers-extracted
 
       # debug
       delve
