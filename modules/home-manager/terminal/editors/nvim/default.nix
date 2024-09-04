@@ -108,6 +108,7 @@ in
       terraform-ls
       # TODO: uncomment when the package is fixed vscode-langservers-extracted
       yaml-language-server
+      vscode-langservers-extracted
 
       # debug
       delve

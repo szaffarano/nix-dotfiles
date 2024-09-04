@@ -3,12 +3,9 @@
   home = {
     custom.features.enable = [ ];
     packages = [
-      pkgs.rdkafka
-      (inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5.overrideAttrs
-        (_oldAttrs: {
-          flag = "rebuilt";
-        })
-      )
+      (inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5.overrideAttrs (_: {
+        flag = "rebuilt";
+      }))
       pkgs.mercurial
       (pkgs.bats.withLibraries (p: [
         p.bats-support
