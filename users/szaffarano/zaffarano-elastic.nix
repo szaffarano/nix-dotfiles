@@ -1,6 +1,29 @@
 { pkgs, inputs, ... }:
 {
-  home.custom.features.enable = [ ];
+  home = {
+    custom.features.enable = [ ];
+    packages = [
+      pkgs.rdkafka
+      (inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5.overrideAttrs
+        (oldAttrs: {
+          flag = "rebuilt";
+        })
+      )
+      pkgs.mercurial
+      (pkgs.bats.withLibraries (p: [
+        p.bats-support
+        p.bats-assert
+        p.bats-file
+        p.bats-detik
+      ]))
+    ];
+    sessionVariables = {
+      LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+        pkgs.systemd
+        pkgs.libgcc.lib
+      ]}";
+    };
+  };
 
   desktop = {
     enable = true;
@@ -39,24 +62,6 @@
       autoconnect = [ "qemu:///system" ];
       uris = [ "qemu:///system" ];
     };
-  };
-
-  home.packages = [
-    inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5
-    pkgs.mercurial
-    (pkgs.bats.withLibraries (p: [
-      p.bats-support
-      p.bats-assert
-      p.bats-file
-      p.bats-detik
-    ]))
-  ];
-
-  home.sessionVariables = {
-    LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
-      pkgs.systemd
-      (pkgs.libgcc.lib)
-    ]}";
   };
 
   programs.mise.enable = true;
