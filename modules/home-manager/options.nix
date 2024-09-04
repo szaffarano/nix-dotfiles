@@ -16,6 +16,18 @@
             want to install.
           '';
         };
+      permitted-insecure-packages =
+        with types;
+        mkOption {
+          type = listOf str;
+          default = [ ];
+          example = [ "python-2.7.18.8" ];
+          description = ''
+            List of packages to configure the nixpkgs.config.permittedInsecurePackages option.
+            Instead of having a "catch all" true or a centalized predicate, this
+            option alows modules to include manage independent lists of packages.
+          '';
+        };
       features =
         with types;
         mkOption {

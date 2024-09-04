@@ -14,6 +14,8 @@
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
 
+      config.permittedInsecurePackages = config.home.custom.permitted-insecure-packages;
+
       config.allowUnfreePredicate =
         let
           packageNames = map lib.getName config.home.custom.allowed-unfree-packages;

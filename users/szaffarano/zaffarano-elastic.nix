@@ -1,11 +1,12 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   home = {
-    custom.features.enable = [ ];
+    custom = {
+      features.enable = [ ];
+      permitted-insecure-packages = [ "python-2.7.18.8" ]; # needed by bazel-5.1.1
+    };
     packages = [
-      (inputs.nixpkgs-bazel-5_1_1.legacyPackages.${pkgs.hostPlatform.system}.bazel_5.overrideAttrs (_: {
-        flag = "rebuilt";
-      }))
+      pkgs.bazel_5_1_1
       pkgs.mercurial
       (pkgs.bats.withLibraries (p: [
         p.bats-support
