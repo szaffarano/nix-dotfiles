@@ -4,5 +4,8 @@
   "automerge": true,
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "nix": {
+    "enabled": true
+  }
 }
