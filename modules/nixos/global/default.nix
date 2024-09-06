@@ -95,6 +95,7 @@
           libxkbcommon
           libxkbcommon
           libxml2
+          libGL
           mesa
           ncurses
           nspr
