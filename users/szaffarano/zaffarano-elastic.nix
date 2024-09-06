@@ -12,7 +12,6 @@
         p.bats-support
         p.bats-assert
         p.bats-file
-        p.bats-detik
       ]))
     ];
     sessionVariables = {
