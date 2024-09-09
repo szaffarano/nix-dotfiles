@@ -15,6 +15,7 @@ let
       bazel_self = bazel_5_1_1;
     };
     boot-status = callPackage ./boot-status { };
+    cliphist-to-wofi = callPackage ./cliphist-to-wofi { };
     configure-gtk = callPackage ./configure-gtk { };
     flameshot-grim = callPackage ./flameshot { };
     lock-screen = callPackage ./lock-screen { };

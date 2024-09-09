@@ -71,7 +71,6 @@ with lib;
             { title = "Settings"; }
             { title = "Zoom - Free Account"; }
             { title = "Firefox — Sharing Indicator"; }
-            { app_id = "copyq"; }
             { app_id = "nm-connection-editor"; }
             { app_id = "blueberry.py"; }
             { app_id = "transmission-qt"; }
@@ -288,8 +287,6 @@ with lib;
               "${modifier}+Ctrl+BackSpace" = "exec ${lockScreen} 0";
 
               "${modifier}+r" = "mode resize";
-
-              "Ctrl+Alt+v" = "exec copyq toggle";
 
               "Ctrl+Alt+Space" = "exec ${swayNcClient} --hide-latest";
               "Ctrl+Shift+Space" = "exec ${swayNcClient} --close-all";

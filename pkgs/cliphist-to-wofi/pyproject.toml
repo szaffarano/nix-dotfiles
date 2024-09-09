@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cliphist_to_wofi"
+version = "0.1.0"
+description = ""
+authors = ["Sebastián Zaffarano <sebas@zaffarano.com.ar>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.scripts]
+cliphist-to-wofi = "cliphist_to_wofi.main:cli"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

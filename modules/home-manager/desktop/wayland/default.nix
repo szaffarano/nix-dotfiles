@@ -56,7 +56,6 @@ with lib;
       waypipe
       weechat
       wf-recorder
-      wl-clipboard
       wl-mirror
       xdg-utils
       ydotool

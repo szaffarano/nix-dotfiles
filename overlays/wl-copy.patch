@@ -1,0 +1,108 @@
+From ff7ecd27db9ea329713d676e10b5d363ae947e49 Mon Sep 17 00:00:00 2001
+From: Puck Meerburg <puck@puckipedia.com>
+Date: Mon, 22 May 2023 08:47:12 +0000
+Subject: [PATCH] lol
+
+---
+ src/types/copy-action.c |  6 ++++++
+ src/types/copy-action.h |  2 ++
+ src/wl-copy.c           | 15 ++++++++++++++-
+ 3 files changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/src/types/copy-action.c b/src/types/copy-action.c
+index b3f8829..d81589a 100644
+--- a/src/types/copy-action.c
++++ b/src/types/copy-action.c
+@@ -71,6 +71,12 @@ static void do_send(struct source *source, const char *mime_type, int fd) {
+      /* Unset O_NONBLOCK */
+     fcntl(fd, F_SETFL, 0);
+
++    if (strcmp(mime_type, "x-kde-passwordManagerHint") == 0 && self->sensitive) {
++        write(fd, "secret", 6);
++        close(fd);
++        return;
++    }
++
+     if (self->fd_to_copy_from != -1) {
+         /* Copy the file to the given file descriptor
+          * by spawning an appropriate cat process.
+diff --git a/src/types/copy-action.h b/src/types/copy-action.h
+index babe179..68be834 100644
+--- a/src/types/copy-action.h
++++ b/src/types/copy-action.h
+@@ -34,6 +34,8 @@ struct copy_action {
+     struct popup_surface *popup_surface;
+     int primary;
+
++    int sensitive;
++
+     void (*did_set_selection_callback)(struct copy_action *self);
+     void (*pasted_callback)(struct copy_action *self);
+     void (*cancelled_callback)(struct copy_action *self);
+diff --git a/src/wl-copy.c b/src/wl-copy.c
+index d911875..4589d19 100644
+--- a/src/wl-copy.c
++++ b/src/wl-copy.c
+@@ -43,6 +43,7 @@ static struct {
+     int trim_newline;
+     int paste_once;
+     int primary;
++    int sensitive;
+     const char *seat_name;
+ } options;
+
+@@ -116,6 +117,8 @@ static void print_usage(FILE *f, const char *argv0) {
+         "Override the inferred MIME type for the content.\n"
+         "\t-s, --seat seat-name\t"
+         "Pick the seat to work with.\n"
++        "\t-!, --sensitive\t\t"
++        "Set the x-kde-passwordManagerHint = secret flag.\n"
+         "\t-v, --version\t\tDisplay version info.\n"
+         "\t-h, --help\t\tDisplay this message.\n"
+         "Mandatory arguments to long options are mandatory"
+@@ -141,11 +144,12 @@ static void parse_options(int argc, argv_t argv) {
+         {"clear", no_argument, 0, 'c'},
+         {"type", required_argument, 0, 't'},
+         {"seat", required_argument, 0, 's'},
++        {"sensitive", no_argument, 0, '!'},
+         {0, 0, 0, 0}
+     };
+     while (1) {
+         int option_index;
+-        const char *opts = "vhpnofct:s:";
++        const char *opts = "vhpnofct:s:!";
+         int c = getopt_long(argc, argv, opts, long_options, &option_index);
+         if (c == -1) {
+             break;
+@@ -181,6 +185,9 @@ static void parse_options(int argc, argv_t argv) {
+         case 's':
+             options.seat_name = strdup(optarg);
+             break;
++        case '!':
++            options.sensitive = 1;
++            break;
+         default:
+             /* getopt has already printed an error message */
+             print_usage(stderr, argv[0]);
+@@ -293,6 +300,11 @@ int main(int argc, argv_t argv) {
+             source_offer(copy_action->source, "STRING");
+             source_offer(copy_action->source, "UTF8_STRING");
+         }
++
++        if (options.sensitive) {
++            source_offer(copy_action->source, "x-kde-passwordManagerHint");
++        }
++
+         free(options.mime_type);
+         options.mime_type = NULL;
+     }
+@@ -306,6 +318,7 @@ int main(int argc, argv_t argv) {
+     copy_action->did_set_selection_callback = did_set_selection_callback;
+     copy_action->pasted_callback = pasted_callback;
+     copy_action->cancelled_callback = cancelled_callback;
++    copy_action->sensitive = options.sensitive;
+     copy_action_init(copy_action);
+
+     while (wl_display_dispatch(wl_display) >= 0);
+--
+2.40.0

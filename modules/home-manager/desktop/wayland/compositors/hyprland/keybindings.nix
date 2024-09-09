@@ -108,7 +108,6 @@ with lib;
             "CTRL_SHIFT,SPACE,exec, ${swayNcClient} --close-all"
           ]
         ))
-        ++ (optionals config.desktop.tools.copyq.enable [ "CTRL_ALT,v,exec,copyq toggle" ])
         ++ (optionals config.desktop.tools.keepassxc.enable (
           let
             passwordManager = "${pkgs.keepassxc}/bin/keepassxc";

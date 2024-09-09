@@ -184,7 +184,6 @@ with lib;
           "workspace name:3,class:^(dev-terminal)$"
 
           "float,class:^(org\.keepassxc\.KeePassXC)$"
-          "float,class:^(com\.github\.hluk\.copyq)$"
           "float,class:^(nm-connection-editor)$"
           "float,class:^(blueberry.py)$"
           "float,class:^(transmission-qt)$"
