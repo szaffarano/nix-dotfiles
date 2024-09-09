@@ -77,6 +77,20 @@ def decode_selection(entry: WofiEntry) -> bytes:
     return result.stdout
 
 
+def purge_thumbs(thumbs: str, wofi_input: list[WofiEntry]) -> None:
+    all_thumbs = set(os.listdir(thumbs))
+    active_thumbs = set(
+        map(
+            lambda entry: os.path.split(entry.title)[-1],
+            filter(lambda entry: entry.is_image, wofi_input),
+        )
+    )
+
+    to_delete = all_thumbs.difference(active_thumbs)
+    for thumb in to_delete:
+        os.remove(os.path.join(thumbs, thumb))
+
+
 def cli():
     thumbs = init_thumb_dir()
 
@@ -107,9 +121,12 @@ def cli():
 
     wofi_input = list(map(convert_line, input))
 
+    purge_thumbs(thumbs, wofi_input)
+
     selected = show_menu(list(map(lambda we: we.title, wofi_input)))
 
-    sys.stdout.buffer.write(decode_selection(wofi_input[selected]))
+    if len(wofi_input) > 0:
+        sys.stdout.buffer.write(decode_selection(wofi_input[selected]))
 
 
 if __name__ == "__main__":
