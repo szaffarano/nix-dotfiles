@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-bootstrap="$(readlink -f /run/booted-system/kernel)" \
-current="$(readlink -f /run/current-system/kernel)"
+bootstrap="$(readlink -f /run/booted-system/kernel | cut -c 45- | sed s'/\/.*//g')" \
+current="$(readlink -f /run/current-system/kernel | cut -c 45- | sed s'/\/.*//g')"
 restart=$([ "$bootstrap" = "$current" ] && echo false || echo true)
 
-printf "Booted:\t\t%q\\nCurrent:\t%q\nRestart:\t%s\n" \
+printf '%15s %s\n%15s %s\n%15s %s\n' \
+  "Booted kernel:" \
   "$bootstrap" \
+  "Current kernel:" \
   "$current" \
+  "Restart:" \
   "$restart"
