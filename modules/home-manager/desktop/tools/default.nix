@@ -1,13 +1,28 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.desktop.tools;
-in with lib; {
-  imports = [ ./copyq ./gammastep ./keepassxc ./screenshot ./zathura ];
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  cfg = config.desktop.tools;
+in
+with lib;
+{
+  imports = [
+    ./cliphist
+    ./copyq
+    ./gammastep
+    ./keepassxc
+    ./screenshot
+    ./zathura
+  ];
 
   options.desktop.tools.enable = mkEnableOption "desktop tools";
 
   config = mkIf cfg.enable {
     desktop.tools = {
-      copyq.enable = true;
+      copyq.enable = false;
+      cliphist.enable = true;
       gammastep.enable = true;
       keepassxc.enable = true;
       screenshot.enable = true;
