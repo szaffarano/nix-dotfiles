@@ -44,7 +44,6 @@ with lib;
           es
         ]
       ))
-      clipse
       glib
       grim
       gthumb

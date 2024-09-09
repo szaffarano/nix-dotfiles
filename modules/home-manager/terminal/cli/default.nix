@@ -106,7 +106,6 @@
       arch
       bc
       boot-status
-      cliphist-to-wofi
       bottom
       diffsitter
       eza
