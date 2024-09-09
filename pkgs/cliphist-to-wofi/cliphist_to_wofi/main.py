@@ -3,7 +3,6 @@
 import os
 import re
 import subprocess
-import sys
 
 
 class WofiEntry:
@@ -66,17 +65,6 @@ def show_menu(entries: list[str]) -> int:
     return int(selection) if selection != "" else 0
 
 
-def decode_selection(entry: WofiEntry) -> bytes:
-    result = subprocess.run(
-        ["cliphist", "decode"],
-        input=str.encode(f"{entry.idx}\t"),
-        check=True,
-        capture_output=True,
-    )
-
-    return result.stdout
-
-
 def purge_thumbs(thumbs: str, wofi_input: list[WofiEntry]) -> None:
     all_thumbs = set(os.listdir(thumbs))
     active_thumbs = set(
@@ -126,7 +114,7 @@ def cli():
     selected = show_menu(list(map(lambda we: we.title, wofi_input)))
 
     if len(wofi_input) > 0:
-        sys.stdout.buffer.write(decode_selection(wofi_input[selected]))
+        print(f"{wofi_input[selected].idx}\t")
 
 
 if __name__ == "__main__":

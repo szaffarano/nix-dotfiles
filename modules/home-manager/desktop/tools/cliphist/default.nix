@@ -20,6 +20,8 @@ with lib;
       wlPaste = "${pkgs.wl-clipboard}/bin/wl-paste";
       watchTxtCmd = "${wlPaste} --type text --watch ${lib.getExe safeStore}";
       watchImgCmd = "${wlPaste} --type image --watch ${lib.getExe safeStore}";
+      wofiCmd = "${pkgs.cliphist-to-wofi}/bin/cliphist-to-wofi";
+      clipCmd = lib.getExe pkgs.cliphist;
     in
     mkIf cfg.enable {
       home.packages = with pkgs; [
@@ -32,13 +34,18 @@ with lib;
           { command = watchTxtCmd; }
           { command = watchImgCmd; }
         ];
+        keybindings = {
+          "Ctrl+Alt+v" = "${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "Ctrl+Alt+Shift+V" = "${wofiCmd} | ${clipCmd} delete";
+        };
       };
 
       wayland.windowManager.hyprland.settings =
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
             bind = [
-              "CTRL_ALT,v,exec,${pkgs.cliphist-to-wofi}/bin/cliphist-to-wofi | ${pkgs.wl-clipboard}/bin/wl-copy"
+              "CTRL_ALT,v,exec,${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+              "CTRL_ALT_SHIFT,v,exec,${wofiCmd} | ${clipCmd} delete"
             ];
             exec = [
               watchTxtCmd
