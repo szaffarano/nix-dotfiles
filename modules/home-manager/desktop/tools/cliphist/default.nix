@@ -45,7 +45,7 @@ with lib;
           {
             bind = [
               "CTRL_ALT,v,exec,${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy"
-              "CTRL_ALT_SHIFT,v,exec,${wofiCmd} | ${clipCmd} delete"
+              "CTRL_ALT_SHIFT,v,exec,${wofiCmd} 'Delete clip' | ${clipCmd} delete"
             ];
             exec = [
               watchTxtCmd

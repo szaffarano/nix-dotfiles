@@ -3,6 +3,7 @@
 import os
 import re
 import subprocess
+import sys
 
 
 class WofiEntry:
@@ -47,11 +48,13 @@ def ensure_thumb(idx: int, path: str) -> None:
     )
 
 
-def show_menu(entries: list[str]) -> int:
+def show_menu(title: str, entries: list[str]) -> int:
     input = "\n".join(entries)
     result = subprocess.run(
         [
             "wofi",
+            "-p",
+            title,
             "--dmenu",
             "-I",
             "-Ddmenu-print_line_num=true",
@@ -80,6 +83,7 @@ def purge_thumbs(thumbs: str, wofi_input: list[WofiEntry]) -> None:
 
 
 def cli():
+    title = sys.argv[1] if len(sys.argv) == 2 else "Select clip"
     thumbs = init_thumb_dir()
 
     meta_re = re.compile(r"^[0-9]+\s<meta http-equiv=")
@@ -111,7 +115,7 @@ def cli():
 
     purge_thumbs(thumbs, wofi_input)
 
-    selected = show_menu(list(map(lambda we: we.title, wofi_input)))
+    selected = show_menu(title, list(map(lambda we: we.title, wofi_input)))
 
     if len(wofi_input) > 0:
         print(f"{wofi_input[selected].idx}\t")
