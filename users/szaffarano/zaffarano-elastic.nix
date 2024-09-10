@@ -28,7 +28,7 @@
     wayland.compositors.sway.enable = false;
   };
   services.flameshot = {
-    enable = true;
+    enable = false;
     package = pkgs.flameshot-grim;
   };
   terminal.cli.cloud.enable = true;
