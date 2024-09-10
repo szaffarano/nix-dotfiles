@@ -3,7 +3,7 @@
 , python3Packages
 ,
 }:
-python3Packages.buildPythonPackage {
+python3Packages.buildPythonPackage rec {
   pname = "cliphist-to-wofi";
   version = "0.1.0";
   pyproject = true;
@@ -22,6 +22,7 @@ python3Packages.buildPythonPackage {
 
   meta = {
     description = "cliphist wofi integration";
+    mainProgram = pname;
     license = lib.licenses.mit;
   };
 }
