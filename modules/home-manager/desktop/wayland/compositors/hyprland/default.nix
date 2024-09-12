@@ -1,4 +1,5 @@
 { config
+, inputs
 , lib
 , pkgs
 , theme
@@ -23,6 +24,28 @@ with lib;
   ];
 
   config = mkIf cfg.enable {
+    xdg.portal =
+      let
+        hyprland = config.wayland.windowManager.hyprland.package;
+        xdph = inputs.nixpkgs-xdph.legacyPackages.${pkgs.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        wlr = pkgs.xdg-desktop-portal-wlr;
+      in
+      {
+        enable = true;
+        config = {
+          common = {
+            default = [
+              "gtk"
+            ];
+          };
+        };
+        xdgOpenUsePortal = true;
+        extraPortals = [
+          xdph
+          wlr
+        ];
+        configPackages = [ hyprland ];
+      };
 
     desktop.wayland.swaync.enable = true;
 

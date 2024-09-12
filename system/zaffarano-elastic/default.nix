@@ -61,7 +61,7 @@ in
       "virtualisation"
     ];
   };
-  services.greetd.enable = true;
+  services.greetd.enable = false;
 
   networking = {
     inherit hostName;

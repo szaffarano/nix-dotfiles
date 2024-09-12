@@ -1,4 +1,8 @@
-{ config, ... }:
+{ config
+, inputs
+, pkgs
+, ...
+}:
 let
   feature_name = "hyprland";
 
@@ -7,7 +11,11 @@ in
 {
   config = {
     programs = {
-      hyprland.enable = enabled;
+      hyprland = {
+        enable = enabled;
+        portalPackage =
+          inputs.nixpkgs-xdph.legacyPackages.${pkgs.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      };
     };
 
     nixos.custom.features.register = feature_name;
