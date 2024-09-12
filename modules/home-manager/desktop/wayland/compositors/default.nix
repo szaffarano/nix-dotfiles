@@ -5,6 +5,8 @@
 }:
 let
   cfg = config.desktop.wayland.compositors;
+  nmAppletCmd = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+  paSysTrayCmd = "${pkgs.pasystray}/bin/pasystray";
 in
 with lib;
 {
@@ -17,9 +19,24 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ gsettings-desktop-schemas ];
-    services = {
-      pasystray.enable = true;
-      network-manager-applet.enable = true;
+
+    xdg.systemDirs.data = [ "${pkgs.networkmanagerapplet}/share" ];
+
+    wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
+      startup = [
+        { command = nmAppletCmd; }
+        { command = paSysTrayCmd; }
+      ];
     };
+
+    wayland.windowManager.hyprland.settings =
+      lib.mkIf config.desktop.wayland.compositors.hyprland.enable
+        {
+          exec-once = [
+            nmAppletCmd
+            paSysTrayCmd
+          ];
+        };
+
   };
 }

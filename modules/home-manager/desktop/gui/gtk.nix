@@ -1,6 +1,7 @@
 { config
 , lib
 , theme
+, pkgs
 , ...
 }:
 let
@@ -21,6 +22,7 @@ with lib;
   options.desktop.gui.gtk.enable = mkEnableOption "gtk";
 
   config = mkIf cfg.enable {
+    xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     gtk = {
       enable = true;
       font = {

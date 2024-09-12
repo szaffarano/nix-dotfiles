@@ -50,7 +50,7 @@ local servers = {
   'ruff',
   'pyright',
   'terraformls',
-  'tsserver', -- TODO: https://github.com/pmizio/typescript-tools.nvim
+  'ts_ls', -- TODO: https://github.com/pmizio/typescript-tools.nvim
   'yamlls',
 }
 

@@ -5,24 +5,31 @@
 }:
 let
   cfg = config.desktop.wayland.kanshi;
+  kanshiCmd = lib.getExe pkgs.kanshi;
 in
 with lib;
 {
   options.desktop.wayland.kanshi = {
     enable = mkEnableOption "kanshi";
-    lockTime = mkOption {
-      type = types.int;
-      default = 4 * 60;
-      description = "Time in seconds before the screen is locked.";
-    };
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ kanshi ];
 
+    wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
+      startup = [
+        { command = kanshiCmd; }
+      ];
+    };
+
+    wayland.windowManager.hyprland.settings =
+      lib.mkIf config.desktop.wayland.compositors.hyprland.enable
+        {
+          exec-once = [ kanshiCmd ];
+        };
+
     services.kanshi = {
       enable = true;
-      systemdTarget = "graphical-session.target";
       settings = [
         {
           profile.name = "undocked";

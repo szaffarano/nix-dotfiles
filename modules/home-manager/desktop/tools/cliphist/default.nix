@@ -53,7 +53,7 @@ with lib;
               "CTRL_ALT,v,exec,${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy"
               "CTRL_ALT_SHIFT,v,exec,${wofiCmd} 'Delete clip' | ${clipCmd} delete"
             ];
-            exec = [ watchCmd ];
+            exec-once = [ watchCmd ];
           };
     };
 }

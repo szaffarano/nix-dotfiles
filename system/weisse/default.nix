@@ -34,7 +34,7 @@ in
       pulse.enable = true;
       alsa.enable = true;
     };
-    greetd.enable = true;
+    greetd.enable = false;
     # TODO move to module?
     printing.enable = true;
   };
