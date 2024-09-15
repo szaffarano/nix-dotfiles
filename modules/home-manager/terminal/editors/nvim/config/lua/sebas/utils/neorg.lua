@@ -56,9 +56,8 @@ M.weekly_file_tree_week_number = function(raw, offset)
   local time = week_number_to_date(week, year) + ((offset * 7) * 84600)
 
   local number = week_number(time)
-  year = os.date('%y', time)
+  year = os.date('%Y', time)
 
   return year, number
 end
-
 return M

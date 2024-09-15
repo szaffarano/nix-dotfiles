@@ -12,6 +12,12 @@ return {
   dependencies = {
     { 'pysan3/neorg-templates', dependencies = { 'L3MON4D3/LuaSnip' } },
   },
+  keys = {
+    { '<leader>J', '<Plug>(neorg.treesitter.next.heading)', desc = 'Neorg next link' },
+    { '<leader>K', '<Plug>(neorg.treesitter.previous.heading)', desc = 'Neorg previous link' },
+    { '<leader>j', '<Plug>(neorg.treesitter.next.link)', desc = 'Neorg next link' },
+    { '<leader>k', '<Plug>(neorg.treesitter.previous.link)', desc = 'Neorg previous link' },
+  },
   opts = {
     load = {
       ['core.completion'] = { config = { engine = 'nvim-cmp' } },
@@ -74,11 +80,11 @@ return {
             end,
             YESTERDAY_OF_FILEPATH = function() -- detect date from filename and return its file path to be used in a link
               local ls, m = imports()
-              return ls.text_node(m.parse_date(-1, m.file_tree_date(), [[../../%Y/%m/%d]])) -- ../../2020/01/01
+              return ls.text_node(m.parse_date(-1, m.file_tree_date(), [[$/journal/%Y/%m/%d]])) -- ../../2020/01/01
             end,
             TOMORROW_OF_FILEPATH = function() -- detect date from filename and return its file path to be used in a link
               local ls, m = imports()
-              return ls.text_node(m.parse_date(1, m.file_tree_date(), [[../../%Y/%m/%d]])) -- ../../2020/01/01
+              return ls.text_node(m.parse_date(1, m.file_tree_date(), [[$/journal/%Y/%m/%d]])) -- ../../2020/01/01
             end,
             QUOTE_OF_THE_DAY = function()
               local raw = vim.fn.system 'curl --no-progress-meter https://zenquotes.io/api/random'

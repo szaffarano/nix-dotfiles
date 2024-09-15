@@ -14,7 +14,7 @@ version: 1.1.1
 {QUOTE_OF_THE_DAY}
 
 * Week {WEEK_NUMBER_OF_WEEKLY_FILE}
-  {{:{PREV_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}}[< Previous Week] - {{:{NEXT_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}}[Next Week >]
+  [< Previous Week]{{:{PREV_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}} - [Next Week >]{{:{NEXT_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}}
 
 ** Notes
    - {CURSOR}
