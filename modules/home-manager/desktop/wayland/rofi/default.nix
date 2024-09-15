@@ -28,7 +28,7 @@ with lib;
 
       wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
         keybindings = {
-          "${config.wayland.windowManager.sway.config.modified}+Shift+S" = cmd;
+          "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = cmd;
         };
       };
 
