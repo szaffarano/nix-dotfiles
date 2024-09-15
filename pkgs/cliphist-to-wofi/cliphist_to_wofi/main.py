@@ -35,17 +35,18 @@ def cliphist_list() -> list[str]:
 
 
 def ensure_thumb(idx: int, path: str) -> None:
-    img = subprocess.run(
-        ["cliphist", "decode"],
-        input=str.encode(f"{idx}\t\n"),
-        check=True,
-        capture_output=True,
-    ).stdout
+    if not os.path.exists(path):
+        img = subprocess.run(
+            ["cliphist", "decode"],
+            input=str.encode(f"{idx}\t\n"),
+            check=True,
+            capture_output=True,
+        ).stdout
 
-    _ = subprocess.run(
-        ["magick", "-", "-resize", "256x256>", path],
-        input=img,
-    )
+        _ = subprocess.run(
+            ["magick", "-", "-resize", "256x256>", path],
+            input=img,
+        )
 
 
 def show_menu(title: str, entries: list[str]) -> int:
@@ -68,8 +69,8 @@ def show_menu(title: str, entries: list[str]) -> int:
     return int(selection) if selection != "" else 0
 
 
-def purge_thumbs(thumbs: str, wofi_input: list[WofiEntry]) -> None:
-    all_thumbs = set(os.listdir(thumbs))
+def purge_thumbs(thumbs_path: str, wofi_input: list[WofiEntry]) -> None:
+    all_thumbs = set(os.listdir(thumbs_path))
     active_thumbs = set(
         map(
             lambda entry: os.path.split(entry.title)[-1],
@@ -79,7 +80,7 @@ def purge_thumbs(thumbs: str, wofi_input: list[WofiEntry]) -> None:
 
     to_delete = all_thumbs.difference(active_thumbs)
     for thumb in to_delete:
-        os.remove(os.path.join(thumbs, thumb))
+        os.remove(os.path.join(thumbs_path, thumb))
 
 
 def cli():
@@ -87,31 +88,28 @@ def cli():
     thumbs = init_thumb_dir()
 
     meta_re = re.compile(r"^[0-9]+\s<meta http-equiv=")
-    line_re = re.compile(r"^(?P<idx>[0-9]+)\t(?P<value>.*)$")
-    img_type_re = re.compile(r"^(\[\[\s)?binary.*(?P<ext>jpg|jpeg|png|bmp)")
+    parse_line_re = re.compile(r"^(?P<idx>[0-9]+)\t(?P<value>.*)$")
+    binary_image_re = re.compile(r"^(\[\[\s)?binary.*(?P<ext>jpg|jpeg|png|bmp)")
 
-    history = cliphist_list()
-
-    input = list(filter(lambda line: not meta_re.match(line), history))
+    history = list(filter(lambda line: not meta_re.match(line), cliphist_list()))
 
     def convert_line(line: str) -> WofiEntry:
-        parsed = line_re.match(line)
+        parsed = parse_line_re.match(line)
         if parsed:
             idx = int(parsed.group("idx"))
             value = parsed.group("value")
 
-            binary = img_type_re.match(value)
+            binary = binary_image_re.match(value)
             if binary:
                 ext = binary.group("ext")
-                image = os.path.join(thumbs, f"{idx}.{ext}")
-                if not os.path.exists(image):
-                    ensure_thumb(idx, image)
-                return WofiEntry(idx, f"img:{image}", True)
+                image_path = os.path.join(thumbs, f"{idx}.{ext}")
+                ensure_thumb(idx, image_path)
+                return WofiEntry(idx, f"img:{image_path}", True)
             else:
                 return WofiEntry(idx, f"{value}")
         return WofiEntry(-1, "")
 
-    wofi_input = list(map(convert_line, input))
+    wofi_input = list(map(convert_line, history))
 
     purge_thumbs(thumbs, wofi_input)
 

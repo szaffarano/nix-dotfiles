@@ -10,14 +10,15 @@ with lib;
 {
 
   imports = [
+    ./compositors
     ./kanshi
+    ./mako
+    ./rofi
     ./swayidle
     ./swaylock
     ./swaync
-    ./mako
     ./waybar
     ./wofi
-    ./compositors
   ];
 
   options.desktop.wayland.enable = mkEnableOption "wayland";
@@ -26,6 +27,7 @@ with lib;
     desktop.wayland = {
       mako.enable = lib.mkDefault false;
       wofi.enable = lib.mkDefault true;
+      rofi.enable = lib.mkDefault true;
       waybar.enable = lib.mkDefault true;
       kanshi.enable = lib.mkDefault true;
 

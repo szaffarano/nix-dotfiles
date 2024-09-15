@@ -80,22 +80,27 @@
           fontconfig
           fontconfig
           freetype
+          fuse
           fuse3
           gdk-pixbuf
           glib
           gtk3
+          harfbuzz
+          fribidi
           icu
           libappindicator-gtk3
           libdrm
+          libGL
           libnotify
           libpulseaudio
           libunwind
+          libgpg-error
+          e2fsprogs
           libusb1
           libuuid
           libxkbcommon
           libxkbcommon
           libxml2
-          libGL
           mesa
           ncurses
           nspr

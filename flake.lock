@@ -18,6 +18,22 @@
         "type": "github"
       }
     },
+    "base16-rofi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634070231,
+        "narHash": "sha256-YgrdhUKKFmveZAejaPTV7GpA263VrTzLKfidKDE85Ks=",
+        "owner": "pschyska",
+        "repo": "base16-rofi",
+        "rev": "4f121d5b6e8f17ea30caa16bc19ecaf3a24b4e10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pschyska",
+        "repo": "base16-rofi",
+        "type": "github"
+      }
+    },
     "base16-vim": {
       "flake": false,
       "locked": {
@@ -519,6 +535,7 @@
     "root": {
       "inputs": {
         "base16": "base16",
+        "base16-rofi": "base16-rofi",
         "base16-vim": "base16-vim",
         "base16-zathura": "base16-zathura",
         "disko": "disko",
