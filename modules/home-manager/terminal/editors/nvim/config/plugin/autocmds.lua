@@ -1,4 +1,5 @@
 -- [[ Basic Autocommands ]]
+local no = require 'sebas.utils.neorg'
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -39,7 +40,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- wiki
-local g = vim.api.nvim_create_augroup('init_wiki', { clear = true })
+g = vim.api.nvim_create_augroup('init_wiki', { clear = true })
 vim.api.nvim_create_autocmd('User', {
   group = g,
   pattern = 'WikiLinkFollowed',
@@ -52,4 +53,31 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'WikiBufferInitialized',
   desc = 'Wiki: add mapping for gf',
   command = [[ nmap <buffer> gf <plug>(wiki-link-follow) ]],
+})
+
+-- neorg
+g = vim.api.nvim_create_augroup('NeorgLoadTemplateGroup', { clear = true })
+
+vim.api.nvim_create_autocmd({ 'BufNew' }, {
+  desc = 'Load template on new norg journal files',
+  pattern = '**/journal/**/*.norg',
+  group = g,
+  callback = function(args)
+    vim.schedule(function()
+      if not no.buffer_has_contents(args.buf) then
+        return
+      end
+
+      if string.find(args.file, '/journal/%d%d%d%d/W.%d%d.norg') then
+        vim.notify(string.format('applying weekly template on %s', args.file), vim.log.levels.DEBUG)
+        vim.api.nvim_cmd({ cmd = 'Neorg', args = { 'templates', 'load', 'weekly' } }, {})
+      elseif string.find(args.file, '/journal/%d%d%d%d/%d%d/%d%d.norg') then
+        vim.notify(string.format('applying journal template on %s', args.file), vim.log.levels.DEBUG)
+        vim.api.nvim_cmd({ cmd = 'Neorg', args = { 'templates', 'load', 'daily' } }, {})
+      else
+        vim.notify(string.format('Omiting template in non-journal file on %s', args.file))
+        vim.api.nvim_cmd({ cmd = 'Neorg', args = { 'inject-metadata' } }, {})
+      end
+    end)
+  end,
 })

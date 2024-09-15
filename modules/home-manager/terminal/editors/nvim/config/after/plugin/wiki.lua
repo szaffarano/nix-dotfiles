@@ -40,12 +40,12 @@ vim.g.wiki_templates = {
     match_func = function(ctx)
       return ctx.path:sub(-4) == '.org' and not ctx.path:find 'journal/'
     end,
-    source_filename = fs.join(vim.fn.stdpath 'data', 'templates', 'default.org'),
+    source_filename = fs.join(vim.fn.stdpath 'data', 'templates', 'org', 'default.org'),
   },
   {
     match_func = function(ctx)
       return ctx.path:sub(-4) == '.org' and ctx.path:find 'journal/'
     end,
-    source_filename = fs.join(vim.fn.stdpath 'data', 'templates', 'journal.org'),
+    source_filename = fs.join(vim.fn.stdpath 'data', 'templates', 'org', 'journal.org'),
   },
 }

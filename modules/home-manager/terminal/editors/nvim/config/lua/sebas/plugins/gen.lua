@@ -1,5 +1,6 @@
 return {
   'David-Kunz/gen.nvim',
+  enable = false,
   opts = {
     model = 'mistral',
     display_mode = 'split',

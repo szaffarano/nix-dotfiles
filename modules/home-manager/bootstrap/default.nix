@@ -46,7 +46,7 @@
       };
     };
 
-    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/nord.yaml";
+    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/kanagawa.yaml";
 
     home.file.".colorscheme".text = config.scheme.slug;
   };

@@ -65,9 +65,20 @@ return { -- Autocompletion
               luasnip.jump(-1)
             end
           end, { 'i', 's' }),
+          ['<c-l>'] = cmp.mapping(function()
+            if luasnip.choice_active() then
+              luasnip.change_choice(1)
+            end
+          end, { 'i', 's' }),
+          ['<c-h>'] = cmp.mapping(function()
+            if luasnip.choice_active() then
+              luasnip.change_choice(-1)
+            end
+          end, { 'i', 's' }),
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'neorg' },
           { name = 'codeium' },
           { name = 'luasnip' },
           { name = 'path' },

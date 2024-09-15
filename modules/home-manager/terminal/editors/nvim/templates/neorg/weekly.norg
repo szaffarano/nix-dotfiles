@@ -1,0 +1,23 @@
+@document.meta
+title: Week {WEEK_NUMBER_OF_WEEKLY_FILE}
+description:
+authors: {AUTHOR}
+categories: [
+   journal
+   weekly
+]
+created: {TODAY}
+updated: {TODAY}
+version: 1.1.1
+@end
+
+{QUOTE_OF_THE_DAY}
+
+* Week {WEEK_NUMBER_OF_WEEKLY_FILE}
+  [< Previous Week]{{:{PREV_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}} - [Next Week >]{{:{NEXT_WEEK_NUMBER_OF_WEEKLY_FILE_NORG}:}}
+
+** Notes
+   - {CURSOR}
+
+** Week goals
+   - ( ) {CURSOR}

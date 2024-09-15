@@ -2,7 +2,7 @@ return {
   'itchyny/calendar.vim',
 
   config = function()
-    vim.keymap.set('n', '<leader>t', '<cmd>Calendar -position=here<cr>', { desc = 'Open Calendar' })
+    -- vim.keymap.set('n', '<leader>t', '<cmd>Calendar -position=here<cr>', { desc = 'Open Calendar' })
 
     vim.g.calendar_first_day = 'monday'
     vim.g.calendar_date_endian = 'big'
