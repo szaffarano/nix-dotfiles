@@ -74,6 +74,10 @@
       url = "github:haozeke/base16-zathura";
       flake = false;
     };
+    base16-rofi = {
+      url = "github:pschyska/base16-rofi";
+      flake = false;
+    };
     base16-vim = {
       url = "github:tinted-theming/base16-vim";
       flake = false;
