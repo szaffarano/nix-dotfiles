@@ -57,10 +57,9 @@ vim.api.nvim_create_autocmd('User', {
 
 -- neorg
 g = vim.api.nvim_create_augroup('NeorgLoadTemplateGroup', { clear = true })
-
 vim.api.nvim_create_autocmd({ 'BufNew' }, {
   desc = 'Load template on new norg journal files',
-  pattern = '**/journal/**/*.norg',
+  pattern = '**/*.norg',
   group = g,
   callback = function(args)
     vim.schedule(function()
@@ -75,7 +74,7 @@ vim.api.nvim_create_autocmd({ 'BufNew' }, {
         vim.notify(string.format('applying journal template on %s', args.file), vim.log.levels.DEBUG)
         vim.api.nvim_cmd({ cmd = 'Neorg', args = { 'templates', 'load', 'daily' } }, {})
       else
-        vim.notify(string.format('Omiting template in non-journal file on %s', args.file))
+        vim.notify(string.format('Omiting template in non-journal file on %s', args.file), vim.log.levels.DEBUG)
         vim.api.nvim_cmd({ cmd = 'Neorg', args = { 'inject-metadata' } }, {})
       end
     end)
