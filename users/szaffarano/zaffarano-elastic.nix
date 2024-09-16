@@ -15,10 +15,12 @@
       ]))
     ];
     sessionVariables = {
-      LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
-        pkgs.systemd
-        pkgs.libgcc.lib
-      ]}";
+      # TODO: not needed anymore?
+      # It makes software depending on a different stdlib fail
+      # LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+      #   pkgs.systemd
+      #   pkgs.libgcc.lib
+      # ]}";
     };
   };
 
