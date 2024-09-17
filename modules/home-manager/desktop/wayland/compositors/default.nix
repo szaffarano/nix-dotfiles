@@ -24,8 +24,8 @@ with lib;
 
     wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
       startup = [
-        { command = nmAppletCmd; }
-        { command = paSysTrayCmd; }
+        { command = "sleep 6 && ${nmAppletCmd}"; }
+        { command = "sleep 6 && ${paSysTrayCmd}"; }
       ];
     };
 
@@ -33,8 +33,8 @@ with lib;
       lib.mkIf config.desktop.wayland.compositors.hyprland.enable
         {
           exec-once = [
-            nmAppletCmd
-            paSysTrayCmd
+            "sleep 6 && ${nmAppletCmd}"
+            "sleep 6 && ${paSysTrayCmd}"
           ];
         };
 

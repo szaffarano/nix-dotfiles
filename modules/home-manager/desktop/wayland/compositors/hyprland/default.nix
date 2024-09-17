@@ -32,13 +32,6 @@ with lib;
       in
       {
         enable = true;
-        config = {
-          common = {
-            default = [
-              "gtk"
-            ];
-          };
-        };
         xdgOpenUsePortal = true;
         extraPortals = [
           xdph
@@ -179,8 +172,7 @@ with lib;
           [
             ''[float;tile] $terminal -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
             ''${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ''
-          ]
-          ++ (lib.optionals config.desktop.tools.keepassxc.enable [ "${pkgs.keepassxc}/bin/keepassxc" ]);
+          ];
 
         workspace =
           let

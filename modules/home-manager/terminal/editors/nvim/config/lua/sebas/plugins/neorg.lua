@@ -10,13 +10,17 @@ return {
   version = '*',
   config = true,
   dependencies = {
-    { 'pysan3/neorg-templates', dependencies = { 'L3MON4D3/LuaSnip' } },
+    { 'nvim-neorg/neorg-telescope', 'pysan3/neorg-templates', dependencies = { 'L3MON4D3/LuaSnip' } },
   },
   keys = {
-    { '<leader>J', '<Plug>(neorg.treesitter.next.heading)', desc = 'Neorg next link' },
-    { '<leader>K', '<Plug>(neorg.treesitter.previous.heading)', desc = 'Neorg previous link' },
-    { '<leader>j', '<Plug>(neorg.treesitter.next.link)', desc = 'Neorg next link' },
-    { '<leader>k', '<Plug>(neorg.treesitter.previous.link)', desc = 'Neorg previous link' },
+    { '<localleader>J', '<Plug>(neorg.treesitter.next.heading)', desc = 'Neorg next link' },
+    { '<localleader>K', '<Plug>(neorg.treesitter.previous.heading)', desc = 'Neorg previous link' },
+    { '<localleader>j', '<Plug>(neorg.treesitter.next.link)', desc = 'Neorg next link' },
+    { '<localleader>k', '<Plug>(neorg.treesitter.previous.link)', desc = 'Neorg previous link' },
+    { '<localleader>ns', '<Plug>(neorg.telescope.search_headings)', desc = 'Neorg search headings' },
+    { '<localleader>nf', '<Plug>(neorg.telescope.find_norg_files)', desc = 'Neorg find files' },
+    { '<leader>ni', '<Cmd>Neorg index<cr>', desc = 'Neorg index' },
+    { '<leader>nt', '<Cmd>Neorg journal today<cr>', desc = 'Neorg journal today' },
   },
   opts = {
     load = {
@@ -97,6 +101,13 @@ return {
                 '> --- ' .. author,
               }
             end,
+          },
+        },
+      },
+      ['core.integrations.telescope'] = {
+        config = {
+          insert_file_link = {
+            show_title_preview = true,
           },
         },
       },

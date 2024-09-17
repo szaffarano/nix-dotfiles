@@ -15,7 +15,7 @@ with lib;
     let
       copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       rofi = lib.getExe config.programs.rofi.finalPackage;
-      cmd = "${rofi} -show calc -modi calc -no-show-match -no-sort | ${copy}";
+      cmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
     in
     mkIf cfg.enable {
       xdg.dataFile."rofi/themes/${config.scheme.slug}.rasi".text = builtins.readFile (
