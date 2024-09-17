@@ -17,7 +17,7 @@ with lib;
   config = mkIf cfg.enable {
     wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
       startup = [
-        { command = waybarCmd; }
+        { command = "sleep 3 && ${waybarCmd}"; }
       ];
     };
 
