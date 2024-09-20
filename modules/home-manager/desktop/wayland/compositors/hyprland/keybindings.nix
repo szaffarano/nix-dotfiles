@@ -60,8 +60,9 @@ with lib;
           toggleScratchpad = lib.getExe pkgs.toggle-hyprland-scratchpad;
         in
         [
-          # workaround for https://github.com/wez/wezterm/issues/5103
-          "$mod, Return, exec, [float;tile] $terminal"
+          ''$mod, S, exec, sh -c "[ $(hyprctl monitors all -j | jq '.[] | select(.name == "eDP-1").disabled') = 'false' ]  && hyprctl keyword monitor eDP-1,disable || hyprctl keyword monitor eDP-1,enable,auto,1"''
+
+          "$mod, Return, exec,$terminal"
           "$mod_SHIFT, Q, killactive"
 
           "$mod,f,fullscreen,0"
