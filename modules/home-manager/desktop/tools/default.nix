@@ -14,6 +14,7 @@ with lib;
     ./gammastep
     ./keepassxc
     ./screenshot
+    ./udiskie
     ./zathura
   ];
 
@@ -21,11 +22,12 @@ with lib;
 
   config = mkIf cfg.enable {
     desktop.tools = {
-      copyq.enable = false;
       cliphist.enable = true;
+      copyq.enable = false;
       gammastep.enable = true;
       keepassxc.enable = true;
       screenshot.enable = true;
+      udiskie.enable = true;
       zathura.enable = true;
     };
     home.packages = with pkgs; [

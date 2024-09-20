@@ -13,6 +13,7 @@ in
     programs = {
       hyprland = {
         enable = enabled;
+        xwayland.enable = true;
         portalPackage =
           inputs.nixpkgs-xdph.legacyPackages.${pkgs.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
