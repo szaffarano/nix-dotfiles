@@ -114,6 +114,7 @@
       libqalculate
       ncdu
       nixfmt-rfc-style
+      ripgrep-all
       timer
     ];
   };
