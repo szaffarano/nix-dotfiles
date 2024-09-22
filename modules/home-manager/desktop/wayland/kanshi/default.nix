@@ -66,6 +66,19 @@ with lib;
             }
           ];
         }
+        {
+          profile.name = "docked-home-tv";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "Samsung Electric Company SAMSUNG 0x01000E00";
+              status = "enable";
+            }
+          ];
+        }
       ];
     };
   };

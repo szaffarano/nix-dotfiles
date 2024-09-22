@@ -60,7 +60,7 @@ with lib;
           toggleScratchpad = lib.getExe pkgs.toggle-hyprland-scratchpad;
         in
         [
-          ''$mod, S, exec, sh -c "[ $(hyprctl monitors all -j | jq '.[] | select(.name == "eDP-1").disabled') = 'false' ]  && hyprctl keyword monitor eDP-1,disable || hyprctl keyword monitor eDP-1,enable,auto,1"''
+          ''$mod_CTRL, s, exec, sh -c "[ $(hyprctl monitors all -j | jq '.[] | select(.name == "eDP-1").disabled') = 'false' ]  && hyprctl keyword monitor eDP-1,disable,1 || hyprctl keyword monitor eDP-1,enable,1"''
 
           "$mod, Return, exec,$terminal"
           "$mod_SHIFT, Q, killactive"
