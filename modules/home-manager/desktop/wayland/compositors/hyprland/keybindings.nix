@@ -88,7 +88,7 @@ with lib;
           ", XF86AudioPrev, exec, playerctl previous"
 
           "$mod, o, exec, ${toggleScratchpad} wrap orgmode \"nvim '+Neorg index'\""
-          "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ncspot"
+          "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ${config.terminal.cli.spotify.exe}"
           "$mod, p, togglespecialworkspace, Slack"
           "$mod_SHIFT, t, togglespecialworkspace, telegram"
         ]
