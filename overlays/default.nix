@@ -5,6 +5,28 @@
 
   neovim = inputs.neovim-nightly.overlays.default;
 
+  # https://github.com/librespot-org/librespot/pull/1309
+  # to use the oauth feature
+  librespot = final: prev: {
+    librespot = prev.librespot.overrideAttrs (old: rec {
+      pname = "librespot";
+      version = "0.4.3-dev";
+      src = prev.fetchFromGitHub {
+        owner = "librespot-org";
+        repo = pname;
+        rev = "67d31959f5125d3fe5fab5e6e95436a01bb3cef6";
+        hash = "sha256-Obm2qPp09dPX7NvRaYiJ91MQM9plyLYXrDSGOD82PKQ=";
+      };
+
+      cargoDeps = old.cargoDeps.overrideAttrs (
+        prev.lib.const {
+          inherit src;
+          outputHash = "sha256-oubHfcQkSzWub91uqKLTrJW9ZNFrzT37UHnN2KNogX0=";
+        }
+      );
+    });
+  };
+
   spotify-player = final: prev: {
     spotify-player = prev.spotify-player.overrideAttrs (old: rec {
       pname = "spotify-player";
