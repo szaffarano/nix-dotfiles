@@ -18,7 +18,10 @@ with lib;
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.spotify-player ];
+    home.packages = [
+      pkgs.spotify-player
+      pkgs.librespot
+    ];
     terminal.cli.spotify.exe = lib.getExe pkgs.spotify-player;
     programs.spotify-player = {
       enable = true;
