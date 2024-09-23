@@ -19,3 +19,9 @@ end
 -- It has to be located here because `lazy` overrides `runtimepath`
 local treesitter_parsers = vim.fn.stdpath 'data' .. '/treesitter-parsers'
 vim.opt.runtimepath:append(treesitter_parsers)
+
+vim.filetype.add {
+  pattern = {
+    ['.*/hypr/.*%.conf'] = 'hyprlang',
+  },
+}
