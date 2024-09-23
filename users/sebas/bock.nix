@@ -17,7 +17,7 @@
 
   desktop.enable = false;
   terminal.cli = {
-    ncspot.enable = false;
+    spotify.enable = false;
     cloud.enable = false;
   };
 

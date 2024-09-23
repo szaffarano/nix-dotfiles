@@ -9,7 +9,7 @@
     ./direnv.nix
     ./git.nix
     ./gpg.nix
-    ./ncspot.nix
+    ./spotify.nix
     ./net.nix
     ./pass.nix
     ./ssh.nix
@@ -24,7 +24,7 @@
   config = {
     terminal.cli = {
       direnv.enable = lib.mkDefault true;
-      ncspot.enable = lib.mkDefault true;
+      spotify.enable = lib.mkDefault true;
       net.enable = lib.mkDefault true;
       pass.enable = lib.mkDefault true;
       starship.enable = lib.mkDefault true;

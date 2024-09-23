@@ -1,12 +1,25 @@
-{ config, lib, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 let
-  cfg = config.terminal.cli.ncspot;
+  cfg = config.terminal.cli.spotify;
 in
 with lib;
 {
-  options.terminal.cli.ncspot.enable = mkEnableOption "ncspot";
+  options.terminal.cli.spotify = {
+    enable = mkEnableOption "spotify";
+    exe = mkOption {
+      type = types.str;
+      description = "Path to the Spotify client binary (either ncspot or spotify_player)";
+      readOnly = true;
+    };
+  };
 
   config = mkIf cfg.enable {
+    home.packages = [ pkgs.spotify-player ];
+    terminal.cli.spotify.exe = lib.getExe pkgs.spotify-player;
     programs.spotify-player = {
       enable = true;
     };

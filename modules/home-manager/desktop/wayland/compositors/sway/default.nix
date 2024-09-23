@@ -20,10 +20,9 @@ with lib;
       wofi = "${pkgs.wofi}/bin/wofi";
       wofiPowerMenu = "wofi-power-menu";
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-      ncspot = "${pkgs.ncspot}/bin/ncspot";
       passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
 
-      musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${ncspot}'";
+      musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
       orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
 
       text = config.scheme.base05;
