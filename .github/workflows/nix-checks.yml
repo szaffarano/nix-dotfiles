@@ -13,6 +13,8 @@ jobs:
         with:
           name: deadnix
       - uses: astro/deadnix-action@main
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
   statix:
     name: Statix
     runs-on: ubuntu-latest
@@ -23,3 +25,5 @@ jobs:
         with:
           name: statix
       - uses: jocelynthode/statix-action@master
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
