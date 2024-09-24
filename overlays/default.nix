@@ -7,7 +7,7 @@
 
   # https://github.com/librespot-org/librespot/pull/1309
   # to use the oauth feature
-  librespot = final: prev: {
+  librespot = _final: prev: {
     librespot = prev.librespot.overrideAttrs (old: rec {
       pname = "librespot";
       version = "0.4.3-dev";
