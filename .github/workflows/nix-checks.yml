@@ -15,7 +15,7 @@ jobs:
       - uses: astro/deadnix-action@main
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          author: "Sebastián Zaffarao <sebas@zaffarano.com.ar>"
+          author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
   statix:
     name: Statix
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
       - uses: jocelynthode/statix-action@master
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          author: "Sebastián Zaffarao <sebas@zaffarano.com.ar>"
+          author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
