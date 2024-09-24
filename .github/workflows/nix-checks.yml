@@ -14,10 +14,10 @@ jobs:
           name: deadnix
       - uses: astro/deadnix-action@main
         with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
           commiter: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
           commit_message: "chore: Remove dead code"
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
   statix:
     name: Statix
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
           name: statix
       - uses: jocelynthode/statix-action@master
         with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
           commiter: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
           commit_message: "chore: Lint Nix code"
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
