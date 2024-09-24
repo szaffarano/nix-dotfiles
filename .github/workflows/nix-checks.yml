@@ -16,6 +16,8 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
+          commiter: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
+          commit_message: "chore: Remove dead code"
   statix:
     name: Statix
     runs-on: ubuntu-latest
@@ -29,3 +31,5 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           author: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
+          commiter: "Sebastián Zaffarano <sebas@zaffarano.com.ar>"
+          commit_message: "chore: Lint Nix code"
