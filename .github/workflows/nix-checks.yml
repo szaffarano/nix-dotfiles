@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.0
-      - uses: cachix/install-nix-action@v27
+      - uses: cachix/install-nix-action@v29
       - uses: cachix/cachix-action@v15
         with:
           name: deadnix
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.0
-      - uses: cachix/install-nix-action@v27
+      - uses: cachix/install-nix-action@v29
       - uses: cachix/cachix-action@v15
         with:
           name: statix
