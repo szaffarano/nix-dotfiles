@@ -5,6 +5,25 @@
 
   neovim = inputs.neovim-nightly.overlays.default;
 
+  # https://github.com/danyspin97/wpaperd/issues/79
+  paperd = _final: prev: {
+    wpaperd = prev.wpaperd.overrideAttrs (old: rec {
+      version = "1.0.2-dev";
+      src = prev.fetchFromGitHub {
+        owner = "danyspin97";
+        repo = "wpaperd";
+        rev = "62af4392f3e447592f768f5420821a344d190107";
+        hash = "sha256-6ThcLPPfdEDtAEX91WIa6zf8piPIqRvdG68+m3JWXvM=";
+      };
+      cargoDeps = old.cargoDeps.overrideAttrs (
+        prev.lib.const {
+          inherit src;
+          outputHash = "sha256-+C1kclLFjQPIJmN2+YLL5/xToZjcX0wom63R2VhjPtA=";
+        }
+      );
+    });
+  };
+
   # https://github.com/hyprwm/Hyprland/issues/7059
   hyprutils = _final: prev: {
     hyprutils = prev.hyprutils.overrideAttrs (old: rec {

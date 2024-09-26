@@ -37,7 +37,7 @@ with lib;
           mode = "fit";
           sorting = "random";
           path = "${config.home.homeDirectory}/Pictures/wallpapers";
-          queue_size = 30;
+          queue-size = 30;
         };
       };
     };
