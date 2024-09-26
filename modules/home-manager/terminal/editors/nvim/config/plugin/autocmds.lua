@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'latex',
     'markdown',
     'org',
+    'norg',
   },
   command = 'setlocal spell spelllang=en,es',
 })
