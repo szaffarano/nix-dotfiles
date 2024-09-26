@@ -13,19 +13,40 @@ return {
     { 'nvim-neorg/neorg-telescope', 'pysan3/neorg-templates', dependencies = { 'L3MON4D3/LuaSnip' } },
   },
   keys = {
-    { '<localleader>J', '<Plug>(neorg.treesitter.next.heading)', desc = 'Neorg next link' },
-    { '<localleader>K', '<Plug>(neorg.treesitter.previous.heading)', desc = 'Neorg previous link' },
-    { '<localleader>j', '<Plug>(neorg.treesitter.next.link)', desc = 'Neorg next link' },
-    { '<localleader>k', '<Plug>(neorg.treesitter.previous.link)', desc = 'Neorg previous link' },
-    { '<localleader>ns', '<Plug>(neorg.telescope.search_headings)', desc = 'Neorg search headings' },
-    { '<localleader>nf', '<Plug>(neorg.telescope.find_norg_files)', desc = 'Neorg find files' },
-    { '<leader>ni', '<Cmd>Neorg index<cr>', desc = 'Neorg index' },
-    { '<leader>nt', '<Cmd>Neorg journal today<cr>', desc = 'Neorg journal today' },
+    { '<localleader>J', '<Plug>(neorg.treesitter.next.heading)', desc = '[N]eorg next heading' },
+    { '<localleader>K', '<Plug>(neorg.treesitter.previous.heading)', desc = '[N]eorg previous heading' },
+    { '<localleader>j', '<Plug>(neorg.treesitter.next.link)', desc = '[N]eorg next link' },
+    { '<localleader>k', '<Plug>(neorg.treesitter.previous.link)', desc = '[N]eorg previous link' },
+    { '<localleader>ns', '<Plug>(neorg.telescope.search_headings)', desc = '[N]eorg [S]earch Headings' },
+    { '<localleader>nf', '<Plug>(neorg.telescope.find_norg_files)', desc = '[N]eorg [F]ind Files' },
+    { '<leader>ni', '<Cmd>Neorg index<cr>', desc = '[N]eorg [I]ndex' },
+    { '<leader>njj', '<Cmd>Neorg journal today<cr>', desc = '[N]eorg [J]ournal today' },
+    { '<leader>njy', '<Cmd>Neorg journal yesterday<cr>', desc = 'Neorg [J]ournal [Y]esterday' },
+    { '<leader>njt', '<Cmd>Neorg journal tomorrow<cr>', desc = 'Neorg [J]ournal [T]omorrow' },
   },
   opts = {
     load = {
       ['core.completion'] = { config = { engine = 'nvim-cmp' } },
-      ['core.concealer'] = { config = { icon_preset = 'diamond', icons = { code_block = { spell_check = false } } } },
+      ['core.concealer'] = {
+        config = {
+          icon_preset = 'diamond',
+          icons = {
+            code_block = {
+              spell_check = false,
+              content_only = false,
+              width = 'fullwidth',
+              nodes = { 'ranged_verbatim_tag' },
+              highlight = 'CursorLine',
+              insert_enabled = true,
+            },
+            delimiter = {
+              horizontal_line = {
+                highlight = '@neorg.delimiters.horizontal_line',
+              },
+            },
+          },
+        },
+      },
       ['core.defaults'] = {},
       ['core.dirman'] = { config = { workspaces = { notes = '~/Documents/neorg' }, default_workspace = 'notes' } },
       ['core.journal'] = { config = { strategy = 'nested' } },
@@ -37,6 +58,11 @@ return {
           default_subcommand = 'load',
 
           keywords = {
+            TODAY_OF_FILETREE_LONG = function()
+              local ls, m = imports()
+              return ls.text_node(m.parse_date(0, m.file_tree_date(), [[%A, %Y-%m-%d]]))
+            end,
+
             TODAY_OF_FILE_ORG = function() -- detect date from filename and return in org date format
               local ls, m = imports()
               return ls.text_node(m.parse_date(0, m.file_tree_date(), [[<%Y-%m-%d %a>]])) -- <2006-11-01 Wed>
