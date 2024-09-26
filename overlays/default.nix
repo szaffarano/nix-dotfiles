@@ -5,6 +5,54 @@
 
   neovim = inputs.neovim-nightly.overlays.default;
 
+  # https://github.com/danyspin97/wpaperd/issues/79
+  paperd = _final: prev: {
+    wpaperd = prev.wpaperd.overrideAttrs (old: rec {
+      version = "1.0.2-dev";
+      src = prev.fetchFromGitHub {
+        owner = "danyspin97";
+        repo = "wpaperd";
+        rev = "62af4392f3e447592f768f5420821a344d190107";
+        hash = "sha256-6ThcLPPfdEDtAEX91WIa6zf8piPIqRvdG68+m3JWXvM=";
+      };
+      cargoDeps = old.cargoDeps.overrideAttrs (
+        prev.lib.const {
+          inherit src;
+          outputHash = "sha256-+C1kclLFjQPIJmN2+YLL5/xToZjcX0wom63R2VhjPtA=";
+        }
+      );
+    });
+  };
+
+  # https://github.com/hyprwm/Hyprland/issues/7059
+  hyprutils = _final: prev: {
+    hyprutils = prev.hyprutils.overrideAttrs (old: rec {
+      version = "0.2.3";
+      src = prev.fetchFromGitHub {
+        owner = "hyprwm";
+        repo = "hyprutils";
+        rev = "refs/tags/v${version}";
+        hash = "sha256-9gsVvcxW9bM3HMcnHHK+vYHOzXb1ODFqN+sJ4zIRsAU=";
+      };
+    });
+  };
+  hyprland = _final: prev: {
+    hyprland = prev.hyprland.overrideAttrs (old: {
+      version = "0.44.0-dev";
+      src = prev.fetchFromGitHub {
+        owner = "hyprwm";
+        repo = "Hyprland";
+        fetchSubmodules = true;
+        rev = "caaa9b11e4763ed0367f81bf97ceaad5175806fc";
+        hash = "sha256-UOMbqaP2YO1xK8uVuAJ04HYQfPnS7XPbedca9rJo/Xc=";
+      };
+      patches = [
+        ./stdcxx.patch
+        ./cmake-version.patch
+      ];
+    });
+  };
+
   # https://github.com/librespot-org/librespot/pull/1309
   # to use the oauth feature
   librespot = _final: prev: {
