@@ -14,6 +14,7 @@ with lib;
     ./kanshi
     ./mako
     ./rofi
+    ./shikane
     ./swayidle
     ./swaylock
     ./swaync
@@ -29,7 +30,8 @@ with lib;
       wofi.enable = lib.mkDefault true;
       rofi.enable = lib.mkDefault true;
       waybar.enable = lib.mkDefault true;
-      kanshi.enable = lib.mkDefault true;
+      kanshi.enable = lib.mkDefault false;
+      shikane.enable = lib.mkDefault true;
 
       compositors = {
         enable = lib.mkDefault true;
