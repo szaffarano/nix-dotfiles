@@ -19,7 +19,7 @@ let
   gpgKeys = builtins.readFile (
     pkgs.fetchurl {
       url = "https://api.github.com/users/szaffarano/gpg_keys";
-      hash = "sha256-m1cJvSno+jIDvdimLV1I2kpY02661nVZaTF/DMtr+DU=";
+      hash = "sha256-6drqcf2yREpDGNySzAxIouqdGv3P8HBP7T7NKhb+oM4=";
     }
   );
 
