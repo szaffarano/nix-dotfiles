@@ -26,7 +26,7 @@
 
   # https://github.com/hyprwm/Hyprland/issues/7059
   hyprutils = _final: prev: {
-    hyprutils = prev.hyprutils.overrideAttrs (old: rec {
+    hyprutils = prev.hyprutils.overrideAttrs (_old: rec {
       version = "0.2.3";
       src = prev.fetchFromGitHub {
         owner = "hyprwm";
@@ -37,7 +37,7 @@
     });
   };
   hyprland = _final: prev: {
-    hyprland = prev.hyprland.overrideAttrs (old: {
+    hyprland = prev.hyprland.overrideAttrs (_old: {
       version = "0.44.0-dev";
       src = prev.fetchFromGitHub {
         owner = "hyprwm";
