@@ -27,3 +27,20 @@ exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""
     scale = 1.0
     transform = "normal"
     adaptive_sync = false
+
+[[profile]]
+name = "docker-home-cb"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+    [[profile.output]]
+    enable = false
+    search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
+
+    [[profile.output]]
+    enable = true
+    search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+    mode = "2560x1440@59.951Hz"
+    position = "1920,0"
+    scale = 1.0
+    transform = "normal"
+    adaptive_sync = false
