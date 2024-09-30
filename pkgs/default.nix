@@ -20,6 +20,7 @@ let
     flameshot-grim = callPackage ./flameshot { };
     lock-screen = callPackage ./lock-screen { };
     sync-lid = callPackage ./sync-lid { };
+    resurrect-hyprlock = callPackage ./resurrect-hyprlock { };
     toggle-hyprland-scratchpad = callPackage ./toggle-hyprland-scratchpad { };
     toggle-sway-scratchpad = callPackage ./toggle-sway-scratchpad { };
     wallpaper = callPackage ./wallpaper { };

@@ -42,7 +42,10 @@ with lib;
 
     desktop.wayland.swaync.enable = true;
 
-    home.packages = with pkgs; [ hyprpicker ];
+    home.packages = with pkgs; [
+      hyprpicker
+      resurrect-hyprlock
+    ];
 
     home.sessionVariables = {
       XCURSOR_SIZE = 16;
