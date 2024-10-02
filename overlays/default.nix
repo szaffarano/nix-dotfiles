@@ -43,8 +43,8 @@
         owner = "hyprwm";
         repo = "Hyprland";
         fetchSubmodules = true;
-        rev = "caaa9b11e4763ed0367f81bf97ceaad5175806fc";
-        hash = "sha256-UOMbqaP2YO1xK8uVuAJ04HYQfPnS7XPbedca9rJo/Xc=";
+        rev = "e2426942e5716a742ea353d2a1de7d7760fbbb41";
+        hash = "sha256-ZRYHQ/ZduCPxthuCFDYSDjKoSReYZy95rSm6ut8l/qE=";
       };
       patches = [
         ./stdcxx.patch
@@ -62,14 +62,14 @@
       src = prev.fetchFromGitHub {
         owner = "librespot-org";
         repo = pname;
-        rev = "67d31959f5125d3fe5fab5e6e95436a01bb3cef6";
-        hash = "sha256-Obm2qPp09dPX7NvRaYiJ91MQM9plyLYXrDSGOD82PKQ=";
+        rev = "3781a089a69ce9883a299dfd191d90c9a5348819";
+        hash = "sha256-1ABtD/bYc0PHEYQLKG5HQgM+g5h680PFddLgafoh7Kc=";
       };
 
       cargoDeps = old.cargoDeps.overrideAttrs (
         prev.lib.const {
           inherit src;
-          outputHash = "sha256-oubHfcQkSzWub91uqKLTrJW9ZNFrzT37UHnN2KNogX0=";
+          outputHash = "sha256-hFARKItpBZb07Dqw0V4Xf9TpBUJ9duT6on7qwZR34b0=";
         }
       );
     });
@@ -83,8 +83,8 @@
       src = prev.fetchFromGitHub {
         owner = "aome510";
         repo = pname;
-        rev = "9c47701cd6adc45c2d61721ccbdfae54ba67a523";
-        hash = "sha256-FLOM8RKm8lWSqZSZm4nJwIJm/zbDQ8A7FoR7AJ+tkpc=";
+        rev = "b202385153a80b3e9410f4fcb91b541e41f4136e";
+        hash = "sha256-O17czRq0YAvAB/c/3cKjIntHRYHLB9a8v6Cl/dC4HTc=";
       };
 
       patches = old.patches or [ ] ++ [
