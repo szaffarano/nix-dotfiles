@@ -13,6 +13,7 @@ with lib;
     ./ocaml
     ./asm
     ./mise
+    ./zig
   ];
 
   options.develop.enable = mkEnableOption "development tools";

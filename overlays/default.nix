@@ -5,6 +5,8 @@
 
   neovim = inputs.neovim-nightly.overlays.default;
 
+  zig = inputs.zig.overlays.default;
+
   # https://github.com/danyspin97/wpaperd/issues/79
   paperd = _final: prev: {
     wpaperd = prev.wpaperd.overrideAttrs (old: rec {

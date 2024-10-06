@@ -10,9 +10,10 @@ _: {
   programs.nix-index.enable = true;
   develop = {
     enable = true;
+    asm.enable = true;
     idea.enable = false;
     ocaml.enable = false;
-    asm.enable = true;
+    zig.enable = true;
   };
 
   terminal.zsh = {
