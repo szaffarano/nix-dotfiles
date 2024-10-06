@@ -30,6 +30,8 @@
       };
     };
 
+    zig.url = "github:mitchellh/zig-overlay";
+
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {

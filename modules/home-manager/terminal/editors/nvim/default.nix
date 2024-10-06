@@ -109,6 +109,7 @@ in
       # TODO: uncomment when the package is fixed vscode-langservers-extracted
       yaml-language-server
       vscode-langservers-extracted
+      zls
 
       # debug
       delve

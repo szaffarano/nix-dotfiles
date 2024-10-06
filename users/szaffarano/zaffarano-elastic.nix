@@ -38,12 +38,13 @@
   programs.nix-index.enable = true;
   develop = {
     enable = true;
+    asm.enable = true;
     idea = {
       enable = true;
       ultimate = true;
     };
     ocaml.enable = true;
-    asm.enable = true;
+    zig.enable = true;
   };
 
   terminal.zsh = {
