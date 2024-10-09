@@ -27,26 +27,15 @@
   };
 
   # https://github.com/hyprwm/Hyprland/issues/7059
-  hyprutils = _final: prev: {
-    hyprutils = prev.hyprutils.overrideAttrs (_old: rec {
-      version = "0.2.3";
-      src = prev.fetchFromGitHub {
-        owner = "hyprwm";
-        repo = "hyprutils";
-        rev = "refs/tags/v${version}";
-        hash = "sha256-9gsVvcxW9bM3HMcnHHK+vYHOzXb1ODFqN+sJ4zIRsAU=";
-      };
-    });
-  };
   hyprland = _final: prev: {
     hyprland = prev.hyprland.overrideAttrs (_old: {
-      version = "0.44.0-dev";
+      version = "0.44.1";
       src = prev.fetchFromGitHub {
         owner = "hyprwm";
         repo = "Hyprland";
         fetchSubmodules = true;
-        rev = "e2426942e5716a742ea353d2a1de7d7760fbbb41";
-        hash = "sha256-ZRYHQ/ZduCPxthuCFDYSDjKoSReYZy95rSm6ut8l/qE=";
+        rev = "v0.44.1";
+        hash = "sha256-hnoPoxMFetuoXQuAMgvopl1kCRQ33FYaVVBgV9FIFkM=";
       };
       patches = [
         ./stdcxx.patch
@@ -72,34 +61,6 @@
         prev.lib.const {
           inherit src;
           outputHash = "sha256-hFARKItpBZb07Dqw0V4Xf9TpBUJ9duT6on7qwZR34b0=";
-        }
-      );
-    });
-  };
-
-  spotify-player = final: prev: {
-    spotify-player = prev.spotify-player.overrideAttrs (old: rec {
-      pname = "spotify-player";
-      version = "0.19.2-dev";
-
-      src = prev.fetchFromGitHub {
-        owner = "aome510";
-        repo = pname;
-        rev = "b202385153a80b3e9410f4fcb91b541e41f4136e";
-        hash = "sha256-O17czRq0YAvAB/c/3cKjIntHRYHLB9a8v6Cl/dC4HTc=";
-      };
-
-      patches = old.patches or [ ] ++ [
-        (final.fetchpatch {
-          url = "https://github.com/aome510/spotify-player/pull/552.patch";
-          hash = "sha256-hzdB7GOgE6ncbm5AnkNpBNCZ6QlJ6zlUxSYB/Jc03do=";
-        })
-      ];
-
-      cargoDeps = old.cargoDeps.overrideAttrs (
-        prev.lib.const {
-          inherit src patches;
-          outputHash = "sha256-xM1RXLe1uu4ZpldJ1tCb5JowpjKqpvHvUWVWts7PSZg=";
         }
       );
     });
