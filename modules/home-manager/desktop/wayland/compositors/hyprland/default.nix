@@ -1,5 +1,4 @@
 { config
-, inputs
 , lib
 , pkgs
 , theme
@@ -27,7 +26,7 @@ with lib;
     xdg.portal =
       let
         hyprland = config.wayland.windowManager.hyprland.package;
-        xdph = inputs.nixpkgs-xdph.legacyPackages.${pkgs.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        xdph = pkgs.xdg-desktop-portal-hyprland;
         wlr = pkgs.xdg-desktop-portal-wlr;
       in
       {
