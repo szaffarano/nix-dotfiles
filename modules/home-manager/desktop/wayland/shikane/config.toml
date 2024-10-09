@@ -16,20 +16,7 @@ exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""
     adaptive_sync = false
 
 [[profile]]
-name = "undocked"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
-
-    [[profile.output]]
-    enable = true
-    search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
-    mode = "1920x1080@60.002Hz"
-    position = "0,0"
-    scale = 1.0
-    transform = "normal"
-    adaptive_sync = false
-
-[[profile]]
-name = "docker-home-cb"
+name = "docked-home-cb"
 exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
 
     [[profile.output]]
@@ -53,6 +40,19 @@ exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""
     enable = true
     search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
     mode = "1920x1080@60.008Hz"
+    position = "0,0"
+    scale = 1.0
+    transform = "normal"
+    adaptive_sync = false
+
+[[profile]]
+name = "undocked-sw"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+    [[profile.output]]
+    enable = true
+    search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
+    mode = "1920x1080@48.001Hz"
     position = "0,0"
     scale = 1.0
     transform = "normal"
