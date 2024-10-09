@@ -19,3 +19,13 @@ vim.api.nvim_create_autocmd('FileType', {
   },
   command = 'setlocal spell spelllang=en,es',
 })
+
+-- Orgmode
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'org',
+  callback = function()
+    vim.keymap.set('i', '<A-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+      buffer = true,
+    })
+  end,
+})
