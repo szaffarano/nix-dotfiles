@@ -5,7 +5,7 @@
 }:
 let
   cfg = config.desktop.wayland.shikane;
-  shikaneCmd = lib.getExe pkgs.shikane;
+  shikaneCmd = "sleep 5 && ${lib.getExe pkgs.shikane}";
 in
 with lib;
 {

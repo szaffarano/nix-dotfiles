@@ -2,58 +2,50 @@
 name = "docked-home-sw"
 exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
 
-    [[profile.output]]
-    enable = false
-    search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
+[[profile.output]]
+enable = false
+search = ["m=0x152E", "v=Chimei Innolux Corporation"]
 
-    [[profile.output]]
-    enable = true
-    search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
-    mode = "2560x1440@59.951Hz"
-    position = "1920,0"
-    scale = 1.0
-    transform = "normal"
-    adaptive_sync = false
-
-[[profile]]
-name = "docked-home-cb"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
-
-    [[profile.output]]
-    enable = false
-    search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
-
-    [[profile.output]]
-    enable = true
-    search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
-    mode = "2560x1440@59.951Hz"
-    position = "1920,0"
-    scale = 1.0
-    transform = "normal"
-    adaptive_sync = false
-
-[[profile]]
-name = "undocked-cb"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
-
-    [[profile.output]]
-    enable = true
-    search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
-    mode = "1920x1080@60.008Hz"
-    position = "0,0"
-    scale = 1.0
-    transform = "normal"
-    adaptive_sync = false
+[[profile.output]]
+enable = true
+search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+mode = "2560x1440"
+position = "0,0"
+scale = 1.0
 
 [[profile]]
 name = "undocked-sw"
 exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
 
-    [[profile.output]]
-    enable = true
-    search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
-    mode = "1920x1080@48.001Hz"
-    position = "0,0"
-    scale = 1.0
-    transform = "normal"
-    adaptive_sync = false
+[[profile.output]]
+enable = true
+search = ["m=0x152E", "v=Chimei Innolux Corporation"]
+mode = "best"
+position = "0,0"
+scale = 1.0
+
+[[profile]]
+name = "docked-home-cb"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+[[profile.output]]
+enable = false
+search = ["m=0x14E5", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+mode = "2560x1440@59.951Hz"
+position = "0,0"
+scale = 1.0
+
+[[profile]]
+name = "undocked-cb"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+[[profile.output]]
+enable = true
+search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
+mode = "best"
+position = "0,0"
+scale = 1.0
