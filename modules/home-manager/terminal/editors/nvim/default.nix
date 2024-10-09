@@ -58,11 +58,6 @@ in
         source = rustSnippets;
       };
 
-      "nvim/templates" = {
-        source = ./templates;
-        recursive = true;
-      };
-
       "nvim/treesitter-parsers" = {
         source = treesitter-parsers;
       };

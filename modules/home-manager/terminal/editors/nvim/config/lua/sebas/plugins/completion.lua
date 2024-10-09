@@ -78,7 +78,6 @@ return { -- Autocompletion
         },
         sources = {
           { name = 'nvim_lsp' },
-          { name = 'neorg' },
           { name = 'codeium' },
           { name = 'luasnip' },
           { name = 'path' },
