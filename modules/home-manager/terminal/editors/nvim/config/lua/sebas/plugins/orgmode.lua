@@ -9,16 +9,14 @@ return {
     config = function()
       require('orgmode').setup {
         org_agenda_files = org_base_path .. '/**/*',
-        org_agenda_skip_deadline_if_done = false,
-        org_agenda_skip_scheduled_if_done = false,
 
         org_id_link_to_org_use_id = true,
 
-        org_default_notes_file = org_base_path .. '/refile.org',
+        org_default_notes_file = org_base_path .. '/captures/refile.org',
         org_log_into_drawer = 'LOGBOOK',
-        org_tags_column = 100,
+        org_tags_column = -100,
 
-        org_deadline_warning_days = 60,
+        org_deadline_warning_days = 7,
 
         org_todo_keywords = { 'TODO(t)', 'PROGRESS(p)', '|', 'DONE(d)', 'REJECTED(r)' },
 
@@ -40,7 +38,7 @@ return {
           t = {
             description = 'Todo',
             template = '* TODO %? :triage:personal:\n  SCHEDULED: %T',
-            target = org_base_path .. '/todos.org',
+            target = org_base_path .. '/captures/todos.org',
             headline = 'Inbox',
             datetree = {
               tree_type = 'week',
@@ -50,7 +48,7 @@ return {
           w = {
             description = 'Work todo',
             template = '* TODO %?  :triage:work: \n  SCHEDULED: %T',
-            target = org_base_path .. '/work.org',
+            target = org_base_path .. '/captures/work.org',
             headline = 'Inbox',
             datetree = {
               tree_type = 'week',
@@ -60,7 +58,7 @@ return {
           j = {
             description = 'Journal',
             template = '\n*** %U\n    %?',
-            target = org_base_path .. '/journal.org',
+            target = org_base_path .. '/captures/journal.org',
             datetree = {
               tree_type = 'week',
               reversed = true,
@@ -78,11 +76,27 @@ return {
         },
       }
       require('org-bullets').setup {
-        concealcursor = true,
+        concealcursor = false,
       }
     end,
   },
   {
     'nvim-orgmode/orgmode',
+  },
+  {
+    'chipsenkbeil/org-roam.nvim',
+    dependencies = {
+      {
+        'nvim-orgmode/orgmode',
+      },
+    },
+    config = function()
+      require('org-roam').setup {
+        directory = org_base_path .. '/roam',
+        org_files = {
+          org_base_path,
+        },
+      }
+    end,
   },
 }
