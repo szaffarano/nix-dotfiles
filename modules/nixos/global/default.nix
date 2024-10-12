@@ -41,6 +41,7 @@
     };
 
     environment.systemPackages = with pkgs; [
+      linuxKernel.packages.linux_zen.perf
       cachix
       curl
       e2fsprogs

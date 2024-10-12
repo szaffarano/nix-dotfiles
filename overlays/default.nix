@@ -27,22 +27,22 @@
   };
 
   # https://github.com/hyprwm/Hyprland/issues/7059
-  hyprland = _final: prev: {
-    hyprland = prev.hyprland.overrideAttrs (_old: {
-      version = "0.44.1";
-      src = prev.fetchFromGitHub {
-        owner = "hyprwm";
-        repo = "Hyprland";
-        fetchSubmodules = true;
-        rev = "v0.44.1";
-        hash = "sha256-hnoPoxMFetuoXQuAMgvopl1kCRQ33FYaVVBgV9FIFkM=";
-      };
-      patches = [
-        ./stdcxx.patch
-        ./cmake-version.patch
-      ];
-    });
-  };
+  # hyprland = _final: prev: {
+  #   hyprland = prev.hyprland.overrideAttrs (_old: {
+  #     version = "0.44.1";
+  #     src = prev.fetchFromGitHub {
+  #       owner = "hyprwm";
+  #       repo = "Hyprland";
+  #       fetchSubmodules = true;
+  #       rev = "v0.44.1";
+  #       hash = "sha256-hnoPoxMFetuoXQuAMgvopl1kCRQ33FYaVVBgV9FIFkM=";
+  #     };
+  #     patches = [
+  #       ./stdcxx.patch
+  #       ./cmake-version.patch
+  #     ];
+  #   });
+  # };
 
   # https://github.com/librespot-org/librespot/pull/1309
   # to use the oauth feature
@@ -72,7 +72,7 @@
         # see https://github.com/bugaevc/wl-clipboard/issues/177
         ./wl-copy.patch
         (final.fetchpatch {
-          url = "https://github.com/bugaevc/wl-clipboard/pull/204.patch";
+          url = "ttps://github.com/bugaevc/wl-clipboard/pull/204.patch";
           hash = "sha256-6rljcv5yXzQeCUO6IoP1irM0qUEVgmQ+UA6vcJOYeFs=";
         })
       ];
