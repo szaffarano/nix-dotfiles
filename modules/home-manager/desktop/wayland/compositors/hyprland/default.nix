@@ -149,6 +149,8 @@ with lib;
           focus_on_activate = true;
           new_window_takes_over_fullscreen = 2;
           background_color = rgb scheme.base00;
+          disable_hyprland_logo = true;
+          force_default_wallpaper = 0;
         };
 
         binds = {
