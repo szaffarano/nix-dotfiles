@@ -5,10 +5,11 @@ return {
       trigger_events = {
         immediate_save = {},
         defer_save = { 'FocusLost' },
-        cancel_defered_save = {},
+        cancel_deferred_save = {},
       },
       write_all_buffers = true,
       debounce_delay = 500,
+      noautocmd = true,
     }
   end,
 }
