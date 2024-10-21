@@ -4,7 +4,7 @@ let
 in
 {
   default = pkgs.mkShell {
-    NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+    NIX_CONFIG = "extra-experimental-features = nix-command flakes";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
     nativeBuildInputs = with pkgs; [

@@ -24,10 +24,10 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      anki
+      # anki
 
       # books
-      calibre
+      # calibre
       foliate
       koodo-reader
 
