@@ -69,7 +69,6 @@
       nix-index-database.comma.enable = true;
       nix-ld = {
         enable = true;
-        package = pkgs.inputs.nix-ld-rs.nix-ld-rs;
         libraries = with pkgs; [
           alsa-lib
           at-spi2-core

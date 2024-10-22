@@ -37,8 +37,6 @@
       };
     };
 
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,11 +61,6 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-    };
-
-    nix-ld-rs = {
-      url = "github:nix-community/nix-ld-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # themes
