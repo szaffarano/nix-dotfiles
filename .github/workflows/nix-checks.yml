@@ -7,7 +7,7 @@ jobs:
     name: Deadnix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
       - uses: cachix/install-nix-action@v30
       - uses: cachix/cachix-action@v15
         with:
@@ -22,7 +22,7 @@ jobs:
     name: Statix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
       - uses: cachix/install-nix-action@v30
       - uses: cachix/cachix-action@v15
         with:
