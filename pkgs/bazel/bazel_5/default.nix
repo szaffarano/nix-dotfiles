@@ -11,7 +11,7 @@
 , # this package (through the fixpoint glass)
   bazel_self
 , # needed only for the updater
-  bazel_4
+  bazel_5
 , lr
 , xe
 , zip
@@ -435,7 +435,7 @@ stdenv.mkDerivation rec {
     #!${runtimeShell}
     (cd "${src_for_updater}" &&
         BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 \
-        "${bazel_4}"/bin/bazel \
+        "${bazel_5}"/bin/bazel \
             query 'kind(http_archive, //external:all) + kind(http_file, //external:all) + kind(distdir_tar, //external:all) + kind(git_repository, //external:all)' \
             --loading_phase_threads=1 \
             --output build) \
