@@ -17,6 +17,7 @@ in
       nix
       openssl
       matugen
+      paper-age
       pkg-config
       sops
       ssh-to-age
