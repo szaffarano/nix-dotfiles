@@ -18,6 +18,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/9cbcd62ada85e015e8117bd7e901bf40b6c767bc";
+    # until https://github.com/NixOS/nixpkgs/pull/350153 is on nixos-unstable
+    nixpkgs-ccid.url = "github:nixos/nixpkgs/c0f38631ae0abb79f3b8f9ebe67ccd078f18b8e6";
 
     hardware.url = "github:nixos/nixos-hardware";
 
