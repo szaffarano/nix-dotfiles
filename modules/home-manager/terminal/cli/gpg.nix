@@ -1,4 +1,5 @@
 { config
+, osConfig
 , lib
 , pkgs
 , ...
@@ -45,7 +46,7 @@ with lib;
       };
 
       programs.gpg = mkIf config.programs.gpg.enable {
-        scdaemonSettings = {
+        scdaemonSettings = lib.mkIf osConfig.services.pcscd.enable {
           disable-ccid = true;
         };
         settings = {

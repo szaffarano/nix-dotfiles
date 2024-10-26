@@ -10,5 +10,6 @@
     ./sway.nix
     ./syncthing.nix
     ./virtualisation.nix
+    ./yubikey.nix
   ];
 }

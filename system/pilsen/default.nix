@@ -55,6 +55,7 @@ in
       "sway"
       "syncthing"
       "virtualisation"
+      "yubikey"
     ];
   };
   services.greetd.enable = false;

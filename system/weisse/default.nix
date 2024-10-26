@@ -47,6 +47,7 @@ in
       "quietboot"
       "sensible"
       "syncthing"
+      "yubikey"
     ];
   };
 

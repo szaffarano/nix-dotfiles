@@ -59,6 +59,7 @@ in
       "sensible"
       "syncthing"
       "virtualisation"
+      "yubikey"
     ];
   };
   services.greetd.enable = false;
