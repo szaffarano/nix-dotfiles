@@ -29,6 +29,7 @@ with lib;
       services.gpg-agent = mkIf config.programs.gpg.enable {
         enable = true;
         enableSshSupport = true;
+        enableScDaemon = true;
         pinentryPackage = pkgs.pinentry-qt;
 
         defaultCacheTtl = 28800;
@@ -44,6 +45,9 @@ with lib;
       };
 
       programs.gpg = mkIf config.programs.gpg.enable {
+        scdaemonSettings = {
+          disable-ccid = true;
+        };
         settings = {
           keyserver = "hkps://keys.openpgp.org";
           personal-cipher-preferences = "AES256 AES192 AES";
