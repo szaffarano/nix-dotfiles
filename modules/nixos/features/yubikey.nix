@@ -28,6 +28,7 @@ in
       lib.mkIf enabled [
         pcsc-tools
         yubikey-personalization
+        yubikey-personalization-gui
       ];
 
     nixos.custom.features.register = feature_name;
