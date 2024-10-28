@@ -1,9 +1,13 @@
-{ config, lib, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 {
   config = lib.mkIf config.hardware.graphics.enable {
     hardware = {
       graphics = {
-        enable32Bit = lib.mkDefault true;
+        enable32Bit = lib.mkDefault (pkgs.hostPlatform == "x86_64-linux");
       };
     };
   };
