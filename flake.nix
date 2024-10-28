@@ -83,12 +83,17 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
+
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
   };
 
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       inherit (self) outputs;
       inherit (nixpkgs) lib;
@@ -144,6 +149,15 @@
         pilsen = nixpkgs.lib.nixosSystem {
           modules = [ "${self}/system/pilsen" ];
           inherit specialArgs;
+        };
+
+        lambic = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          inherit specialArgs;
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            "${self}/system/lambic"
+          ];
         };
       };
 
