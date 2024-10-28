@@ -2,8 +2,10 @@
   imports = [
     ./desktop.nix
     ./elastic-endpoint.nix
+    ./home-manager.nix
     ./hyprland.nix
     ./laptop.nix
+    ./nix-ld.nix
     ./ollama.nix
     ./quietboot.nix
     ./sensible.nix
