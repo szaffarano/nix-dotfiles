@@ -132,8 +132,8 @@ with lib;
           kb_layout = "us,us";
           kb_variant = "altgr-intl,dvorak";
           kb_options = "grp:rctrl_ralt_toggle";
-          repeat_rate = 25;
-          repeat_delay = 250;
+          repeat_rate = 20;
+          repeat_delay = 350;
 
           follow_mouse = 0;
 
