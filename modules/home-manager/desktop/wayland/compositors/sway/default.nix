@@ -25,10 +25,11 @@ with lib;
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
       orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
 
-      text = config.scheme.base05;
-      urgent = config.scheme.base08;
-      focused = config.scheme.base0A;
-      unfocused = config.scheme.base03;
+      colors = config.colorScheme.palette;
+      text = colors.base05;
+      urgent = colors.base08;
+      focused = colors.base0A;
+      unfocused = colors.base03;
     in
     mkIf cfg.enable {
       desktop = {
@@ -135,7 +136,7 @@ with lib;
 
           output = {
             # TODO stopped working
-            "*".bg = "${config.scheme.withHashtag.base01} solid_color";
+            "*".bg = "#${colors.base01} solid_color";
 
             HDMI-A-1 = {
               scale = "1";
@@ -323,8 +324,8 @@ with lib;
           };
           colors =
             let
-              background = config.scheme.base00;
-              indicator = config.scheme.base0B;
+              background = colors.base00;
+              indicator = colors.base0B;
             in
             {
               inherit background;

@@ -59,27 +59,31 @@
         enable = true;
       };
 
-      fzf = {
-        enable = true;
-        enableZshIntegration = true;
-        changeDirWidgetCommand = "fd --type d";
-        fileWidgetCommand = "fd --type f";
+      fzf =
+        let
+          withHash = v: "#${v}";
+        in
+        {
+          enable = true;
+          enableZshIntegration = true;
+          changeDirWidgetCommand = "fd --type d";
+          fileWidgetCommand = "fd --type f";
 
-        colors = with config.scheme.withHashtag; {
-          "bg+" = base01;
-          bg = base00;
-          spinner = base0C;
-          hl = base0D;
-          fg = base04;
-          header = base0D;
-          info = base0A;
-          pointer = base0C;
-          marker = base0C;
-          "fg+" = base06;
-          prompt = base0A;
-          "hl+" = base0D;
+          colors = with config.colorScheme.palette; {
+            "bg+" = withHash base01;
+            bg = withHash base00;
+            spinner = withHash base0C;
+            hl = withHash base0D;
+            fg = withHash base04;
+            header = withHash base0D;
+            info = withHash base0A;
+            pointer = withHash base0C;
+            marker = withHash base0C;
+            "fg+" = withHash base06;
+            prompt = withHash base0A;
+            "hl+" = withHash base0D;
+          };
         };
-      };
 
       ripgrep = {
         enable = true;
@@ -92,7 +96,7 @@
       };
 
       yazi = {
-        enable = true;
+        enable = false;
         enableZshIntegration = true;
       };
 

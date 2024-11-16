@@ -1,5 +1,4 @@
 { config
-, inputs
 , lib
 , pkgs
 , ...
@@ -14,8 +13,8 @@ in
     services = lib.mkIf enabled {
       pcscd = {
         enable = true;
-        plugins = [
-          inputs.nixpkgs-ccid.legacyPackages.${pkgs.hostPlatform.system}.ccid
+        plugins = with pkgs; [
+          ccid
         ];
       };
       udev.packages = with pkgs; [
@@ -27,8 +26,6 @@ in
       with pkgs;
       lib.mkIf enabled [
         pcsc-tools
-        yubikey-personalization
-        yubikey-personalization-gui
       ];
 
     nixos.custom.features.register = feature_name;

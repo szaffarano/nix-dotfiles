@@ -13,9 +13,10 @@ with lib;
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       age-plugin-yubikey
+      yubico-piv-tool
       yubikey-manager
       yubikey-personalization
-      yubico-piv-tool
+      yubikey-personalization-gui
     ];
   };
 }

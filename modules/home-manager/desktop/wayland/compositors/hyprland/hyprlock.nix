@@ -5,7 +5,6 @@
 , ...
 }:
 let
-  inherit (config) scheme;
   cfg = config.desktop.wayland.compositors.hyprland;
   rgb = color: "rgb(${color})";
   rgba = color: alpha: "rgba(${color}${alpha})";
@@ -29,16 +28,16 @@ with lib;
 
           size = "200, 30";
 
-          outer_color = rgb scheme.base0A;
-          inner_color = rgb scheme.base00;
-          font_color = rgb scheme.base06;
+          outer_color = rgb config.colorScheme.palette.base0A;
+          inner_color = rgb config.colorScheme.palette.base00;
+          font_color = rgb config.colorScheme.palette.base06;
 
           dots_size = "0.20";
           dots_spacing = "0.1";
         };
 
         label = {
-          color = rgba scheme.base0A "1.0";
+          color = rgba config.colorScheme.palette.base0A "1.0";
           position = "0, 20";
           font_family = config.fontProfiles.monospace.name;
           font_size = config.fontProfiles.monospace.sizeAsInt * 3;

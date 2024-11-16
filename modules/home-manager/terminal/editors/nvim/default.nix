@@ -1,7 +1,5 @@
 # TODO: parameterize to enable or disable the module
 { pkgs
-, inputs
-, config
 , ...
 }:
 let
@@ -34,23 +32,14 @@ in
     withNodeJs = false;
     withPython3 = false;
     package = pkgs.neovim-unwrapped;
-    plugins = [
-      (pkgs.vimPlugins.base16-vim.overrideAttrs (
-        _:
-        let
-          schemeFile = config.scheme inputs.base16-vim;
-        in
-        {
-          patchPhase = ''cp ${schemeFile} colors/base16-scheme.vim'';
-        }
-      ))
-    ];
   };
 
   xdg = {
-    configFile.nvim = {
-      source = ./config;
-      recursive = true;
+    configFile = {
+      "nvim" = {
+        source = ./config;
+        recursive = true;
+      };
     };
 
     dataFile = {
