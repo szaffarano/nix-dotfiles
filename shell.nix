@@ -16,7 +16,6 @@ in
       gnupg
       nix
       openssl
-      matugen
       paper-age
       pkg-config
       sops

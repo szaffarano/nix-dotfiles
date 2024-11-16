@@ -18,8 +18,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/9cbcd62ada85e015e8117bd7e901bf40b6c767bc";
-    # until https://github.com/NixOS/nixpkgs/pull/350153 is on nixos-unstable
-    nixpkgs-ccid.url = "github:nixos/nixpkgs/c0f38631ae0abb79f3b8f9ebe67ccd078f18b8e6";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -65,24 +63,7 @@
       url = "github:Mic92/sops-nix";
     };
 
-    # themes
-    base16.url = "github:SenchoPens/base16.nix";
-    base16-zathura = {
-      url = "github:haozeke/base16-zathura";
-      flake = false;
-    };
-    base16-rofi = {
-      url = "github:pschyska/base16-rofi";
-      flake = false;
-    };
-    base16-vim = {
-      url = "github:tinted-theming/base16-vim";
-      flake = false;
-    };
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
+    nix-colors.url = "github:misterio77/nix-colors";
 
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
   };
@@ -151,14 +132,14 @@
           inherit specialArgs;
         };
 
-        lambic = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          inherit specialArgs;
-          modules = [
-            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
-            "${self}/system/lambic"
-          ];
-        };
+        # lambic = nixpkgs.lib.nixosSystem {
+        #   system = "aarch64-linux";
+        #   inherit specialArgs;
+        #   modules = [
+        #     inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+        #     "${self}/system/lambic"
+        #   ];
+        # };
       };
 
       darwinConfigurations = {

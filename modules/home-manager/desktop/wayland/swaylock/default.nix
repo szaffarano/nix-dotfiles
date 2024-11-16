@@ -5,13 +5,13 @@
 }:
 let
   cfg = config.desktop.wayland.swaylock;
-  colors = config.scheme.withHashtag;
-  inside = colors.base01;
-  outside = colors.base01;
-  ring = colors.base05;
-  text = colors.base05;
-  positive = colors.base0B;
-  negative = colors.base08;
+  colors = config.colorScheme.palette;
+  inside = "#${colors.base01}";
+  outside = "#${colors.base01}";
+  ring = "#${colors.base05}";
+  text = "#${colors.base05}";
+  positive = "#${colors.base0B}";
+  negative = "#${colors.base08}";
 in
 with lib;
 {

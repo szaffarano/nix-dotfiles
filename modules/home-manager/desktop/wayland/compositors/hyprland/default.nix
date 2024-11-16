@@ -5,7 +5,6 @@
 , ...
 }:
 let
-  inherit (config) scheme;
   cfg = config.desktop.wayland.compositors.hyprland;
   terminal = config.home.sessionVariables.TERMINAL;
   rgb = color: "rgb(${color})";
@@ -81,8 +80,8 @@ with lib;
           gaps_in = 1;
           border_size = 1;
           resize_on_border = true;
-          "col.active_border" = rgb scheme.base0A;
-          "col.inactive_border" = rgb scheme.base03;
+          "col.active_border" = rgb config.colorScheme.palette.base0A;
+          "col.inactive_border" = rgb config.colorScheme.palette.base03;
         };
 
         cursor = {
@@ -94,14 +93,14 @@ with lib;
         };
 
         group = {
-          "col.border_inactive" = rgb scheme.base0D;
-          "col.border_active" = rgb scheme.base06;
-          "col.border_locked_active" = rgb scheme.base06;
+          "col.border_inactive" = rgb config.colorScheme.palette.base0D;
+          "col.border_active" = rgb config.colorScheme.palette.base06;
+          "col.border_locked_active" = rgb config.colorScheme.palette.base06;
           groupbar = {
             font_size = config.fontProfiles.monospace.sizeAsInt;
-            text_color = rgb scheme.base05;
-            "col.active" = rgb scheme.base02;
-            "col.inactive" = rgb scheme.base01;
+            text_color = rgb config.colorScheme.palette.base05;
+            "col.active" = rgb config.colorScheme.palette.base02;
+            "col.inactive" = rgb config.colorScheme.palette.base01;
           };
         };
 
@@ -109,7 +108,7 @@ with lib;
         decoration = {
           rounding = 3;
           drop_shadow = 0;
-          "col.shadow" = rgba scheme.base00 "99";
+          "col.shadow" = rgba config.colorScheme.palette.base00 "99";
           active_opacity = 0.99;
           inactive_opacity = 0.93;
           fullscreen_opacity = 1.0;
@@ -148,7 +147,7 @@ with lib;
           close_special_on_empty = true;
           focus_on_activate = true;
           new_window_takes_over_fullscreen = 2;
-          background_color = rgb scheme.base00;
+          background_color = rgb config.colorScheme.palette.base00;
           disable_hyprland_logo = true;
           force_default_wallpaper = 0;
         };
