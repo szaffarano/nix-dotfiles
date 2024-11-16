@@ -64,3 +64,23 @@ target machine.
         git clone https://github.com/szaffarano/nix-dotfiles .dotfiles
         cd .dotfiles
         home-manager switch --flake .
+
+### Raspberry Pi
+
+1. Build RPI image
+
+        nix build '.#nixosConfigurations.<name>.config.system.build.sdImage'
+
+2. Flash the image
+
+        unzstd result/sd-image/nixos-sd-image-....img.zst -c > nixos-sd-image.img
+        dd if=nixos-sd-image.img | pv | sudo dd of=/dev/mmcblk0 bs=64k
+
+3. After booting, update the ssh keys
+
+         # mount the NIXOS_SD partition
+         sudo cp /tmp/pki/ram/ssh/... /nixos/partition/etc/ssh/...
+
+4. Remote deploy
+
+        nixos-rebuild switch --flake .#<name> --target-host sebas@<ip>  --use-remote-sudo

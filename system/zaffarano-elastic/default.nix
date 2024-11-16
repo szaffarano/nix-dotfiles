@@ -50,6 +50,7 @@ in
     };
     features.enable = [
       "desktop"
+      "cross-compile"
       "elastic-endpoint"
       "home-manager"
       "hyprland"
