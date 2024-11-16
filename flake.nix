@@ -132,14 +132,15 @@
           inherit specialArgs;
         };
 
-        # lambic = nixpkgs.lib.nixosSystem {
-        #   system = "aarch64-linux";
-        #   inherit specialArgs;
-        #   modules = [
-        #     inputs.raspberry-pi-nix.nixosModules.raspberry-pi
-        #     "${self}/system/lambic"
-        #   ];
-        # };
+        lambic = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          inherit specialArgs;
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+            "${self}/system/lambic"
+          ];
+        };
       };
 
       darwinConfigurations = {

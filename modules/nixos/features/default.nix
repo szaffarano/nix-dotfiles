@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cross-compile.nix
     ./desktop.nix
     ./elastic-endpoint.nix
     ./home-manager.nix

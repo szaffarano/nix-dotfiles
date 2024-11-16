@@ -44,7 +44,7 @@ in
   };
 
   config = {
-    fonts.fontconfig.enable = lib.mkDefault cfg.enable;
+    fonts.fontconfig.enable = lib.mkForce cfg.enable;
     home.packages = lib.optionals cfg.enable [
       cfg.monospace.package
       cfg.regular.package
