@@ -107,8 +107,6 @@ with lib;
         # https://wiki.hyprland.org/Configuring/Variables/#decoration
         decoration = {
           rounding = 3;
-          drop_shadow = 0;
-          "col.shadow" = rgba config.colorScheme.palette.base00 "99";
           active_opacity = 0.99;
           inactive_opacity = 0.93;
           fullscreen_opacity = 1.0;
@@ -119,6 +117,9 @@ with lib;
             new_optimizations = true;
             ignore_opacity = true;
             popups = true;
+          };
+          shadow = {
+            enabled = false;
           };
         };
 
