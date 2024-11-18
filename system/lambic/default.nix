@@ -1,4 +1,6 @@
 { flakeRoot
+, config
+, pkgs
 , ...
 }:
 let
@@ -14,10 +16,16 @@ in
     sebas
   ];
 
-  users.users.root.initialPassword = "root";
   networking = {
     inherit hostName;
     useDHCP = true;
+    wireless = {
+      enable = true;
+      secretsFile = config.sops.secrets.wpa.path;
+      networks."Midas 2.4GHz".pskRaw = "ext:NET01_PSK";
+      extraConfig = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel";
+    };
+    networkmanager.enable = false;
   };
 
   # bcm2711 for rpi 3, 3+, 4, zero 2 w
@@ -66,13 +74,23 @@ in
     "yubikey"
   ];
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      zlib
+    ];
+  };
+
   sops.secrets = {
+    wpa = {
+      sopsFile = ./secrets.wpa;
+      format = "binary";
+    };
     sebas-password = {
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };
   };
 
-  home-manager.users.sebas.home.stateVersion = "23.05";
   system.stateVersion = "24.11";
 }

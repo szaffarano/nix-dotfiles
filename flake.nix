@@ -66,6 +66,11 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
+
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -146,5 +151,21 @@
       darwinConfigurations = {
         "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
+
+      deploy.nodes.lambic = {
+        hostname = "lambic";
+        profiles.system = {
+          sshUser = "sebas";
+          user = "root";
+          interactiveSudo = true;
+          path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.lambic;
+        };
+      };
+
+      checks = builtins.mapAttrs
+        (
+          system: deployLib: deployLib.deployChecks self.deploy
+        )
+        inputs.deploy-rs.lib;
     };
 }
