@@ -10,6 +10,7 @@ in
     nativeBuildInputs = with pkgs; [
       age
       deadnix
+      deploy-rs
       disko
       cachix
       git

@@ -33,7 +33,7 @@ creation_rules:
       - *weisse
       pgp:
       - *sebas_pgp
-  - path_regex: system/lambic/secrets.yaml
+  - path_regex: system/lambic/secrets.*
     key_groups:
     - age:
       - *lambic
