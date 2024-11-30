@@ -19,28 +19,30 @@ in
         cups
         curl
         dbus
+        e2fsprogs
         expat
         fontconfig
         fontconfig
         freetype
+        fribidi
         fuse
         fuse3
         gdk-pixbuf
         glib
         gtk3
         harfbuzz
-        fribidi
         icu
         libappindicator-gtk3
         libdrm
+        libgcc.lib
         libGL
+        libgpg-error
         libnotify
         libpulseaudio
         libunwind
-        libgpg-error
-        e2fsprogs
         libusb1
         libuuid
+        libxcrypt-legacy
         libxkbcommon
         libxkbcommon
         libxml2
