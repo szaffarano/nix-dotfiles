@@ -8,7 +8,6 @@ let
   cfg = config.desktop.wayland.compositors.hyprland;
   terminal = config.home.sessionVariables.TERMINAL;
   rgb = color: "rgb(${color})";
-  rgba = color: alpha: "rgba(${color}${alpha})";
 in
 with lib;
 {

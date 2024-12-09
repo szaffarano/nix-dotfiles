@@ -16,7 +16,7 @@ with lib;
       copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       rofi = lib.getExe config.programs.rofi.finalPackage;
       cmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
-      hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString;
+      inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
     in
 
     mkIf cfg.enable {

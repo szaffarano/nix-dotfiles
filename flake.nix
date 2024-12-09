@@ -164,7 +164,7 @@
 
       checks = builtins.mapAttrs
         (
-          system: deployLib: deployLib.deployChecks self.deploy
+          _system: deployLib: deployLib.deployChecks self.deploy
         )
         inputs.deploy-rs.lib;
     };
