@@ -8,7 +8,6 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     inputs.nix-index-database.hmModules.nix-index
-    inputs.nur.nixosModules.nur
   ];
 
   config = {
