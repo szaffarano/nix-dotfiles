@@ -14,7 +14,6 @@ in
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.home-manager.nixosModules.home-manager
-    inputs.nix-index-database.nixosModules.nix-index
 
     ./audio.nix
     ./hardware-configuration.nix
@@ -42,11 +41,14 @@ in
   nixos.custom = {
     features.enable = [
       "desktop"
+      "home-manager"
       "hyprland"
       "laptop"
+      "nix-ld"
       "quietboot"
       "sensible"
       "syncthing"
+      "yubikey"
     ];
   };
 

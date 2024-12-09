@@ -25,7 +25,7 @@ in
         "rd.udev.log_level=3"
         "vt.global_cursor_default=0"
       ];
-      consoleLogLevel = lib.mkDefault 0;
+      consoleLogLevel = lib.mkForce 0;
       initrd.verbose = lib.mkDefault false;
     };
 

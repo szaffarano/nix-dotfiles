@@ -12,9 +12,9 @@ let
     inherit system;
     inherit (self) overlays;
     config = {
-      modules = [ inputs.nur.nixosModules.nur ];
+      modules = [ ];
       allowUnfree = true;
-      allowUnfreePredicate = import ./non-free-config.nix inputs;
+      # allowUnfreePredicate = import ./non-fkree-config.nix inputs;
     };
   };
 

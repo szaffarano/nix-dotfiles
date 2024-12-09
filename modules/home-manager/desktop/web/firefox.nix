@@ -11,7 +11,7 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.browserpass.enable = true;
-    home.custom.allowed-unfree-packages = with config.nur.repos.rycee.firefox-addons; [
+    home.custom.allowed-unfree-packages = with pkgs.nur.repos.rycee.firefox-addons; [
       grammarly
       okta-browser-plugin
     ];
@@ -22,7 +22,7 @@ in
         id = 0;
         isDefault = true;
 
-        extensions = with config.nur.repos.rycee.firefox-addons; [
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           auto-tab-discard
           browserpass
           decentraleyes

@@ -9,7 +9,7 @@
 1. Create a ssh keypair for the target machine
 
         # use a ramfs to not store the key in the disk
-        sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
+        mkdir -p /tmp/pki/ram && sudo mount -t tmpfs -o size=10M tmpfs /tmp/pki/ram
         mkdir -p /tmp/pki/ram/etc/ssh && cd /tmp/pki/ram/etc/ssh
         ssh-keygen -t ed25519 -C <some comment> -f ssh_host_ed25519_key
         ssh-keygen -t rsa -C <some comment> -f ssh_host_rsa_key
@@ -17,8 +17,7 @@
 [ssh-to-age](https://github.com/Mic92/ssh-to-age) tool)
 
         ssh-to-age  -i ssh_host_ed25519_key.pub -o ssh_host_ed25519_key.pub.age
-        ssh-to-age -private-key  -i ssh_host_ed25519_key -o
-        ssh_host_ed25519_key.age
+        ssh-to-age -private-key  -i ssh_host_ed25519_key -o ssh_host_ed25519_key.age
 1. Update the [.sops.yaml](./.sops.yaml) configuration file adding the age
    recipient.
 1. Generate secrets for this machine using both the root and your key
@@ -65,3 +64,23 @@ target machine.
         git clone https://github.com/szaffarano/nix-dotfiles .dotfiles
         cd .dotfiles
         home-manager switch --flake .
+
+### Raspberry Pi
+
+1. Build RPI image
+
+        nix build '.#nixosConfigurations.<name>.config.system.build.sdImage'
+
+2. Flash the image
+
+        unzstd result/sd-image/nixos-sd-image-....img.zst -c > nixos-sd-image.img
+        dd if=nixos-sd-image.img | pv | sudo dd of=/dev/mmcblk0 bs=64k
+
+3. After booting, update the ssh keys
+
+         # mount the NIXOS_SD partition
+         sudo cp /tmp/pki/ram/ssh/... /nixos/partition/etc/ssh/...
+
+4. Remote deploy
+
+        nixos-rebuild switch --flake .#<name> --target-host sebas@<ip>  --use-remote-sudo

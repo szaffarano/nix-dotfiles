@@ -11,6 +11,14 @@ in
       geoclue2.enable = lib.mkDefault true;
     };
 
+    environment = {
+      # Fix for qt6 plugins
+      profileRelativeSessionVariables = {
+        QT_PLUGIN_PATH = [ "/lib/qt-6/plugins" ];
+      };
+      enableAllTerminfo = true;
+    };
+
     hardware = lib.mkIf enabled {
       bluetooth.enable = true;
       graphics.enable = true;

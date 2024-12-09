@@ -5,7 +5,7 @@
 }:
 let
   cfg = config.desktop.wayland.compositors.hyprland;
-  refreshWallpapersCmd = ''${pkgs.imagemagick}/bin/convert "$(${lib.getExe pkgs.wallpaper})" ${config.home.homeDirectory}/Pictures/screen-lock.png'';
+  refreshWallpapersCmd = ''${pkgs.imagemagick}/bin/magick "$(${lib.getExe pkgs.wallpaper})" ${config.home.homeDirectory}/Pictures/screen-lock.png'';
 in
 with lib;
 {

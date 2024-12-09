@@ -37,10 +37,11 @@ in
       hashedPasswordFile = config.sops.secrets."${userName}-password".path;
       extraGroups =
         [
-          "wheel"
+          "audio"
+          "input"
           "networkmanager"
           "video"
-          "audio"
+          "wheel"
         ]
         ++ (lib.optionals config.virtualisation.libvirtd.enable [ "libvirtd" ])
         ++ (lib.optionals config.virtualisation.docker.enable [ "docker" ]);

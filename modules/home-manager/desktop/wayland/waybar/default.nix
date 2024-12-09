@@ -277,19 +277,19 @@ with lib;
       };
 
       style =
-        with config.scheme.withHashtag;
+        with config.colorScheme.palette;
         let
           font = config.fontProfiles.monospace;
         in
         ''
-          @define-color bg ${base00};
-          @define-color critical ${base09};
-          @define-color warning ${base0B};
-          @define-color ok ${base0A};
-          @define-color fg ${base04};
-          @define-color fg2 ${base02};
-          @define-color muted ${base0F};
-          @define-color neutral ${base06};
+          @define-color bg #${base00};
+          @define-color critical #${base09};
+          @define-color warning #${base0B};
+          @define-color ok #${base0A};
+          @define-color fg #${base04};
+          @define-color fg2 #${base02};
+          @define-color muted #${base0F};
+          @define-color neutral #${base06};
 
           * {
               font-family: ${font.name}, ${font.family};

@@ -7,9 +7,11 @@
 
   zig = inputs.zig.overlays.default;
 
-  paperd = import ./wpaperd;
+  # paperd = import ./wpaperd;
 
   cliphist = import ./cliphist;
+
+  nur = inputs.nur.overlays.default;
 
   wl-clipboard = import ./wl-clipboard;
 

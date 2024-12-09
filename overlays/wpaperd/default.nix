@@ -5,13 +5,13 @@ _final: prev: {
     src = prev.fetchFromGitHub {
       owner = "danyspin97";
       repo = "wpaperd";
-      rev = "a60671eb5b7029095ad387d06c051b547778fc55";
-      hash = "sha256-7lf5gcbLC7h+bfxGQGRc92pIb46UWsZCvN6CJrRJB4U=";
+      rev = "459c4e9c8bdd0f8b0572751efc96b59a2dd4cc78";
+      hash = "sha256-Jd/+JMMn1lgm1Oe78du6DVkFWGCWvbNuSXsIKzcCeME=";
     };
     cargoDeps = old.cargoDeps.overrideAttrs (
       prev.lib.const {
         inherit src;
-        outputHash = "sha256-cZPu0XdYMPc7W9CLOL0FdveQ/KPmj6yXb0zTGuYNtkE=";
+        outputHash = "sha256-GEhD15shAGyLZXUndoaUTz8d5mNpOHapQJTP3RZ0dqM=";
       }
     );
   });

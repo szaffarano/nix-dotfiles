@@ -44,7 +44,7 @@ in
   };
 
   config = {
-    fonts.fontconfig.enable = lib.mkDefault cfg.enable;
+    fonts.fontconfig.enable = lib.mkForce cfg.enable;
     home.packages = lib.optionals cfg.enable [
       cfg.monospace.package
       cfg.regular.package
@@ -56,7 +56,7 @@ in
         name = "FiraCode Nerd Font";
         size = "11px";
         sizeAsInt = config.lib.fontProfiles.pxToInt size;
-        package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
+        package = pkgs.nerd-fonts.fira-code;
       };
       regular = lib.mkDefault rec {
         family = "noto-sans";

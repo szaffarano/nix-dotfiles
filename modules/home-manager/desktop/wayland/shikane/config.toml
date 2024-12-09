@@ -49,3 +49,18 @@ search = ["m=0x14E5", "s=", "v=Chimei Innolux Corporation"]
 mode = "best"
 position = "0,0"
 scale = 1.0
+
+[[profile]]
+name = "docked-ba"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+[[profile.output]]
+enable = false
+search = ["m=0x152E", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=23MP55", "s=0x00001748", "v=LG Electronics"]
+mode = "1920x1080@59.94Hz"
+position = "0,0"
+scale = 1.0
