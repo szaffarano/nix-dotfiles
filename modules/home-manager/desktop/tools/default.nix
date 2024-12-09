@@ -24,7 +24,7 @@ with lib;
     desktop.tools = {
       cliphist.enable = true;
       copyq.enable = false;
-      gammastep.enable = false;
+      gammastep.enable = true;
       keepassxc.enable = true;
       screenshot.enable = true;
       udiskie.enable = true;

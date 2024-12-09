@@ -96,7 +96,7 @@
       };
 
       yazi = {
-        enable = false;
+        enable = true;
         enableZshIntegration = true;
       };
 
