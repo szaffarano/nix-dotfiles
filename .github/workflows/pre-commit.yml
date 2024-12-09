@@ -23,7 +23,11 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
       - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            extra-platforms = aarch64-linux
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix flake check
       - run: nix flake show
