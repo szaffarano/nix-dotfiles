@@ -6,10 +6,10 @@
 }:
 {
   imports = [
-    inputs.base16.nixosModule
+    inputs.nix-colors.homeManagerModules.default
     inputs.nix-index-database.hmModules.nix-index
-    inputs.nur.nixosModules.nur
   ];
+
   config = {
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
@@ -46,8 +46,8 @@
       };
     };
 
-    scheme = lib.mkDefault "${inputs.tt-schemes}/base16/kanagawa.yaml";
+    colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
 
-    home.file.".colorscheme".text = config.scheme.slug;
+    home.file.".colorscheme".text = config.colorScheme.slug;
   };
 }

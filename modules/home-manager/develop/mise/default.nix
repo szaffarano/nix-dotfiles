@@ -13,17 +13,20 @@ in
       enableBashIntegration = false;
       enableFishIntegration = false;
 
-      settings = lib.mkDefault {
-        verbose = false;
-        experimental = true;
-        all_compile = false;
-        python_compile = false;
-        node_compile = false;
-      };
-
       globalConfig = lib.mkDefault {
+        settings = {
+          all_compile = false;
+          experimental = true;
+        };
+        settings.python = {
+          compile = false;
+        };
+        settings.node = {
+          compile = false;
+          gpg_verify = false;
+        };
         tools = {
-          java = "temurin-21.0.3+9.0.LTS";
+          java = "temurin-21.0.5+11.0.LTS";
           node = "lts";
           python = "latest";
           ruff = "latest";

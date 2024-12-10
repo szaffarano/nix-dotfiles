@@ -63,30 +63,23 @@
       url = "github:Mic92/sops-nix";
     };
 
-    # themes
-    base16.url = "github:SenchoPens/base16.nix";
-    base16-zathura = {
-      url = "github:haozeke/base16-zathura";
-      flake = false;
-    };
-    base16-rofi = {
-      url = "github:pschyska/base16-rofi";
-      flake = false;
-    };
-    base16-vim = {
-      url = "github:tinted-theming/base16-vim";
-      flake = false;
-    };
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
+    nix-colors.url = "github:misterio77/nix-colors";
+
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
+
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       inherit (self) outputs;
       inherit (nixpkgs) lib;
@@ -143,10 +136,36 @@
           modules = [ "${self}/system/pilsen" ];
           inherit specialArgs;
         };
+
+        lambic = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          inherit specialArgs;
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+            "${self}/system/lambic"
+          ];
+        };
       };
 
       darwinConfigurations = {
         "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
       };
+
+      deploy.nodes.lambic = {
+        hostname = "lambic";
+        profiles.system = {
+          sshUser = "sebas";
+          user = "root";
+          interactiveSudo = true;
+          path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.lambic;
+        };
+      };
+
+      checks = builtins.mapAttrs
+        (
+          _system: deployLib: deployLib.deployChecks self.deploy
+        )
+        inputs.deploy-rs.lib;
     };
 }

@@ -9,7 +9,6 @@ inputs.home-manager.lib.homeManagerConfiguration {
     configFile
     inputs.nix-index-database.hmModules.nix-index
     inputs.nixvim.homeManagerModules.nixvim
-    inputs.nur.nixosModules.nur
     "${self}/modules/home-manager"
   ];
 

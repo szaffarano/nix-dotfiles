@@ -6,6 +6,8 @@
       permitted-insecure-packages = [ "python-2.7.18.8" ]; # needed by bazel-5.1.1
     };
     packages = [
+      pkgs.aoc-cli
+      pkgs.tesseract
       pkgs.bazel_5_1_1
       pkgs.mercurial
       (pkgs.bats.withLibraries (p: [
@@ -14,14 +16,6 @@
         p.bats-file
       ]))
     ];
-    sessionVariables = {
-      # TODO: not needed anymore?
-      # It makes software depending on a different stdlib fail
-      # LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
-      #   pkgs.systemd
-      #   pkgs.libgcc.lib
-      # ]}";
-    };
   };
 
   desktop = {

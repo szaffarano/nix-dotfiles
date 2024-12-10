@@ -78,6 +78,11 @@ return {
       require('org-bullets').setup {
         concealcursor = false,
       }
+      vim.api.nvim_create_user_command('Agenda', function()
+        local current_buffer = vim.api.nvim_get_current_buf()
+        require('orgmode').agenda:agenda()
+        vim.api.nvim_buf_delete(current_buffer, { force = true })
+      end, {})
     end,
   },
   {

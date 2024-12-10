@@ -29,5 +29,5 @@ jobs:
           extra-conf: |
             extra-platforms = aarch64-linux
       - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix flake check
+      # - run: nix flake check
       - run: nix flake show

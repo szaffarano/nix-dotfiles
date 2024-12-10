@@ -18,7 +18,6 @@ in
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.home-manager.nixosModules.home-manager
-    inputs.nix-index-database.nixosModules.nix-index
 
     ./hardware-configuration.nix
 
@@ -51,14 +50,18 @@ in
     };
     features.enable = [
       "desktop"
+      "cross-compile"
       "elastic-endpoint"
+      "home-manager"
       "hyprland"
       "laptop"
+      "nix-ld"
       "ollama"
       "quietboot"
       "sensible"
       "syncthing"
       "virtualisation"
+      "yubikey"
     ];
   };
   services.greetd.enable = false;

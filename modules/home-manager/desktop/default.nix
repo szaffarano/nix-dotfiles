@@ -24,10 +24,10 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # anki
+      anki
 
       # books
-      # calibre
+      calibre
       foliate
       koodo-reader
 
@@ -43,7 +43,7 @@ with lib;
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      nerd-fonts.fira-code
     ];
 
     desktop = {
