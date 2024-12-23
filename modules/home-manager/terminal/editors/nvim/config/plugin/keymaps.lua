@@ -36,3 +36,5 @@ vim.keymap.set('n', '<C-Left>', '<Cmd>tabprev<CR> <Cmd>redraw!<CR>', { desc = 'P
 vim.keymap.set('n', '<C-Right>', '<Cmd>tabnext<CR> <Cmd>redraw!<CR>', { desc = 'Next tab' })
 
 vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Cmd>bdelete<CR>', { desc = 'Delete current buffer' })
+
+vim.keymap.set({ 'x' }, 'p', 'pgvy', { desc = 'Retain the buffer content after pasting over a visual selection' })
