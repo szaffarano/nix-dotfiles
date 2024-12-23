@@ -13,10 +13,6 @@ mode = "2560x1440"
 position = "0,0"
 scale = 1.0
 
-[[profile.output]]
-enable = false
-search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
-
 [[profile]]
 name = "undocked-sw"
 exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
