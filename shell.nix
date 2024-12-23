@@ -9,13 +9,14 @@ in
 
     nativeBuildInputs = with pkgs; [
       age
+      cachix
       deadnix
       deploy-rs
       disko
-      cachix
       git
       gnupg
       nix
+      nixos-generators
       openssl
       paper-age
       pkg-config
