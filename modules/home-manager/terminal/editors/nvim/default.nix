@@ -10,8 +10,8 @@ let
   rustSnippets = pkgs.fetchFromGitHub {
     owner = "rust10x";
     repo = "rust10x-vscode";
-    rev = "94e8b98";
-    hash = "sha256-4aA5QcaX+lA3S/d0R/aHX/W2wxhvMxaLd7/hmrvp4P8=";
+    rev = "00bd8995003a750e8f44110cbe1ece0c141a962b";
+    hash = "sha256-KdpuZflRR1VXarXg7XoPOoK1j2mhhLE4Hi27D4aQwKI=";
   };
 in
 {
