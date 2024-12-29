@@ -1,12 +1,13 @@
-{ lib, config, ... }:
-let
-  is_installed =
-    name: (lib.lists.any (e: e == name) (lib.attrNames config.programs.mise.globalConfig.tools));
+{
+  lib,
+  config,
+  ...
+}: let
+  is_installed = name: (lib.lists.any (e: e == name) (lib.attrNames config.programs.mise.globalConfig.tools));
 
   terraform_installed = is_installed "terraform";
   node_installed = is_installed "node";
-in
-{
+in {
   config = {
     programs.mise = {
       enableZshIntegration = true;

@@ -6,4 +6,4 @@ BASEDIR="$(realpath "$(dirname "$0")"/..)"
 NVIM_CONFIG="$XDG_CONFIG_HOME"/nvim
 
 mv "$NVIM_CONFIG" "$NVIM_CONFIG.bkp" &&
-  ln -s "$BASEDIR"/modules/home-manager/terminal/editors/nvim/config "$NVIM_CONFIG"
+	ln -s "$BASEDIR"/modules/home-manager/terminal/editors/nvim/config "$NVIM_CONFIG"

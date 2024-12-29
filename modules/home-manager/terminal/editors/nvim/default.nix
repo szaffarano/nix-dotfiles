@@ -1,11 +1,8 @@
 # TODO: parameterize to enable or disable the module
-{ pkgs
-, ...
-}:
-let
+{pkgs, ...}: let
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
-    paths = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies ];
+    paths = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies];
   };
   rustSnippets = pkgs.fetchFromGitHub {
     owner = "rust10x";
@@ -13,8 +10,7 @@ let
     rev = "00bd8995003a750e8f44110cbe1ece0c141a962b";
     hash = "sha256-KdpuZflRR1VXarXg7XoPOoK1j2mhhLE4Hi27D4aQwKI=";
   };
-in
-{
+in {
   programs.zsh = {
     sessionVariables = {
       EDITOR = "nvim";
@@ -55,7 +51,7 @@ in
 
   home = {
     sessionVariables.EDITOR = "nvim";
-    custom.allowed-unfree-packages = [ pkgs.codeium ];
+    custom.allowed-unfree-packages = [pkgs.codeium];
     packages = with pkgs; [
       tree-sitter
       fswatch
@@ -64,7 +60,7 @@ in
       asmfmt
       ruff
       nasmfmt
-      nixfmt-rfc-style
+      alejandra
       prettierd
       shfmt
       stylua

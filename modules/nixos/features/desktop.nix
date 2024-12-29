@@ -1,10 +1,12 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   feature_name = "desktop";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     services = lib.mkIf enabled {
       greetd.enable = lib.mkDefault false;
@@ -14,7 +16,7 @@ in
     environment = {
       # Fix for qt6 plugins
       profileRelativeSessionVariables = {
-        QT_PLUGIN_PATH = [ "/lib/qt-6/plugins" ];
+        QT_PLUGIN_PATH = ["/lib/qt-6/plugins"];
       };
       enableAllTerminfo = true;
     };
@@ -23,7 +25,7 @@ in
       bluetooth.enable = true;
       graphics.enable = true;
     };
-    programs = lib.mkIf enabled { dconf.enable = true; };
+    programs = lib.mkIf enabled {dconf.enable = true;};
 
     nixos.custom.features.register = feature_name;
   };

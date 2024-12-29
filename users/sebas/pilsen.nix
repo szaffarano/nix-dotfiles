@@ -1,11 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home = {
-    custom.features.enable = [ ];
-    packages = [ ];
+    custom.features.enable = [];
+    packages = [];
 
     sessionVariables = {
-      LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [ pkgs.systemd ]}";
+      LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [pkgs.systemd]}";
     };
   };
 
@@ -39,8 +38,8 @@
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
   };
 

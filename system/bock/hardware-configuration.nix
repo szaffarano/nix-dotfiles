@@ -1,10 +1,10 @@
-{ config
-, lib
-, modulesPath
-, ...
-}:
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  config,
+  lib,
+  modulesPath,
+  ...
+}: {
+  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
 
   boot = {
     initrd = {
@@ -15,7 +15,7 @@
         "sr_mod"
         "virtio_blk"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
     };
 
     loader = {
@@ -27,13 +27,13 @@
       efi.canTouchEfiVariables = true;
     };
 
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
   };
 
   disko.devices = import ./disk-config.nix {
     inherit lib config;
-    disks = [ "/dev/vda" ];
+    disks = ["/dev/vda"];
   };
 
   networking.useDHCP = lib.mkDefault true;

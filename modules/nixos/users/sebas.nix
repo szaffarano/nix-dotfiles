@@ -1,16 +1,15 @@
-{ hostName
-, userName ? "sebas"
-, email ? "sebas@zaffarano.com.ar"
-,
-}:
-{ config
-, lib
-, localLib
-, flakeRoot
-, pkgs
-, ...
-}:
-let
+{
+  hostName,
+  userName ? "sebas",
+  email ? "sebas@zaffarano.com.ar",
+}: {
+  config,
+  lib,
+  localLib,
+  flakeRoot,
+  pkgs,
+  ...
+}: let
   keys = pkgs.fetchurl {
     url = "https://github.com/szaffarano.keys";
     hash = "sha256-swpi92w8GVs+9csXZBfNCLQ2GGYyKEk9ErrrbsOJY1E=";
@@ -30,8 +29,7 @@ let
   );
 
   hasGpgKeys = (builtins.length userGpgKeys) > 0;
-in
-{
+in {
   users = {
     users.${userName} = {
       hashedPasswordFile = config.sops.secrets."${userName}-password".path;
@@ -43,8 +41,8 @@ in
           "video"
           "wheel"
         ]
-        ++ (lib.optionals config.virtualisation.libvirtd.enable [ "libvirtd" ])
-        ++ (lib.optionals config.virtualisation.docker.enable [ "docker" ]);
+        ++ (lib.optionals config.virtualisation.libvirtd.enable ["libvirtd"])
+        ++ (lib.optionals config.virtualisation.docker.enable ["docker"]);
 
       isNormalUser = true;
       shell = pkgs.zsh;
@@ -55,16 +53,14 @@ in
   home-manager = {
     useGlobalPkgs = false;
     useUserPackages = true;
-    extraSpecialArgs = {
-      inherit localLib;
-    };
+    extraSpecialArgs = {inherit localLib;};
     users.${userName} = {
       imports = [
         "${flakeRoot}/modules/home-manager"
         "${flakeRoot}/users/${userName}/${hostName}.nix"
       ];
       config = {
-        home.custom.features.enable = [ "gh" ];
+        home.custom.features.enable = ["gh"];
         programs = {
           gpg = {
             enable = true;

@@ -1,5 +1,5 @@
-{ nixpkgs, ... }:
+{nixpkgs, ...}:
 nixpkgs.lib.nixosSystem {
-  modules = [ ];
-  specialArgs = { };
+  modules = [];
+  specialArgs = {};
 }

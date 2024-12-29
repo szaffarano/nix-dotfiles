@@ -1,4 +1,4 @@
-{ disks ? [ "/dev/vda" ], ... }: {
+{disks ? ["/dev/vda"], ...}: {
   disk = {
     disk-1 = {
       type = "disk";
@@ -15,7 +15,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "defaults" ];
+              mountOptions = ["defaults"];
             };
           };
           luks = {
@@ -23,23 +23,32 @@
             content = {
               type = "luks";
               name = "nixos";
-              extraOpenArgs = [ "--allow-discards" ];
+              extraOpenArgs = ["--allow-discards"];
               passwordFile = "/tmp/luks.txt";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ];
+                extraArgs = ["-f"];
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                 };
               };

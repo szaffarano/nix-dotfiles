@@ -1,15 +1,11 @@
----
 lid_name: LID0
-
 system_groups:
   - video
   - docker
-
 systemd_services:
   - seatd.service
   - bluetooth.service
   - libvirtd.service
-
 packages:
   - xwayland
   - sway

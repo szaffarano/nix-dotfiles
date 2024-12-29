@@ -1,12 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  cfg = config.desktop.web.firefox;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.desktop.web.firefox;
+in {
   options.desktop.web.firefox.enable = lib.mkEnableOption "firefox";
 
   config = lib.mkIf cfg.enable {

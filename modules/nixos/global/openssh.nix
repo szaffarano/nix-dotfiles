@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   services.openssh = lib.mkIf config.services.openssh.enable {
     settings = lib.mkDefault {
       # Harden
@@ -15,6 +18,6 @@
   # Passwordless sudo when SSH'ing with keys
   security.pam.sshAgentAuth = lib.mkDefault {
     enable = true;
-    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+    authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
   };
 }

@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   boot = {
     initrd = {
       availableKernelModules = [
@@ -12,7 +15,7 @@
         "sd_mod"
         "sdhci_pci"
       ];
-      kernelModules = [ "kvm-intel" ];
+      kernelModules = ["kvm-intel"];
     };
 
     loader = {
@@ -24,12 +27,12 @@
       efi.canTouchEfiVariables = true;
     };
 
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
   };
 
   disko.devices = import ./disk-config.nix {
     inherit lib config;
-    disks = [ "/dev/disk/by-id/nvme-KINGSTON_SNV2S1000G_50026B76863BE669" ];
+    disks = ["/dev/disk/by-id/nvme-KINGSTON_SNV2S1000G_50026B76863BE669"];
   };
 
   networking.useDHCP = lib.mkDefault true;

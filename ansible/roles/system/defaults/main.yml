@@ -1,3 +1,2 @@
----
 user_name: "{{ lookup('env', 'USER') }}"
 default_shell: /bin/zsh

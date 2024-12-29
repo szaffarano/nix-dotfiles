@@ -1,6 +1,4 @@
----
 user_home: "{{ lookup('env', 'HOME') }}"
-
 distro:
   is_debian: "{{ ansible_os_family == 'Debian' }}"
   is_arch: "{{ ansible_os_family == 'Archlinux' }}"

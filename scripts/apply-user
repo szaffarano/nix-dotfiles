@@ -7,8 +7,8 @@ NVIM_CONFIG="$XDG_CONFIG_HOME"/nvim
 CACHIX_PREFIX="cachix watch-exec szaffarano --"
 
 if [ -n "${DISABLE_CACHIX_PUSH:-}" ]; then
-  echo "Cachix push disabled"
-  CACHIX_PREFIX=""
+	echo "Cachix push disabled"
+	CACHIX_PREFIX=""
 fi
 
 [ -L "$NVIM_CONFIG" ] && rm "$NVIM_CONFIG"

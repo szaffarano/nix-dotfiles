@@ -1,56 +1,47 @@
-{ stdenv
-, callPackage
-, lib
-, fetchurl
-, fetchFromGitHub
-, installShellFiles
-, runCommand
-, runCommandCC
-, makeWrapper
-, recurseIntoAttrs
-, # this package (through the fixpoint glass)
-  bazel_self
-, # needed only for the updater
-  bazel_5
-, lr
-, xe
-, zip
-, unzip
-, bash
-, coreutils
-, which
-, gawk
-, gnused
-, gnutar
-, gnugrep
-, gzip
-, findutils
-, # updater
-  python27
-, python3
-, writeScript
-, # Apple dependencies
-  cctools
-, libcxx
-, CoreFoundation
-, CoreServices
-, Foundation
-, # Allow to independently override the jdks used to build and run respectively
-  buildJdk
-, runJdk
-, runtimeShell
-, # Downstream packages for tests
-  bazel-watcher
-, # Always assume all markers valid (this is needed because we remove markers; they are non-deterministic).
+{
+  stdenv,
+  callPackage,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  installShellFiles,
+  runCommand,
+  runCommandCC,
+  makeWrapper,
+  recurseIntoAttrs, # this package (through the fixpoint glass)
+  bazel_self, # needed only for the updater
+  bazel_5,
+  lr,
+  xe,
+  zip,
+  unzip,
+  bash,
+  coreutils,
+  which,
+  gawk,
+  gnused,
+  gnutar,
+  gnugrep,
+  gzip,
+  findutils, # updater
+  python27,
+  python3,
+  writeScript, # Apple dependencies
+  cctools,
+  libcxx,
+  CoreFoundation,
+  CoreServices,
+  Foundation, # Allow to independently override the jdks used to build and run respectively
+  buildJdk,
+  runJdk,
+  runtimeShell, # Downstream packages for tests
+  bazel-watcher, # Always assume all markers valid (this is needed because we remove markers; they are non-deterministic).
   # Also, don't clean up environment variables (so that NIX_ environment variables are passed to compilers).
-  enableNixHacks ? false
-, file
-, substituteAll
-, writeTextFile
-,
-}:
-
-let
+  enableNixHacks ? false,
+  file,
+  substituteAll,
+  writeTextFile,
+}: let
   version = "5.1.1";
   sourceRoot = ".";
 
@@ -62,15 +53,13 @@ let
   # Update with `eval $(nix-build -A bazel.updater)`,
   # then add new dependencies from the dict in ./src-deps.json as required.
   srcDeps = lib.attrsets.attrValues srcDepsSet;
-  srcDepsSet =
-    let
-      srcs = lib.importJSON ./src-deps.json;
-      toFetchurl =
-        d:
-        lib.attrsets.nameValuePair d.name (fetchurl {
-          inherit (d) urls sha256;
-        });
-    in
+  srcDepsSet = let
+    srcs = lib.importJSON ./src-deps.json;
+    toFetchurl = d:
+      lib.attrsets.nameValuePair d.name (fetchurl {
+        inherit (d) urls sha256;
+      });
+  in
     builtins.listToAttrs (
       map toFetchurl [
         srcs.desugar_jdk_libs
@@ -97,7 +86,7 @@ let
       ]
     );
 
-  distDir = runCommand "bazel-deps" { } ''
+  distDir = runCommand "bazel-deps" {} ''
     mkdir -p $out
     for i in ${builtins.toString srcDeps}; do cp $i $out/$(stripHash $i); done
   '';
@@ -154,7 +143,10 @@ let
 
   platforms = lib.platforms.linux ++ lib.platforms.darwin;
 
-  system = if stdenv.hostPlatform.isDarwin then "darwin" else "linux";
+  system =
+    if stdenv.hostPlatform.isDarwin
+    then "darwin"
+    else "linux";
   arch = stdenv.hostPlatform.parsed.cpu.name;
 
   bazelRC = writeTextFile {
@@ -176,102 +168,104 @@ let
       try-import /etc/bazel.bazelrc
     '';
   };
-
 in
-stdenv.mkDerivation rec {
-  pname = "bazel";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "bazel";
+    inherit version;
 
-  meta = with lib; {
-    homepage = "https://github.com/bazelbuild/bazel/";
-    description = "Build tool that builds code quickly and reliably";
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode # source bundles dependencies as jars
-    ];
-    license = licenses.asl20;
-    maintainers = lib.teams.bazel.members;
-    inherit platforms;
-  };
+    meta = with lib; {
+      homepage = "https://github.com/bazelbuild/bazel/";
+      description = "Build tool that builds code quickly and reliably";
+      sourceProvenance = with sourceTypes; [
+        fromSource
+        binaryBytecode # source bundles dependencies as jars
+      ];
+      license = licenses.asl20;
+      maintainers = lib.teams.bazel.members;
+      inherit platforms;
+    };
 
-  inherit src;
-  inherit sourceRoot;
-  patches = [
-    # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
-    # This is breaking the build of any C target. This patch removes the last
-    # argument if it's found to be an empty string.
-    ../trim-last-argument-to-gcc-if-empty.patch
+    inherit src;
+    inherit sourceRoot;
+    patches =
+      [
+        # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
+        # This is breaking the build of any C target. This patch removes the last
+        # argument if it's found to be an empty string.
+        ../trim-last-argument-to-gcc-if-empty.patch
 
-    # On Darwin, using clang 6 to build fails because of a linker error (see #105573),
-    # but using clang 7 fails because libarclite_macosx.a cannot be found when linking
-    # the xcode_locator tool.
-    # This patch removes using the -fobjc-arc compiler option and makes the code
-    # compile without automatic reference counting. Caveat: this leaks memory, but
-    # we accept this fact because xcode_locator is only a short-lived process used during the build.
-    (substituteAll {
-      src = ./no-arc.patch;
-      multiBinPatch = if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
-    })
+        # On Darwin, using clang 6 to build fails because of a linker error (see #105573),
+        # but using clang 7 fails because libarclite_macosx.a cannot be found when linking
+        # the xcode_locator tool.
+        # This patch removes using the -fobjc-arc compiler option and makes the code
+        # compile without automatic reference counting. Caveat: this leaks memory, but
+        # we accept this fact because xcode_locator is only a short-lived process used during the build.
+        (substituteAll {
+          src = ./no-arc.patch;
+          multiBinPatch =
+            if stdenv.hostPlatform.system == "aarch64-darwin"
+            then "arm64"
+            else "x86_64";
+        })
 
-    # --experimental_strict_action_env (which may one day become the default
-    # see bazelbuild/bazel#2574) hardcodes the default
-    # action environment to a non hermetic value (e.g. "/usr/local/bin").
-    # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
-    # So we are replacing this bazel paths by defaultShellPath,
-    # improving hermeticity and making it work in nixos.
-    (substituteAll {
-      src = ../strict_action_env.patch;
-      strictActionEnvPatch = defaultShellPath;
-    })
+        # --experimental_strict_action_env (which may one day become the default
+        # see bazelbuild/bazel#2574) hardcodes the default
+        # action environment to a non hermetic value (e.g. "/usr/local/bin").
+        # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
+        # So we are replacing this bazel paths by defaultShellPath,
+        # improving hermeticity and making it work in nixos.
+        (substituteAll {
+          src = ../strict_action_env.patch;
+          strictActionEnvPatch = defaultShellPath;
+        })
 
-    (substituteAll {
-      src = ./actions_path.patch;
-      actionsPathPatch = defaultShellPath;
-    })
+        (substituteAll {
+          src = ./actions_path.patch;
+          actionsPathPatch = defaultShellPath;
+        })
 
-    # bazel reads its system bazelrc in /etc
-    # override this path to a builtin one
-    (substituteAll {
-      src = ../bazel_rc.patch;
-      bazelSystemBazelRCPath = bazelRC;
-    })
-  ] ++ lib.optional enableNixHacks ../nix-hacks.patch;
+        # bazel reads its system bazelrc in /etc
+        # override this path to a builtin one
+        (substituteAll {
+          src = ../bazel_rc.patch;
+          bazelSystemBazelRCPath = bazelRC;
+        })
+      ]
+      ++ lib.optional enableNixHacks ../nix-hacks.patch;
 
-  # Additional tests that check bazel’s functionality. Execute
-  #
-  #     nix-build . -A bazel.tests
-  #
-  # in the nixpkgs checkout root to exercise them locally.
-  passthru.tests =
-    let
-      runLocal =
-        name: attrs: script:
-        let
-          attrs' = removeAttrs attrs [ "buildInputs" ];
-          buildInputs = attrs.buildInputs or [ ];
-        in
-        runCommandCC name
-          (
-            {
-              inherit buildInputs;
-              preferLocalBuild = true;
-              meta.platforms = platforms;
-            }
-            // attrs'
-          )
-          script;
+    # Additional tests that check bazel’s functionality. Execute
+    #
+    #     nix-build . -A bazel.tests
+    #
+    # in the nixpkgs checkout root to exercise them locally.
+    passthru.tests = let
+      runLocal = name: attrs: script: let
+        attrs' = removeAttrs attrs ["buildInputs"];
+        buildInputs = attrs.buildInputs or [];
+      in
+        runCommandCC name (
+          {
+            inherit buildInputs;
+            preferLocalBuild = true;
+            meta.platforms = platforms;
+          }
+          // attrs'
+        )
+        script;
 
       # bazel wants to extract itself into $install_dir/install every time it runs,
       # so let’s do that only once.
-      extracted =
-        bazelPkg:
-        let
-          install_dir =
-            # `install_base` field printed by `bazel info`, minus the hash.
-            # yes, this path is kinda magic. Sorry.
-            "$HOME/.cache/bazel/_bazel_nixbld";
-        in
-        runLocal "bazel-extracted-homedir" { passthru.install_dir = install_dir; } ''
+      extracted = bazelPkg: let
+        install_dir =
+          # `install_base` field printed by `bazel info`, minus the hash.
+          # yes, this path is kinda magic. Sorry.
+          "$HOME/.cache/bazel/_bazel_nixbld";
+      in
+        runLocal "bazel-extracted-homedir"
+        {
+          passthru.install_dir = install_dir;
+        }
+        ''
           export HOME=$(mktemp -d)
           touch WORKSPACE # yeah, everything sucks
           install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
@@ -282,18 +276,16 @@ stdenv.mkDerivation rec {
           cp -R ${install_dir} $out
         '';
 
-      bazelTest =
-        { name
-        , bazelScript
-        , workspaceDir
-        , bazelPkg
-        , buildInputs ? [ ]
-        ,
-        }:
-        let
-          be = extracted bazelPkg;
-        in
-        runLocal name { inherit buildInputs; } (
+      bazelTest = {
+        name,
+        bazelScript,
+        workspaceDir,
+        bazelPkg,
+        buildInputs ? [],
+      }: let
+        be = extracted bazelPkg;
+      in
+        runLocal name {inherit buildInputs;} (
           # skip extraction caching on Darwin, because nobody knows how Darwin works
           (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             # set up home with pre-unpacked bazel
@@ -319,7 +311,7 @@ stdenv.mkDerivation rec {
           ''
         );
 
-      bazelWithNixHacks = bazel_self.override { enableNixHacks = true; };
+      bazelWithNixHacks = bazel_self.override {enableNixHacks = true;};
 
       bazel-examples = fetchFromGitHub {
         owner = "bazelbuild";
@@ -327,11 +319,10 @@ stdenv.mkDerivation rec {
         rev = "4183fc709c26a00366665e2d60d70521dc0b405d";
         sha256 = "1mm4awx6sa0myiz9j4hwp71rpr7yh8vihf3zm15n2ii6xb82r31k";
       };
-
     in
-    (
-      if !stdenv.hostPlatform.isDarwin then
-        {
+      (
+        if !stdenv.hostPlatform.isDarwin
+        then {
           # `extracted` doesn’t work on darwin
           shebang = callPackage ../shebang-test.nix {
             inherit
@@ -343,113 +334,108 @@ stdenv.mkDerivation rec {
             bazel = bazel_self;
           };
         }
-      else
-        { }
-    )
-    // {
-      bashTools = callPackage ../bash-tools-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazel_self;
-      };
-      cpp = callPackage ../cpp-test.nix {
-        inherit
-          runLocal
-          bazelTest
-          bazel-examples
-          distDir
-          ;
-        bazel = bazel_self;
-      };
-      java = callPackage ../java-test.nix {
-        inherit
-          runLocal
-          bazelTest
-          bazel-examples
-          distDir
-          ;
-        bazel = bazel_self;
-      };
-      protobuf = callPackage ../protobuf-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazel_self;
-      };
-      pythonBinPath = callPackage ../python-bin-path-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazel_self;
+        else {}
+      )
+      // {
+        bashTools = callPackage ../bash-tools-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazel_self;
+        };
+        cpp = callPackage ../cpp-test.nix {
+          inherit
+            runLocal
+            bazelTest
+            bazel-examples
+            distDir
+            ;
+          bazel = bazel_self;
+        };
+        java = callPackage ../java-test.nix {
+          inherit
+            runLocal
+            bazelTest
+            bazel-examples
+            distDir
+            ;
+          bazel = bazel_self;
+        };
+        protobuf = callPackage ../protobuf-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazel_self;
+        };
+        pythonBinPath = callPackage ../python-bin-path-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazel_self;
+        };
+
+        bashToolsWithNixHacks = callPackage ../bash-tools-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazelWithNixHacks;
+        };
+
+        cppWithNixHacks = callPackage ../cpp-test.nix {
+          inherit
+            runLocal
+            bazelTest
+            bazel-examples
+            distDir
+            ;
+          bazel = bazelWithNixHacks;
+        };
+        javaWithNixHacks = callPackage ../java-test.nix {
+          inherit
+            runLocal
+            bazelTest
+            bazel-examples
+            distDir
+            ;
+          bazel = bazelWithNixHacks;
+        };
+        protobufWithNixHacks = callPackage ../protobuf-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazelWithNixHacks;
+        };
+        pythonBinPathWithNixHacks = callPackage ../python-bin-path-test.nix {
+          inherit runLocal bazelTest distDir;
+          bazel = bazelWithNixHacks;
+        };
+
+        # downstream packages using buildBazelPackage
+        # fixed-output hashes of the fetch phase need to be spot-checked manually
+        downstream = recurseIntoAttrs {inherit bazel-watcher;};
       };
 
-      bashToolsWithNixHacks = callPackage ../bash-tools-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazelWithNixHacks;
-      };
+    src_for_updater = stdenv.mkDerivation {
+      name = "updater-sources";
+      inherit src;
+      nativeBuildInputs = [unzip];
+      inherit sourceRoot;
+      installPhase = ''
+        runHook preInstall
 
-      cppWithNixHacks = callPackage ../cpp-test.nix {
-        inherit
-          runLocal
-          bazelTest
-          bazel-examples
-          distDir
-          ;
-        bazel = bazelWithNixHacks;
-      };
-      javaWithNixHacks = callPackage ../java-test.nix {
-        inherit
-          runLocal
-          bazelTest
-          bazel-examples
-          distDir
-          ;
-        bazel = bazelWithNixHacks;
-      };
-      protobufWithNixHacks = callPackage ../protobuf-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazelWithNixHacks;
-      };
-      pythonBinPathWithNixHacks = callPackage ../python-bin-path-test.nix {
-        inherit runLocal bazelTest distDir;
-        bazel = bazelWithNixHacks;
-      };
+        cp -r . "$out"
 
-      # downstream packages using buildBazelPackage
-      # fixed-output hashes of the fetch phase need to be spot-checked manually
-      downstream = recurseIntoAttrs {
-        inherit bazel-watcher;
-      };
+        runHook postInstall
+      '';
     };
-
-  src_for_updater = stdenv.mkDerivation {
-    name = "updater-sources";
-    inherit src;
-    nativeBuildInputs = [ unzip ];
-    inherit sourceRoot;
-    installPhase = ''
-      runHook preInstall
-
-      cp -r . "$out"
-
-      runHook postInstall
+    # update the list of workspace dependencies
+    passthru.updater = writeScript "update-bazel-deps.sh" ''
+      #!${runtimeShell}
+      (cd "${src_for_updater}" &&
+          BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 \
+          "${bazel_5}"/bin/bazel \
+              query 'kind(http_archive, //external:all) + kind(http_file, //external:all) + kind(distdir_tar, //external:all) + kind(git_repository, //external:all)' \
+              --loading_phase_threads=1 \
+              --output build) \
+      | "${python3}"/bin/python3 "${./update-srcDeps.py}" \
+        "${builtins.toString ./src-deps.json}"
     '';
-  };
-  # update the list of workspace dependencies
-  passthru.updater = writeScript "update-bazel-deps.sh" ''
-    #!${runtimeShell}
-    (cd "${src_for_updater}" &&
-        BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 \
-        "${bazel_5}"/bin/bazel \
-            query 'kind(http_archive, //external:all) + kind(http_file, //external:all) + kind(distdir_tar, //external:all) + kind(git_repository, //external:all)' \
-            --loading_phase_threads=1 \
-            --output build) \
-    | "${python3}"/bin/python3 "${./update-srcDeps.py}" \
-      "${builtins.toString ./src-deps.json}"
-  '';
 
-  # Necessary for the tests to pass on Darwin with sandbox enabled.
-  # Bazel starts a local server and needs to bind a local address.
-  __darwinAllowLocalNetworking = true;
+    # Necessary for the tests to pass on Darwin with sandbox enabled.
+    # Bazel starts a local server and needs to bind a local address.
+    __darwinAllowLocalNetworking = true;
 
-  postPatch =
-    let
-
+    postPatch = let
       darwinPatches = ''
         bazelLinkFlags () {
           eval set -- "$NIX_LDFLAGS"
@@ -626,161 +612,161 @@ stdenv.mkDerivation rec {
         patchShebangs .
       '';
     in
-    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches;
+      lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches;
 
-  buildInputs = [ buildJdk ] ++ defaultShellUtils;
+    buildInputs = [buildJdk] ++ defaultShellUtils;
 
-  # when a command can’t be found in a bazel build, you might also
-  # need to add it to `defaultShellPath`.
-  nativeBuildInputs =
-    [
-      installShellFiles
-      makeWrapper
-      python3
-      unzip
-      which
-      zip
-      python3.pkgs.absl-py # Needed to build fish completion
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      cctools
-      libcxx
-      CoreFoundation
-      CoreServices
-      Foundation
-    ];
+    # when a command can’t be found in a bazel build, you might also
+    # need to add it to `defaultShellPath`.
+    nativeBuildInputs =
+      [
+        installShellFiles
+        makeWrapper
+        python3
+        unzip
+        which
+        zip
+        python3.pkgs.absl-py # Needed to build fish completion
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        cctools
+        libcxx
+        CoreFoundation
+        CoreServices
+        Foundation
+      ];
 
-  # Bazel makes extensive use of symlinks in the WORKSPACE.
-  # This causes problems with infinite symlinks if the build output is in the same location as the
-  # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
-  # subdirectory.
-  # Failing to do this causes "infinite symlink expansion detected"
-  preBuildPhases = [ "preBuildPhase" ];
-  preBuildPhase = ''
-    mkdir bazel_src
-    shopt -s dotglob extglob
-    mv !(bazel_src) bazel_src
-  '';
-  buildPhase = ''
-    runHook preBuild
+    # Bazel makes extensive use of symlinks in the WORKSPACE.
+    # This causes problems with infinite symlinks if the build output is in the same location as the
+    # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
+    # subdirectory.
+    # Failing to do this causes "infinite symlink expansion detected"
+    preBuildPhases = ["preBuildPhase"];
+    preBuildPhase = ''
+      mkdir bazel_src
+      shopt -s dotglob extglob
+      mv !(bazel_src) bazel_src
+    '';
+    buildPhase = ''
+      runHook preBuild
 
-    # Increasing memory during compilation might be necessary.
-    # export BAZEL_JAVAC_OPTS="-J-Xmx2g -J-Xms200m"
+      # Increasing memory during compilation might be necessary.
+      # export BAZEL_JAVAC_OPTS="-J-Xmx2g -J-Xms200m"
 
-    # If EMBED_LABEL isn't set, it'd be auto-detected from CHANGELOG.md
-    # and `git rev-parse --short HEAD` which would result in
-    # "3.7.0- (@non-git)" due to non-git build and incomplete changelog.
-    # Actual bazel releases use scripts/release/common.sh which is based
-    # on branch/tag information which we don't have with tarball releases.
-    # Note that .bazelversion is always correct and is based on bazel-*
-    # executable name, version checks should work fine
-    export EMBED_LABEL="${version}"
-    ${bash}/bin/bash ./bazel_src/compile.sh
-    ./bazel_src/scripts/generate_bash_completion.sh \
-        --bazel=./bazel_src/output/bazel \
-        --output=./bazel_src/output/bazel-complete.bash \
-        --prepend=./bazel_src/scripts/bazel-complete-header.bash \
-        --prepend=./bazel_src/scripts/bazel-complete-template.bash
-    ${python3}/bin/python3 ./bazel_src/scripts/generate_fish_completion.py \
-        --bazel=./bazel_src/output/bazel \
-        --output=./bazel_src/output/bazel-complete.fish
+      # If EMBED_LABEL isn't set, it'd be auto-detected from CHANGELOG.md
+      # and `git rev-parse --short HEAD` which would result in
+      # "3.7.0- (@non-git)" due to non-git build and incomplete changelog.
+      # Actual bazel releases use scripts/release/common.sh which is based
+      # on branch/tag information which we don't have with tarball releases.
+      # Note that .bazelversion is always correct and is based on bazel-*
+      # executable name, version checks should work fine
+      export EMBED_LABEL="${version}"
+      ${bash}/bin/bash ./bazel_src/compile.sh
+      ./bazel_src/scripts/generate_bash_completion.sh \
+          --bazel=./bazel_src/output/bazel \
+          --output=./bazel_src/output/bazel-complete.bash \
+          --prepend=./bazel_src/scripts/bazel-complete-header.bash \
+          --prepend=./bazel_src/scripts/bazel-complete-template.bash
+      ${python3}/bin/python3 ./bazel_src/scripts/generate_fish_completion.py \
+          --bazel=./bazel_src/output/bazel \
+          --output=./bazel_src/output/bazel-complete.fish
 
-    # need to change directory for bazel to find the workspace
-    cd ./bazel_src
-    # build execlog tooling
-    export HOME=$(mktemp -d)
-    ./output/bazel build  src/tools/execlog:parser_deploy.jar
-    cd -
+      # need to change directory for bazel to find the workspace
+      cd ./bazel_src
+      # build execlog tooling
+      export HOME=$(mktemp -d)
+      ./output/bazel build  src/tools/execlog:parser_deploy.jar
+      cd -
 
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-
-    # official wrapper scripts that searches for $WORKSPACE_ROOT/tools/bazel
-    # if it can’t find something in tools, it calls $out/bin/bazel-{version}-{os_arch}
-    # The binary _must_ exist with this naming if your project contains a .bazelversion
-    # file.
-    cp ./bazel_src/scripts/packages/bazel.sh $out/bin/bazel
-    wrapProgram $out/bin/bazel $wrapperfile --suffix PATH : ${defaultShellPath}
-    mv ./bazel_src/output/bazel $out/bin/bazel-${version}-${system}-${arch}
-
-    mkdir $out/share
-    cp ./bazel_src/bazel-bin/src/tools/execlog/parser_deploy.jar $out/share/parser_deploy.jar
-    cat <<EOF > $out/bin/bazel-execlog
-    #!${runtimeShell} -e
-    ${runJdk}/bin/java -jar $out/share/parser_deploy.jar \$@
-    EOF
-    chmod +x $out/bin/bazel-execlog
-
-    # shell completion files
-    installShellCompletion --bash \
-      --name bazel.bash \
-      ./bazel_src/output/bazel-complete.bash
-    installShellCompletion --zsh \
-      --name _bazel \
-      ./bazel_src/scripts/zsh_completion/_bazel
-    installShellCompletion --fish \
-      --name bazel.fish \
-      ./bazel_src/output/bazel-complete.fish
-  '';
-
-  # Install check fails on `aarch64-darwin`
-  # https://github.com/NixOS/nixpkgs/issues/145587
-  doInstallCheck = stdenv.hostPlatform.system != "aarch64-darwin";
-  installCheckPhase = ''
-    export TEST_TMPDIR=$(pwd)
-
-    hello_test () {
-      $out/bin/bazel test \
-        --test_output=errors \
-        examples/cpp:hello-success_test \
-        examples/java-native/src/test/java/com/example/myproject:hello
-    }
-
-    cd ./bazel_src
-
-    # test whether $WORKSPACE_ROOT/tools/bazel works
-
-    mkdir -p tools
-    cat > tools/bazel <<"EOF"
-    #!${runtimeShell} -e
-    exit 1
-    EOF
-    chmod +x tools/bazel
-
-    # first call should fail if tools/bazel is used
-    ! hello_test
-
-    cat > tools/bazel <<"EOF"
-    #!${runtimeShell} -e
-    exec "$BAZEL_REAL" "$@"
-    EOF
-
-    # second call succeeds because it defers to $out/bin/bazel-{version}-{os_arch}
-    hello_test
-
-    runHook postInstall
-  '';
-
-  # Save paths to hardcoded dependencies so Nix can detect them.
-  # This is needed because the templates get tar’d up into a .jar.
-  postFixup =
-    ''
-      mkdir -p $out/nix-support
-      echo "${defaultShellPath}" >> $out/nix-support/depends
-      # The string literal specifying the path to the bazel-rc file is sometimes
-      # stored non-contiguously in the binary due to gcc optimisations, which leads
-      # Nix to miss the hash when scanning for dependencies
-      echo "${bazelRC}" >> $out/nix-support/depends
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      echo "${cctools}" >> $out/nix-support/depends
+      runHook postBuild
     '';
 
-  dontStrip = true;
-  dontPatchELF = true;
-}
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+
+      # official wrapper scripts that searches for $WORKSPACE_ROOT/tools/bazel
+      # if it can’t find something in tools, it calls $out/bin/bazel-{version}-{os_arch}
+      # The binary _must_ exist with this naming if your project contains a .bazelversion
+      # file.
+      cp ./bazel_src/scripts/packages/bazel.sh $out/bin/bazel
+      wrapProgram $out/bin/bazel $wrapperfile --suffix PATH : ${defaultShellPath}
+      mv ./bazel_src/output/bazel $out/bin/bazel-${version}-${system}-${arch}
+
+      mkdir $out/share
+      cp ./bazel_src/bazel-bin/src/tools/execlog/parser_deploy.jar $out/share/parser_deploy.jar
+      cat <<EOF > $out/bin/bazel-execlog
+      #!${runtimeShell} -e
+      ${runJdk}/bin/java -jar $out/share/parser_deploy.jar \$@
+      EOF
+      chmod +x $out/bin/bazel-execlog
+
+      # shell completion files
+      installShellCompletion --bash \
+        --name bazel.bash \
+        ./bazel_src/output/bazel-complete.bash
+      installShellCompletion --zsh \
+        --name _bazel \
+        ./bazel_src/scripts/zsh_completion/_bazel
+      installShellCompletion --fish \
+        --name bazel.fish \
+        ./bazel_src/output/bazel-complete.fish
+    '';
+
+    # Install check fails on `aarch64-darwin`
+    # https://github.com/NixOS/nixpkgs/issues/145587
+    doInstallCheck = stdenv.hostPlatform.system != "aarch64-darwin";
+    installCheckPhase = ''
+      export TEST_TMPDIR=$(pwd)
+
+      hello_test () {
+        $out/bin/bazel test \
+          --test_output=errors \
+          examples/cpp:hello-success_test \
+          examples/java-native/src/test/java/com/example/myproject:hello
+      }
+
+      cd ./bazel_src
+
+      # test whether $WORKSPACE_ROOT/tools/bazel works
+
+      mkdir -p tools
+      cat > tools/bazel <<"EOF"
+      #!${runtimeShell} -e
+      exit 1
+      EOF
+      chmod +x tools/bazel
+
+      # first call should fail if tools/bazel is used
+      ! hello_test
+
+      cat > tools/bazel <<"EOF"
+      #!${runtimeShell} -e
+      exec "$BAZEL_REAL" "$@"
+      EOF
+
+      # second call succeeds because it defers to $out/bin/bazel-{version}-{os_arch}
+      hello_test
+
+      runHook postInstall
+    '';
+
+    # Save paths to hardcoded dependencies so Nix can detect them.
+    # This is needed because the templates get tar’d up into a .jar.
+    postFixup =
+      ''
+        mkdir -p $out/nix-support
+        echo "${defaultShellPath}" >> $out/nix-support/depends
+        # The string literal specifying the path to the bazel-rc file is sometimes
+        # stored non-contiguously in the binary due to gcc optimisations, which leads
+        # Nix to miss the hash when scanning for dependencies
+        echo "${bazelRC}" >> $out/nix-support/depends
+      ''
+      + lib.optionalString stdenv.isDarwin ''
+        echo "${cctools}" >> $out/nix-support/depends
+      '';
+
+    dontStrip = true;
+    dontPatchELF = true;
+  }

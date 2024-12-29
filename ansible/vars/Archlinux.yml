@@ -1,17 +1,13 @@
----
 docker_compose_package: docker-compose
 docker_packages:
   - "docker"
   - "docker-buildx"
-
 lid_name: LID0
-
 system_groups:
   - disk
   - seat
   - docker
   - libvirt
-
 systemd_services:
   - avahi-daemon.service
   - bluetooth.service
@@ -22,7 +18,6 @@ systemd_services:
   - systemd-boot-update.service
   - thermald.service
   - wol@phy0.service
-
 systemd_services_userspace:
   - pipewire-pulse.service
   - keybase.service
@@ -30,7 +25,6 @@ systemd_services_userspace:
   - xdg-desktop-portal
   - xdg-desktop-portal-wlr
   - xdg-desktop-portal-gtk
-
 packages:
   - avahi
   - wayland

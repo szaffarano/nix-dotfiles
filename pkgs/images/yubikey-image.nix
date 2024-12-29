@@ -5,12 +5,15 @@
 # to test it in a vm:
 #
 # $ nixos-generate --run -f vm -c yubikey-image.nix
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   mount-volumes =
     (pkgs.writeShellApplication {
       name = "mount-volumes";
-      runtimeInputs = [ pkgs.coreutils ];
+      runtimeInputs = [pkgs.coreutils];
       text = builtins.readFile ./scripts/mount-volumes.sh;
     })
     // {
@@ -23,7 +26,7 @@ let
   sync-gnupghome =
     (pkgs.writeShellApplication {
       name = "sync-gnupghome";
-      runtimeInputs = [ pkgs.coreutils ];
+      runtimeInputs = [pkgs.coreutils];
       text = builtins.readFile ./scripts/sync-gnupghome.sh;
     })
     // {
@@ -36,7 +39,7 @@ let
   update-expiration =
     (pkgs.writeShellApplication {
       name = "update-expiration";
-      runtimeInputs = [ pkgs.coreutils ];
+      runtimeInputs = [pkgs.coreutils];
       text = builtins.readFile ./scripts/update-expiration.sh;
     })
     // {
@@ -50,7 +53,7 @@ let
   backup-gnupghome =
     (pkgs.writeShellApplication {
       name = "backup-gnupghome";
-      runtimeInputs = [ pkgs.coreutils ];
+      runtimeInputs = [pkgs.coreutils];
       text = builtins.readFile ./scripts/backup-gnupghome.sh;
     })
     // {
@@ -69,14 +72,13 @@ let
       rev = "166f838a437304872b12a38ad6f1066b7a2e65e5";
       sha256 = "sha256-5njR8Ha2FvELuRtcEKoQuQ8BKqSiZHDA3RJGYrPRDfg=";
     };
-    buildInputs = [ pkgs.pandoc ];
+    buildInputs = [pkgs.pandoc];
     installPhase = ''
       pandoc --highlight-style pygments -s --toc README.md | \
         sed -e 's/<keyid>/\&lt;keyid\&gt;/g' > $out
     '';
   };
-in
-{
+in {
   environment.interactiveShellInit = ''
     export GNUPGHOME=/run/user/$(id -u)/gnupghome
     export YUBIKEY_GUIDE=${guide}
@@ -117,20 +119,21 @@ in
     yubikey-personalization
   ];
 
-  services.udev.packages = with pkgs; [ yubikey-personalization ];
-  services.pcscd.enable = true;
+  services = {
+    udev.packages = with pkgs; [yubikey-personalization];
+    pcscd.enable = true;
+    getty.helpLine = "The 'root' account has an empty password.";
+  };
 
   # make sure we are air-gapped
   networking.wireless.enable = false;
   networking.dhcpcd.enable = false;
 
-  services.getty.helpLine = "The 'root' account has an empty password.";
-
   security.sudo.wheelNeedsPassword = false;
   users.users.yubikey = {
     isNormalUser = true;
     initialPassword = "yubikey";
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     shell = "/run/current-system/sw/bin/bash";
   };
 

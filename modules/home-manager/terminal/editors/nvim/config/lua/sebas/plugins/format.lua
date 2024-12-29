@@ -18,7 +18,7 @@ return {
       lua = { 'stylua' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       javascript = { { 'prettierd', 'prettier' } },
-      nix = { 'nixfmt' },
+      nix = { 'alejandra' },
       zsh = { 'shfmt' },
       sh = { 'shfmt' },
       asm = { 'nasmfmt' },

@@ -1,10 +1,9 @@
-{ lib
-, config
-, pkgs
-, ...
-}:
-
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   mkFontOption = kind: {
     family = lib.mkOption {
       type = lib.types.str;
@@ -33,8 +32,7 @@ let
     };
   };
   cfg = config.fontProfiles;
-in
-{
+in {
   options.fontProfiles = {
     enable = lib.mkEnableOption "Whether to enable font profiles";
     monospace = mkFontOption "monospace";
@@ -49,7 +47,7 @@ in
       cfg.monospace.package
       cfg.regular.package
     ];
-    lib.fontProfiles.pxToInt = v: lib.toInt (builtins.replaceStrings [ "px" ] [ "" ] v);
+    lib.fontProfiles.pxToInt = v: lib.toInt (builtins.replaceStrings ["px"] [""] v);
     fontProfiles = {
       monospace = lib.mkDefault rec {
         family = "sans-serif";

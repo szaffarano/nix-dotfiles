@@ -1,10 +1,12 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   feature_name = "quietboot";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     console = lib.mkIf enabled {
       useXkbConfig = true;

@@ -1,14 +1,16 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   feature_name = "elastic-endpoint";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     systemd.services = lib.mkIf enabled {
       ElasticEndpoint = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "ElasticEndpoint";
         unitConfig = {
           StartLimitInterval = 600;
@@ -23,7 +25,7 @@ in
       };
 
       elastic-agent = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "Elastic Agent is a unified agent to observe, monitor and protect your system.";
         unitConfig = {
           StartLimitInterval = 5;

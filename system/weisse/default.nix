@@ -1,14 +1,15 @@
-{ inputs
-, flakeRoot
-, ...
-}:
-let
+{
+  inputs,
+  flakeRoot,
+  ...
+}: let
   userName = "sebas";
   hostName = "weisse";
 
-  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName; };
-in
-{
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName;
+  };
+in {
   imports = [
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
@@ -52,9 +53,7 @@ in
     ];
   };
 
-  networking = {
-    inherit hostName;
-  };
+  networking = {inherit hostName;};
 
   boot.kernelParams = [
     "nosgx"

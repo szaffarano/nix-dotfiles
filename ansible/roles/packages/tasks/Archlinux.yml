@@ -1,28 +1,25 @@
----
 - name: Install Chaotic-AUR
   become: true
   vars:
     chaotic_base: "https://cdn-mirror.chaotic.cx/chaotic-aur"
   ansible.builtin.shell: |
-   pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com \
-    && pacman-key --lsign-key 3056513887B78AEB \
-    && pacman -U --noconfirm \
-      "{{ chaotic_base }}/chaotic-keyring.pkg.tar.zst" \
-      "{{ chaotic_base }}/chaotic-mirrorlist.pkg.tar.zst" \
-    && tee -a /etc/pacman.conf << EOF
-    [chaotic-aur]
-    Include = /etc/pacman.d/chaotic-mirrorlist
-    EOF
+    pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com \
+     && pacman-key --lsign-key 3056513887B78AEB \
+     && pacman -U --noconfirm \
+       "{{ chaotic_base }}/chaotic-keyring.pkg.tar.zst" \
+       "{{ chaotic_base }}/chaotic-mirrorlist.pkg.tar.zst" \
+     && tee -a /etc/pacman.conf << EOF
+     [chaotic-aur]
+     Include = /etc/pacman.d/chaotic-mirrorlist
+     EOF
   args:
     creates: "/etc/pacman.d/chaotic-mirrorlist"
-
 - name: Update Linux packages (Archlinux)
   community.general.pacman:
     update_cache: true
     upgrade: true
   when:
     - distro.is_arch
-
 - name: Install Linux packages (Archlinux)
   community.general.pacman:
     name: "{{ packages }}"

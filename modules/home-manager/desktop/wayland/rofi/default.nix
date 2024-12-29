@@ -1,27 +1,23 @@
-{ config
-, inputs
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.desktop.wayland.rofi;
 in
-with lib;
-{
-  options.desktop.wayland.rofi.enable = mkEnableOption "rofi";
+  with lib; {
+    options.desktop.wayland.rofi.enable = mkEnableOption "rofi";
 
-  config =
-    let
+    config = let
       copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       rofi = lib.getExe config.programs.rofi.finalPackage;
       cmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
       inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
     in
-
-    mkIf cfg.enable {
-      xdg.dataFile."rofi/themes/${config.colorScheme.slug}.rasi".text =
-        with config.colorScheme.palette; ''
+      mkIf cfg.enable {
+        xdg.dataFile."rofi/themes/${config.colorScheme.slug}.rasi".text = with config.colorScheme.palette; ''
           * {
               red:                         rgba ( ${hexToRGBString ", " base08}, 100 % );
               blue:                        rgba ( ${hexToRGBString ", " base0D}, 100 % );
@@ -165,35 +161,27 @@ with lib;
           }
         '';
 
-      home.packages = [
-        pkgs.rofi-power-menu
-      ];
+        home.packages = [pkgs.rofi-power-menu];
 
-      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-        keybindings = {
-          "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = cmd;
+        wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
+          keybindings = {
+            "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = cmd;
+          };
         };
-      };
 
-      wayland.windowManager.hyprland.settings =
-        lib.mkIf config.desktop.wayland.compositors.hyprland.enable
+        wayland.windowManager.hyprland.settings =
+          lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
-            bind = [
-              "$mod_SHIFT,S,exec,${cmd}"
-            ];
+            bind = ["$mod_SHIFT,S,exec,${cmd}"];
           };
 
-      programs.rofi =
-        let
+        programs.rofi = let
           rofi = pkgs.rofi-wayland;
-        in
-        {
+        in {
           enable = true;
           package = rofi;
-          plugins = [
-            (pkgs.rofi-calc.override { rofi-unwrapped = rofi; })
-          ];
+          plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = rofi;})];
           theme = config.colorScheme.slug;
         };
-    };
-}
+      };
+  }

@@ -1,15 +1,16 @@
-{ inputs
-, flakeRoot
-, ...
-}:
-let
+{
+  inputs,
+  flakeRoot,
+  ...
+}: let
   userName = "sebas";
   hostName = "pilsen";
   email = "sebas@zaffarano.com.ar";
 
-  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName email; };
-in
-{
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName email;
+  };
+in {
   imports = [
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
@@ -61,9 +62,7 @@ in
   };
   services.greetd.enable = false;
 
-  networking = {
-    inherit hostName;
-  };
+  networking = {inherit hostName;};
 
   sops.secrets = {
     sebas-password = {

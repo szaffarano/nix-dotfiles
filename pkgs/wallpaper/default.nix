@@ -1,10 +1,10 @@
-{ lib
-, writeShellApplication
-, curl
-, findutils
-, coreutils
-, bind
-,
+{
+  lib,
+  writeShellApplication,
+  curl,
+  findutils,
+  coreutils,
+  bind,
 }:
 (writeShellApplication {
   name = "wallpaper";
@@ -16,7 +16,7 @@
   ];
   text = builtins.readFile ./wallpaper.sh;
 })
-  // {
+// {
   meta = with lib; {
     licenses = licenses.mit;
     mainProgram = "wallpaper";

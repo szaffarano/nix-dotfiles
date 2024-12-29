@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config) fontProfiles;
   cfg = config.desktop.gui.fontconfig;
 
@@ -10,15 +13,14 @@ let
     f-emoji = fontProfiles.emoji.name;
   };
 in
-with lib;
-{
-  options.desktop.gui.fontconfig.enable = mkEnableOption "fontconfig";
+  with lib; {
+    options.desktop.gui.fontconfig.enable = mkEnableOption "fontconfig";
 
-  config = lib.mkIf cfg.enable {
-    fonts.fontconfig.enable = true;
+    config = lib.mkIf cfg.enable {
+      fonts.fontconfig.enable = true;
 
-    xdg.configFile."fontconfig/conf.d/99-fonts.conf".text =
-      builtins.replaceStrings (builtins.attrNames fonts) (builtins.attrValues fonts)
+      xdg.configFile."fontconfig/conf.d/99-fonts.conf".text =
+        builtins.replaceStrings (builtins.attrNames fonts) (builtins.attrValues fonts)
         (builtins.readFile ./fonts.conf);
-  };
-}
+    };
+  }

@@ -1,8 +1,8 @@
-{ lib
-, writeShellApplication
-, coreutils
-, util-linux
-,
+{
+  lib,
+  writeShellApplication,
+  coreutils,
+  util-linux,
 }:
 (writeShellApplication {
   name = "arch";
@@ -12,7 +12,7 @@
   ];
   text = builtins.readFile ./arch.sh;
 })
-  // {
+// {
   meta = with lib; {
     licenses = licenses.mit;
     platforms = platforms.all;

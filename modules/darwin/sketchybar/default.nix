@@ -1,12 +1,10 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.sketchybar;
 
   configHome = pkgs.writeTextFile {
@@ -15,11 +13,8 @@ let
     destination = "/sketchybar/sketchybarrc";
     executable = true;
   };
-in
-
-{
-
-  meta.maintainers = [ maintainers.azuwis or "azuwis" ];
+in {
+  meta.maintainers = [maintainers.azuwis or "azuwis"];
 
   options = with types; {
     services.sketchybar = {
@@ -55,11 +50,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     launchd.user.agents.sketchybar = {
       serviceConfig = {
-        ProgramArguments = [ "${cfg.package}/bin/sketchybar" ];
+        ProgramArguments = ["${cfg.package}/bin/sketchybar"];
         KeepAlive = true;
         RunAtLoad = true;
         EnvironmentVariables = {
