@@ -6,14 +6,14 @@ on:
       - master
       - develop
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v3
-      - uses: pre-commit/action@v3.0.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+  # pre-commit:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v3
+  #     - uses: pre-commit/action@v3.0.1
+  #       with:
+  #         repo-token: ${{ secrets.GITHUB_TOKEN }}
   check:
     runs-on: ubuntu-latest
     permissions:
@@ -27,5 +27,5 @@ jobs:
           extra-conf: |
             extra-platforms = aarch64-linux
       - uses: DeterminateSystems/magic-nix-cache-action@main
-      # - run: nix flake check
+      - run: nix flake check
       - run: nix flake show
