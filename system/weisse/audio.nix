@@ -1,24 +1,15 @@
 {pkgs, ...}: let
-  rev = "cadc325194f7dbbff6ef29caa589c5f976d4ed2b";
-  hash = "sha256-BQfbNV3fPdayodqIyo2lHnekbpFikSS7oz5Nkh60xO4=";
   alsa-ucm-conf-chromebook = with pkgs;
     alsa-ucm-conf.overrideAttrs {
       wttsrc = fetchFromGitHub {
-        inherit rev hash;
+        rev = "00b399ed00930bfe544a34358547ab20652d71e3";
+        hash = "sha256-lRrgZDb3nnZ6/UcIsfjqAAbbSMOkP3lBGoGzZci+c1k=";
         owner = "WeirdTreeThing";
-        repo = "chromebook-ucm-conf";
+        repo = "alsa-ucm-conf-cros";
       };
       postInstall = ''
-        echo "${rev}" > $out/chromebook.patched
-
-        # Asus Chromebook CX1400 (GALTIC)
-        #   ❯ aplay -l
-        #   card 0: sofrt5682 [sof-rt5682], device 0: Headphones (*) []
-        #   ....
-        cp -R $wttsrc/sof-rt5682 $out/share/alsa/ucm2/conf.d
-        cp -R $wttsrc/common/* $out/share/alsa/ucm2/common
-        cp -R $wttsrc/codecs/* $out/share/alsa/ucm2/codecs
-        cp -R $wttsrc/platforms/* $out/share/alsa/ucm2/platforms
+        cp -R $wttsrc/ucm2/* $out/share/alsa/ucm2/
+        cp -R $wttsrc/overrides/* $out/share/alsa/ucm2/conf.d/
       '';
     };
 in {
@@ -49,19 +40,21 @@ in {
   };
 
   services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-increase-headroom.lua" ''
-      rule = {
-        matches = {
-          {
-            { "node.name", "matches", "alsa_output.*" },
-          },
-        },
-        apply_properties = {
-          ["api.alsa.headroom"] = 4096,
-        },
-      }
-
-      table.insert(alsa_monitor.rules,rule)
+    (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/51-increase-headroom.conf" ''
+      monitor.alsa.rules = [
+        {
+          matches = [
+            {
+              node.name = "~alsa_output.*"
+            }
+          ]
+          actions = {
+            update-props = {
+              api.alsa.headroom = 4096
+            }
+          }
+        }
+      ]
     '')
   ];
 }
