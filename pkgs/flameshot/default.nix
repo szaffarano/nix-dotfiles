@@ -1,5 +1,4 @@
-{ pkgs }:
-(pkgs.flameshot.overrideAttrs (oldAttrs: {
+{pkgs}: (pkgs.flameshot.overrideAttrs (oldAttrs: {
   src = pkgs.fetchFromGitHub {
     owner = "flameshot-org";
     repo = "flameshot";
@@ -10,5 +9,5 @@
     "-DUSE_WAYLAND_CLIPBOARD=1"
     "-DUSE_WAYLAND_GRIM=1"
   ];
-  buildInputs = oldAttrs.buildInputs ++ [ pkgs.libsForQt5.kguiaddons ];
+  buildInputs = oldAttrs.buildInputs ++ [pkgs.libsForQt5.kguiaddons];
 }))

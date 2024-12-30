@@ -1,4 +1,3 @@
----
 wakeup_devices:
   - id_vendor: "046d"
     id_product: "c52b"

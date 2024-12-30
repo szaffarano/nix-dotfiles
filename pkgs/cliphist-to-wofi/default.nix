@@ -1,7 +1,7 @@
-{ lib
-, pkgs
-, python3Packages
-,
+{
+  lib,
+  pkgs,
+  python3Packages,
 }:
 python3Packages.buildPythonPackage rec {
   pname = "cliphist-to-wofi";
@@ -10,9 +10,7 @@ python3Packages.buildPythonPackage rec {
 
   src = ./.;
 
-  build-system = with python3Packages; [
-    poetry-core
-  ];
+  build-system = with python3Packages; [poetry-core];
 
   dependencies = with pkgs; [
     cliphist

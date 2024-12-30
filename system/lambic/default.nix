@@ -1,16 +1,17 @@
-{ flakeRoot
-, config
-, pkgs
-, ...
-}:
-let
+{
+  flakeRoot,
+  config,
+  pkgs,
+  ...
+}: let
   hostName = "lambic";
   userName = "sebas";
   email = "sebas@zaffarano.com.ar";
 
-  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" { inherit userName hostName email; };
-in
-{
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName email;
+  };
+in {
   imports = [
     "${flakeRoot}/modules/nixos"
     sebas
@@ -51,7 +52,7 @@ in
           dt-overlays = {
             disable-bt = {
               enable = true;
-              params = { };
+              params = {};
             };
           };
         };
@@ -76,9 +77,7 @@ in
 
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-      zlib
-    ];
+    libraries = with pkgs; [zlib];
   };
 
   sops.secrets = {

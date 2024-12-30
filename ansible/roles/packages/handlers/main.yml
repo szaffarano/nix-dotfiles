@@ -1,4 +1,3 @@
----
 - name: Init yay db
   ansible.builtin.command:
     cmd: yay -Y --gendb

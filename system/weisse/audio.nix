@@ -1,10 +1,7 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   rev = "cadc325194f7dbbff6ef29caa589c5f976d4ed2b";
   hash = "sha256-BQfbNV3fPdayodqIyo2lHnekbpFikSS7oz5Nkh60xO4=";
-  alsa-ucm-conf-chromebook =
-    with pkgs;
+  alsa-ucm-conf-chromebook = with pkgs;
     alsa-ucm-conf.overrideAttrs {
       wttsrc = fetchFromGitHub {
         inherit rev hash;
@@ -24,8 +21,7 @@ let
         cp -R $wttsrc/platforms/* $out/share/alsa/ucm2/platforms
       '';
     };
-in
-{
+in {
   boot = {
     extraModprobeConfig = ''
       options snd-intel-dspcfg dsp_driver=3

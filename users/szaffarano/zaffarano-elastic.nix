@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home = {
     custom = {
-      features.enable = [ ];
-      permitted-insecure-packages = [ "python-2.7.18.8" ]; # needed by bazel-5.1.1
+      features.enable = [];
+      permitted-insecure-packages = ["python-2.7.18.8"]; # needed by bazel-5.1.1
     };
     packages = [
       pkgs.aoc-cli
@@ -53,8 +52,8 @@
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
   };
 

@@ -1,1 +1,7 @@
-{ imports = [ ./zsh ./cli ./editors/nvim ]; }
+{
+  imports = [
+    ./zsh
+    ./cli
+    ./editors/nvim
+  ];
+}

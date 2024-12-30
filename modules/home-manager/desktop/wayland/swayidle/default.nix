@@ -1,9 +1,9 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.desktop.wayland.swayidle;
 
   lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
@@ -14,75 +14,69 @@ let
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   # Thanks Misterio77! :)
-  afterLockTimeout =
-    { timeout
-    , command
-    , resumeCommand ? null
-    ,
-    }:
-    [
-      {
-        timeout = cfg.lockTime + timeout;
-        inherit command resumeCommand;
-      }
-      {
-        command = "${isLocked} && ${command}";
-        inherit resumeCommand timeout;
-      }
-    ];
+  afterLockTimeout = {
+    timeout,
+    command,
+    resumeCommand ? null,
+  }: [
+    {
+      timeout = cfg.lockTime + timeout;
+      inherit command resumeCommand;
+    }
+    {
+      command = "${isLocked} && ${command}";
+      inherit resumeCommand timeout;
+    }
+  ];
 in
-with lib;
-{
-  options.desktop.wayland.swayidle = {
-    enable = mkEnableOption "swayidle";
-    lockTime = mkOption {
-      type = types.int;
-      default = 5 * 60;
-      description = "Time in seconds before the screen is locked.";
+  with lib; {
+    options.desktop.wayland.swayidle = {
+      enable = mkEnableOption "swayidle";
+      lockTime = mkOption {
+        type = types.int;
+        default = 5 * 60;
+        description = "Time in seconds before the screen is locked.";
+      };
     };
-  };
 
-  config = mkIf cfg.enable {
-    services.swayidle = {
-      enable = true;
-      systemdTarget = "graphical-session.target";
-      events = [
-        {
-          event = "before-sleep";
-          command = "${lockScreen} 0";
-        }
-      ];
-      timeouts =
-        # Lock screen
-        [
+    config = mkIf cfg.enable {
+      services.swayidle = {
+        enable = true;
+        systemdTarget = "graphical-session.target";
+        events = [
           {
-            timeout = cfg.lockTime;
-            command = lockScreen;
+            event = "before-sleep";
+            command = "${lockScreen} 0";
           }
-        ]
-        ++
-
-        # Turn off displays (hyprland)
-        (lib.optionals config.wayland.windowManager.hyprland.enable (
-          afterLockTimeout (
-            let
-              hyprctl = lib.getExe config.wayland.windowManager.hyprland.package;
-            in
+        ];
+        timeouts =
+          # Lock screen
+          [
             {
-              timeout = 60;
-              command = "${hyprctl} dispatch dpms off";
-              resumeCommand = "${hyprctl} dispatch dpms on";
+              timeout = cfg.lockTime;
+              command = lockScreen;
             }
-          )
-        ))
-        ++
-
-        # Turn off displays (sway)
-        (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-          timeout = 60;
-          command = "${swaymsg} 'output * dpms off'";
-          resumeCommand = "${swaymsg} 'output * dpms on'";
-        }));
+          ]
+          ++
+          # Turn off displays (hyprland)
+          (lib.optionals config.wayland.windowManager.hyprland.enable (
+            afterLockTimeout (
+              let
+                hyprctl = lib.getExe config.wayland.windowManager.hyprland.package;
+              in {
+                timeout = 60;
+                command = "${hyprctl} dispatch dpms off";
+                resumeCommand = "${hyprctl} dispatch dpms on";
+              }
+            )
+          ))
+          ++
+          # Turn off displays (sway)
+          (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
+            timeout = 60;
+            command = "${swaymsg} 'output * dpms off'";
+            resumeCommand = "${swaymsg} 'output * dpms on'";
+          }));
+      };
     };
-  };
-}
+  }

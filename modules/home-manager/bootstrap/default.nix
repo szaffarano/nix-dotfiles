@@ -1,10 +1,10 @@
-{ lib
-, config
-, inputs
-, outputs
-, ...
-}:
 {
+  lib,
+  config,
+  inputs,
+  outputs,
+  ...
+}: {
   imports = [
     inputs.nix-colors.homeManagerModules.default
     inputs.nix-index-database.hmModules.nix-index
@@ -16,20 +16,17 @@
 
       config.permittedInsecurePackages = config.home.custom.permitted-insecure-packages;
 
-      config.allowUnfreePredicate =
-        let
-          packageNames = map lib.getName config.home.custom.allowed-unfree-packages;
-        in
+      config.allowUnfreePredicate = let
+        packageNames = map lib.getName config.home.custom.allowed-unfree-packages;
+      in
         lib.mkDefault (
-          pkg:
-          let
+          pkg: let
             packageName = lib.getName pkg;
             exists = builtins.elem packageName packageNames;
           in
-          if exists && config.home.custom.debug then
-            builtins.trace "Allowing the non-free package '${packageName}' to be installed" exists
-          else
-            exists
+            if exists && config.home.custom.debug
+            then builtins.trace "Allowing the non-free package '${packageName}' to be installed" exists
+            else exists
         );
     };
 
@@ -40,7 +37,7 @@
     home = {
       homeDirectory = lib.mkDefault "/home/${config.home.username}";
       stateVersion = lib.mkDefault "23.05";
-      sessionPath = [ "$HOME/.local/bin" ];
+      sessionPath = ["$HOME/.local/bin"];
       sessionVariables = {
         FLAKE = "$HOME/.dotfiles";
       };

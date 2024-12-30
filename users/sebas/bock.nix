@@ -1,5 +1,8 @@
-{ outputs, pkgs, ... }:
 {
+  outputs,
+  pkgs,
+  ...
+}: {
   git = {
     enable = true;
     user = {

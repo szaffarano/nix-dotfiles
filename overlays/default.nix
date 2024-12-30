@@ -1,7 +1,5 @@
-{ inputs, ... }:
-{
-
-  additions = final: _: import ../pkgs { pkgs = final; };
+{inputs, ...}: {
+  additions = final: _: import ../pkgs {pkgs = final;};
 
   neovim = inputs.neovim-nightly.overlays.default;
 
@@ -21,14 +19,15 @@
   #
   # Thanks Misterio77!
   flake-inputs = final: _: {
-    inputs = builtins.mapAttrs
-      (
-        _: flake:
-          let
-            legacyPackages = (flake.legacyPackages or { }).${final.system} or { };
-            packages = (flake.packages or { }).${final.system} or { };
-          in
-          if legacyPackages != { } then legacyPackages else packages
+    inputs =
+      builtins.mapAttrs (
+        _: flake: let
+          legacyPackages = (flake.legacyPackages or {}).${final.system} or {};
+          packages = (flake.packages or {}).${final.system} or {};
+        in
+          if legacyPackages != {}
+          then legacyPackages
+          else packages
       )
       inputs;
   };

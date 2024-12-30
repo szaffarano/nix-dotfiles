@@ -1,9 +1,9 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   config = lib.mkIf config.hardware.graphics.enable {
     hardware = {
       graphics = {

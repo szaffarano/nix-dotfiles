@@ -1,10 +1,8 @@
-{ config, ... }:
-let
+{config, ...}: let
   feature_name = "ollama";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   services.ollama = {
     enable = enabled;
   };

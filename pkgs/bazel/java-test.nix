@@ -1,19 +1,16 @@
-{ bazel
-, bazelTest
-, bazel-examples
-, gccStdenv
-, lib
-, openjdk8
-, jdk11_headless
-, runLocal
-, runtimeShell
-, writeScript
-, distDir
-,
-}:
-
-let
-
+{
+  bazel,
+  bazelTest,
+  bazel-examples,
+  gccStdenv,
+  lib,
+  openjdk8,
+  jdk11_headless,
+  runLocal,
+  runtimeShell,
+  writeScript,
+  distDir,
+}: let
   toolsBazel = writeScript "bazel" ''
     #! ${runtimeShell}
 
@@ -28,7 +25,7 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (
+  workspaceDir = runLocal "our_workspace" {} (
     ''
       cp -r ${bazel-examples}/java-tutorial $out
       find $out -type d -exec chmod 755 {} \;
@@ -44,7 +41,11 @@ let
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-      (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless)
+      (
+        if lib.strings.versionOlder bazel.version "5.0.0"
+        then openjdk8
+        else jdk11_headless
+      )
     ];
     bazelScript =
       ''
@@ -62,6 +63,5 @@ let
         --javabase='@local_jdk//:jdk' \
       '';
   };
-
 in
-testBazel
+  testBazel

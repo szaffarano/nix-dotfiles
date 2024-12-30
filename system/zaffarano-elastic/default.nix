@@ -1,9 +1,9 @@
-{ inputs
-, config
-, flakeRoot
-, ...
-}:
-let
+{
+  inputs,
+  config,
+  flakeRoot,
+  ...
+}: let
   userName = "szaffarano";
   hostName = "zaffarano-elastic";
   email = "sebastian.zaffarano@elastic.co";
@@ -11,8 +11,7 @@ let
   szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
     inherit userName hostName email;
   };
-in
-{
+in {
   imports = [
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel

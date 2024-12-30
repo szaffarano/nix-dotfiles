@@ -59,9 +59,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-    };
+    sops-nix.url = "github:Mic92/sops-nix";
 
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -71,35 +69,47 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { self, nixpkgs, ... }@inputs:
-    let
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+  outputs = {
+    self,
+    nixpkgs,
+    treefmt-nix,
+    ...
+  } @ inputs: let
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
 
-      inherit (self) outputs;
-      inherit (nixpkgs) lib;
+    inherit (self) outputs;
+    inherit (nixpkgs) lib;
 
-      localLib = import ./lib inputs;
+    localLib = import ./lib inputs;
 
-      flakeRoot = self;
-      specialArgs = {
-        inherit
-          inputs
-          outputs
-          localLib
-          flakeRoot
-          ;
-      };
+    flakeRoot = self;
+    specialArgs = {
+      inherit
+        inputs
+        outputs
+        localLib
+        flakeRoot
+        ;
+    };
 
-      forEachSystem =
-        f:
-        lib.genAttrs systems (
-          system:
+    forEachSystem = f:
+      lib.genAttrs systems (
+        system:
           f (
             import nixpkgs {
               inherit system;
@@ -108,64 +118,79 @@
               ];
             }
           )
-        );
-    in
-    {
-      overlays = import ./overlays { inherit inputs outputs; };
+      );
 
-      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+    treefmtEval = forEachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+  in {
+    overlays = import ./overlays {inherit inputs outputs;};
 
-      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs inputs; });
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
 
-      formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs inputs outputs;});
 
-      nixosConfigurations = {
-        # pilsen = lib.mkNixOS pilsen;
-        # bock = lib.mkNixOS bock;
-        weisse = nixpkgs.lib.nixosSystem {
-          modules = [ "${self}/system/weisse" ];
-          inherit specialArgs;
-        };
+    formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
-        zaffarano-elastic = nixpkgs.lib.nixosSystem {
-          modules = [ "${self}/system/zaffarano-elastic" ];
-          inherit specialArgs;
-        };
-
-        pilsen = nixpkgs.lib.nixosSystem {
-          modules = [ "${self}/system/pilsen" ];
-          inherit specialArgs;
-        };
-
-        lambic = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          inherit specialArgs;
-          modules = [
-            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
-            inputs.raspberry-pi-nix.nixosModules.sd-image
-            "${self}/system/lambic"
-          ];
-        };
+    nixosConfigurations = {
+      # pilsen = lib.mkNixOS pilsen;
+      # bock = lib.mkNixOS bock;
+      weisse = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/weisse"];
+        inherit specialArgs;
       };
 
-      darwinConfigurations = {
-        "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
+      zaffarano-elastic = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/zaffarano-elastic"];
+        inherit specialArgs;
       };
 
-      deploy.nodes.lambic = {
-        hostname = "lambic";
-        profiles.system = {
-          sshUser = "sebas";
-          user = "root";
-          interactiveSudo = true;
-          path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.lambic;
-        };
+      pilsen = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/pilsen"];
+        inherit specialArgs;
       };
 
-      checks = builtins.mapAttrs
-        (
-          _system: deployLib: deployLib.deployChecks self.deploy
-        )
-        inputs.deploy-rs.lib;
+      lambic = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        inherit specialArgs;
+        modules = [
+          inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+          inputs.raspberry-pi-nix.nixosModules.sd-image
+          "${self}/system/lambic"
+        ];
+      };
     };
+
+    darwinConfigurations = {
+      "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
+    };
+
+    deploy.nodes.lambic = {
+      hostname = "lambic";
+      profiles.system = {
+        sshUser = "sebas";
+        user = "root";
+        interactiveSudo = true;
+        path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.lambic;
+      };
+    };
+
+    checks = forEachSystem (pkgs: {
+      pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.system}.run {
+        src = self;
+        hooks = {
+          deadnix.enable = true;
+          end-of-file-fixer.enable = true;
+          markdownlint.enable = true;
+          mixed-line-endings.enable = true;
+          alejandra.enable = true;
+          pyright.enable = true;
+          ruff.enable = true;
+          ruff-format.enable = true;
+          shfmt.enable = true;
+          statix.enable = true;
+          stylua.enable = true;
+          trim-trailing-whitespace.enable = true;
+        };
+      };
+    });
+  };
 }

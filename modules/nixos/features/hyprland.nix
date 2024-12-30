@@ -1,13 +1,12 @@
-{ config
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   feature_name = "hyprland";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     programs = {
       hyprland = {

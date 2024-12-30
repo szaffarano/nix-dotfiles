@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   config = {
     security.rtkit.enable = lib.mkDefault true;
     services.pipewire = {

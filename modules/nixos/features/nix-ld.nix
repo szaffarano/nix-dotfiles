@@ -1,14 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   feature_name = "nix-ld";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     programs.nix-ld = lib.mkIf enabled {
       enable = true;

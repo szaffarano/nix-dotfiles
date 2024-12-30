@@ -1,7 +1,5 @@
 name: Nix code analysis
-
 on: [push]
-
 jobs:
   deadnix:
     name: Deadnix

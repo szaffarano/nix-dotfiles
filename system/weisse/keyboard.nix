@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services.keyd = {
     enable = true;
     keyboards.internal = {
@@ -81,5 +80,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ maliit-keyboard ];
+  environment.systemPackages = with pkgs; [maliit-keyboard];
 }

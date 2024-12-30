@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   options = with lib; {
     nixos.custom = {
       debug = mkEnableOption "debug NixOS";
@@ -9,13 +12,12 @@
           default = null;
         };
         wakeup = {
-          devices =
-            with types;
+          devices = with types;
             mkOption {
               type = listOf (submodule {
                 options = {
-                  idProduct = mkOption { type = str; };
-                  idVendor = mkOption { type = str; };
+                  idProduct = mkOption {type = str;};
+                  idVendor = mkOption {type = str;};
                   action = mkOption {
                     type = enum [
                       "enabled"
@@ -25,10 +27,9 @@
                   };
                 };
               });
-              default = [ ];
+              default = [];
             };
-          lid =
-            with types;
+          lid = with types;
             mkOption {
               type = submodule {
                 options = {
@@ -45,12 +46,11 @@
                   };
                 };
               };
-              default = { };
+              default = {};
             };
         };
       };
-      features =
-        with types;
+      features = with types;
         mkOption {
           type = submodule {
             options = {
@@ -60,7 +60,7 @@
               };
               enable = mkOption {
                 type = listOf (enum (lib.splitString "\n" config.nixos.custom.features.register));
-                default = [ ];
+                default = [];
               };
             };
           };

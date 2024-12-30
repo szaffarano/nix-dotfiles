@@ -1,9 +1,9 @@
-{ pkgs
-, config
-, lib
-, ...
-}:
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./cloud
     ./direnv.nix
@@ -19,7 +19,7 @@
     ./yubikey.nix
   ];
 
-  options.terminal.cli = { };
+  options.terminal.cli = {};
 
   config = {
     terminal.cli = {
@@ -40,7 +40,7 @@
       atuin = {
         enable = true;
         enableZshIntegration = true;
-        flags = [ "--disable-up-arrow" ];
+        flags = ["--disable-up-arrow"];
         settings = {
           keymap_mode = "vim-insert";
         };
@@ -59,31 +59,29 @@
         enable = true;
       };
 
-      fzf =
-        let
-          withHash = v: "#${v}";
-        in
-        {
-          enable = true;
-          enableZshIntegration = true;
-          changeDirWidgetCommand = "fd --type d";
-          fileWidgetCommand = "fd --type f";
+      fzf = let
+        withHash = v: "#${v}";
+      in {
+        enable = true;
+        enableZshIntegration = true;
+        changeDirWidgetCommand = "fd --type d";
+        fileWidgetCommand = "fd --type f";
 
-          colors = with config.colorScheme.palette; {
-            "bg+" = withHash base01;
-            bg = withHash base00;
-            spinner = withHash base0C;
-            hl = withHash base0D;
-            fg = withHash base04;
-            header = withHash base0D;
-            info = withHash base0A;
-            pointer = withHash base0C;
-            marker = withHash base0C;
-            "fg+" = withHash base06;
-            prompt = withHash base0A;
-            "hl+" = withHash base0D;
-          };
+        colors = with config.colorScheme.palette; {
+          "bg+" = withHash base01;
+          bg = withHash base00;
+          spinner = withHash base0C;
+          hl = withHash base0D;
+          fg = withHash base04;
+          header = withHash base0D;
+          info = withHash base0A;
+          pointer = withHash base0C;
+          marker = withHash base0C;
+          "fg+" = withHash base06;
+          prompt = withHash base0A;
+          "hl+" = withHash base0D;
         };
+      };
 
       ripgrep = {
         enable = true;
@@ -117,7 +115,6 @@
       httpie
       libqalculate
       ncdu
-      nixfmt-rfc-style
       ripgrep-all
       timer
     ];

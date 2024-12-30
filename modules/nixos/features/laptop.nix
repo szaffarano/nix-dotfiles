@@ -1,19 +1,18 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   feature_name = "laptop";
 
   enabled = builtins.elem feature_name config.nixos.custom.features.enable;
-in
-{
+in {
   config = {
     networking = lib.mkIf enabled {
       networkmanager = {
         enable = true;
-        plugins = lib.mkForce [ ];
+        plugins = lib.mkForce [];
       };
     };
 
@@ -33,8 +32,7 @@ in
 
     powerManagement.powertop.enable = enabled;
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       lib.optionals enabled [
         linuxKernel.packages.linux_zen.perf
         powertop

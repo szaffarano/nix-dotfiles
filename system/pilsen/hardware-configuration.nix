@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   boot = {
     initrd = {
       availableKernelModules = [
@@ -9,7 +12,7 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-      kernelModules = [ "kvm-intel" ];
+      kernelModules = ["kvm-intel"];
     };
 
     loader = {
@@ -21,12 +24,12 @@
       efi.canTouchEfiVariables = true;
     };
 
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
   };
 
   disko.devices = import ./disk-config.nix {
     inherit lib config;
-    disks = [ "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_500GB_S1DHNSAFA54375P" ];
+    disks = ["/dev/disk/by-id/ata-Samsung_SSD_840_EVO_500GB_S1DHNSAFA54375P"];
   };
 
   networking.useDHCP = lib.mkDefault true;

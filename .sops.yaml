@@ -1,41 +1,40 @@
 keys:
   - users:
-    - &sebas_pgp 9AE57D3DE601A79560DD0F4B14F35C58A2191587
+      - &sebas_pgp 9AE57D3DE601A79560DD0F4B14F35C58A2191587
   - hosts:
-    - &pilsen age1jn9egcppvq5n5lus9lx63sh8maw77w3f23dqz67e8tk7e6dlvf2qes0djq
-    - &bock age13vhnxwmqlln7t6k8np3zsx59egu305nam9f3nqf962zcf7ll84gqzwmey4
-    - &weisse age1vett5c0wd2p5gzua6569nyu45s8tq3a4wd3jm93nml3d458nlvjs6yp7gv
-    - &elastic age1h0nqk3eneuz726km59keqrgew2q0zamcxr7hlumd8gjr5ppyv5fsaj6n7d
-    - &lambic age148m362lc6wyqwdd5jf6g6hmr79c4fpcwueqq3duczzsyv8mfkf7qmy8ks7
-
+      - &pilsen age1jn9egcppvq5n5lus9lx63sh8maw77w3f23dqz67e8tk7e6dlvf2qes0djq
+      - &bock age13vhnxwmqlln7t6k8np3zsx59egu305nam9f3nqf962zcf7ll84gqzwmey4
+      - &weisse age1vett5c0wd2p5gzua6569nyu45s8tq3a4wd3jm93nml3d458nlvjs6yp7gv
+      - &elastic age1h0nqk3eneuz726km59keqrgew2q0zamcxr7hlumd8gjr5ppyv5fsaj6n7d
+      - &lambic age148m362lc6wyqwdd5jf6g6hmr79c4fpcwueqq3duczzsyv8mfkf7qmy8ks7
 creation_rules:
   - path_regex: system/pilsen/secrets.yaml
     key_groups:
-    - age:
-      - *pilsen
-      pgp:
-      - *sebas_pgp
+      - age:
+          - *pilsen
+        pgp:
+          - *sebas_pgp
   - path_regex: system/bock/secrets.yaml
     key_groups:
-    - age:
-      - *bock
-      pgp:
-      - *sebas_pgp
+      - age:
+          - *bock
+        pgp:
+          - *sebas_pgp
   - path_regex: system/zaffarano-elastic/secrets.*
     key_groups:
-    - age:
-      - *elastic
-      pgp:
-      - *sebas_pgp
+      - age:
+          - *elastic
+        pgp:
+          - *sebas_pgp
   - path_regex: system/weisse/secrets.yaml
     key_groups:
-    - age:
-      - *weisse
-      pgp:
-      - *sebas_pgp
+      - age:
+          - *weisse
+        pgp:
+          - *sebas_pgp
   - path_regex: system/lambic/secrets.*
     key_groups:
-    - age:
-      - *lambic
-      pgp:
-      - *sebas_pgp
+      - age:
+          - *lambic
+        pgp:
+          - *sebas_pgp

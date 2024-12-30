@@ -1,7 +1,11 @@
-{ writeText, bazel, runLocal, bazelTest, distDir }:
-
+{
+  writeText,
+  bazel,
+  runLocal,
+  bazelTest,
+  distDir,
+}:
 # Tests that certain executables are available in bazel-executed bash shells.
-
 let
   WORKSPACE = writeText "WORKSPACE" ''
     workspace(name = "our_workspace")
@@ -22,7 +26,7 @@ let
     )
   '';
 
-  workspaceDir = runLocal "our_workspace" { } ''
+  workspaceDir = runLocal "our_workspace" {} ''
     mkdir $out
     cp ${WORKSPACE} $out/WORKSPACE
     cp ${fileIn} $out/input.txt
@@ -40,6 +44,5 @@ let
       echo "Testing content" && [ "$(cat $out | wc -l)" == "2" ] && echo "OK"
     '';
   };
-
 in
-testBazel
+  testBazel
