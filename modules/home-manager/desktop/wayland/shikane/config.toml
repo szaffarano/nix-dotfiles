@@ -1,4 +1,19 @@
 [[profile]]
+name = "docked-home-sw-alt"
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+
+[[profile.output]]
+enable = false
+search = ["m=0x152E", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
+mode = "1920x1080@74.986Hz"
+position = "2560,0"
+scale = 1.0
+
+[[profile]]
 name = "docked-home-sw"
 exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
 
