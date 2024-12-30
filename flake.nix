@@ -175,7 +175,7 @@
 
     checks = forEachSystem (pkgs: {
       pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.system}.run {
-        src = ./.;
+        src = self;
         hooks = {
           deadnix.enable = true;
           end-of-file-fixer.enable = true;
@@ -192,8 +192,5 @@
         };
       };
     });
-    # checks = builtins.mapAttrs (
-    #   _system: deployLib: deployLib.deployChecks self.deploy
-    # ) inputs.deploy-rs.lib;
   };
 }
