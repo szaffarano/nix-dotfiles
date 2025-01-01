@@ -175,13 +175,15 @@ in
             bind = ["$mod_SHIFT,S,exec,${cmd}"];
           };
 
-        programs.rofi = let
-          rofi = pkgs.rofi-wayland;
-        in {
+        programs.rofi = {
           enable = true;
-          package = rofi;
-          plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = rofi;})];
+          font = "${config.fontProfiles.regular.name} 11";
+          package = pkgs.rofi-wayland;
+          plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = pkgs.rofi-wayland;})];
           theme = config.colorScheme.slug;
+          extraConfig = {
+            show-icons = true;
+          };
         };
       };
   }
