@@ -1,36 +1,37 @@
 {
   inputs,
-  outputs,
-  config,
+  flakeRoot,
   ...
-}: {
+}: let
+  userName = "sebas";
+  hostName = "bock";
+
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+    inherit userName hostName;
+  };
+in {
   imports = [
+    inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.home-manager.nixosModules.home-manager
-    inputs.disko.nixosModules.disko
 
     ./hardware-configuration.nix
+
+    "${flakeRoot}/modules/nixos"
+
+    sebas
   ];
 
-  nixos.custom.quietboot = true;
-
-  nixos = {
-    hostName = outputs.host.name;
-    disableWakeupLid = false;
-    system = {
-      inherit (outputs.user) authorizedKeys;
-      user = outputs.user.name;
-      hashedPasswordFile = config.sops.secrets.sebas-password.path;
-    };
+  nixos.custom = {
+    features.enable = [
+      "home-manager"
+      "nix-ld"
+      "quietboot"
+      "sensible"
+    ];
   };
 
-  virtualisation = {
-    libvirtd.enable = false;
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-    };
-  };
+  networking = {inherit hostName;};
 
   sops.secrets = {
     sebas-password = {
@@ -40,6 +41,4 @@
   };
 
   system.stateVersion = "23.05";
-
-  zramSwap.enable = true;
 }
