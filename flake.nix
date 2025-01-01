@@ -131,8 +131,11 @@
     formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
     nixosConfigurations = {
-      # pilsen = lib.mkNixOS pilsen;
-      # bock = lib.mkNixOS bock;
+      bock = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/bock"];
+        inherit specialArgs;
+      };
+
       weisse = nixpkgs.lib.nixosSystem {
         modules = ["${self}/system/weisse"];
         inherit specialArgs;
