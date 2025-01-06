@@ -48,13 +48,20 @@ in
               alternate-urgent-background: @lightbg;
           }
           window {
+              location: center;
+              anchor:   center;
+              transparency: "real";
+              padding: 10px;
+              border:  1px;
+              border-radius: 10px;
               background-color: @background;
-              border:           1;
-              padding:          5;
+              spacing: 0;
+              children:  [mainbox];
+              orientation: horizontal;
           }
           mainbox {
-              border:           0;
-              padding:          0;
+              spacing: 0;
+              children: [ inputbar, message, listview ];
           }
           message {
               border:           1px dash 0px 0px ;
