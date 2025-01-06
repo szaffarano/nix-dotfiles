@@ -10,6 +10,7 @@ in
     options.terminal.cli.tmux.enable = mkEnableOption "tmux";
 
     config = mkIf cfg.enable {
+      home.packages = with pkgs; [tmuxp];
       programs.tmux = {
         enable = true;
         prefix = "C-a";

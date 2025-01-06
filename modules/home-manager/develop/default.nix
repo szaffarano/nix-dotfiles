@@ -8,10 +8,12 @@
 in
   with lib; {
     imports = [
-      ./idea
-      ./ocaml
       ./asm
+      ./idea
       ./mise
+      ./ocaml
+      ./python
+      ./rust
       ./zig
     ];
 
@@ -23,17 +25,6 @@ in
         go
         nixfmt-rfc-style
         hyperfine
-
-        # Rust (TODO: move to another place?)
-        bacon
-        cargo
-        clippy
-        gcc
-        rustc
-        rustfmt
       ];
-
-      # Rust (TODO: move to another place?)
-      home.sessionVariables.CARGO_HOME = "${config.xdg.dataHome}/cargo";
     };
   }
