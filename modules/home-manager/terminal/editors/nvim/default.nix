@@ -85,6 +85,7 @@ in {
       nodePackages.typescript-language-server
       pyright
       rust-analyzer
+      taplo
       terraform-ls
       # TODO: uncomment when the package is fixed vscode-langservers-extracted
       yaml-language-server

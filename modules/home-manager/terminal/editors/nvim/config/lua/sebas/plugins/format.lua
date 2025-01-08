@@ -24,6 +24,7 @@ return {
       asm = { 'nasmfmt' },
       bash = { 'shfmt' },
       rust = { 'rustfmt' },
+      toml = { 'taplo' },
       terraform = { 'terraform_fmt' },
     },
     format_on_save = function(bufnr)
