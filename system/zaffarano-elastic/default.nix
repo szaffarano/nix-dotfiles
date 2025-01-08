@@ -64,6 +64,7 @@ in {
     ];
   };
   services.greetd.enable = false;
+  services.flatpak.enable = true;
 
   networking = {
     inherit hostName;
