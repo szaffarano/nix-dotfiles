@@ -181,6 +181,7 @@
         src = self;
         hooks = {
           deadnix.enable = true;
+          detect-private-keys.enable = true;
           end-of-file-fixer.enable = true;
           markdownlint.enable = true;
           mixed-line-endings.enable = true;
@@ -191,6 +192,7 @@
           shfmt.enable = true;
           statix.enable = true;
           stylua.enable = true;
+          taplo.enable = true;
           trim-trailing-whitespace.enable = true;
         };
       };

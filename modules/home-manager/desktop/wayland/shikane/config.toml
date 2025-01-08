@@ -1,6 +1,8 @@
 [[profile]]
 name = "docked-home-sw-alt"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = false
@@ -15,7 +17,9 @@ scale = 1.0
 
 [[profile]]
 name = "docked-home-sw"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = false
@@ -30,7 +34,9 @@ scale = 1.0
 
 [[profile]]
 name = "undocked-sw"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = true
@@ -41,7 +47,9 @@ scale = 1.0
 
 [[profile]]
 name = "docked-home-cb"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = false
@@ -56,7 +64,9 @@ scale = 1.0
 
 [[profile]]
 name = "undocked-cb"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = true
@@ -67,7 +77,9 @@ scale = 1.0
 
 [[profile]]
 name = "docked-ba"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = false
@@ -82,7 +94,9 @@ scale = 1.0
 
 [[profile]]
 name = "docked-home-dual"
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\""]
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = true
