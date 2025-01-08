@@ -43,12 +43,6 @@ in
         };
       };
 
-      # workaround for non-NixOS systems
-      home.file.".themes".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-profile/share/themes";
-      xdg.dataFile."icons".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix-profile/share/icons";
-
       services.xsettingsd = {
         enable = true;
         settings = {
