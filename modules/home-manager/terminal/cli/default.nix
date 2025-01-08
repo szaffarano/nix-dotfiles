@@ -59,6 +59,10 @@
         enable = true;
       };
 
+      fd = {
+        enable = true;
+      };
+
       fzf = let
         withHash = v: "#${v}";
       in {
@@ -86,10 +90,11 @@
       ripgrep = {
         enable = true;
         arguments = [
-          "--max-columns-preview"
           "--colors=line:style:bold"
-          "--no-line-number"
           "--hidden"
+          "--max-columns-preview"
+          "--no-line-number"
+          "--smart-case"
         ];
       };
 
@@ -111,7 +116,6 @@
       bottom
       diffsitter
       eza
-      fd
       httpie
       libqalculate
       ncdu
