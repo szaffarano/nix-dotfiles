@@ -5,12 +5,12 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "cliphist-to-wofi";
-  version = "0.1.0";
+  version = "0.1.1";
   pyproject = true;
 
   src = ./.;
 
-  build-system = with python3Packages; [poetry-core];
+  build-system = with python3Packages; [hatchling];
 
   dependencies = with pkgs; [
     cliphist
