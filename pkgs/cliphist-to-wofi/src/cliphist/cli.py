@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import re
 import subprocess
@@ -117,7 +115,3 @@ def cli():
 
     if len(wofi_input) > 0:
         print(f"{wofi_input[selected].idx}\t")
-
-
-if __name__ == "__main__":
-    cli()
