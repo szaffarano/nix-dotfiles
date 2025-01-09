@@ -4,10 +4,10 @@ bootstrap="$(readlink -f /run/booted-system/kernel | cut -c 45- | sed s'/\/.*//g
 current="$(readlink -f /run/current-system/kernel | cut -c 45- | sed s'/\/.*//g')"
 restart=$([ "$bootstrap" = "$current" ] && echo false || echo true)
 
-printf '%15s %s\n%15s %s\n%15s %s\n' \
+printf '%s\t%s\n%s\t%s\n%s\t%s\n' \
 	"Booted kernel:" \
 	"$bootstrap" \
 	"Current kernel:" \
 	"$current" \
 	"Restart:" \
-	"$restart"
+	"$restart" | column -t -Cright -Cleft -s$'\t' -o' '
