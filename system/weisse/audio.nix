@@ -29,32 +29,33 @@ in {
     };
   };
 
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa = {
+  services = {
+    pulseaudio.enable = false;
+    pipewire = {
       enable = true;
-      support32Bit = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
     };
-    pulse.enable = true;
-  };
-
-  services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/51-increase-headroom.conf" ''
-      monitor.alsa.rules = [
-        {
-          matches = [
-            {
-              node.name = "~alsa_output.*"
-            }
-          ]
-          actions = {
-            update-props = {
-              api.alsa.headroom = 4096
+    pipewire.wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/51-increase-headroom.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [
+              {
+                node.name = "~alsa_output.*"
+              }
+            ]
+            actions = {
+              update-props = {
+                api.alsa.headroom = 4096
+              }
             }
           }
-        }
-      ]
-    '')
-  ];
+        ]
+      '')
+    ];
+  };
 }
