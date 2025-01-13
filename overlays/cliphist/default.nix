@@ -3,9 +3,9 @@ final: prev: {
     src = final.fetchFromGitHub {
       owner = "sentriz";
       repo = "cliphist";
-      rev = "8c48df70bb3d9d04ae8691513e81293ed296231a";
-      sha256 = "sha256-tImRbWjYCdIY8wVMibc5g5/qYZGwgT9pl4pWvY7BDlI=";
+      rev = "1350191061a7df1f70cd6e652eb0517d3a9a590f";
+      sha256 = "sha256-lM8xIQHF/Vq4VvcSXURhZUkvF2b6ptwHyR4mNOpvFuQ=";
     };
-    vendorHash = "sha256-gG8v3JFncadfCEUa7iR6Sw8nifFNTciDaeBszOlGntU=";
+    vendorHash = "sha256-No8d9ztepBO+fgF2XkEf/tyCPDAD57rBkzA8iVyNUmw=";
   });
 }
