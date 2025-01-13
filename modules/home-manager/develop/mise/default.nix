@@ -33,20 +33,21 @@ in {
           ruff = "latest";
           terraform = "latest";
           tflint = "latest";
-          usage = "latest";
         };
       };
     };
 
-    home.sessionVariables = lib.mkIf terraform_installed {
-      MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
-    };
+    home = {
+      sessionVariables = lib.mkIf terraform_installed {
+        MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
+      };
 
-    home.file = lib.mkIf node_installed {
-      ".default-npm-packages".text = lib.mkDefault ''
-        bash-language-server
-        yarn
-      '';
+      file = lib.mkIf node_installed {
+        ".default-npm-packages".text = lib.mkDefault ''
+          bash-language-server
+          yarn
+        '';
+      };
     };
   };
 }

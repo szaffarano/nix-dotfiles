@@ -37,9 +37,9 @@ in
 
           label = {
             color = rgba config.colorScheme.palette.base0A "1.0";
-            position = "0, 20";
+            position = "0,35";
             font_family = config.fontProfiles.monospace.name;
-            font_size = config.fontProfiles.monospace.sizeAsInt * 3;
+            font_size = config.fontProfiles.monospace.sizeAsInt * 2;
             halign = "center";
             text = ''cmd[update:10000] echo "<b>$(date '+%H:%M')</b>"'';
             valign = "center";
