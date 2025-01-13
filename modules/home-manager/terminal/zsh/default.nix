@@ -22,6 +22,16 @@ in
         enable = true;
         syntaxHighlighting.enable = true;
         enableCompletion = true;
+        completionInit = ''
+          # https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2308206
+          autoload -Uz compinit
+          count=$(fd -g  '.zcompdump*' ~ --max-depth=1 --hidden --change-older-than 24h | wc -l)
+          if [ "$count" -gt 0 ]  ; then
+            compinit;
+          else
+            compinit -C;
+          fi;
+        '';
         enableVteIntegration = true;
         defaultKeymap = "viins";
 
