@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (config.fontProfiles) monospace;
-  inherit (config) scheme;
   cfg = config.desktop.terminal.wezterm;
 in
   with lib; {
@@ -28,7 +27,7 @@ in
             enable_wayland = true,
             font = wezterm.font("${monospace.name}"),
             font_size = ${builtins.toString (monospace.sizeAsInt * 0.9)},
-            color_scheme = "${scheme.slug}",
+            color_scheme = "${config.colorScheme.slug}",
 
             window_padding = {
               left = 5,
