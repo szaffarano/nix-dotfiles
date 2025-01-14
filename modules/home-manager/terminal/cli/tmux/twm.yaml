@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=./twm.schema.json
+
+search_paths:
+  - ~/.dotfiles
+  - ~/Documents/org.new
+  - ~/Documents/org
+  - ~/projects
+exclude_path_components:
+  - .git
+  - .direnv
+  - node_modules
+  - venv
+  - target
+  - .mnt
+  - .local
+  - .cargo
+max_search_depth: 5
+session_name_path_components: 2
+workspace_definitions:
+  - name: python
+    has_any_file:
+      - requirements.txt
+      - setup.py
+      - pyproject.toml
+      - Pipfile
+    default_layout: basic
+  - name: js
+    has_any_file:
+      - package.json
+      - node_modules
+      - tsconfig.json
+    default_layout: js-dev
+  - name: rust
+    has_any_file:
+      - Cargo.toml
+      - Cargo.lock
+    default_layout: rust-dev
+  - name: other
+    has_any_file:
+      - .git
+      - flake.nix
+      - .twm.yaml
+    default_layout: basic
+layouts:
+  - name: two-windows
+    commands:
+      - tmux new-window
+      - tmux select-window -t 1
+  - name: default
+    commands:
+      - tmux split-window -v
+      - tmux resize-pane -y 15
+      - tmux split-window -h
+      - tmux select-pane -t 1
+      - nvim .
+  - name: thin-side-pane
+    commands:
+      - tmux split-window -h
+      - tmux resize-pane -x 80
+      - tmux select-pane -t 1
+  - name: js-dev
+    inherits:
+      - thin-side-pane
+    commands:
+      - tmux send-keys -t 2 'npm run dev' C-m
+      - nvim
+  - name: rust-dev
+    commands:
+      - tmux split-window -v
+      - tmux resize-pane -y 15
+      - tmux split-window -h
+      - tmux select-pane -t 1
+      - tmux send-keys -t 2 'cargo watch -x "clippy -- -D clippy::all" -x test' C-m
+      - nvim .
+  - name: basic
+    inherits:
+      - two-windows
