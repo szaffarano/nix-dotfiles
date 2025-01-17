@@ -15,7 +15,7 @@ in {
     };
   in {
     programs.git = lib.mkIf config.programs.git.enable {
-      package = pkgs.gitAndTools.gitFull;
+      package = pkgs.gitFull;
 
       aliases = {
         br = "branch";

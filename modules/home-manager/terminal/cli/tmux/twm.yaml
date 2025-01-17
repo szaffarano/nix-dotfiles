@@ -48,9 +48,10 @@ layouts:
       - tmux select-window -t 1
   - name: default
     commands:
-      - tmux split-window -v
-      - tmux resize-pane -y 15
       - tmux split-window -h
+      - tmux resize-pane -x 75
+      - tmux split-window -fv
+      - tmux resize-pane -y 15
       - tmux select-pane -t 1
       - nvim .
   - name: thin-side-pane
@@ -66,9 +67,10 @@ layouts:
       - nvim
   - name: rust-dev
     commands:
-      - tmux split-window -v
-      - tmux resize-pane -y 15
       - tmux split-window -h
+      - tmux resize-pane -x 75
+      - tmux split-window -fv
+      - tmux resize-pane -y 15
       - tmux select-pane -t 1
       - tmux send-keys -t 2 'cargo watch -x "clippy -- -D clippy::all" -x test' C-m
       - nvim .
