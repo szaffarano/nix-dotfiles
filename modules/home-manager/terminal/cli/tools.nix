@@ -38,7 +38,7 @@ in
         unzip
         usbutils
         which
-        yq
+        yq-go
       ];
     };
   }

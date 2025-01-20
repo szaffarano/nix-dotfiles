@@ -13,6 +13,8 @@
 
   wl-clipboard = import ./wl-clipboard;
 
+  ollama = import ./ollama;
+
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
   # 'inputs.${flake}.legacyPackages.${pkgs.system}'

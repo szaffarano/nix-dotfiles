@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   is_installed = name: (lib.lists.any (e: e == name) (lib.attrNames config.programs.mise.globalConfig.tools));
@@ -11,13 +12,12 @@ in {
   config = {
     programs.mise = {
       enableZshIntegration = true;
-      enableBashIntegration = false;
-      enableFishIntegration = false;
 
       globalConfig = lib.mkDefault {
         settings = {
           all_compile = false;
           experimental = true;
+          idiomatic_version_file_disable_tools = lib.mkIf terraform_installed ["terraform"];
         };
         settings.python = {
           compile = false;
@@ -33,20 +33,19 @@ in {
           ruff = "latest";
           terraform = "latest";
           tflint = "latest";
-          usage = "latest";
         };
       };
     };
 
-    home.sessionVariables = lib.mkIf terraform_installed {
-      MISE_LEGACY_VERSION_FILE_DISABLE_TOOLS = "terraform";
-    };
+    home = {
+      packages = with pkgs; [usage];
 
-    home.file = lib.mkIf node_installed {
-      ".default-npm-packages".text = lib.mkDefault ''
-        bash-language-server
-        yarn
-      '';
+      file = lib.mkIf node_installed {
+        ".default-npm-packages".text = lib.mkDefault ''
+          bash-language-server
+          yarn
+        '';
+      };
     };
   };
 }

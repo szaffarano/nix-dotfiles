@@ -10,12 +10,12 @@
 in {
   config = let
     delta.themes = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/dandavison/delta/0.15.1/themes.gitconfig";
-      sha256 = "sha256-J/6+8kkxzSFPfYzAPAFd/vZrT6hXjd+N2+cWdb+/b8M=";
+      url = "https://raw.githubusercontent.com/dandavison/delta/0.18.2/themes.gitconfig";
+      sha256 = "sha256-7G/Dz7LPmY+DUO/YTWJ7hOWp/e6fx+08x22AeZxnx5U=";
     };
   in {
     programs.git = lib.mkIf config.programs.git.enable {
-      package = pkgs.gitAndTools.gitFull;
+      package = pkgs.gitFull;
 
       aliases = {
         br = "branch";
@@ -43,19 +43,7 @@ in {
       };
 
       extraConfig = {
-        column.ui = "auto";
-
-        rerere.enable = true;
-
         branch.sort = "-committerdate";
-
-        core.fsmonitor = true;
-        core.untrackedCache = true;
-
-        log = {
-          date = "iso";
-          abbrevCommit = true;
-        };
         color = {
           branch = {
             current = "yellow reverse";
@@ -74,11 +62,39 @@ in {
             new = "green bold";
           };
         };
-        credential.helper = lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0";
+        column.ui = "auto";
         commit.gpgsign = true;
-        init.defaultBranch = "master";
+        tag.gpgsign = true;
+        core = {
+          editor = "nv";
+          fsmonitor = true;
+          untrackedCache = true;
+        };
+        credential.helper = lib.optionals config.desktop.tools.keepassxc.enable "keepassxc --unlock 0";
+        diff.tool = "vimdiff";
         fetch.prune = true;
+        init.defaultBranch = "master";
+        log = {
+          date = "iso";
+          abbrevCommit = true;
+        };
+        merge.conflictstyle = "zdiff3";
+        merge.tool = "vimdiff";
+        mergetool.vimdiff.path = "nv";
         pull.ff = "only";
+        push = {
+          autoSetupRemote = true;
+          default = "simple";
+          followTags = true;
+        };
+        rebase = {
+          autoSquash = true;
+          autoStash = true;
+        };
+        rerere = {
+          enabled = true;
+          autoUpdate = true;
+        };
       };
 
       includes = [
@@ -87,14 +103,16 @@ in {
       ];
     };
 
-    home = {
+    home = lib.mkIf config.programs.git.enable {
       custom.features.register = "gh";
-      packages = with pkgs; (lib.optionals config.desktop.tools.keepassxc.enable [
-        (git-credential-keepassxc.override {
-          withNotification = true;
-          withYubikey = true;
-        })
-      ]);
+      packages = with pkgs;
+        lib.optionals config.desktop.tools.keepassxc.enable [
+          (git-credential-keepassxc.override {
+            withNotification = true;
+            withYubikey = true;
+          })
+        ]
+        ++ [page];
     };
 
     programs.gh = lib.mkIf gh_enabled {
