@@ -67,16 +67,6 @@ vim.opt.modelines = 100 -- Sets the type of modelines
 vim.opt.incsearch = true -- Incremental search: show match for partly typed search command
 vim.opt.showmatch = true -- show matching brackets when text indicator is over them
 
--- Folding
-vim.opt.foldcolumn = 'auto'
-vim.opt.foldlevel = 99
-vim.opt.foldtext =
-  [[ substitute(getline(v:foldstart), '\\t', repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart) . ' lines)' ]]
-vim.opt.fillchars = 'fold: '
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo.foldcolumn = 'auto'
-
 vim.opt.hidden = true -- Keep closed buffer open in the background
 vim.opt.mousemodel = 'extend' -- Mouse right-click extends the current selection
 
