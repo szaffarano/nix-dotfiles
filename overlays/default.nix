@@ -13,8 +13,6 @@
 
   wl-clipboard = import ./wl-clipboard;
 
-  mise = import ./mise;
-
   ollama = import ./ollama;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
