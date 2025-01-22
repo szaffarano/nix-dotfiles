@@ -16,6 +16,7 @@ in
         btop
         czkawka # duplicate files finder
         du-dust
+        dua # Disk Usage Analyzer
         duf # Disk Usage/Free Utility - a better 'df' alternative
         file
         gawk
