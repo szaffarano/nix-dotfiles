@@ -25,7 +25,9 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
   table.insert(newVirtText, { suffix, 'MoreMsg' })
   return newVirtText
 end
-
+local ftMap = {
+  yaml = { 'treesitter', 'indent' },
+}
 return {
   'kevinhwang91/nvim-ufo',
   dependencies = 'kevinhwang91/promise-async',
@@ -51,8 +53,8 @@ return {
           'comment',
         },
       },
-      provider_selector = function()
-        return { 'lsp', 'indent' }
+      provider_selector = function(bufnr, filetype, buftype)
+        return ftMap[filetype] or { 'lsp', 'indent' }
       end,
     }
   end,
