@@ -25,8 +25,7 @@ in
 
     config = let
       watchCmd = lib.getExe clipboardWatch;
-      wofiCmd = lib.getExe pkgs.cliphist-to-wofi;
-      clipCmd = lib.getExe pkgs.cliphist;
+      rofiCmd = lib.getExe pkgs.inputs.rofi-tools.rofi-cliphist;
     in
       mkIf cfg.enable {
         home.packages = with pkgs; [
@@ -37,8 +36,7 @@ in
         wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
           startup = [{command = watchCmd;}];
           keybindings = {
-            "Ctrl+Alt+v" = "${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy";
-            "Ctrl+Alt+Shift+V" = "${wofiCmd} | ${clipCmd} delete";
+            "Ctrl+Alt+v" = "${rofiCmd}";
           };
         };
 
@@ -46,8 +44,7 @@ in
           lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
             bind = [
-              "CTRL_ALT,v,exec,${wofiCmd} | ${clipCmd} decode | ${pkgs.wl-clipboard}/bin/wl-copy"
-              "CTRL_ALT_SHIFT,v,exec,${wofiCmd} 'Delete clip' | ${clipCmd} delete"
+              "CTRL_ALT,v,exec,${rofiCmd}"
             ];
             exec-once = [watchCmd];
           };

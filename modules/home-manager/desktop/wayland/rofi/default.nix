@@ -168,7 +168,10 @@ in
           }
         '';
 
-        home.packages = [pkgs.rofi-power-menu];
+        home.packages = [
+          pkgs.rofi-power-menu
+          pkgs.inputs.rofi-tools.rofi-cliphist
+        ];
 
         wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
           keybindings = {
