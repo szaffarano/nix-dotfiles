@@ -28,6 +28,13 @@
       };
     };
 
+    rofi-tools = {
+      url = "github:szaffarano/rofi-tools";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     zig.url = "github:mitchellh/zig-overlay";
 
     neovim-nightly = {
