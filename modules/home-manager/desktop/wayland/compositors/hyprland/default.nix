@@ -202,6 +202,14 @@ in
 
             "float,class:^(org.pulseaudio.pavucontrol)$"
 
+            "float,title:Meeting chat,class:zoom"
+            "move 100%-w-20 30%,title:Meeting chat,class:zoom"
+            "size 15% 60%,title:Meeting chat,class:zoom"
+
+            "float,title:^Participants.*$,class:zoom"
+            "move 100%-w-20 30%,title:^Participants.*$,class:zoom"
+            "size 15% 60%,title:^Participants.*,class:zoom"
+
             "float,class:^(pavucontrol)$"
             "size 60% 60%,class:^(pavucontrol)$"
             "center,class:^(pavucontrol)$"
@@ -210,6 +218,11 @@ in
             "size 70% 80%,class:^(orgmode)$"
             "center,class:^(orgmode)$"
             "workspace special:orgmode,class:^(orgmode)$"
+
+            "float,class:^(hackernews)$"
+            "size 70% 80%,class:^(hackernews)$"
+            "center,class:^(hackernews)$"
+            "workspace special:hackernews,class:^(hackernews)$"
 
             "float,class:^(musicPlayer)$"
             "size 50% 50%,class:^(musicPlayer)$"
