@@ -10,9 +10,17 @@ in
     options.develop.rust.enable = mkEnableOption "rust";
 
     config = with pkgs;
-      lib.mkIf cfg.enable {
-        home = {
-          sessionVariables.CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      lib.mkIf cfg.enable
+      {
+        home = let
+          cargoHome = "${config.xdg.dataHome}/cargo";
+        in {
+          sessionPath = [
+            "${cargoHome}/bin"
+          ];
+          sessionVariables = {
+            CARGO_HOME = cargoHome;
+          };
           packages = [
             bacon
             cargo
