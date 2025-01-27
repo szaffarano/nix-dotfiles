@@ -86,6 +86,7 @@ in
             ", XF86AudioPrev, exec, playerctl previous"
 
             "$mod, o, exec, ${toggleScratchpad} wrap orgmode 'nvim +Agenda'"
+            "$mod, h, exec, ${toggleScratchpad} wrap hackernews 'hackernews_tui'"
             "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ${config.terminal.cli.spotify.exe}"
             "$mod, p, togglespecialworkspace, Slack"
             "$mod_SHIFT, t, togglespecialworkspace, telegram"
