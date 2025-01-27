@@ -80,8 +80,12 @@ return {
       }
       vim.api.nvim_create_user_command('Agenda', function()
         local current_buffer = vim.api.nvim_get_current_buf()
-        require('orgmode').agenda:agenda()
-        vim.api.nvim_buf_delete(current_buffer, { force = true })
+        local agenda_promise = require('orgmode').agenda:agenda()
+        if agenda_promise ~= nil then
+          agenda_promise:finally(function()
+            vim.api.nvim_buf_delete(current_buffer, { force = true })
+          end)
+        end
       end, {})
     end,
   },
