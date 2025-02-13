@@ -10,9 +10,8 @@ in {
     inherit (outputs.checks.${pkgs.system}.pre-commit-check) shellHook;
 
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
-    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
-    buildInputs = outputs.checks.${pkgs.system}.pre-commit-check.enabledPackages;
+    buildInputs = outputs.checks.${pkgs.system}.pre-commit-check.enabledPackages ++ [pkgs.pkg-config];
 
     nativeBuildInputs = with pkgs; [
       age

@@ -14,23 +14,27 @@ local function run_debugger()
   end
 end
 
-vim.keymap.set('n', '<F9>', run_debugger, { buffer = vim.api.nvim_get_current_buf(), desc = 'Debug: Start/Continue' })
+local bufnr = vim.api.nvim_get_current_buf()
+vim.keymap.set('n', '<F9>', run_debugger, { buffer = bufnr, desc = 'Debug: Start/Continue' })
 
 vim.keymap.set('n', '<leader>ca', function()
   vim.cmd.RustLsp 'codeAction'
-end, { buffer = vim.api.nvim_get_current_buf(), desc = '[C]ode [A]ction' })
+end, { buffer = bufnr, desc = '[C]ode [A]ction (Rust)' })
 
-vim.g.rustaceanvim = {
-  tools = {
-    code_actions = {
-      ui_select_fallback = false,
-    },
-  },
-  server = {
-    on_attach = function(_, _) end,
-    default_settings = {
-      ['rust-analyzer'] = {},
-    },
-  },
-  dap = {},
-}
+vim.keymap.set('n', 'K', function()
+  vim.cmd.RustLsp { 'hover', 'actions' }
+end, { buffer = bufnr, desc = 'Hover Documentation (Rust)' })
+
+vim.keymap.set('n', '<leader>e', function()
+  vim.cmd.RustLsp { 'renderDiagnostic', 'current' }
+end, { buffer = bufnr, desc = 'Show diagnostic [E]rror messages (Rust)' })
+
+vim.keymap.set('n', '<leader>E', function()
+  vim.cmd.RustLsp { 'explainError', 'current' }
+end, { buffer = bufnr, desc = 'Explain [E]rror (Rust)' })
+
+-- mappings to review:
+-- vim.cmd.RustLsp('relatedDiagnostics')
+-- vim.cmd.RustLsp('openCargo')
+-- vim.cmd.RustLsp('openDocs')
+-- vim.cmd.RustLsp('joinLines'):qa

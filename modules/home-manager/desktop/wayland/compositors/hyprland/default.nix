@@ -206,6 +206,10 @@ in
             "move 100%-w-20 30%,title:Meeting chat,class:zoom"
             "size 15% 60%,title:Meeting chat,class:zoom"
 
+            "float,title:Webinar chat,class:zoom"
+            "move 100%-w-20 30%,title:Meeting chat,class:zoom"
+            "size 15% 60%,title:Meeting chat,class:zoom"
+
             "float,title:^Participants.*$,class:zoom"
             "move 100%-w-20 30%,title:^Participants.*$,class:zoom"
             "size 15% 60%,title:^Participants.*,class:zoom"

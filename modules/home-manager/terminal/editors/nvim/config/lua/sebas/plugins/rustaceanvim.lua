@@ -1,5 +1,6 @@
 return {
   'mrcjkb/rustaceanvim',
-  version = '^4',
-  ft = { 'rust' },
+  version = '^5',
+  lazy = false,
+  setup = function() end,
 }

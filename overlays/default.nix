@@ -9,6 +9,14 @@
 
   cliphist = import ./cliphist;
 
+  # https://github.com/NixOS/nixpkgs/issues/380196
+  # https://nixpk.gs/pr-tracker.html?pr=380775
+  lldb = _final: prev: {
+    lldb = prev.lldb.overrideAttrs {
+      dontCheckForBrokenSymlinks = true;
+    };
+  };
+
   nur = inputs.nur.overlays.default;
 
   wl-clipboard = import ./wl-clipboard;
