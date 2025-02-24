@@ -28,7 +28,7 @@ in
         Install.WantedBy = ["timers.target"];
       };
 
-      programs.wpaperd = {
+      services.wpaperd = {
         enable = true;
         settings = {
           default = {
