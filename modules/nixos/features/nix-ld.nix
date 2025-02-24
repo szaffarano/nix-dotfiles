@@ -21,7 +21,6 @@ in {
         e2fsprogs
         expat
         fontconfig
-        fontconfig
         freetype
         fribidi
         fuse
@@ -43,7 +42,6 @@ in {
         libuuid
         libxcrypt-legacy
         libxkbcommon
-        libxkbcommon
         libxml2
         mesa
         ncurses
@@ -56,9 +54,11 @@ in {
         systemd
         vulkan-loader
         wayland
+        wayland-protocols
         xorg.libX11
         xorg.libxcb
         xorg.libXcomposite
+        xorg.libXcursor
         xorg.libXdamage
         xorg.libXext
         xorg.libXfixes
