@@ -195,6 +195,9 @@ in
             "workspace name:2,class:^(jetbrains-idea)$"
             "workspace name:3,class:^(dev-terminal)$"
 
+            "float,class:^(com.zaffa.loppis)$"
+            "float,class:^(xdg-desktop-portal-gtk)$"
+
             "float,class:^(org.keepassxc.KeePassXC)$"
             "float,class:^(nm-connection-editor)$"
             "float,class:^(blueberry.py)$"
