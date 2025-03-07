@@ -38,3 +38,16 @@ vim.keymap.set('n', '<C-Right>', '<Cmd>tabnext<CR> <Cmd>redraw!<CR>', { desc = '
 vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Cmd>bdelete<CR>', { desc = 'Delete current buffer' })
 
 vim.keymap.set({ 'x' }, 'p', 'pgvy', { desc = 'Retain the buffer content after pasting over a visual selection' })
+
+function ToggleQuickfix()
+  local windows = vim.fn.getwininfo()
+  for _, win in ipairs(windows) do
+    if win.quickfix == 1 then
+      vim.cmd 'cclose'
+      return
+    end
+  end
+  vim.cmd 'copen'
+end
+
+vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>', { noremap = true, silent = true })
