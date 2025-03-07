@@ -31,7 +31,7 @@
     ocaml.enable = true;
     python.enable = true;
     rust.enable = true;
-    zig.enable = true;
+    zig.enable = false;
   };
 
   terminal.zsh = {
