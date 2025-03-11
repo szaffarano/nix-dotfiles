@@ -6,6 +6,7 @@
     };
     packages = [
       pkgs.bazel_5_1_1
+      pkgs.hackernews-tui
     ];
   };
 

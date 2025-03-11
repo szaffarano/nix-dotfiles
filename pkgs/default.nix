@@ -29,6 +29,7 @@
     toggle-hyprland-scratchpad = callPackage ./toggle-hyprland-scratchpad {};
     toggle-sway-scratchpad = callPackage ./toggle-sway-scratchpad {};
     wallpaper = callPackage ./wallpaper {};
+    hackernews-tui = callPackage ./hackernews-tui {};
   };
 in
   packages // firefox-addons
