@@ -6,6 +6,7 @@
     };
     packages = [
       pkgs.bazel_5_1_1
+      pkgs.hackernews-tui
     ];
   };
 
@@ -31,7 +32,7 @@
     ocaml.enable = true;
     python.enable = true;
     rust.enable = true;
-    zig.enable = false;
+    zig.enable = true;
   };
 
   terminal.zsh = {
