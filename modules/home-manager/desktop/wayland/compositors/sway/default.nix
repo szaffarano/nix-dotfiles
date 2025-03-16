@@ -55,7 +55,22 @@ in
               titlebar = false;
             };
 
-            bars = lib.optionals config.programs.waybar.enable [];
+            bars = lib.optionals (! config.desktop.wayland.waybar.enable) [
+              {
+                id = "main";
+                command = "swaybar";
+                extraConfig = ''
+                  icon_theme ${theme.gtk.icon-theme}
+                '';
+                fonts = with config.fontProfiles.monospace; {
+                  names = [name];
+                  size = sizeAsInt * 0.9;
+                };
+                position = "bottom";
+                statusCommand = "while date +'%Y-%m-%d %X'; do sleep 1; done";
+                trayOutput = "*";
+              }
+            ];
 
             floating.criteria = [
               {app_id = "^pavucontrol$";}
