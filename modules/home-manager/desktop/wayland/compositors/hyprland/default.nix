@@ -16,7 +16,6 @@ in
       ./hypridle.nix
       ./hyprlock.nix
       ./keybindings.nix
-      ./wpaperd.nix
     ];
 
     config = mkIf cfg.enable {
