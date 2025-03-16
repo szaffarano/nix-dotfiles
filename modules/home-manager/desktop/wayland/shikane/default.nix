@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.desktop.wayland.shikane;
-  shikaneCmd = "sleep 5 && ${lib.getExe pkgs.shikane}";
 in
   with lib; {
     options.desktop.wayland.shikane = {
@@ -20,14 +19,22 @@ in
 
       xdg.configFile."shikane/config.toml".source = ./config.toml;
 
-      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-        startup = [{command = shikaneCmd;}];
-      };
+      systemd.user.services.shikane = {
+        Install = {WantedBy = [config.wayland.systemd.target];};
 
-      wayland.windowManager.hyprland.settings =
-        lib.mkIf config.desktop.wayland.compositors.hyprland.enable
-        {
-          exec-once = [shikaneCmd];
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "shikane";
+          PartOf = [config.wayland.systemd.target];
+          After = [config.wayland.systemd.target];
+          X-Restart-Triggers = ["${config.xdg.configFile."shikane/config.toml".source}"];
         };
+
+        Service = {
+          ExecStart = "${lib.getExe pkgs.shikane}";
+          Restart = "always";
+          RestartSec = "10";
+        };
+      };
     };
   }
