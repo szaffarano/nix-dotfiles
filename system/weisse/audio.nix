@@ -2,8 +2,8 @@
   alsa-ucm-conf-chromebook = with pkgs;
     alsa-ucm-conf.overrideAttrs {
       wttsrc = fetchFromGitHub {
-        rev = "00b399ed00930bfe544a34358547ab20652d71e3";
-        hash = "sha256-lRrgZDb3nnZ6/UcIsfjqAAbbSMOkP3lBGoGzZci+c1k=";
+        rev = "cd4a951ea8b5a257671db32bca5b0ca25ad726d8";
+        hash = "sha256-KRmeFR2EhXAiPk+WG2P7xklrOSIoCzzAD5x1OleNLlc=";
         owner = "WeirdTreeThing";
         repo = "alsa-ucm-conf-cros";
       };
