@@ -42,13 +42,5 @@ in
           };
         };
       };
-
-      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-        startup = [{command = "${lib.getExe pkgs.wpaperd} -d";}];
-      };
-
-      wayland.windowManager.hyprland.settings = lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
-        exec-once = ["${lib.getExe pkgs.wpaperd} -d"];
-      };
     };
   }
