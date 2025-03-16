@@ -11,10 +11,17 @@ in
     options.desktop.wayland.rofi.enable = mkEnableOption "rofi";
 
     config = let
+      inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
+
       copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       rofi = lib.getExe config.programs.rofi.finalPackage;
-      calcCmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
-      inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
+      rofiCalc = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
+      rofiPowerMenu = builtins.concatStringsSep " " (lib.splitString "\n" ''
+        ${lib.getExe config.programs.rofi.package}
+          -show p
+          -modi 'p:rofi-power-menu --choices=suspend/logout/lockscreen/reboot/shutdown'
+          -theme-str 'window {width: 8em;} listview {lines: 5;scrollbar: false;}'
+      '');
     in
       mkIf cfg.enable {
         xdg.dataFile."rofi/themes/${config.colorScheme.slug}.rasi".text = with config.colorScheme.palette; ''
@@ -174,15 +181,26 @@ in
         ];
 
         wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-          keybindings = {
-            "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = "exec ${calcCmd}";
+          keybindings = let
+            inherit (config.wayland.windowManager.sway.config) modifier;
+          in {
+            "${modifier}+Shift+S" = "exec ${rofiCalc}";
+
+            "${modifier}+d" = "exec ${rofi} -show run";
+            "${modifier}+x" = "exec ${rofi} -show drun";
+            "${modifier}+BackSpace" = "exec ${rofiPowerMenu}";
           };
         };
 
         wayland.windowManager.hyprland.settings =
           lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
-            bind = ["$mod_SHIFT,S,exec,${calcCmd}"];
+            bind = [
+              "$mod_SHIFT,S,exec,${rofiCalc}"
+              "$mod,x,exec,${rofi} -show drun"
+              "$mod,d,exec,${rofi} -show run"
+              "$mod,backspace,exec,${rofiPowerMenu}"
+            ];
           };
 
         programs.rofi = {
