@@ -31,6 +31,7 @@ in
         };
 
         Service = {
+          Environment = ["PATH=${config.home.profileDirectory}/bin"];
           ExecStart = "${lib.getExe pkgs.shikane}";
           Restart = "always";
           RestartSec = "10";
