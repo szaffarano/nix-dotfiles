@@ -12,8 +12,8 @@
 
   desktop = {
     enable = true;
-    wayland.compositors.hyprland.enable = true;
-    wayland.compositors.sway.enable = false;
+    wayland.compositors.hyprland.enable = false;
+    wayland.compositors.sway.enable = true;
   };
   services.flameshot = {
     enable = false;
@@ -29,7 +29,7 @@
       enable = true;
       ultimate = true;
     };
-    ocaml.enable = true;
+    ocaml.enable = false;
     python.enable = true;
     rust.enable = true;
     zig.enable = true;
@@ -41,7 +41,6 @@
       "local"
       "binds"
       "breeze"
-      "ocaml"
     ];
   };
 

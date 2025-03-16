@@ -52,7 +52,7 @@ in {
       "cross-compile"
       "elastic-endpoint"
       "home-manager"
-      "hyprland"
+      "sway"
       "laptop"
       "nix-ld"
       "ollama"

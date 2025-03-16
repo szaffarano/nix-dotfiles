@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.desktop.wayland.shikane;
+  shikaneCmd = "${pkgs.shikane}/bin/shikanectl reload";
 in
   with lib; {
     options.desktop.wayland.shikane = {
@@ -37,5 +38,19 @@ in
           RestartSec = "10";
         };
       };
+
+      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
+        keybindings = {
+          "Ctrl+Alt+S" = "exec ${shikaneCmd}";
+        };
+      };
+
+      wayland.windowManager.hyprland.settings =
+        lib.mkIf config.desktop.wayland.compositors.hyprland.enable
+        {
+          bind = [
+            "CTRL_ALT,S,exec,${shikaneCmd}"
+          ];
+        };
     };
   }

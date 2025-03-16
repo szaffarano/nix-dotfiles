@@ -17,10 +17,9 @@ in
         enable = true;
         systemd.enable = true;
 
-        package = lib.mkIf config.desktop.wayland.compositors.hyprland.enable (pkgs.waybar.override {
+        package = pkgs.waybar.override {
           hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
-          experimentalPatches = true;
-        });
+        };
 
         settings = {
           primary = {
