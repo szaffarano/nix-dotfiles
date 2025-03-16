@@ -8,25 +8,14 @@
   pavucontrol = lib.getExe pkgs.pavucontrol;
   blueberry = "${pkgs.blueberry}/bin/blueberry";
   swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-  waybarCmd = lib.getExe pkgs.waybar;
 in
   with lib; {
     options.desktop.wayland.waybar.enable = mkEnableOption "waybar";
 
     config = mkIf cfg.enable {
-      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-        startup = [{command = "sleep 3 && ${waybarCmd}";}];
-      };
-
-      wayland.windowManager.hyprland.settings =
-        lib.mkIf config.desktop.wayland.compositors.hyprland.enable
-        {
-          exec-once = [waybarCmd];
-        };
-
       programs.waybar = {
         enable = true;
-        systemd.enable = false;
+        systemd.enable = true;
 
         package = lib.mkIf config.desktop.wayland.compositors.hyprland.enable (pkgs.waybar.override {
           hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
