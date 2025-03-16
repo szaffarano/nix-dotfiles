@@ -12,15 +12,13 @@ in
 
     config = let
       terminal = config.home.sessionVariables.TERMINAL;
-      lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
-      toggleScratchpad = "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
-      wofi = "${pkgs.wofi}/bin/wofi";
-      wofiPowerMenu = "wofi-power-menu";
+      lockScreen = lib.getExe pkgs.lock-screen;
+      toggleScratchpad = lib.getExe pkgs.toggle-sway-scratchpad;
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-      passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
+      passwordManager = lib.getExe pkgs.keepassxc;
 
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
-      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
+      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
 
       colors = config.colorScheme.palette;
       text = colors.base05;
@@ -39,7 +37,6 @@ in
 
         wayland.windowManager.sway = {
           enable = true;
-          package = null;
           swaynag.enable = true;
 
           extraConfigEarly = ''
@@ -105,7 +102,7 @@ in
             ];
 
             startup = let
-              configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
+              configure-gtk = lib.getExe pkgs.configure-gtk;
             in [
               {
                 command = ''${terminal} -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
@@ -217,12 +214,10 @@ in
                 modifier
                 ;
             in
-              lib.mkDefault {
+              {
                 "${modifier}+Return" = "exec ${terminal}";
                 "${modifier}+Shift+q" = "kill";
                 "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal htop";
-                "${modifier}+d" = "exec ${wofi} -S run";
-                "${modifier}+x" = "exec ${wofi} -S drun";
 
                 "${modifier}+Shift+w" = "exec ${passwordManager}";
 
@@ -277,7 +272,6 @@ in
 
                 "${modifier}+Shift+c" = "reload";
                 "${modifier}+Shift+r" = "restart";
-                "${modifier}+BackSpace" = "exec ${wofiPowerMenu}";
                 "${modifier}+Ctrl+Shift+BackSpace" = "exec systemctl suspend";
                 "${modifier}+Ctrl+BackSpace" = "exec ${lockScreen} 0";
 
@@ -300,12 +294,27 @@ in
                 "${modifier}+minus" = "scratchpad show";
                 "${modifier}+Shift+minus" = "move scratchpad";
 
-                "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
+                # "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
                 "${modifier}+m" = "exec ${musicPlayerCommand}";
                 "${modifier}+o" = "exec ${orgCommand}";
                 "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
                 "${modifier}+p" = ''[class="Slack"] scratchpad show'';
-              };
+              }
+              // (optionals config.programs.rofi.enable (
+                let
+                  rofi = "${lib.getExe config.programs.rofi.package}";
+                  rofiPowerMenu = builtins.concatStringsSep " " (lib.splitString "\n" ''
+                    ${lib.getExe config.programs.rofi.package}
+                      -show p
+                      -modi 'p:rofi-power-menu --choices=suspend/logout/lockscreen/reboot/shutdown'
+                      -theme-str 'window {width: 8em;} listview {lines: 5;scrollbar: false;}'
+                  '');
+                in {
+                  "${modifier}+d" = "exec ${rofi} -show run";
+                  "${modifier}+x" = "exec ${rofi} -show drun";
+                  "${modifier}+BackSpace" = "exec ${rofiPowerMenu}";
+                }
+              ));
 
             modes = {
               resize = {

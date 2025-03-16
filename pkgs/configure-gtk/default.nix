@@ -39,6 +39,7 @@
 // {
   meta = with lib; {
     licenses = licenses.mit;
+    mainProgram = "configure-gtk";
     platforms = platforms.all;
   };
 }

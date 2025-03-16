@@ -28,10 +28,10 @@ in
         enable = true;
         systemd.enable = false;
 
-        package = pkgs.waybar.override {
+        package = lib.mkIf config.desktop.wayland.compositors.hyprland.enable (pkgs.waybar.override {
           hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
           experimentalPatches = true;
-        };
+        });
 
         settings = {
           primary = {
@@ -45,7 +45,7 @@ in
                 "sway/workspaces"
                 "custom/sep"
                 "sway/scratchpad"
-                "custom/sep"
+                "sway/mode"
               ])
               ++ (lib.optionals config.wayland.windowManager.hyprland.enable [
                 "hyprland/workspaces"
@@ -157,6 +157,10 @@ in
               ];
               tooltip = true;
               tooltip-format = "{app}: {title}";
+            };
+
+            "sway/mode" = {
+              format = " {}";
             };
 
             bluetooth = {

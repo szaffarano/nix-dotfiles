@@ -30,7 +30,7 @@ in
         swappy = "${pkgs.swappy}/bin/swappy";
       in
         lib.mkIf config.desktop.wayland.compositors.sway.enable {
-          keybindings = lib.mkDefault {
+          keybindings = {
             "Print" = "exec ${grimshot} save area - | ${swappy} -f -";
             "Shift+Print" = "exec ${grimshot} save screen";
           };

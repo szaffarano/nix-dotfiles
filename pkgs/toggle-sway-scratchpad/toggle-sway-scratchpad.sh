@@ -31,7 +31,7 @@ function wait_for() {
 }
 
 function toggle() {
-	sway "[app_id=$1]" scratchpad show
+	sway "[app_id=$1]" "scratchpad show; move position center"
 }
 
 function die() {
