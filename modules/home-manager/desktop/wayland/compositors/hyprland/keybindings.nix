@@ -113,21 +113,6 @@ in
             let
               makoctl = "${config.services.mako.package}/bin/makoctl";
             in ["$mod,w,exec,${makoctl} dismiss"]
-          ))
-          ++ (optionals config.programs.rofi.enable (
-            let
-              rofi = "${lib.getExe config.programs.rofi.package}";
-              rofiPowerMenu = builtins.concatStringsSep " " (lib.splitString "\n" ''
-                ${lib.getExe config.programs.rofi.package}
-                  -show p
-                  -modi 'p:rofi-power-menu --choices=suspend/logout/lockscreen/reboot/shutdown'
-                  -theme-str 'window {width: 8em;} listview {lines: 5;scrollbar: false;}'
-              '');
-            in [
-              "$mod,x,exec,${rofi} -show drun"
-              "$mod,d,exec,${rofi} -show run"
-              "$mod,backspace,exec,${rofiPowerMenu}"
-            ]
           ));
       };
     };

@@ -12,15 +12,13 @@ in
 
     config = let
       terminal = config.home.sessionVariables.TERMINAL;
-      lockScreen = "${pkgs.lock-screen}/bin/lock-screen";
-      toggleScratchpad = "${pkgs.toggle-sway-scratchpad}/bin/toggle-sway-scratchpad";
-      wofi = "${pkgs.wofi}/bin/wofi";
-      wofiPowerMenu = "wofi-power-menu";
+      lockScreen = lib.getExe pkgs.lock-screen;
+      toggleScratchpad = lib.getExe pkgs.toggle-sway-scratchpad;
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-      passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
+      passwordManager = lib.getExe pkgs.keepassxc;
 
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
-      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +WikiIndex'";
+      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
 
       colors = config.colorScheme.palette;
       text = colors.base05;
@@ -39,7 +37,6 @@ in
 
         wayland.windowManager.sway = {
           enable = true;
-          package = null;
           swaynag.enable = true;
 
           extraConfigEarly = ''
@@ -105,7 +102,7 @@ in
             ];
 
             startup = let
-              configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
+              configure-gtk = lib.getExe pkgs.configure-gtk;
             in [
               {
                 command = ''${terminal} -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
@@ -130,9 +127,6 @@ in
             };
 
             output = {
-              # TODO stopped working
-              "*".bg = "#${colors.base01} solid_color";
-
               HDMI-A-1 = {
                 scale = "1";
               };
@@ -216,96 +210,92 @@ in
                 right
                 modifier
                 ;
-            in
-              lib.mkDefault {
-                "${modifier}+Return" = "exec ${terminal}";
-                "${modifier}+Shift+q" = "kill";
-                "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal htop";
-                "${modifier}+d" = "exec ${wofi} -S run";
-                "${modifier}+x" = "exec ${wofi} -S drun";
+            in {
+              "${modifier}+Return" = "exec ${terminal}";
+              "${modifier}+Shift+q" = "kill";
+              "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal htop";
 
-                "${modifier}+Shift+w" = "exec ${passwordManager}";
+              "${modifier}+Shift+w" = "exec ${passwordManager}";
 
-                "${modifier}+${left}" = "focus left";
-                "${modifier}+${down}" = "focus down";
-                "${modifier}+${up}" = "focus up";
-                "${modifier}+${right}" = "focus right";
+              "${modifier}+${left}" = "focus left";
+              "${modifier}+${down}" = "focus down";
+              "${modifier}+${up}" = "focus up";
+              "${modifier}+${right}" = "focus right";
 
-                "${modifier}+Left" = "focus left";
-                "${modifier}+Down" = "focus down";
-                "${modifier}+Up" = "focus up";
-                "${modifier}+Right" = "focus right";
+              "${modifier}+Left" = "focus left";
+              "${modifier}+Down" = "focus down";
+              "${modifier}+Up" = "focus up";
+              "${modifier}+Right" = "focus right";
 
-                "${modifier}+Shift+${left}" = "move left";
-                "${modifier}+Shift+${down}" = "move down";
-                "${modifier}+Shift+${up}" = "move up";
-                "${modifier}+Shift+${right}" = "move right";
+              "${modifier}+Shift+${left}" = "move left";
+              "${modifier}+Shift+${down}" = "move down";
+              "${modifier}+Shift+${up}" = "move up";
+              "${modifier}+Shift+${right}" = "move right";
 
-                "${modifier}+space" = "focus mode_toggle";
-                "${modifier}+Shift+space" = "floating toggle";
+              "${modifier}+space" = "focus mode_toggle";
+              "${modifier}+Shift+space" = "floating toggle";
 
-                "${modifier}+1" = "workspace number 1";
-                "${modifier}+2" = "workspace number 2";
-                "${modifier}+3" = "workspace number 3";
-                "${modifier}+4" = "workspace number 4";
-                "${modifier}+5" = "workspace number 5";
-                "${modifier}+6" = "workspace number 6";
-                "${modifier}+7" = "workspace number 7";
-                "${modifier}+8" = "workspace number 8";
-                "${modifier}+9" = "workspace number 9";
-                "${modifier}+0" = "workspace number 10";
+              "${modifier}+1" = "workspace number 1";
+              "${modifier}+2" = "workspace number 2";
+              "${modifier}+3" = "workspace number 3";
+              "${modifier}+4" = "workspace number 4";
+              "${modifier}+5" = "workspace number 5";
+              "${modifier}+6" = "workspace number 6";
+              "${modifier}+7" = "workspace number 7";
+              "${modifier}+8" = "workspace number 8";
+              "${modifier}+9" = "workspace number 9";
+              "${modifier}+0" = "workspace number 10";
 
-                "${modifier}+Shift+1" = "move container to workspace number 1";
-                "${modifier}+Shift+2" = "move container to workspace number 2";
-                "${modifier}+Shift+3" = "move container to workspace number 3";
-                "${modifier}+Shift+4" = "move container to workspace number 4";
-                "${modifier}+Shift+5" = "move container to workspace number 5";
-                "${modifier}+Shift+6" = "move container to workspace number 6";
-                "${modifier}+Shift+7" = "move container to workspace number 7";
-                "${modifier}+Shift+8" = "move container to workspace number 8";
-                "${modifier}+Shift+9" = "move container to workspace number 9";
-                "${modifier}+Shift+0" = "move container to workspace number 10";
+              "${modifier}+Shift+1" = "move container to workspace number 1";
+              "${modifier}+Shift+2" = "move container to workspace number 2";
+              "${modifier}+Shift+3" = "move container to workspace number 3";
+              "${modifier}+Shift+4" = "move container to workspace number 4";
+              "${modifier}+Shift+5" = "move container to workspace number 5";
+              "${modifier}+Shift+6" = "move container to workspace number 6";
+              "${modifier}+Shift+7" = "move container to workspace number 7";
+              "${modifier}+Shift+8" = "move container to workspace number 8";
+              "${modifier}+Shift+9" = "move container to workspace number 9";
+              "${modifier}+Shift+0" = "move container to workspace number 10";
 
-                "${modifier}+backslash" = "split h";
-                "${modifier}+v" = "split v";
-                "${modifier}+f" = "fullscreen toggle";
-                "${modifier}+s" = "layout stacking";
-                "${modifier}+w" = "layout tabbed";
-                "${modifier}+e" = "layout toggle split";
-                "${modifier}+a" = "focus parent";
-                "${modifier}+c" = "focus child";
+              "${modifier}+backslash" = "split h";
+              "${modifier}+v" = "split v";
+              "${modifier}+f" = "fullscreen toggle";
+              "${modifier}+s" = "layout stacking";
+              "${modifier}+w" = "layout tabbed";
+              "${modifier}+e" = "layout toggle split";
+              "${modifier}+a" = "focus parent";
+              "${modifier}+c" = "focus child";
 
-                "${modifier}+Shift+c" = "reload";
-                "${modifier}+Shift+r" = "restart";
-                "${modifier}+BackSpace" = "exec ${wofiPowerMenu}";
-                "${modifier}+Ctrl+Shift+BackSpace" = "exec systemctl suspend";
-                "${modifier}+Ctrl+BackSpace" = "exec ${lockScreen} 0";
+              "${modifier}+Shift+c" = "reload";
+              "${modifier}+Shift+r" = "restart";
+              "${modifier}+Ctrl+Shift+BackSpace" = "exec systemctl suspend";
+              "${modifier}+Ctrl+BackSpace" = "exec ${lockScreen} 0";
 
-                "${modifier}+r" = "mode resize";
+              "${modifier}+r" = "mode resize";
 
-                "Ctrl+Alt+Space" = "exec ${swayNcClient} --hide-latest";
-                "Ctrl+Shift+Space" = "exec ${swayNcClient} --close-all";
+              "Ctrl+Alt+Space" = "exec ${swayNcClient} --hide-latest";
+              "Ctrl+Shift+Space" = "exec ${swayNcClient} --close-all";
 
-                "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-                "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-                "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-                "XF86AudioPlay" = "exec playerctl play-pause";
-                "XF86AudioPause" = "exec playerctl pause";
-                "XF86AudioNext" = "exec playerctl next";
-                "XF86AudioPrev" = "exec playerctl previous";
+              "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+              "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+              "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+              "XF86AudioPlay" = "exec playerctl play-pause";
+              "XF86AudioPause" = "exec playerctl pause";
+              "XF86AudioNext" = "exec playerctl next";
+              "XF86AudioPrev" = "exec playerctl previous";
 
-                "${modifier}+Control_L+Left" = "move workspace to output left";
-                "${modifier}+Control_L+Right" = "move workspace to output left";
+              "${modifier}+Control_L+Left" = "move workspace to output left";
+              "${modifier}+Control_L+Right" = "move workspace to output left";
 
-                "${modifier}+minus" = "scratchpad show";
-                "${modifier}+Shift+minus" = "move scratchpad";
+              "${modifier}+minus" = "scratchpad show";
+              "${modifier}+Shift+minus" = "move scratchpad";
 
-                "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
-                "${modifier}+m" = "exec ${musicPlayerCommand}";
-                "${modifier}+o" = "exec ${orgCommand}";
-                "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
-                "${modifier}+p" = ''[class="Slack"] scratchpad show'';
-              };
+              # "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
+              "${modifier}+m" = "exec ${musicPlayerCommand}";
+              "${modifier}+o" = "exec ${orgCommand}";
+              "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
+              "${modifier}+p" = ''[class="Slack"] scratchpad show'';
+            };
 
             modes = {
               resize = {

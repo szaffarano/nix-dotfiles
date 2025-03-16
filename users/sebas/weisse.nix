@@ -1,8 +1,8 @@
 _: {
   desktop = {
     enable = true;
-    wayland.compositors.hyprland.enable = true;
-    wayland.compositors.sway.enable = false;
+    wayland.compositors.hyprland.enable = false;
+    wayland.compositors.sway.enable = true;
   };
 
   terminal.cli.cloud.enable = false;
@@ -13,7 +13,7 @@ _: {
     asm.enable = true;
     idea.enable = false;
     ocaml.enable = false;
-    zig.enable = true;
+    zig.enable = false;
   };
 
   terminal.zsh = {

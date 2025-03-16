@@ -4,10 +4,12 @@
   pkgs,
   ...
 }: let
-  cfg = config.desktop.wayland.compositors.hyprland;
+  cfg = config.desktop.wayland.wpaperd;
   refreshWallpapersCmd = ''${pkgs.imagemagick}/bin/magick "$(${lib.getExe pkgs.wallpaper})" ${config.home.homeDirectory}/Pictures/screen-lock.png'';
 in
   with lib; {
+    options.desktop.wayland.wpaperd.enable = mkEnableOption "wpaperd";
+
     config = mkIf cfg.enable {
       systemd.user.services.refresh-wallpapers = {
         Unit = {
@@ -39,10 +41,6 @@ in
             queue-size = 30;
           };
         };
-      };
-
-      wayland.windowManager.hyprland.settings = {
-        exec-once = ["${lib.getExe pkgs.wpaperd} -d"];
       };
     };
   }

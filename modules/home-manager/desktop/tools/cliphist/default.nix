@@ -36,7 +36,7 @@ in
         wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
           startup = [{command = watchCmd;}];
           keybindings = {
-            "Ctrl+Alt+v" = "${rofiCmd}";
+            "Ctrl+Alt+v" = "exec ${rofiCmd}";
           };
         };
 

@@ -8,30 +8,19 @@
   pavucontrol = lib.getExe pkgs.pavucontrol;
   blueberry = "${pkgs.blueberry}/bin/blueberry";
   swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-  waybarCmd = lib.getExe pkgs.waybar;
 in
   with lib; {
     options.desktop.wayland.waybar.enable = mkEnableOption "waybar";
 
     config = mkIf cfg.enable {
-      wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
-        startup = [{command = "sleep 3 && ${waybarCmd}";}];
-      };
-
-      wayland.windowManager.hyprland.settings =
-        lib.mkIf config.desktop.wayland.compositors.hyprland.enable
-        {
-          exec-once = [waybarCmd];
-        };
-
       programs.waybar = {
         enable = true;
-        systemd.enable = false;
+        systemd.enable = true;
 
-        package = pkgs.waybar.override {
+        package = lib.mkIf config.desktop.wayland.compositors.hyprland.enable (pkgs.waybar.override {
           hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
           experimentalPatches = true;
-        };
+        });
 
         settings = {
           primary = {
@@ -45,7 +34,7 @@ in
                 "sway/workspaces"
                 "custom/sep"
                 "sway/scratchpad"
-                "custom/sep"
+                "sway/mode"
               ])
               ++ (lib.optionals config.wayland.windowManager.hyprland.enable [
                 "hyprland/workspaces"
@@ -157,6 +146,10 @@ in
               ];
               tooltip = true;
               tooltip-format = "{app}: {title}";
+            };
+
+            "sway/mode" = {
+              format = " {}";
             };
 
             bluetooth = {

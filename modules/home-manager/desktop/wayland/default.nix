@@ -18,18 +18,20 @@ in
       ./swaync
       ./waybar
       ./wofi
+      ./wpaperd
     ];
 
     options.desktop.wayland.enable = mkEnableOption "wayland";
 
     config = mkIf cfg.enable {
       desktop.wayland = {
-        mako.enable = lib.mkDefault false;
-        wofi.enable = lib.mkDefault true;
-        rofi.enable = lib.mkDefault true;
-        waybar.enable = lib.mkDefault true;
         kanshi.enable = lib.mkDefault false;
+        mako.enable = lib.mkDefault false;
+        rofi.enable = lib.mkDefault true;
         shikane.enable = lib.mkDefault true;
+        waybar.enable = lib.mkDefault true;
+        wofi.enable = lib.mkDefault true;
+        wpaperd.enable = lib.mkDefault true;
 
         compositors = {
           enable = lib.mkDefault true;
