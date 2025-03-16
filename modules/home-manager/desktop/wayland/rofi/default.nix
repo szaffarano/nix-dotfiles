@@ -13,7 +13,7 @@ in
     config = let
       copy = "${pkgs.wl-clipboard}/bin/wl-copy";
       rofi = lib.getExe config.programs.rofi.finalPackage;
-      cmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
+      calcCmd = "${rofi} -show calc -modi calc -no-show-match -no-sort -calc-command '${copy} {result}'";
       inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
     in
       mkIf cfg.enable {
@@ -175,14 +175,14 @@ in
 
         wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
           keybindings = {
-            "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = cmd;
+            "${config.wayland.windowManager.sway.config.modifier}+Shift+S" = "exec ${calcCmd}";
           };
         };
 
         wayland.windowManager.hyprland.settings =
           lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
-            bind = ["$mod_SHIFT,S,exec,${cmd}"];
+            bind = ["$mod_SHIFT,S,exec,${calcCmd}"];
           };
 
         programs.rofi = {
