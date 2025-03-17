@@ -11,7 +11,8 @@
 in {
   config = {
     programs.mise = {
-      enableZshIntegration = true;
+      enableZshIntegration = config.programs.zsh.enable;
+      enableFishIntegration = config.programs.fish.enable;
 
       globalConfig = lib.mkDefault {
         settings = {

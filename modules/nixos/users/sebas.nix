@@ -2,6 +2,7 @@
   hostName,
   userName ? "sebas",
   email ? "sebas@zaffarano.com.ar",
+  shell ? "fish",
 }: {
   config,
   lib,
@@ -45,7 +46,7 @@ in {
         ++ (lib.optionals config.virtualisation.docker.enable ["docker"]);
 
       isNormalUser = true;
-      shell = pkgs.zsh;
+      shell = lib.getAttr shell pkgs;
       openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile keys);
     };
   };

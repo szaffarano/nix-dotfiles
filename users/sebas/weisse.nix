@@ -5,7 +5,6 @@ _: {
     wayland.compositors.sway.enable = true;
   };
 
-  terminal.cli.cloud.enable = false;
   services.syncthing.enable = true;
   programs.nix-index.enable = true;
   develop = {
@@ -16,13 +15,17 @@ _: {
     zig.enable = false;
   };
 
-  terminal.zsh = {
-    enable = true;
-    extras = [
-      "local"
-      "binds"
-      "breeze"
-    ];
+  terminal = {
+    cli.cloud.enable = false;
+    fish.enable = true;
+    zsh = {
+      enable = false;
+      extras = [
+        "local"
+        "binds"
+        "breeze"
+      ];
+    };
   };
 
   programs.mise.enable = true;

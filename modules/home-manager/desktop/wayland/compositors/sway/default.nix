@@ -356,13 +356,6 @@ in
           };
         };
 
-        programs.zsh.loginExtra = ''
-          if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-            exec ${pkgs.sway}/bin/sway \
-              > ~/.cache/sway.log 2>~/.cache/sway.err.log
-          fi
-        '';
-
         systemd.user.targets.sway-session-shutdown = {
           Unit = {
             Description = "Shutdown running sway session";

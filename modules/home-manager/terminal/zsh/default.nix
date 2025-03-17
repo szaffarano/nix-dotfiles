@@ -19,7 +19,7 @@ in
     config = mkIf cfg.enable {
       home.packages = with pkgs; [ruby];
       programs.zsh = {
-        enable = true;
+        enable = lib.mkDefault true;
         syntaxHighlighting.enable = true;
         enableCompletion = true;
         completionInit = ''
@@ -80,6 +80,13 @@ in
           size = 50000;
           path = "${config.xdg.dataHome}/zsh/history";
         };
+
+        loginExtra = lib.strings.optionalString config.wayland.windowManager.sway.enable ''
+          if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+            exec ${config.wayland.windowManager.sway.package}/bin/sway \
+              > ~/.cache/sway.log 2>~/.cache/sway.err.log
+          fi
+        '';
 
         initExtra = lib.concatStringsSep "\n" (
           lib.lists.forEach cfg.extras (
