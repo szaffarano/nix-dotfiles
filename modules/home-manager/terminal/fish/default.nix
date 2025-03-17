@@ -13,8 +13,9 @@ in
 
     config = mkIf cfg.enable {
       home.packages = with pkgs.fishPlugins; [
-        z
+        autopair
         forgit
+        z
       ];
 
       programs.fish = {
