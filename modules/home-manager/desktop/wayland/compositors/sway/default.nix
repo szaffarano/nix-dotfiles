@@ -121,7 +121,7 @@ in
               configure-gtk = lib.getExe pkgs.configure-gtk;
             in [
               {
-                command = ''${terminal} -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
+                command = ''${terminal} -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -t random || tmux new -s random"'';
               }
               {
                 command = ''
