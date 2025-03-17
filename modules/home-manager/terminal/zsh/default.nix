@@ -81,12 +81,19 @@ in
           path = "${config.xdg.dataHome}/zsh/history";
         };
 
-        loginExtra = lib.strings.optionalString config.wayland.windowManager.sway.enable ''
-          if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-            exec ${config.wayland.windowManager.sway.package}/bin/sway \
-              > ~/.cache/sway.log 2>~/.cache/sway.err.log
-          fi
-        '';
+        loginExtra =
+          lib.strings.optionalString config.wayland.windowManager.sway.enable ''
+            if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+              exec ${config.wayland.windowManager.sway.package}/bin/sway \
+                > ~/.cache/sway.log 2>~/.cache/sway.err.log
+            fi
+          ''
+          + (lib.strings.optionalString config.wayland.windowManager.hyprland.enable ''
+            if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+              exec ${lib.getExe pkgs.hyprland} \
+                > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
+            fi
+          '');
 
         initExtra = lib.concatStringsSep "\n" (
           lib.lists.forEach cfg.extras (

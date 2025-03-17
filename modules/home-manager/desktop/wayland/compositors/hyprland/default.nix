@@ -45,13 +45,6 @@ in
         XCURSOR_THEME = theme.gtk.cursor-theme;
       };
 
-      programs.zsh.loginExtra = ''
-        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-          exec ${lib.getExe pkgs.hyprland} \
-            > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
-        fi
-      '';
-
       wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;
@@ -168,7 +161,7 @@ in
           exec-once = let
             configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
           in [
-            ''[float;tile] $terminal -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"''
+            ''[float;tile] $terminal -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -t random || tmux new -s random"''
             "${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' "
           ];
 

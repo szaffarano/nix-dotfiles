@@ -19,6 +19,7 @@ in
 
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
       orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
+      hackernewsCommand = "${toggleScratchpad} 'hnMode' '${lib.getExe pkgs.hackernews-tui}'";
 
       colors = config.colorScheme.palette;
       text = colors.base05;
@@ -120,7 +121,7 @@ in
               configure-gtk = lib.getExe pkgs.configure-gtk;
             in [
               {
-                command = ''${terminal} -a dev-terminal zsh --login -c "tmux attach -t random || tmux new -s random"'';
+                command = ''${terminal} -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -t random || tmux new -s random"'';
               }
               {
                 command = ''
@@ -212,6 +213,12 @@ in
                 command = "move to scratchpad";
                 criteria = {
                   app_id = "orgMode";
+                };
+              }
+              {
+                command = "move to scratchpad";
+                criteria = {
+                  app_id = "hnMode";
                 };
               }
             ];
@@ -308,6 +315,7 @@ in
               # "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
               "${modifier}+m" = "exec ${musicPlayerCommand}";
               "${modifier}+o" = "exec ${orgCommand}";
+              "${modifier}+t" = "exec ${hackernewsCommand}";
               "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${modifier}+p" = ''[class="Slack"] scratchpad show'';
             };

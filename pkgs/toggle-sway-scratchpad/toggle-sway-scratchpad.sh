@@ -13,7 +13,11 @@ function main() {
 }
 
 function launch() {
-	nohup foot -a "$1" zsh --login -c "$2" >/dev/null 2>&1 &
+	eval "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "W=" + (.current_mode.width|tostring) + " H=" + (.current_mode.height|tostring)')"
+	WIDTH=$((W * 75 / 100))
+	HEIGHT=$((H * 75 / 100))
+
+	nohup foot -w "${WIDTH}x${HEIGHT}" -a "$1" fish -c "$2" >/dev/null 2>&1 &
 }
 
 function running() {
