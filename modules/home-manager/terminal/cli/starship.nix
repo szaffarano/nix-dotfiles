@@ -12,9 +12,8 @@ in
       programs.starship = {
         enable = true;
 
-        enableZshIntegration = true;
-        enableBashIntegration = false;
-        enableFishIntegration = false;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
 
         settings = {
           cmd_duration.disabled = false;

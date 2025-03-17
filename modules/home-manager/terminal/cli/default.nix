@@ -39,7 +39,8 @@
 
       atuin = {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
         flags = ["--disable-up-arrow"];
         settings = {
           keymap_mode = "vim-insert";
@@ -67,7 +68,8 @@
         withHash = v: "#${v}";
       in {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
         changeDirWidgetCommand = "fd --type d";
         fileWidgetCommand = "fd --type f";
 
@@ -100,12 +102,14 @@
 
       yazi = {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
       };
 
       zoxide = {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
       };
     };
 
@@ -116,9 +120,11 @@
       bottom
       diffsitter
       eza
+      hackernews-tui
       httpie
       libqalculate
       ncdu
+      nh
       ripgrep-all
       timer
     ];

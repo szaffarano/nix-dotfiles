@@ -51,11 +51,12 @@ in {
 
     programs = lib.mkIf enabled {
       nix-index = {
-        enableZshIntegration = false;
-        enableBashIntegration = false;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableFishIntegration = config.programs.fish.enable;
       };
       nix-index-database.comma.enable = true;
-      zsh.enable = true;
+      zsh.enable = lib.mkDefault false;
+      fish.enable = lib.mkDefault true;
     };
 
     zramSwap.enable = enabled;

@@ -6,7 +6,6 @@
     };
     packages = [
       pkgs.bazel_5_1_1
-      pkgs.hackernews-tui
     ];
   };
 
@@ -35,13 +34,9 @@
     zig.enable = true;
   };
 
-  terminal.zsh = {
-    enable = true;
-    extras = [
-      "local"
-      "binds"
-      "breeze"
-    ];
+  terminal = {
+    zsh.enable = false;
+    fish.enable = true;
   };
 
   dconf.settings = {

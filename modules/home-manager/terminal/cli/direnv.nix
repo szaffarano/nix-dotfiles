@@ -18,9 +18,8 @@ in
             warn_timeout = "30s";
           };
         };
-        enableZshIntegration = true;
-        enableBashIntegration = false;
-        enableFishIntegration = false;
+        enableZshIntegration = config.programs.zsh.enable;
+        enableBashIntegration = config.programs.bash.enable;
         nix-direnv.enable = true;
       };
     };
