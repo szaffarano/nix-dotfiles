@@ -1,11 +1,11 @@
 @keyframes blink-warning {
   70% {
-    color: white;
+    color: @fg;
   }
 
   to {
     color: @warning;
-    background-color: orange;
+    background-color: @muted;
   }
 }
 
@@ -15,7 +15,7 @@
   }
 
   to {
-    color: white;
+    color: @fg;
     background-color: @warning;
   }
 }
@@ -29,9 +29,9 @@
 }
 
 window#waybar {
-  background: @theme_base_color;
+  background: @bg;
   border-bottom: 1px solid @muted;
-  color: @theme_text_color;
+  color: @fg;
 }
 
 /* Set margin and padding for all */
@@ -58,18 +58,21 @@ window#waybar {
 }
 
 #workspaces button {
-  font-weight: bold;
   margin: 0px;
+  border-bottom: 2px solid @fg2;
+  color: @fg2;
 }
 
 #workspaces button.active {
-  border-bottom: 2px solid @warning;
-  color: @warning;
+  font-weight: bold;
+  border-bottom: 2px solid @fg;
+  color: @fg;
 }
 
 #workspaces button.focused {
-  border-bottom: 2px solid @warning;
-  color: @warning;
+  font-weight: bold;
+  border-bottom: 2px solid @fg;
+  color: @fg;
 }
 
 #workspaces button.urgent {
@@ -117,7 +120,7 @@ window#waybar {
 
 #mode {
   font-style: oblique;
-  color: @critical;
+  color: @warning;
   margin-left: 5px;
 }
 
