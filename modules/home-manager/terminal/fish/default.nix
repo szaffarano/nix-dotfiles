@@ -26,6 +26,7 @@ in
 
         shellAliases = {
           gc = "git commit";
+          gps = "git push";
           gs = "git status";
           k = "kubectl";
           nix-build = "nh os switch";
