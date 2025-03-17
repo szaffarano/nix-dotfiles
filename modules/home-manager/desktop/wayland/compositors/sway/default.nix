@@ -10,22 +10,13 @@ in
   with lib; {
     options.desktop.wayland.compositors.sway.enable = mkEnableOption "sway";
 
+    imports = [
+      ./fish.nix
+      ./zsh.nix
+    ];
+
     config = let
       terminal = config.home.sessionVariables.TERMINAL;
-      lockScreen = lib.getExe pkgs.lock-screen;
-      toggleScratchpad = lib.getExe pkgs.toggle-sway-scratchpad;
-      swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-      passwordManager = lib.getExe pkgs.keepassxc;
-
-      musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
-      orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
-      hackernewsCommand = "${toggleScratchpad} 'hnMode' '${lib.getExe pkgs.hackernews-tui}'";
-
-      colors = config.colorScheme.palette;
-      text = colors.base05;
-      urgent = colors.base08;
-      focused = colors.base0A;
-      unfocused = colors.base03;
     in
       mkIf cfg.enable {
         desktop = {
@@ -119,9 +110,11 @@ in
 
             startup = let
               configure-gtk = lib.getExe pkgs.configure-gtk;
+              tmux = lib.getExe pkgs.tmux;
+              fish = lib.getExe pkgs.fish;
             in [
               {
-                command = ''${terminal} -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -t random || tmux new -s random"'';
+                command = ''${terminal} -a dev-terminal ${fish} -c "${tmux} attach -t random || ${tmux} new -s random"'';
               }
               {
                 command = ''
@@ -232,6 +225,13 @@ in
                 right
                 modifier
                 ;
+              hackernews = "${toggleScratchpad} 'hnMode' '${lib.getExe pkgs.hackernews-tui}'";
+              lockScreen = lib.getExe pkgs.lock-screen;
+              musicPlayer = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
+              orgMode = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
+              passwordManager = lib.getExe pkgs.keepassxc;
+              swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
+              toggleScratchpad = lib.getExe pkgs.toggle-sway-scratchpad;
             in {
               "${modifier}+Return" = "exec ${terminal}";
               "${modifier}+Shift+q" = "kill";
@@ -312,10 +312,9 @@ in
               "${modifier}+minus" = "scratchpad show";
               "${modifier}+Shift+minus" = "move scratchpad";
 
-              # "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
-              "${modifier}+m" = "exec ${musicPlayerCommand}";
-              "${modifier}+o" = "exec ${orgCommand}";
-              "${modifier}+t" = "exec ${hackernewsCommand}";
+              "${modifier}+m" = "exec ${musicPlayer}";
+              "${modifier}+o" = "exec ${orgMode}";
+              "${modifier}+t" = "exec ${hackernews}";
               "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${modifier}+p" = ''[class="Slack"] scratchpad show'';
             };
@@ -330,35 +329,46 @@ in
                 Escape = "mode default";
               };
             };
+
             colors = let
-              background = colors.base00;
-              indicator = colors.base0B;
+              colors = config.colorScheme.palette;
             in {
-              inherit background;
-              urgent = {
-                inherit background indicator text;
-                border = urgent;
-                childBorder = urgent;
-              };
+              background = colors.base07;
+
               focused = {
-                inherit background indicator text;
-                border = focused;
-                childBorder = focused;
+                border = colors.base05;
+                background = colors.base0D;
+                text = colors.base00;
+                indicator = colors.base0D;
+                childBorder = colors.base0D;
               };
               focusedInactive = {
-                inherit background indicator text;
-                border = unfocused;
-                childBorder = unfocused;
+                border = colors.base01;
+                background = colors.base01;
+                text = colors.base05;
+                indicator = colors.base03;
+                childBorder = colors.base01;
               };
               unfocused = {
-                inherit background indicator text;
-                border = unfocused;
-                childBorder = unfocused;
+                border = colors.base01;
+                background = colors.base00;
+                text = colors.base05;
+                indicator = colors.base01;
+                childBorder = colors.base01;
+              };
+              urgent = {
+                border = colors.base08;
+                background = colors.base08;
+                text = colors.base00;
+                indicator = colors.base08;
+                childBorder = colors.base08;
               };
               placeholder = {
-                inherit background indicator text;
-                border = unfocused;
-                childBorder = unfocused;
+                border = colors.base00;
+                background = colors.base00;
+                text = colors.base05;
+                indicator = colors.base00;
+                childBorder = colors.base00;
               };
             };
           };

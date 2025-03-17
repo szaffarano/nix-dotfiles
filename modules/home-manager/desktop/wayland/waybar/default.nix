@@ -83,8 +83,7 @@ in
                 "6" = "";
                 "7" = "";
                 "urgent" = "";
-                "focused" = "";
-                "default" = "";
+                "default" = "";
               };
               persistent-workspaces = {
                 "1" = [];
@@ -268,13 +267,13 @@ in
         in
           ''
             @define-color bg #${base00};
-            @define-color critical #${base09};
-            @define-color warning #${base0B};
-            @define-color ok #${base0A};
-            @define-color fg #${base04};
-            @define-color fg2 #${base02};
-            @define-color muted #${base0F};
+            @define-color fg #${base05};
+            @define-color fg2 #${base03};
+            @define-color muted #${base04};
             @define-color neutral #${base06};
+            @define-color critical #${base08};
+            @define-color warning #${base09};
+            @define-color ok #${base0B};
 
             * {
                 font-family: ${font.name}, ${font.family};

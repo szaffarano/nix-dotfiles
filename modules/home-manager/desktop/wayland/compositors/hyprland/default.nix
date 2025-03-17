@@ -13,9 +13,11 @@ in
     options.desktop.wayland.compositors.hyprland.enable = mkEnableOption "hyprland";
 
     imports = [
+      ./fish.nix
       ./hypridle.nix
       ./hyprlock.nix
       ./keybindings.nix
+      ./zsh.nix
     ];
 
     config = mkIf cfg.enable {
