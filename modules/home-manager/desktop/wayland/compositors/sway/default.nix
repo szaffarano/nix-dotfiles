@@ -8,12 +8,12 @@
   cfg = config.desktop.wayland.compositors.sway;
 in
   with lib; {
+    options.desktop.wayland.compositors.sway.enable = mkEnableOption "sway";
+
     imports = [
       ./fish.nix
       ./zsh.nix
     ];
-
-    options.desktop.wayland.compositors.sway.enable = mkEnableOption "sway";
 
     config = let
       terminal = config.home.sessionVariables.TERMINAL;

@@ -4,12 +4,12 @@
   ...
 }: {
   config = lib.mkIf (config.programs.fish.enable
-    && config.wayland.windowManager.sway.enable) {
+    && config.wayland.windowManager.hyprland.enable) {
     programs.fish.loginShellInit = ''
       set TTY1 (tty)
       [ "$TTY1" = "/dev/tty1" ] && exec \
-        ${lib.getExe config.wayland.windowManager.sway.package} \
-          > ~/.cache/sway.log 2>~/.cache/sway.err.log
+        exec ${lib.getExe config.wayland.windowManager.hyprland.package} \
+          > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
     '';
   };
 }
