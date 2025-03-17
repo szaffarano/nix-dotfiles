@@ -1,15 +1,17 @@
 {
-  lib,
-  writeShellApplication,
   fd,
-  sway,
+  fish,
   foot,
   jq,
+  lib,
+  sway,
+  writeShellApplication,
 }:
 (writeShellApplication {
   name = "toggle-sway-scratchpad";
   runtimeInputs = [
     fd
+    fish
     foot
     jq
     sway

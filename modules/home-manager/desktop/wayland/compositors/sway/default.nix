@@ -19,6 +19,7 @@ in
 
       musicPlayerCommand = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
       orgCommand = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
+      hackernewsCommand = "${toggleScratchpad} 'hnMode' '${lib.getExe pkgs.hackernews-tui}'";
 
       colors = config.colorScheme.palette;
       text = colors.base05;
@@ -214,6 +215,12 @@ in
                   app_id = "orgMode";
                 };
               }
+              {
+                command = "move to scratchpad";
+                criteria = {
+                  app_id = "hnMode";
+                };
+              }
             ];
 
             keybindings = let
@@ -308,6 +315,7 @@ in
               # "${modifier}+Shift+s" = ''[app_id="org.speedcrunch."] scratchpad show'';
               "${modifier}+m" = "exec ${musicPlayerCommand}";
               "${modifier}+o" = "exec ${orgCommand}";
+              "${modifier}+t" = "exec ${hackernewsCommand}";
               "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
               "${modifier}+p" = ''[class="Slack"] scratchpad show'';
             };
