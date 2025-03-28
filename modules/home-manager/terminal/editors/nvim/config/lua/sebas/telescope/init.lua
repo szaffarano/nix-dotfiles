@@ -1,13 +1,6 @@
-require('telescope').setup {
-  extensions = {
-    ['ui-select'] = {
-      require('telescope.themes').get_dropdown(),
-    },
-  },
-}
+require('telescope').setup {}
 
-pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'ui-select')
+require('telescope').load_extension 'fzf'
 
 local utils = require 'sebas.utils.ts'
 local builtin = require 'telescope.builtin'
