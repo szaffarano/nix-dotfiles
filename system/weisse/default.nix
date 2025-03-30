@@ -42,6 +42,15 @@ in {
   };
 
   nixos.custom = {
+    power = {
+      wol.phyname = "phy0";
+      wakeup = {
+        lid = {
+          name = "LID0";
+          action = "disable";
+        };
+      };
+    };
     features.enable = [
       "desktop"
       "home-manager"
