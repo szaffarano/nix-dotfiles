@@ -29,6 +29,7 @@ in
         calibre
         foliate
         koodo-reader
+        koreader
 
         qview
         speedcrunch
