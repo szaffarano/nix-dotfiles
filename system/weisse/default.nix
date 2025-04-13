@@ -52,13 +52,14 @@ in {
       };
     };
     features.enable = [
+      "calibre"
       "desktop"
       "home-manager"
-      "sway"
       "laptop"
       "nix-ld"
       "quietboot"
       "sensible"
+      "sway"
       "syncthing"
       "yubikey"
     ];
