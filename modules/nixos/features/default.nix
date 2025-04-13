@@ -1,5 +1,6 @@
 {
   imports = [
+    ./calibre.nix
     ./cross-compile.nix
     ./desktop.nix
     ./elastic-endpoint.nix
