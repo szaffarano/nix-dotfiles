@@ -9,6 +9,8 @@
 
   cliphist = import ./cliphist;
 
+  rust = inputs.rust-overlay.overlays.default;
+
   nur = inputs.nur.overlays.default;
 
   wl-clipboard = import ./wl-clipboard;
