@@ -6,6 +6,13 @@
     };
     packages = [
       pkgs.bazel_5_1_1
+      pkgs.pkg-config
+      pkgs.openssl
+      pkgs.asciinema
+      pkgs.asciinema-agg
+      pkgs.upx
+      pkgs.pkgsCross.mingwW64.stdenv.cc
+      pkgs.pkgsCross.mingwW64.windows.mingw_w64_pthreads
     ];
   };
 
