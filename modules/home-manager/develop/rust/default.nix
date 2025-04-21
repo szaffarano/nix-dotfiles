@@ -30,6 +30,7 @@ in
             bacon
             cargo-bloat
             cargo-udeps
+            cargo-show-asm
             gcc
           ];
         };
