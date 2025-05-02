@@ -6,7 +6,6 @@
 }: let
   is_installed = name: (lib.lists.any (e: e == name) (lib.attrNames config.programs.mise.globalConfig.tools));
 
-  terraform_installed = is_installed "terraform";
   node_installed = is_installed "node";
 in {
   config = {
@@ -18,7 +17,8 @@ in {
         settings = {
           all_compile = false;
           experimental = true;
-          idiomatic_version_file_disable_tools = lib.mkIf terraform_installed ["terraform"];
+          # https://github.com/jdx/mise/discussions/4345
+          idiomatic_version_file_enable_tools = ["python"];
         };
         settings.python = {
           compile = false;
