@@ -79,7 +79,8 @@ in {
       codeium
       dockerfile-language-server-nodejs
       gopls
-      ltex-ls
+      ltex-ls-plus
+      python312Packages.pylatexenc
       lua-language-server
       nil
       nodePackages.typescript-language-server
