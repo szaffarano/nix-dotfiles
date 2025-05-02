@@ -49,7 +49,7 @@ local servers = {
   'dockerls',
   'gopls',
   'jsonls',
-  'ltex',
+  'ltex_plus',
   'lua_ls',
   'nil_ls',
   'ocamllsp',

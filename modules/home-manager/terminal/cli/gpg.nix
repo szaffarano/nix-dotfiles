@@ -29,7 +29,7 @@ with lib; {
       enable = true;
       enableSshSupport = true;
       enableScDaemon = true;
-      pinentryPackage = pkgs.pinentry-qt;
+      pinentry.package = pkgs.pinentry-qt;
 
       defaultCacheTtl = 28800;
       defaultCacheTtlSsh = 28800;
