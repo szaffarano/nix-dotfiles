@@ -18,7 +18,7 @@ in {
           all_compile = false;
           experimental = true;
           # https://github.com/jdx/mise/discussions/4345
-          idiomatic_version_file_enable_tools = ["python"];
+          idiomatic_version_file_enable_tools = ["python" "node"];
         };
         settings.python = {
           compile = false;
