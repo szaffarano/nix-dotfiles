@@ -15,18 +15,19 @@ return {
   opts = {
     notify_on_error = false,
     formatters_by_ft = {
-      lua = { 'stylua' },
-      python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
-      javascript = { { 'prettierd', 'prettier' } },
-      nix = { 'alejandra' },
-      zsh = { 'shfmt' },
-      sh = { 'shfmt' },
       asm = { 'nasmfmt' },
       bash = { 'shfmt' },
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      lua = { 'stylua' },
+      nix = { 'alejandra' },
+      python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       rust = { 'rustfmt' },
-      toml = { 'taplo' },
-      yml = { 'yq' },
+      sh = { 'shfmt' },
       terraform = { 'terraform_fmt' },
+      toml = { 'taplo' },
+      typescript = { 'prettierd', 'prettier', stop_after_first = true },
+      yml = { 'yq' },
+      zsh = { 'shfmt' },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
