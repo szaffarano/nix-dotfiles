@@ -63,13 +63,10 @@ local servers = {
 }
 
 local lspconfig = require 'lspconfig'
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 for _, server_name in ipairs(servers) do
   local ok, server = pcall(require, 'sebas.lsp.servers.' .. server_name)
   if not ok then
     server = {}
   end
-  server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
   lspconfig[server_name].setup(server)
 end

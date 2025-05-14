@@ -6,22 +6,14 @@ return {
     enabled = true,
     config = function()
       require('copilot').setup {
-        suggestion = {
-          -- use cmp-copilot instead
-          enabled = false,
-        },
-        panel = {
-          -- use cmp-copilot instead
-          enabled = false,
-        },
+        suggestion = { enabled = false },
+        panel = { enabled = false },
         copilot_node_command = vim.fn.expand '$HOME' .. '/.local/share/mise/shims/node',
+        filetypes = {
+          markdown = true,
+          help = true,
+        },
       }
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
     end,
   },
 }
