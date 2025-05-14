@@ -1,13 +1,12 @@
 return {
-  'Exafunction/codeium.nvim',
+  'Exafunction/windsurf.nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'hrsh7th/nvim-cmp',
+    'saghen/blink.compat',
   },
-  enabled = false,
+  enabled = true,
+  event = 'BufEnter',
   config = function()
-    require('codeium').setup {
-      enable_chat = true,
-    }
+    require('codeium').setup { enable_cmp_source = false, enable_chat = true }
   end,
 }
