@@ -2,10 +2,12 @@
   home = {
     custom = {
       features.enable = [];
+      allowed-unfree-packages = with pkgs; [windsurf];
       permitted-insecure-packages = ["python-2.7.18.8"]; # needed by bazel-5.1.1
     };
     packages = [
       pkgs.bazel_5_1_1
+      pkgs.windsurf
       pkgs.pkg-config
       pkgs.openssl
       pkgs.asciinema
