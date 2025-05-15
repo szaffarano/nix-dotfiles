@@ -30,12 +30,17 @@ local ftMap = {
 }
 return {
   'kevinhwang91/nvim-ufo',
-  dependencies = 'kevinhwang91/promise-async',
-  config = function()
+  dependencies = {
+    'kevinhwang91/promise-async',
+    'nvim-treesitter/nvim-treesitter',
+  },
+  event = 'BufReadPost',
+  init = function()
     vim.o.foldcolumn = 'auto'
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
+    vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
 
     vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
     vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
@@ -45,17 +50,11 @@ return {
         vim.lsp.buf.hover()
       end
     end, { desc = 'Peek Fold' })
-
-    require('ufo').setup {
-      fold_virt_text_handler = handler,
-      close_fold_kinds_for_ft = {
-        default = {
-          'comment',
-        },
-      },
-      provider_selector = function(bufnr, filetype, buftype)
-        return ftMap[filetype] or { 'lsp', 'indent' }
-      end,
-    }
   end,
+  opts = {
+    fold_virt_text_handler = handler,
+    provider_selector = function(_, filetype, _)
+      return ftMap[filetype] or { 'lsp', 'indent' }
+    end,
+  },
 }
