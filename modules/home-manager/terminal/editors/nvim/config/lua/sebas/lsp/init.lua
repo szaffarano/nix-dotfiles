@@ -52,7 +52,6 @@ local servers = {
   'ltex_plus',
   'lua_ls',
   'nil_ls',
-  'ocamllsp',
   'ruff',
   'pyright',
   'taplo',
@@ -64,9 +63,14 @@ local servers = {
 
 local lspconfig = require 'lspconfig'
 for _, server_name in ipairs(servers) do
-  local ok, server = pcall(require, 'sebas.lsp.servers.' .. server_name)
+  local ok, server_config = pcall(require, 'sebas.lsp.servers.' .. server_name)
   if not ok then
-    server = {}
+    server_config = {}
   end
-  lspconfig[server_name].setup(server)
+  vim.lsp.enable(server_name)
+  vim.lsp.config(server_name, {
+    settings = {
+      [server_name] = server_config,
+    },
+  })
 end
