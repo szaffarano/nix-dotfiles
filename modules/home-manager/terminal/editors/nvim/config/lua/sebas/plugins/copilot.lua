@@ -16,7 +16,65 @@ local prompts = {
   Wording = 'Please improve the grammar and wording of the following text.',
   Concise = 'Please rewrite the following text to make it more concise.',
 }
+local providers = {
+  ollama = {
+    prepare_input = function(inputs, opts)
+      local prepare_input = require('CopilotChat.config.providers').copilot.prepare_input
+      if prepare_input == nil then
+        error 'copilot.prepare_input is nil'
+      end
+      return prepare_input(inputs, opts)
+    end,
 
+    prepare_output = function(output, opts)
+      local prepare_output = require('CopilotChat.config.providers').copilot.prepare_output
+      if prepare_output == nil then
+        error 'copilot.prepare_output is nil'
+      end
+      return prepare_output(output, opts)
+    end,
+
+    get_models = function(headers)
+      local response, err = require('CopilotChat.utils').curl_get('http://localhost:11434/v1/models', {
+        headers = headers,
+        json_response = true,
+      })
+
+      if err then
+        error(err)
+      end
+
+      return vim.tbl_map(function(model)
+        return {
+          id = model.id,
+          name = model.id,
+        }
+      end, response.body.data)
+    end,
+
+    embed = function(inputs, headers)
+      local response, err = require('CopilotChat.utils').curl_post('http://localhost:11434/v1/embeddings', {
+        headers = headers,
+        json_request = true,
+        json_response = true,
+        body = {
+          input = inputs,
+          model = 'all-minilm',
+        },
+      })
+
+      if err then
+        error(err)
+      end
+
+      return response.body.data
+    end,
+
+    get_url = function()
+      return 'http://localhost:11434/v1/chat/completions'
+    end,
+  },
+}
 return {
   {
     'zbirenbaum/copilot.lua',
@@ -144,6 +202,7 @@ return {
         callback = function()
           vim.opt_local.relativenumber = true
           vim.opt_local.number = true
+          vim.b.completion = false
 
           -- Get current filetype and set it to markdown if the current filetype is copilot-chat
           local ft = vim.bo.filetype
@@ -159,6 +218,7 @@ return {
       answer_header = '## Copilot ',
       error_header = '## Error ',
       prompts = prompts,
+      providers = providers,
     },
   },
 }
