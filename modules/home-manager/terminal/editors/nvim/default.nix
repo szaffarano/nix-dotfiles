@@ -73,6 +73,10 @@ in {
       hadolint
       vale
 
+      # required by https://copilotc-nvim.github.io/CopilotChat.nvim/#/
+      luajitPackages.tiktoken_core
+      lynx
+
       # LSP servers
       asm-lsp
       clang-tools
