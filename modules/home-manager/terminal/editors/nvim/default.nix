@@ -77,6 +77,11 @@ in {
       luajitPackages.tiktoken_core
       lynx
 
+      # used by codecompanion
+      # vectorcode
+
+      pkgs.inputs.mcp-hub.default
+
       # LSP servers
       asm-lsp
       clang-tools
