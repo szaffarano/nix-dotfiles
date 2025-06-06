@@ -1,7 +1,4 @@
 return {
-  -- cmd = {},
-  -- filetypes = {},
-  -- capabilities = {},
   settings = {
     Lua = {
       completion = {
