@@ -52,6 +52,23 @@ return {
         },
       },
       adapters = {
+        openai = function()
+          return require('codecompanion.adapters').extend('openai', {
+            opts = {
+              stream = true,
+            },
+            env = {
+              api_key = 'cmd:get-keepass-entry sebas@zaffarano.com.ar "https://platform.openai.com"',
+            },
+            schema = {
+              model = {
+                default = function()
+                  return 'gpt-4.1'
+                end,
+              },
+            },
+          })
+        end,
         ollama = function()
           return require('codecompanion.adapters').extend('ollama', {
             schema = {
@@ -64,6 +81,17 @@ return {
             },
           })
         end,
+      },
+      strategies = {
+        chat = {
+          adapter = 'openai',
+        },
+        inline = {
+          adapter = 'openai',
+        },
+        cmd = {
+          adapter = 'openai',
+        },
       },
     },
     dependencies = {
