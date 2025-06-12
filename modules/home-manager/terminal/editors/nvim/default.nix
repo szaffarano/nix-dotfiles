@@ -73,6 +73,11 @@ in {
       hadolint
       vale
 
+      # used by codecompanion
+      # vectorcode
+
+      pkgs.inputs.mcp-hub.default
+
       # LSP servers
       asm-lsp
       clang-tools

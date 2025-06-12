@@ -38,11 +38,37 @@ vim.api.nvim_create_autocmd('LspAttach', {
         callback = vim.lsp.buf.clear_references,
       })
     end
+
+    if client and client:supports_method 'textDocument/completion' then
+      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+    end
   end,
 })
 
-local servers = {
-  -- 'rust_analyzer', -- rust is managed by rustacean
+vim.diagnostic.config {
+  virtual_text = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    border = 'rounded',
+    source = true,
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      [vim.diagnostic.severity.WARN] = 'WarningMsg',
+    },
+  },
+}
+
+vim.lsp.enable {
   'asm_lsp',
   'bashls',
   'clangd',
@@ -52,8 +78,8 @@ local servers = {
   'ltex_plus',
   'lua_ls',
   'nil_ls',
-  'ruff',
   'pyright',
+  'ruff',
   'taplo',
   'terraformls',
   'ts_ls', -- TODO: https://github.com/pmizio/typescript-tools.nvim
@@ -61,16 +87,5 @@ local servers = {
   'zls',
 }
 
-local lspconfig = require 'lspconfig'
-for _, server_name in ipairs(servers) do
-  local ok, server_config = pcall(require, 'sebas.lsp.servers.' .. server_name)
-  if not ok then
-    server_config = {}
-  end
-  vim.lsp.enable(server_name)
-  vim.lsp.config(server_name, {
-    settings = {
-      [server_name] = server_config,
-    },
-  })
-end
+vim.cmd 'set completeopt+=noselect'
+vim.o.winborder = 'rounded'

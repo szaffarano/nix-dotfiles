@@ -1,6 +1,6 @@
 return {
   'barreiroleo/ltex_extra.nvim',
-  ft = { 'gitcommit', 'markdown', 'org', 'pandoc', 'plaintex', 'rmd', 'rst', 'tex' },
+  ft = { 'gitcommit', 'markdown', 'org', 'pandoc', 'plaintex', 'rmd', 'rst', 'tex', 'mdx', 'markdown', 'md' },
   dependencies = { 'neovim/nvim-lspconfig' },
   config = function()
     require('ltex_extra').setup {

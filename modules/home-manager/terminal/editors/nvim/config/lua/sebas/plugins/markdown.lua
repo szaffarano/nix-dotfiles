@@ -10,6 +10,6 @@ return {
   ---@type render.md.UserConfig
   opts = {
     completions = { lsp = { enabled = true } },
-    file_types = { 'markdown', 'mdx' },
+    file_types = { 'markdown', 'mdx', 'codecompanion' },
   },
 }
