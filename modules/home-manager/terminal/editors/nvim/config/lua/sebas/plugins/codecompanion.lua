@@ -1,27 +1,9 @@
+local fmt = string.format
+
 return {
   {
     'olimorris/codecompanion.nvim',
     opts = {
-      keys = {
-        {
-          '<C-a>',
-          '<cmd>CodeCompanionActions<CR>',
-          desc = 'Open the action palette',
-          mode = { 'n', 'v' },
-        },
-        {
-          '<Leader>A',
-          '<cmd>CodeCompanionChat Toggle<CR>',
-          desc = 'Toggle a chat buffer',
-          mode = { 'n', 'v' },
-        },
-        {
-          '<LocalLeader>a',
-          '<cmd>CodeCompanionChat Add<CR>',
-          desc = 'Add code to a chat buffer',
-          mode = { 'v' },
-        },
-      },
       extensions = {
         history = {
           enabled = true,
@@ -63,7 +45,7 @@ return {
             schema = {
               model = {
                 default = function()
-                  return 'gpt-4.1'
+                  return 'gpt-4.1-mini'
                 end,
               },
             },
@@ -92,6 +74,59 @@ return {
         cmd = {
           adapter = 'openai',
         },
+      },
+      prompt_library = {
+        ['Generate a Commit Message following commitizen convention'] = {
+          strategy = 'chat',
+          description = 'Generate a commit message following commitizen convention',
+          opts = {
+            index = 10,
+            is_default = true,
+            is_slash_cmd = true,
+            short_name = 'commitizen',
+            auto_submit = true,
+            mapping = '<LocalLeader>Cc',
+          },
+          prompts = {
+            {
+              role = 'system',
+              content = [[You are an expert software developer following the commitizen convention specification.]],
+            },
+            {
+              role = 'user',
+              content = fmt(
+                [[
+<user_prompt>
+  Given the git diff listed below, please generate a commit message for me.
+  Keep the title under 50 characters and wrap message at 72 characters. Format
+  as a gitcommit code block:
+</user_prompt>
+
+```diff
+%s
+```]],
+                vim.fn.system 'git diff --no-ext-diff --staged'
+              ),
+              opts = {
+                contains_code = true,
+              },
+            },
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        '<Leader>Ca',
+        '<cmd>CodeCompanionActions<CR>',
+        desc = 'Open the action palette',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<Leader>Cc',
+        '<cmd>CodeCompanionChat Toggle<CR>',
+        desc = 'Toggle a chat buffer',
+        mode = { 'n', 'v' },
       },
     },
     dependencies = {
