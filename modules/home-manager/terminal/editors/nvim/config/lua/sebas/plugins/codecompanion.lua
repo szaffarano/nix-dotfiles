@@ -97,9 +97,12 @@ return {
               content = fmt(
                 [[
 <user_prompt>
-  Given the git diff listed below, please generate a commit message for me.
-  Keep the title under 50 characters and wrap message at 72 characters. Format
-  as a gitcommit code block:
+Given the git diff listed below, please generate a commit message for me.
+Keep the title under 50 characters and wrap message at 72 characters. Format
+as a gitcommit code block. You must begin your commits with at least one of
+these tags: fix, feat. And if you introduce a breaking change, then you must
+add to your commit body the following BREAKING CHANGE. Example
+`fix(commands): bump error when no user provided`.
 </user_prompt>
 
 ```diff
