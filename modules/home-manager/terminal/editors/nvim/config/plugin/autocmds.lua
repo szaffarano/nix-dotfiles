@@ -15,9 +15,10 @@ vim.api.nvim_create_autocmd('FileType', {
     'tex',
     'latex',
     'markdown',
+    'mdx',
     'org',
   },
-  command = 'setlocal spell spelllang=en,es',
+  command = 'setlocal spell spelllang=en,es,de,sv',
 })
 
 -- Orgmode

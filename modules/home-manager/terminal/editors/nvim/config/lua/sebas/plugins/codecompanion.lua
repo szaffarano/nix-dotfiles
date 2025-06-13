@@ -8,15 +8,9 @@ return {
         history = {
           enabled = true,
           opts = {
-            keymap = 'gh',
-            save_chat_keymap = 'sc',
-            auto_save = false,
-            auto_generate_title = true,
-            continue_last_chat = false,
-            delete_on_clearing_chat = false,
-            picker = 'snacks',
-            enable_logging = false,
-            dir_to_save = vim.fn.stdpath 'data' .. '/codecompanion-history',
+            auto_save = true,
+            expiration_days = 30,
+            picker = 'telescope',
           },
         },
         mcphub = {
@@ -44,9 +38,7 @@ return {
             },
             schema = {
               model = {
-                default = function()
-                  return 'gpt-4.1-mini'
-                end,
+                default = 'gpt-4.1-mini',
               },
             },
           })
@@ -67,6 +59,14 @@ return {
       strategies = {
         chat = {
           adapter = 'openai',
+          tools = {
+            opts = {
+              default_tools = {
+                'mcp',
+                'vectorcode',
+              },
+            },
+          },
         },
         inline = {
           adapter = 'openai',
@@ -90,19 +90,22 @@ return {
           prompts = {
             {
               role = 'system',
-              content = [[You are an expert software developer following the commitizen convention specification.]],
+              content = 'You are an expert software developer following the commitizen convention specification.',
             },
             {
               role = 'user',
+              opts = {
+                contains_code = true,
+              },
               content = fmt(
                 [[
 <user_prompt>
-Given the git diff listed below, please generate a commit message for me.
-Keep the title under 50 characters and wrap message at 72 characters. Format
-as a gitcommit code block. You must begin your commits with at least one of
-these tags: fix, feat. And if you introduce a breaking change, then you must
-add to your commit body the following BREAKING CHANGE. Example
-`fix(commands): bump error when no user provided`.
+Given the git diff listed below, please generate a commit message for me. Keep
+the title under 50 characters and wrap message at 72 characters. Format as a
+gitcommit code block. You must begin your commits with at least one of these
+tags: fix, feat, etc.. And if you introduce a breaking change, then you must
+add to your commit body the following BREAKING CHANGE.
+Example `fix(commands): bump error when no user provided`.
 </user_prompt>
 
 ```diff
@@ -110,9 +113,6 @@ add to your commit body the following BREAKING CHANGE. Example
 ```]],
                 vim.fn.system 'git diff --no-ext-diff --staged'
               ),
-              opts = {
-                contains_code = true,
-              },
             },
           },
         },
@@ -135,13 +135,7 @@ add to your commit body the following BREAKING CHANGE. Example
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
-      {
-        'ravitemer/mcphub.nvim',
-        build = 'npm install -g mcp-hub@latest',
-        config = function()
-          require('mcphub').setup()
-        end,
-      },
+      'ravitemer/mcphub.nvim',
       'stevearc/aerial.nvim',
       'ravitemer/codecompanion-history.nvim',
       { 'Davidyz/VectorCode', version = '*', build = 'pipx upgrade vectorcode' },
