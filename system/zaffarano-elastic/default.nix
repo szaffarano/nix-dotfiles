@@ -2,6 +2,7 @@
   inputs,
   config,
   flakeRoot,
+  pkgs,
   ...
 }: let
   userName = "szaffarano";
@@ -63,8 +64,28 @@ in {
       "yubikey"
     ];
   };
-  services.greetd.enable = false;
-  services.flatpak.enable = true;
+  services = {
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+      extraRules = [
+        {
+          name = "elastic-endpoin";
+          nice = 10;
+        }
+        {
+          name = "elastic-endpoint";
+          nice = 10;
+        }
+        {
+          name = "elastic-agent";
+          nice = 10;
+        }
+      ];
+    };
+    greetd.enable = false;
+    flatpak.enable = false;
+  };
 
   networking = {
     inherit hostName;

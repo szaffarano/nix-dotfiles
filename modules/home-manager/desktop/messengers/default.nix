@@ -12,10 +12,12 @@ in
     config = mkIf cfg.enable {
       home = {
         custom.allowed-unfree-packages = with pkgs; [
+          zoom-us
           slack
           telegram-desktop
         ];
         packages = with pkgs; [
+          zoom-us
           slack
           telegram-desktop
         ];
