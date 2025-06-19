@@ -52,12 +52,14 @@
     wayland.compositors.hyprland.enable = false;
     wayland.compositors.sway.enable = true;
   };
-  services.flameshot = {
-    enable = false;
-    package = pkgs.flameshot-grim;
+  services = {
+    flameshot = {
+      enable = false;
+      package = pkgs.flameshot-grim;
+    };
+    syncthing.enable = true;
   };
   terminal.cli.cloud.enable = true;
-  services.syncthing.enable = true;
   programs.nix-index.enable = true;
   develop = {
     enable = true;
