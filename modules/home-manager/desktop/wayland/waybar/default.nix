@@ -17,10 +17,6 @@ in
         enable = true;
         systemd.enable = true;
 
-        package = pkgs.waybar.override {
-          hyprlandSupport = config.desktop.wayland.compositors.hyprland.enable;
-        };
-
         settings = {
           primary = {
             layer = "top";
