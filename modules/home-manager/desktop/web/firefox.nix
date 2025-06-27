@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -9,11 +10,13 @@ in {
   options.desktop.web.firefox.enable = lib.mkEnableOption "firefox";
 
   config = lib.mkIf cfg.enable {
-    programs.browserpass.enable = true;
-    home.custom.allowed-unfree-packages = with pkgs.nur.repos.rycee.firefox-addons; [
-      grammarly
-      okta-browser-plugin
-    ];
+    home = {
+      custom.allowed-unfree-packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        grammarly
+        okta-browser-plugin
+      ];
+      packages = with pkgs; [inputs.firefox-nightly.packages.${system}.firefox-nightly-bin];
+    };
     programs.firefox = {
       enable = true;
       package = with pkgs; firefox-wayland;
@@ -23,18 +26,15 @@ in {
 
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           auto-tab-discard
-          browserpass
           decentraleyes
           duckduckgo-privacy-essentials
           facebook-container
-          foxytab
           grammarly
           keepassxc-browser
           okta-browser-plugin
           pkgs.linguee-it
           simple-tab-groups
           simple-translate
-          translate-web-pages
           ublock-origin
           vimium
         ];
