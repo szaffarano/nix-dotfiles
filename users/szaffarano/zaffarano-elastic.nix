@@ -19,8 +19,8 @@
       bazel_5_1_1
       openssl
       pkg-config
-      pkgsCross.mingwW64.stdenv.cc
-      pkgsCross.mingwW64.windows.mingw_w64_pthreads
+      # pkgsCross.mingwW64.stdenv.cc
+      # pkgsCross.mingwW64.windows.mingw_w64_pthreads
       upx
       (
         vscode-with-extensions.override {
