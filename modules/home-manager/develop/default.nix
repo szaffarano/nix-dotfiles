@@ -11,6 +11,7 @@ in
       ./asm
       ./idea
       ./mise
+      ./nodejs
       ./ocaml
       ./python
       ./rust
