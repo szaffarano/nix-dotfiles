@@ -3,6 +3,7 @@
     custom = {
       features.enable = [];
       allowed-unfree-packages = with pkgs; [
+        claude-code
         vscode
         vscode-extensions.github.copilot
         vscode-extensions.github.copilot-chat
@@ -18,6 +19,7 @@
       asciinema-agg
       bazel_5_1_1
       openssl
+      claude-code
       pkg-config
       # pkgsCross.mingwW64.stdenv.cc
       # pkgsCross.mingwW64.windows.mingw_w64_pthreads
@@ -70,6 +72,7 @@
     };
     ocaml.enable = false;
     python.enable = true;
+    nodejs.enable = true;
     rust.enable = true;
     zig.enable = true;
   };
