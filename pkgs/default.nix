@@ -23,6 +23,7 @@
     cliphist-to-wofi = callPackage ./cliphist-to-wofi {};
     configure-gtk = callPackage ./configure-gtk {};
     flameshot-grim = callPackage ./flameshot {};
+    get-keepass-entry = callPackage ./get-keepass-entry {};
     lock-screen = callPackage ./lock-screen {};
     sync-lid = callPackage ./sync-lid {};
     resurrect-hyprlock = callPackage ./resurrect-hyprlock {};
