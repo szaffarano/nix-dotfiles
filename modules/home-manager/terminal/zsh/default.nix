@@ -81,7 +81,7 @@ in
           path = "${config.xdg.dataHome}/zsh/history";
         };
 
-        initExtra = lib.concatStringsSep "\n" (
+        initContent = lib.concatStringsSep "\n" (
           lib.lists.forEach cfg.extras (
             f:
               lib.concatStringsSep "\n" [
