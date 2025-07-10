@@ -3,7 +3,7 @@
 TIMEOUT_SECS=5
 NUMBER_RE='^[0-9]+$'
 
-function log {
+function log() {
 	if [ -n "${DEBUG_LOCK_SCREEN:-}" ]; then
 		echo "$(date '+%Y-%m-%d %H:%M:%S') $1" | tee -a "$HOME/.cache/swaylock.log"
 	fi
@@ -24,7 +24,7 @@ if [ "$TIMEOUT_SECS" -gt 0 ]; then
 	img="$(wallpaper)"
 	log "Image to set [on line]: $img"
 else
-	# -o=offline, avoid delas to lock inmediatelly
+	# -o=offline, avoid delay to lock inmediatelly
 	img="$(wallpaper -o)"
 	log "Image to set [off line]: $img"
 fi

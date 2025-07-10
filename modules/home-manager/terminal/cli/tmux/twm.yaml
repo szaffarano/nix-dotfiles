@@ -1,5 +1,4 @@
 # yaml-language-server: $schema=./twm.schema.json
-
 search_paths:
   - ~/.dotfiles
   - ~/Documents/org.new
