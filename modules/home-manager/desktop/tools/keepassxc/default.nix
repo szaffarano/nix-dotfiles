@@ -28,6 +28,6 @@ in
         config.desktop.wayland.compositors.hyprland.enable && cfg.autostart
       ) ["${pkgs.keepassxc}/bin/keepassxc"];
 
-      home.packages = with pkgs; [keepassxc];
+      home.packages = with pkgs; [keepassxc get-keepass-entry];
     };
   }
