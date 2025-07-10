@@ -25,6 +25,14 @@
       pythonRelaxDeps = [
         "posthog"
       ];
+
+      meta = {
+        description = "Code repository indexing tool to supercharge your LLM experience";
+        homepage = "https://github.com/Davidyz/VectorCode";
+        changelog = "https://github.com/Davidyz/VectorCode/releases/tag/${src.tag}";
+        mainProgram = "vectorcode";
+        badPlatforms = [];
+      };
     });
   };
 
