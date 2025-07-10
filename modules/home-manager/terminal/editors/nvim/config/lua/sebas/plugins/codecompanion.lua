@@ -138,7 +138,7 @@ Example `fix(commands): bump error when no user provided`.
       'ravitemer/mcphub.nvim',
       'stevearc/aerial.nvim',
       'ravitemer/codecompanion-history.nvim',
-      { 'Davidyz/VectorCode', version = '*', build = 'pipx upgrade vectorcode' },
+      { 'Davidyz/VectorCode', version = '*' },
     },
   },
 }
