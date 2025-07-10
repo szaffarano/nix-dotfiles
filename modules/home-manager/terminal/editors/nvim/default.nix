@@ -74,7 +74,7 @@ in {
       vale
 
       # used by codecompanion
-      # vectorcode
+      vectorcode
 
       pkgs.inputs.mcp-hub.default
 

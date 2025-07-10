@@ -5,8 +5,6 @@
 
   zig = inputs.zig.overlays.default;
 
-  # paperd = import ./wpaperd;
-
   cliphist = import ./cliphist;
 
   rust = inputs.rust-overlay.overlays.default;
@@ -15,19 +13,26 @@
 
   wl-clipboard = import ./wl-clipboard;
 
-  # https://github.com/NixOS/nixpkgs/issues/399907
-  qt6gtk2 = final: prev: {
-    qt6Packages = prev.qt6Packages.overrideScope (_: kprev: {
-      qt6gtk2 = kprev.qt6gtk2.overrideAttrs (_: {
-        version = "0.5-unstable-2025-03-04";
-        src = final.fetchFromGitLab {
-          domain = "opencode.net";
-          owner = "trialuser";
-          repo = "qt6gtk2";
-          rev = "d7c14bec2c7a3d2a37cde60ec059fc0ed4efee67";
-          hash = "sha256-6xD0lBiGWC3PXFyM2JW16/sDwicw4kWSCnjnNwUT4PI=";
-        };
-      });
+  vectorcode = final: prev: {
+    vectorcode = prev.vectorcode.overridePythonAttrs (_old: rec {
+      version = "0.7.7";
+      src = final.fetchFromGitHub {
+        owner = "Davidyz";
+        repo = "VectorCode";
+        tag = version;
+        hash = "sha256-c8Wp/bP5KHDN/i2bMyiOQgnHDw8tPbg4IZIQ5Ut4SIo=";
+      };
+      pythonRelaxDeps = [
+        "posthog"
+      ];
+
+      meta = {
+        description = "Code repository indexing tool to supercharge your LLM experience";
+        homepage = "https://github.com/Davidyz/VectorCode";
+        changelog = "https://github.com/Davidyz/VectorCode/releases/tag/${src.tag}";
+        mainProgram = "vectorcode";
+        badPlatforms = [];
+      };
     });
   };
 
