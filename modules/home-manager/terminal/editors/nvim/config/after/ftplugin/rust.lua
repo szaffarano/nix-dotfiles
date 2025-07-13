@@ -33,12 +33,6 @@ vim.keymap.set('n', '<leader>E', function()
   vim.cmd.RustLsp { 'explainError', 'current' }
 end, { buffer = bufnr, desc = 'Explain [E]rror (Rust)' })
 
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
-  callback = function()
-    vim.diagnostic.setqflist { open = false }
-  end,
-})
-
 -- mappings to review:
 -- vim.cmd.RustLsp('relatedDiagnostics')
 -- vim.cmd.RustLsp('openCargo')

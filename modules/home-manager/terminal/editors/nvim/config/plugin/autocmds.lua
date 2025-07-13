@@ -50,3 +50,10 @@ vim.api.nvim_create_autocmd('User', {
     end
   end,
 })
+
+-- Populate diagnostics to the quickfix list
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+  callback = function()
+    vim.diagnostic.setqflist { open = false }
+  end,
+})
