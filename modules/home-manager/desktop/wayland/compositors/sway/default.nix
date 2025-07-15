@@ -74,7 +74,7 @@ in
               fish = lib.getExe pkgs.fish;
             in [
               {
-                command = ''${terminal} -a dev-terminal ${fish} -c "${tmux} attach -t random || ${tmux} new -s random"'';
+                command = ''${terminal} -a dev-terminal ${fish} -c "${tmux} attach -s random || ${tmux} new -s random"'';
               }
               {
                 command = ''
