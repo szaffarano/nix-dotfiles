@@ -44,6 +44,10 @@
         }
       )
       windsurf
+      goose-cli
+      wl-clipboard
+      aider-chat-full
+      opencode
     ];
   };
 
