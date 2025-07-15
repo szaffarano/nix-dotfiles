@@ -115,7 +115,7 @@ in {
             withYubikey = true;
           })
         ]
-        ++ [page];
+        ++ [lazygit];
     };
 
     programs.gh = lib.mkIf gh_enabled {

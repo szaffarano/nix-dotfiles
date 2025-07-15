@@ -20,7 +20,6 @@ in
 
       home.packages = with pkgs; [
         age
-        gopass
         passage
       ];
     };
