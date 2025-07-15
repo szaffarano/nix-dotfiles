@@ -27,6 +27,19 @@ return {
           vim.keymap.set({ 'n', 'v' }, '<F2>', toggle_diagnostic, { buffer = event.buf, desc = 'Toggle diagnostic' })
         end,
       })
+
+      vim.api.nvim_create_autocmd('BufEnter', {
+        desc = 'Ignore linting in .env files',
+        group = lint_augroup,
+        pattern = {
+          '.env',
+          '.envrc',
+        },
+        callback = function(args)
+          print('about to disable linting for ' .. args.buf)
+          vim.diagnostic.enable(false, { buf = args.buf })
+        end,
+      })
     end,
   },
 }
