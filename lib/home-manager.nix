@@ -9,7 +9,7 @@ in
   inputs.home-manager.lib.homeManagerConfiguration {
     modules = [
       configFile
-      inputs.nix-index-database.hmModules.nix-index
+      inputs.nix-index-database.homeModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
       "${self}/modules/home-manager"
     ];
