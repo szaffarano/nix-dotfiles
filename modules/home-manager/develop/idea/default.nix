@@ -15,9 +15,13 @@ in
 
     config = with pkgs; let
       package =
-        if cfg.ultimate
-        then jetbrains.idea-ultimate
-        else jetbrains.idea-community;
+        (
+          if cfg.ultimate
+          then jetbrains.idea-ultimate
+          else jetbrains.idea-community
+        ).override {
+          inherit jdk;
+        };
     in
       lib.mkIf cfg.enable {
         home = {
