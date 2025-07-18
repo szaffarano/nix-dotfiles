@@ -163,7 +163,7 @@ in
           exec-once = let
             configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
           in [
-            ''[float;tile] $terminal -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -t random || tmux new -s random"''
+            ''[float;tile] $terminal -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -s random || tmux new -s random"''
             "${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' "
           ];
 

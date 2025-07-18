@@ -39,6 +39,7 @@ in
 
           # https://github.com/tmux-plugins/tmux-yank
           tmuxPlugins.yank
+          tmux-toggle-popup
         ];
 
         extraConfig = with config.colorScheme.palette; ''
@@ -64,6 +65,7 @@ in
           bind & kill-window
           bind x kill-pane
           bind r run-shell "tmux resize-window -A" # redraw window
+
           ## twm bindings
           bind e run-shell "tmux switch -t $TWM_DEFAULT"
           bind f run-shell "tmux neww twm"
@@ -73,6 +75,11 @@ in
           bind O display-popup -E "twm -l"
           bind S choose-session
           bind s run-shell "tmux neww twm -e"
+
+          # popups
+          bind C-t run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75%"
+          bind C-g run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=lazygit lazygit"
+          bind C-o run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=opencode opencode"
 
           # ============================================= #
           # Theme                                         #

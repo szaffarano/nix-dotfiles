@@ -3,6 +3,7 @@ local fmt = string.format
 return {
   {
     'olimorris/codecompanion.nvim',
+    enabled = false,
     opts = {
       extensions = {
         history = {
