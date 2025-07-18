@@ -46,7 +46,8 @@
       windsurf
       goose-cli
       wl-clipboard
-      aider-chat-full
+      # disable until https://github.com/NixOS/nixpkgs/pull/425767
+      # aider-chat-full
       opencode
     ];
   };
