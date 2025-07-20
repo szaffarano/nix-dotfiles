@@ -5,10 +5,16 @@
   "extends": [
     "config:recommended"
   ],
+  "github-actions": {
+    "enabled": true
+  },
   "nix": {
     "enabled": true
   },
   "pre-commit": {
+    "enabled": true
+  },
+  "python": {
     "enabled": true
   }
 }
