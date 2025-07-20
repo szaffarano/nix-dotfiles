@@ -1,33 +1,61 @@
 # TODO: parameterize to enable or disable the module
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
     paths = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies];
   };
-  rustSnippets = pkgs.fetchFromGitHub {
-    owner = "rust10x";
-    repo = "rust10x-vscode";
-    rev = "00bd8995003a750e8f44110cbe1ece0c141a962b";
-    hash = "sha256-KdpuZflRR1VXarXg7XoPOoK1j2mhhLE4Hi27D4aQwKI=";
-  };
-in {
-  programs.zsh = {
-    sessionVariables = {
-      EDITOR = "nvim";
-    };
-    shellAliases = {
-      vi = "nvim";
-      vim = "nvim";
-    };
-  };
+  rustSnippets =
+    pkgs.runCommand "patched-rust10x-vscode" {
+      nativeBuildInputs = [pkgs.fixjson pkgs.jq];
+      src = pkgs.fetchFromGitHub {
+        owner = "rust10x";
+        repo = "rust10x-vscode";
+        rev = "b5917ecaf69200f62297dd5e4a29ea6e27f3790f";
+        hash = "sha256-EgpOrLyhZw0V7caUykO/vMZd7kVh4XpulOhntxDi2k0=";
+      };
+    } ''
+      mkdir -p $out/rust
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    withRuby = false;
-    withNodeJs = false;
-    withPython3 = false;
-    package = pkgs.neovim-unwrapped;
+      find $src/snippets/ -type f | while read -r file; do
+        name=$(basename "$file")
+        fixjson "$file" | jq . > "$out/rust/$name.json"
+      done
+    '';
+in {
+  programs = {
+    zsh = lib.mkIf config.programs.zsh.enable {
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+      shellAliases = {
+        vi = "nvim";
+        vim = "nvim";
+      };
+    };
+    fish = lib.mkIf config.programs.fish.enable {
+      shellInit = ''
+        set -gx EDITOR nvim
+        set -gx SUDO_EDITOR nvim
+      '';
+      shellAliases = {
+        vim = "nvim";
+        vi = "nvim";
+        v = "nvim";
+      };
+    };
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      withRuby = false;
+      withNodeJs = false;
+      withPython3 = false;
+      package = pkgs.neovim-unwrapped;
+    };
   };
 
   xdg = {
@@ -36,13 +64,12 @@ in {
         source = ./config;
         recursive = true;
       };
+      "nvim/snippets" = {
+        source = rustSnippets;
+      };
     };
 
     dataFile = {
-      "nvim/rust-snippets" = {
-        source = rustSnippets;
-      };
-
       "nvim/treesitter-parsers" = {
         source = treesitter-parsers;
       };
@@ -75,8 +102,7 @@ in {
 
       # used by codecompanion
       vectorcode
-
-      pkgs.inputs.mcp-hub.default
+      inputs.mcp-hub.default
 
       # LSP servers
       asm-lsp
@@ -93,7 +119,6 @@ in {
       rust-analyzer
       taplo
       terraform-ls
-      # TODO: uncomment when the package is fixed vscode-langservers-extracted
       yaml-language-server
       vscode-langservers-extracted
       zls

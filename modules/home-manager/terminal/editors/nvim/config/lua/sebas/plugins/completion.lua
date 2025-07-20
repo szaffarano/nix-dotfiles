@@ -7,7 +7,10 @@ return {
   },
   {
     'saghen/blink.cmp',
-    dependencies = { 'rafamadriz/friendly-snippets', 'fang2hou/blink-copilot' },
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      'fang2hou/blink-copilot',
+    },
     version = '1.*',
     build = 'nix run .#build-plugin',
 
