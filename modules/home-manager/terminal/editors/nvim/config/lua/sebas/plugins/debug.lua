@@ -1,12 +1,18 @@
 return {
   'mfussenegger/nvim-dap',
   dependencies = {
-    'rcarriga/nvim-dap-ui',
-    'nvim-neotest/nvim-nio', -- Required dependency for nvim-dap-ui
+    { 'rcarriga/nvim-dap-ui', dependencies = { 'nvim-neotest/nvim-nio' } },
+    'nvim-neotest/nvim-nio',
     'theHamsta/nvim-dap-virtual-text',
 
     -- language-specific debuggers configurations
     'leoluz/nvim-dap-go',
+    {
+      'mfussenegger/nvim-dap-python',
+      config = function()
+        require('dap-python').setup 'uv'
+      end,
+    },
   },
   config = function()
     local dap = require 'dap'
@@ -38,13 +44,6 @@ return {
 
     -- golang
     require('dap-go').setup()
-
-    -- rust
-    dap.adapters.lldb = {
-      type = 'executable',
-      command = 'lldb-vscode',
-      name = 'lldb',
-    }
 
     dap.adapters.gdb = {
       type = 'executable',
