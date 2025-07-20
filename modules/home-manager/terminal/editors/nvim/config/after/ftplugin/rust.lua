@@ -20,8 +20,6 @@ end, { buffer = bufnr, desc = 'Explain [E]rror (Rust)' })
 
 local is_dap_installed, dap = pcall(require, 'dap')
 if is_dap_installed then
-  print 'dap not found'
-
   local function run_debugger()
     if dap.session() then
       dap.continue()
@@ -31,6 +29,8 @@ if is_dap_installed then
   end
 
   vim.keymap.set('n', '<F9>', run_debugger, { buffer = bufnr, desc = 'Debug: Start/Continue' })
+else
+  print 'dap not found'
 end
 
 -- mappings to review:
