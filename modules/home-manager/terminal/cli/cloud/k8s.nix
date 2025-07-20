@@ -10,8 +10,16 @@ in
     options.terminal.cli.k8s.enable = mkEnableOption "k8s";
 
     config = mkIf cfg.enable {
-      programs.zsh.shellAliases = {
-        k = "kubectl";
+      programs.zsh = lib.mkIf config.programs.zsh.enable {
+        shellAliases = {
+          k = "kubectl";
+        };
+      };
+
+      programs.fish = lib.mkIf config.programs.fish.enable {
+        shellAliases = {
+          k = "kubectl";
+        };
       };
 
       home.packages = with pkgs; [
