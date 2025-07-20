@@ -6,7 +6,12 @@ return {
     'theHamsta/nvim-dap-virtual-text',
 
     -- language-specific debuggers configurations
-    'leoluz/nvim-dap-go',
+    {
+      'leoluz/nvim-dap-go',
+      config = function()
+        require('dap-go').setup()
+      end,
+    },
     {
       'mfussenegger/nvim-dap-python',
       config = function()
@@ -42,16 +47,17 @@ return {
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-    -- golang
-    require('dap-go').setup()
-
     dap.adapters.gdb = {
       type = 'executable',
       command = 'gdb',
       args = { '-i', 'dap' },
     }
 
-    -- asm
+    dap.adapters.codelldb = {
+      type = 'executable',
+      command = 'codelldb',
+    }
+
     dap.configurations.asm = {
       {
         name = 'Launch',
@@ -68,11 +74,10 @@ return {
       },
     }
 
-    -- c / cpp
     dap.configurations.c = {
       {
         name = 'Launch',
-        type = 'lldb', -- same as rust
+        type = 'codelldb',
         request = 'launch',
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -82,5 +87,13 @@ return {
         args = {},
       },
     }
+
+    dap.configurations.cpp = dap.configurations.c
+
+    vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'SignColumn', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = '◆', texthl = 'SignColumn', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpointRejected', { text = '×', texthl = 'SignColumn', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapLogPoint', { text = '▶', texthl = 'SignColumn', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '→', texthl = 'SignColumn', linehl = 'debugPC', numhl = '' })
   end,
 }
