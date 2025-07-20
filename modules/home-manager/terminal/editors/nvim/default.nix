@@ -26,6 +26,25 @@
         fixjson "$file" | jq . > "$out/rust/$name.json"
       done
     '';
+  codelldb = pkgs.writeShellApplication {
+    name = "codelldb";
+    meta = {
+      description = ''
+        Wrapper for the CodeLLDB adapter that relies on the system's Python
+        environment for execution.
+        If a mise setup is detected, it will use the python@system setup to
+        avoid mise setup that don't work in Nix.
+      '';
+    };
+    runtimeInputs = [pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter pkgs.python3];
+    text = ''
+      if mise --version > /dev/null 2>&1; then
+        mise exec python@system -- codelldb "$@"
+      else
+        codelldb "$@"
+      fi
+    '';
+  };
 in {
   programs = {
     zsh = lib.mkIf config.programs.zsh.enable {
@@ -126,7 +145,7 @@ in {
       # debug
       delve
       gdb
-      lldb
+      codelldb
     ];
   };
 
