@@ -14,7 +14,12 @@
   "pre-commit": {
     "enabled": true
   },
-  "python": {
-    "enabled": true
-  }
+  "packageRules": [
+    {
+      "matchCategories": [
+        "python"
+      ],
+      "enabled": true
+    }
+  ]
 }
