@@ -5,11 +5,17 @@
   "extends": [
     "config:recommended"
   ],
+  "ansible": {
+    "enabled": true
+  },
   "github-actions": {
     "enabled": true
   },
   "nix": {
     "enabled": false
+  },
+  "pep621": {
+    "enabled": true
   },
   "pre-commit": {
     "enabled": true
