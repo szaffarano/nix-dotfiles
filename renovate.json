@@ -9,7 +9,7 @@
     "enabled": true
   },
   "nix": {
-    "enabled": true
+    "enabled": false
   },
   "pre-commit": {
     "enabled": true
