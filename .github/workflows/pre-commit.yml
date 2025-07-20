@@ -1,4 +1,4 @@
-name: CI
+name: CI | generic checks
 on:
   pull_request:
   push:
@@ -6,14 +6,6 @@ on:
       - master
       - develop
 jobs:
-  # pre-commit:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-python@v3
-  #     - uses: pre-commit/action@v3.0.1
-  #       with:
-  #         repo-token: ${{ secrets.GITHUB_TOKEN }}
   check:
     runs-on: ubuntu-latest
     permissions:
@@ -27,5 +19,7 @@ jobs:
           extra-conf: |
             extra-platforms = aarch64-linux
       - uses: DeterminateSystems/flakehub-cache-action@main
-      - run: nix flake check
-      - run: nix flake show
+      - name: Run pre-commit checks via Nix
+        run: nix flake check
+      - name: Show flake outputs
+        run: nix flake show
