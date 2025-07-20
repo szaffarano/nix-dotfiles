@@ -1,5 +1,10 @@
-name: Nix code analysis
-on: [push]
+name: CI | Nix checks
+on:
+  push:
+    paths:
+      - '**/*.nix'
+      - 'flake.lock'
+      - 'flake.nix'
 jobs:
   deadnix:
     name: Deadnix
