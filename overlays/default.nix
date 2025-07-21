@@ -15,12 +15,12 @@
 
   vectorcode = final: prev: {
     vectorcode = prev.vectorcode.overridePythonAttrs (_old: rec {
-      version = "0.7.7";
+      version = "0.7.9";
       src = final.fetchFromGitHub {
         owner = "Davidyz";
         repo = "VectorCode";
         tag = version;
-        hash = "sha256-c8Wp/bP5KHDN/i2bMyiOQgnHDw8tPbg4IZIQ5Ut4SIo=";
+        hash = "sha256-EU/JitByOXfquMCcMHH14gCbVl/oHpREAcQNxmOuI+E=";
       };
       pythonRelaxDeps = [
         "posthog"
