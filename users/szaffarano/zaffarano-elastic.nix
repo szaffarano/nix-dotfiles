@@ -1,4 +1,22 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  vscode-config = pkgs.vscode-with-extensions.override {
+    vscodeExtensions = with pkgs.vscode-extensions;
+      [
+        asvetliakov.vscode-neovim
+        enkia.tokyo-night
+        github.copilot
+        github.copilot-chat
+        ms-pyright.pyright
+        ms-python.python
+        ms-vscode-remote.vscode-remote-extensionpack
+        ms-vscode-remote.remote-containers
+        rust-lang.rust-analyzer
+        vscode-icons-team.vscode-icons
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      ];
+  };
+in {
   home = {
     custom = {
       features.enable = [];
@@ -18,37 +36,18 @@
       asciinema
       asciinema-agg
       bazel_5_1_1
-      openssl
       claude-code
+      opencode
+      openssl
       pkg-config
       upx
-      (
-        vscode-with-extensions.override {
-          # When the extension is already available in the default extensions set.
-          vscodeExtensions = with vscode-extensions;
-            [
-              asvetliakov.vscode-neovim
-              enkia.tokyo-night
-              github.copilot
-              github.copilot-chat
-              ms-pyright.pyright
-              ms-python.python
-              ms-vscode-remote.vscode-remote-extensionpack
-              ms-vscode-remote.remote-containers
-              rust-lang.rust-analyzer
-              vscode-icons-team.vscode-icons
-            ]
-            # Concise version from the vscode market place when not available in the default set.
-            ++ vscode-utils.extensionsFromVscodeMarketplace [
-            ];
-        }
-      )
+      vscode-config
       windsurf
-      goose-cli
       wl-clipboard
+
       # disable until https://github.com/NixOS/nixpkgs/pull/425767
       # aider-chat-full
-      opencode
+      # goose-cli
     ];
   };
 
