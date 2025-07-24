@@ -28,7 +28,7 @@ in {
           gpg_verify = false;
         };
         tools = {
-          java = "temurin-21.0.5+11.0.LTS";
+          java = "temurin-21.0.8+9.0.LTS";
           node = "lts";
           python = "latest";
           ruff = "latest";
