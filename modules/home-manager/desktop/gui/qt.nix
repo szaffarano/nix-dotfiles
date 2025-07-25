@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  theme,
   ...
 }: let
   cfg = config.desktop.gui.qt;
@@ -14,8 +15,9 @@ in
       qt = {
         enable = true;
         platformTheme = {
-          name = "gtk3";
+          name = theme.platform-theme;
         };
+        style.name = theme.gtk.theme;
       };
     };
   }

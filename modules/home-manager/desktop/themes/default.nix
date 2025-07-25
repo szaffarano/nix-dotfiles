@@ -8,6 +8,7 @@
 in {
   _module.args = {
     theme = {
+      platform-theme = "Adwaita";
       gtk = {
         theme = "Adwaita-dark";
         cursor-theme = "Adwaita";
