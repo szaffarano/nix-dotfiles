@@ -33,6 +33,7 @@
     ${gsettings} set "$gnome_schema" icon-theme "$icon_theme"
     ${gsettings} set "$gnome_schema" font-name "$font 12"
     ${gsettings} set "$gnome_schema" monospace-font-name "$monospace_font 12"
+    ${gsettings} set "$gnome_schema" color-scheme "prefer-dark"
     echo "Done!"
   '';
 })
