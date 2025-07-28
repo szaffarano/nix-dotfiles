@@ -30,4 +30,7 @@ return {
       },
     },
   },
+  keys = {
+    { '<leader>ip', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
+  },
 }

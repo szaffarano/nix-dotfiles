@@ -120,8 +120,8 @@ in {
       vale
 
       # used by codecompanion
-      vectorcode
-      inputs.mcp-hub.default
+      # vectorcode
+      # inputs.mcp-hub.default
 
       # LSP servers
       asm-lsp
