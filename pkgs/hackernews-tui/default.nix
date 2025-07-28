@@ -6,7 +6,6 @@
 rustPlatform.buildRustPackage {
   pname = "hackernews-tui";
   version = "0.14.0-dev";
-  useFetchCargoVendor = true;
 
   src = pkgs.fetchFromGitHub {
     owner = "aome510";
