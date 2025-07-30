@@ -30,12 +30,19 @@ return {
       signature = { enabled = true },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot', 'codeium', 'orgmode' },
+        default = {
+          'lsp',
+          'path',
+          'snippets',
+          'buffer',
+          'copilot',
+          'orgmode',
+          -- 'codeium',
+        },
         providers = {
-          copilot = { name = 'Copilot', module = 'blink-copilot', score_offset = 100, async = true },
-          codeium = { name = 'Codeium', module = 'codeium.blink', score_offset = 100, async = true },
+          copilot = { name = 'Copilot', module = 'blink-copilot', score_offset = 300, async = true },
+          -- codeium = { name = 'Codeium', module = 'codeium.blink', score_offset = 100, async = true },
           orgmode = { name = 'Orgmode', module = 'orgmode.org.autocompletion.blink', fallbacks = { 'buffer' } },
-          -- avante = { name = 'Avante', module = 'blink-cmp-avante' },
         },
       },
 
