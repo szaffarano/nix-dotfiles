@@ -67,14 +67,14 @@
         )
       );
 in
-  mkTmuxPlugin {
+  mkTmuxPlugin rec {
     pluginName = "tmux-toggle-popup";
     rtpFilePath = "toggle-popup.tmux";
-    version = "0.4.2-dev";
+    version = "0.4.2";
     src = pkgs.fetchFromGitHub {
       owner = "loichyan";
       repo = "tmux-toggle-popup";
-      rev = "91ba1e9a5caab2af80dac8e572f8543aeb63084d";
-      hash = "sha256-py9c/Sa1W/jQvF2kJrw54ZEL3nd6KeF6k9sOQZt1eJ0=";
+      tag = "v${version}";
+      hash = "sha256-dlCUK+yrBkY0DnKoj/s9dJ6yITBMfWMgw3wnwzuxim4=";
     };
   }

@@ -28,7 +28,6 @@ in {
         vscode-extensions.ms-vscode-remote.vscode-remote-extensionpack
         vscode-extensions.ms-vscode-remote.remote-containers
         vscode-with-extensions
-        windsurf
       ];
       permitted-insecure-packages = ["python-2.7.18.8"]; # needed by bazel-5.1.1
     };
@@ -42,12 +41,7 @@ in {
       pkg-config
       upx
       vscode-config
-      windsurf
       wl-clipboard
-
-      # disable until https://github.com/NixOS/nixpkgs/pull/425767
-      # aider-chat-full
-      # goose-cli
     ];
   };
 

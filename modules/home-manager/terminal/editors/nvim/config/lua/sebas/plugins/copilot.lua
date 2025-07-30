@@ -6,9 +6,9 @@ return {
     enabled = true,
     config = function()
       require('copilot').setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        copilot_node_command = vim.fn.expand '$HOME' .. '/.local/share/mise/shims/node',
+        suggestion = { enabled = true },
+        panel = { enabled = true },
+        copilot_node_command = vim.fn.expand '$HOME' .. '/.local/bin/node-latest',
         filetypes = {
           markdown = true,
           help = true,
