@@ -42,6 +42,14 @@ in {
       packages = with pkgs; [usage];
 
       file = lib.mkIf node_installed {
+        ".local/bin/node-latest" = {
+          text = ''
+            #!/usr/bin/env bash
+
+            ${lib.getExe pkgs.mise} exec node@latest -- node "$@"
+          '';
+          executable = true;
+        };
         ".default-npm-packages".text = lib.mkDefault ''
           bash-language-server
           yarn
