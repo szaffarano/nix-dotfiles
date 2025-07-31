@@ -34,7 +34,6 @@ in {
       asciinema
       asciinema-agg
       bazel_5_1_1
-      opencode
       openssl
       pkg-config
       upx
