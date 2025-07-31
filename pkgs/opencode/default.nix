@@ -10,20 +10,20 @@
   writableTmpDirAsHomeHook,
 }: let
   opencode-node-modules-hash = {
-    "x86_64-linux" = "sha256-R51kvHgoCbSg+9Iice8+scAMKQZHR2HWJTJIUm5u1XA=";
+    "x86_64-linux" = "sha256-LKmbi++w65PLsgCp1n+k6C8vy6uayrp0h787i/AlSx8=";
   };
   bun-target = {
     "x86_64-linux" = "bun-linux-x64";
   };
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
-    version = "0.3.79";
+    version = "0.3.93";
     pname = "opencode";
     src = fetchFromGitHub {
       owner = "sst";
       repo = "opencode";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-Vmv9nAr9VQbNuNWDbXxVtt6xbbSo38VEz+klcDI6aLs=";
+      hash = "sha256-s2+xqluQ96K9/ljUXeSuy2l1zaX/YtrE7d0tQwJak60=";
     };
 
     tui = buildGoModule {
@@ -31,7 +31,7 @@ in
       inherit (finalAttrs) version;
       src = "${finalAttrs.src}/packages/tui";
 
-      vendorHash = "sha256-g2IhNOIKuBf4G4PioXhFvKIWds9ZiYfiG9vnyXCaz6o=";
+      vendorHash = "sha256-+j8+TjTzd7AH9Si9tS7noTpPcG1lz9j+tmxUTrPcThw=";
 
       subPackages = ["cmd/opencode"];
 
@@ -98,7 +98,6 @@ in
       outputHash = opencode-node-modules-hash.${stdenvNoCC.hostPlatform.system};
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
-      patches = [./fix-import.patch];
     };
 
     models-dev-data = fetchurl {
