@@ -28,6 +28,7 @@ in {
           gpg_verify = false;
         };
         tools = {
+          claude-code = "latest";
           java = "temurin-21.0.8+9.0.LTS";
           node = "lts";
           python = "latest";
