@@ -55,3 +55,9 @@ function ToggleQuickfix()
 end
 
 vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>cp', function()
+  local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.')
+  vim.fn.setreg('+', path)
+  vim.notify(string.format('Copied "%s" to clipboard', path), vim.log.levels.INFO, { title = 'Clipboard' })
+end, { desc = 'Copy relative file path to clipboard' })
