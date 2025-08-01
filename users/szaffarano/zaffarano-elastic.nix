@@ -21,7 +21,6 @@ in {
     custom = {
       features.enable = [];
       allowed-unfree-packages = with pkgs; [
-        claude-code
         vscode
         vscode-extensions.github.copilot
         vscode-extensions.github.copilot-chat
@@ -35,8 +34,6 @@ in {
       asciinema
       asciinema-agg
       bazel_5_1_1
-      claude-code
-      opencode
       openssl
       pkg-config
       upx
