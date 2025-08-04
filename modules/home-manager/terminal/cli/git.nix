@@ -92,7 +92,7 @@ in {
           commit.gpgsign = true;
           tag.gpgsign = true;
           core = {
-            editor = "nv";
+            editor = "nvim";
             fsmonitor = true;
             untrackedCache = true;
           };
