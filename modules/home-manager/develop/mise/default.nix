@@ -55,6 +55,11 @@ in {
         ".default-npm-packages".text = lib.mkDefault ''
           bash-language-server
           yarn
+          @devcontainers/cli
+        '';
+        ".default-python-packages".text = lib.mkDefault ''
+          poetry
+          pip
         '';
       };
     };
