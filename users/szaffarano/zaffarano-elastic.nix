@@ -39,6 +39,8 @@ in {
       upx
       vscode-config
       wl-clipboard
+      devpod
+      devpod-desktop
     ];
   };
 
