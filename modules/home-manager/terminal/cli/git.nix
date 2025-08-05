@@ -55,9 +55,9 @@ in {
           shf = "show --name-only --format=''";
           sho = "show --name-only";
           st = "status";
-          wa = "worktree add";
           wl = "worktree list";
-          wr = "worktree remove";
+          wa = "!f() { b=$1; git worktree add ../$b -b szaffarano/$b; }; f";
+          wr = "!f() { b=$1; git worktree remove ../$b && git branch -D szaffarano/$b; }; f";
         };
 
         delta = {
