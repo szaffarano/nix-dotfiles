@@ -19,11 +19,11 @@
         hash = "sha256-EgpOrLyhZw0V7caUykO/vMZd7kVh4XpulOhntxDi2k0=";
       };
     } ''
-      mkdir -p $out/rust
+      mkdir -p $out
 
       find $src/snippets/ -type f | while read -r file; do
         name=$(basename "$file")
-        fixjson "$file" | jq . > "$out/rust/$name.json"
+        fixjson "$file" | jq . > "$out/$name.json"
       done
     '';
   codelldb = pkgs.writeShellApplication {
@@ -83,8 +83,21 @@ in {
         source = ./config;
         recursive = true;
       };
-      "nvim/snippets" = {
+      "nvim/snippets/rust" = {
         source = rustSnippets;
+      };
+      "nvim/snippets/org/org-lang.json" = {
+        text = ''
+          {
+            "ltex language": {
+              "prefix": "<L",
+              "body": [
+                "# LTeX: language=es-AR,en-US",
+                "$0"
+              ]
+            }
+          }
+        '';
       };
     };
 

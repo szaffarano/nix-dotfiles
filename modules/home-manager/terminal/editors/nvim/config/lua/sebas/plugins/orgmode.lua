@@ -1,4 +1,5 @@
 local org_base_path = '~/Documents/org.new'
+local utils = require 'sebas.utils.ts'
 
 return {
   {
@@ -91,11 +92,14 @@ return {
       local telescope_installed, telescope = pcall(require, 'telescope')
       if telescope_installed then
         telescope.load_extension 'orgmode'
-        vim.keymap.set('n', '<leader>ohr', telescope.extensions.orgmode.refile_heading, { desc = '[O]rgMode [R]efile Heading' })
+
+        vim.keymap.set('n', '<leader>off', utils.find_files_orgmode, { desc = '[O]orgMode [F]ind [F]iles' })
         vim.keymap.set('n', '<leader>ofh', telescope.extensions.orgmode.search_headings, { desc = '[O]rgMode [F]ind [H]eadings' })
         vim.keymap.set('n', '<leader>ofp', function()
           telescope.extensions.orgmode.search_headings { mode = 'orgfiles' }
         end, { desc = '[O]rgMode [F]ind [P]ages' })
+        vim.keymap.set('n', '<leader>og', utils.live_grep_orgmode, { desc = '[O]ogMode [G]rep' })
+        vim.keymap.set('n', '<leader>ohr', telescope.extensions.orgmode.refile_heading, { desc = '[O]rgMode [R]efile Heading' })
         vim.keymap.set('n', '<leader>oil', telescope.extensions.orgmode.insert_link, { desc = '[O]rgMode [I]nsert [L]ink' })
       end
       vim.api.nvim_create_user_command('Agenda', function()

@@ -32,5 +32,3 @@ vim.keymap.set('n', '<leader>sn', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config' }
 end, { desc = '[S]earch [N]eovim files' })
 vim.keymap.set('n', '<leader>fd', utils.files_dotfiles, { desc = '[F]ind files in the [D]otfiles dir' })
-vim.keymap.set('n', '<leader>wf', utils.find_files_orgmode, { desc = '[W]iki [F]ind' })
-vim.keymap.set('n', '<leader>wlg', utils.live_grep_orgmode, { desc = '[W]iki [G]rep' })
