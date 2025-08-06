@@ -34,12 +34,9 @@ in
         sensibleOnTop = true;
 
         plugins = with pkgs; [
-          # https://github.com/tmux-plugins/tmux-pain-control
-          tmuxPlugins.pain-control
-
-          # https://github.com/tmux-plugins/tmux-yank
-          tmuxPlugins.yank
-          tmux-toggle-popup
+          tmuxPlugins.pain-control # https://github.com/tmux-plugins/tmux-pain-control
+          tmuxPlugins.yank # https://github.com/tmux-plugins/tmux-yank
+          tmuxPlugins.tmux-toggle-popup # https://github.com/loichyan/tmux-toggle-popup
         ];
 
         extraConfig = with config.colorScheme.palette; ''
@@ -79,7 +76,7 @@ in
           # popups
           bind C-t run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75%"
           bind C-g run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=lazygit lazygit"
-          bind C-o run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=opencode opencode"
+          bind C-o run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=opencode mise exec opencode -- opencode"
           bind C-d run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=claude mise exec node@latest -- claude"
 
           # ============================================= #
