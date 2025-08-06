@@ -5,7 +5,11 @@ return {
     'nvim-orgmode/orgmode',
     event = 'VeryLazy',
     ft = { 'org' },
-    dependencies = { 'nvim-orgmode/org-bullets.nvim', 'nvim-treesitter/nvim-treesitter' },
+    dependencies = {
+      'nvim-orgmode/org-bullets.nvim',
+      'nvim-orgmode/telescope-orgmode.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
     config = function()
       require('orgmode').setup {
         org_agenda_files = org_base_path .. '/**/*',
@@ -40,6 +44,7 @@ return {
             template = '* TODO %? :triage:personal:\n  SCHEDULED: %T',
             target = org_base_path .. '/captures/todos.org',
             headline = 'Inbox',
+            ---@diagnostic disable-next-line: missing-fields
             datetree = {
               tree_type = 'week',
               reversed = true,
@@ -50,6 +55,7 @@ return {
             template = '* TODO %?  :triage:work: \n  SCHEDULED: %T',
             target = org_base_path .. '/captures/work.org',
             headline = 'Inbox',
+            ---@diagnostic disable-next-line: missing-fields
             datetree = {
               tree_type = 'week',
               reversed = true,
@@ -59,6 +65,7 @@ return {
             description = 'Journal',
             template = '\n*** %U\n    %?',
             target = org_base_path .. '/captures/journal.org',
+            ---@diagnostic disable-next-line: missing-fields
             datetree = {
               tree_type = 'week',
               reversed = true,
@@ -68,6 +75,7 @@ return {
             description = 'Daily',
             template = '* Daily %U  :note: \n  %?',
             target = org_base_path .. '/daily.org',
+            ---@diagnostic disable-next-line: missing-fields
             datetree = {
               tree_type = 'week',
               reversed = true,
@@ -75,9 +83,21 @@ return {
           },
         },
       }
+      ---@diagnostic disable-next-line: missing-fields
       require('org-bullets').setup {
         concealcursor = false,
       }
+
+      local telescope_installed, telescope = pcall(require, 'telescope')
+      if telescope_installed then
+        telescope.load_extension 'orgmode'
+        vim.keymap.set('n', '<leader>ohr', telescope.extensions.orgmode.refile_heading, { desc = '[O]rgMode [R]efile Heading' })
+        vim.keymap.set('n', '<leader>ofh', telescope.extensions.orgmode.search_headings, { desc = '[O]rgMode [F]ind [H]eadings' })
+        vim.keymap.set('n', '<leader>ofp', function()
+          telescope.extensions.orgmode.search_headings { mode = 'orgfiles' }
+        end, { desc = '[O]rgMode [F]ind [P]ages' })
+        vim.keymap.set('n', '<leader>oil', telescope.extensions.orgmode.insert_link, { desc = '[O]rgMode [I]nsert [L]ink' })
+      end
       vim.api.nvim_create_user_command('Agenda', function()
         local current_buffer = vim.api.nvim_get_current_buf()
         local agenda_promise = require('orgmode').agenda:agenda()
@@ -90,15 +110,7 @@ return {
     end,
   },
   {
-    'nvim-orgmode/orgmode',
-  },
-  {
     'chipsenkbeil/org-roam.nvim',
-    dependencies = {
-      {
-        'nvim-orgmode/orgmode',
-      },
-    },
     config = function()
       require('org-roam').setup {
         directory = org_base_path .. '/roam',
