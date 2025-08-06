@@ -9,8 +9,8 @@
     name = "treesitter-parsers";
     paths = [pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies];
   };
-  rustSnippets =
-    pkgs.runCommand "patched-rust10x-vscode" {
+  nvimSnippets =
+    pkgs.runCommand "nvim-snippets" {
       nativeBuildInputs = [pkgs.fixjson pkgs.jq];
       src = pkgs.fetchFromGitHub {
         owner = "rust10x";
@@ -19,12 +19,27 @@
         hash = "sha256-EgpOrLyhZw0V7caUykO/vMZd7kVh4XpulOhntxDi2k0=";
       };
     } ''
-      mkdir -p $out
+      mkdir -p $out/rust
+      mkdir -p $out/org
 
+      # Process rust snippets
       find $src/snippets/ -type f | while read -r file; do
         name=$(basename "$file")
-        fixjson "$file" | jq . > "$out/$name.json"
+        fixjson "$file" | jq . > "$out/rust/$name.json"
       done
+
+      # Create org-lang.json
+      cat > "$out/org/org-lang.json" << 'EOF'
+      {
+        "ltex language": {
+          "prefix": "<L",
+          "body": [
+            "# LTeX: language=es-AR,en-US",
+            "$0"
+          ]
+        }
+      }
+      EOF
     '';
   codelldb = pkgs.writeShellApplication {
     name = "codelldb";
@@ -83,21 +98,8 @@ in {
         source = ./config;
         recursive = true;
       };
-      "nvim/snippets/rust" = {
-        source = rustSnippets;
-      };
-      "nvim/snippets/org/org-lang.json" = {
-        text = ''
-          {
-            "ltex language": {
-              "prefix": "<L",
-              "body": [
-                "# LTeX: language=es-AR,en-US",
-                "$0"
-              ]
-            }
-          }
-        '';
+      "nvim/snippets" = {
+        source = nvimSnippets;
       };
     };
 
