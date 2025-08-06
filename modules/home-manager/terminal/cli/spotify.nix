@@ -26,6 +26,13 @@ in
         enable = true;
         settings = {
           theme = "base16";
+          client_id_command = {
+            command = "get-keepass-entry";
+            args = [
+              "spotify-player"
+              "https://developer.spotify.com"
+            ];
+          };
         };
         themes = with config.colorScheme.palette; [
           {
