@@ -24,6 +24,70 @@ in
       terminal.cli.spotify.exe = lib.getExe pkgs.spotify-player;
       programs.spotify-player = {
         enable = true;
+        settings = {
+          theme = "base16";
+        };
+        themes = with config.colorScheme.palette; [
+          {
+            name = "base16";
+            palette = {
+              background = "#${base00}";
+              foreground = "#${base05}";
+              black = "#${base00}";
+              blue = "#${base0D}";
+              cyan = "#${base0C}";
+              green = "#${base0B}";
+              magenta = "#${base0E}";
+              red = "#${base08}";
+              white = "#${base05}";
+              yellow = "#${base0A}";
+              bright_black = "#${base03}";
+              bright_blue = "#${base0D}";
+              bright_cyan = "#${base0C}";
+              bright_green = "#${base0B}";
+              bright_magenta = "#${base0E}";
+              bright_red = "#${base08}";
+              bright_white = "#${base07}";
+              bright_yellow = "#${base0A}";
+            };
+            component_style = {
+              selection = {
+                bg = "#${base02}";
+                modifiers = ["Bold"];
+              };
+              block_title = {fg = "Magenta";};
+              playback_track = {
+                fg = "Cyan";
+                modifiers = ["Bold"];
+              };
+              playback_album = {fg = "Yellow";};
+              playback_metadata = {fg = "Blue";};
+              playback_progress_bar = {
+                bg = "#${base02}";
+                fg = "Green";
+              };
+              current_playing = {
+                fg = "Green";
+                modifiers = ["Bold"];
+              };
+              page_desc = {
+                fg = "Cyan";
+                modifiers = ["Bold"];
+              };
+              table_header = {fg = "Blue";};
+              border = {};
+              playback_status = {
+                fg = "Cyan";
+                modifiers = ["Bold"];
+              };
+              playback_artists = {
+                fg = "Cyan";
+                modifiers = ["Bold"];
+              };
+              playlist_desc = {fg = "#${base04}";};
+            };
+          }
+        ];
       };
       programs.ncspot = {
         enable = true;
@@ -31,25 +95,22 @@ in
           use_nerdfont = true;
           notify = true;
 
-          # TODO: integrate with global theme
-          theme = {
-            background = "black";
-            primary = "light white";
-            secondary = "light black";
-            title = "green";
-            playing = "green";
-            playing_selected = "light green";
-            playing_bg = "black";
-            highlight = "light white";
-            highlight_bg = "#484848";
-            error = "light white";
-            error_bg = "red";
-            statusbar = "black";
-            statusbar_progress = "green";
-            statusbar_bg = "green";
-            cmdline = "light white";
-            cmdline_bg = "black";
-            search_match = "light red";
+          theme = with config.colorScheme.palette; {
+            background = "#${base00}";
+            primary = "#${base05}";
+            secondary = "#${base03}";
+            title = "#${base0D}";
+            playing = "#${base0B}";
+            playing_bg = "#${base00}";
+            highlight = "#${base00}";
+            highlight_bg = "#${base04}";
+            error = "#${base00}";
+            error_bg = "#${base08}";
+            statusbar = "#${base00}";
+            statusbar_progress = "#${base0C}";
+            statusbar_bg = "#${base0D}";
+            cmdline = "#${base05}";
+            cmdline_bg = "#${base01}";
           };
         };
       };
