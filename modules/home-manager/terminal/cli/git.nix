@@ -137,8 +137,7 @@ in {
       packages = with pkgs;
         lib.optionals config.desktop.tools.keepassxc.enable [
           (git-credential-keepassxc.override {
-            withNotification = true;
-            withYubikey = true;
+            withAll = true;
           })
         ]
         ++ [lazygit];
