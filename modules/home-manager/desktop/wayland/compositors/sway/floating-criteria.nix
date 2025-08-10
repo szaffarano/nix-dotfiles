@@ -3,8 +3,14 @@ _: {
     wayland.windowManager.sway.config.floating.criteria = [
       {app_id = "org.pulseaudio.pavucontrol";}
       {app_id = "zenity";}
-      {title = "Settings";}
-      {class = "zoom";}
+      {
+        title = "Settings";
+        app_id = "^(?!firefox$).*";
+      }
+      {
+        class = "zoom";
+        app_id = "^(?!firefox$).*";
+      }
       {app_id = "nm-connection-editor";}
       {app_id = "blueberry.py";}
       {app_id = "transmission-qt";}
