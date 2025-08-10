@@ -15,10 +15,13 @@
     )
     devices;
 in {
-  environment.systemPackages = with pkgs; [
-    fwupd
-    libsmbios
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      fwupd
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isx86 [
+      libsmbios
+    ];
 
   services = {
     tlp = {
