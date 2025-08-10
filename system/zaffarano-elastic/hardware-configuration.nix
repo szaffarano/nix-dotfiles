@@ -38,7 +38,7 @@
   networking.useDHCP = lib.mkDefault true;
 
   # Often used values: “ondemand”, “powersave”, “performance”
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  # powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
