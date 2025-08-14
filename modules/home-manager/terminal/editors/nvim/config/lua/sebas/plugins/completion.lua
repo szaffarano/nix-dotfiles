@@ -17,11 +17,15 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      cmdline = {
+        enabled = true,
+        keymap = { preset = 'cmdline', ['<Tab>'] = false },
+        sources = { 'buffer', 'cmdline' },
+      },
+
       keymap = { preset = 'default' },
 
-      appearance = {
-        nerd_font_variant = 'mono',
-      },
+      appearance = { nerd_font_variant = 'mono' },
 
       completion = {
         documentation = { auto_show = true },
@@ -43,11 +47,9 @@ return {
           'buffer',
           'copilot',
           'orgmode',
-          -- 'codeium',
         },
         providers = {
           copilot = { name = 'Copilot', module = 'blink-copilot', score_offset = 300, async = true },
-          -- codeium = { name = 'Codeium', module = 'codeium.blink', score_offset = 100, async = true },
           orgmode = { name = 'Orgmode', module = 'orgmode.org.autocompletion.blink', fallbacks = { 'buffer' } },
         },
       },

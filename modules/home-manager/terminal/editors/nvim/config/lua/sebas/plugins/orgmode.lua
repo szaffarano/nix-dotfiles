@@ -1,4 +1,5 @@
 local org_base_path = '~/Documents/org.new'
+local refile = org_base_path .. '/captures/refile.org'
 local utils = require 'sebas.utils.ts'
 
 return {
@@ -17,7 +18,7 @@ return {
 
         org_id_link_to_org_use_id = true,
 
-        org_default_notes_file = org_base_path .. '/captures/refile.org',
+        org_default_notes_file = refile,
         org_log_into_drawer = 'LOGBOOK',
         org_tags_column = -100,
 
@@ -36,6 +37,16 @@ return {
         },
 
         org_capture_templates = {
+          f = {
+            description = 'Fleeting Note',
+            template = '* %?  \nCaptured: %U',
+            target = refile,
+          },
+          l = {
+            description = 'Literature Note',
+            template = '* %^{Title} :literature:\n:PROPERTIES:\n:SOURCE: %^{Author, Title, Year, Page}\n:END:\n- Summary:\n  %?\n- Key points:\n  - \n- Questions:\n  - ',
+            target = refile,
+          },
           r = {
             description = 'Refile',
             template = '* TODO %?  :triage: \n  SCHEDULED: %T',
@@ -83,6 +94,55 @@ return {
             },
           },
         },
+
+        org_agenda_custom_commands = {
+          z = {
+            description = 'Weekly Zettelkasten Triage',
+            types = {
+              {
+                type = 'tags',
+                match = 'triage',
+                org_agenda_overriding_header = 'Fleeting notes to triage',
+                org_agenda_span = 'week',
+              },
+            },
+          },
+          c = {
+            description = 'Combined view',
+            types = {
+              {
+                type = 'tags_todo',
+                match = '+PRIORITY="A"',
+                org_agenda_overriding_header = 'High priority todos',
+                org_agenda_todo_ignore_deadlines = 'far',
+              },
+              {
+                type = 'agenda',
+                org_agenda_overriding_header = 'My daily agenda',
+                org_agenda_span = 'day',
+              },
+              {
+                type = 'tags_todo',
+                match = 'work',
+                org_agenda_overriding_header = 'My work todos',
+                org_agenda_todo_ignore_scheduled = 'all',
+              },
+              {
+                type = 'tags_todo',
+                match = 'personal',
+                org_agenda_overriding_header = 'My personal todos',
+                org_agenda_todo_ignore_scheduled = 'all',
+              },
+              {
+                type = 'agenda',
+                org_agenda_overriding_header = 'Whole week overview',
+                org_agenda_span = 'week',
+                org_agenda_start_on_weekday = 1,
+                org_agenda_remove_tags = true,
+              },
+            },
+          },
+        },
       }
       ---@diagnostic disable-next-line: missing-fields
       require('org-bullets').setup {
@@ -104,7 +164,7 @@ return {
       end
       vim.api.nvim_create_user_command('Agenda', function()
         local current_buffer = vim.api.nvim_get_current_buf()
-        local agenda_promise = require('orgmode').agenda:agenda()
+        local agenda_promise = Org.agenda.a()
         if agenda_promise ~= nil then
           agenda_promise:finally(function()
             vim.api.nvim_buf_delete(current_buffer, { force = true })
@@ -118,6 +178,7 @@ return {
     config = function()
       require('org-roam').setup {
         directory = org_base_path .. '/roam',
+        org_roam_autogenerate_ids = true,
         org_files = {
           org_base_path,
         },

@@ -64,7 +64,22 @@ in {
       "yubikey"
     ];
   };
+  security.pam.services = {
+    login.fprintAuth = true;
+    sudo.fprintAuth = true;
+  };
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "libfprint-2-tod1-broadcom"
+    ];
   services = {
+    fprintd = {
+      enable = true;
+      tod = {
+        enable = true;
+        driver = pkgs.libfprint-2-tod1-broadcom;
+      };
+    };
     passSecretService = {
       enable = true;
     };
@@ -89,7 +104,6 @@ in {
     greetd.enable = false;
     flatpak.enable = false;
   };
-
   networking = {
     inherit hostName;
     extraHosts = "127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper";

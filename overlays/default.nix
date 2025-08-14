@@ -13,7 +13,6 @@
 
   wl-clipboard = import ./wl-clipboard;
 
-  librespot = import ./librespot;
   spotify-player = import ./spotify-player;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
