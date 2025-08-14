@@ -25,7 +25,7 @@ in {
 
   services = {
     tlp = {
-      enable = true;
+      enable = false;
       settings = {
         # Default mode (auto-switch)
         TLP_DEFAULT_MODE = "AC";
