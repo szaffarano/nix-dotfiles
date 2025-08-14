@@ -11,6 +11,10 @@ _: {
       }
       {
         command = "move to scratchpad";
+        criteria.app_id = "com.reciperium.temporis";
+      }
+      {
+        command = "move to scratchpad";
         criteria.app_id = "Slack";
       }
       {
