@@ -170,9 +170,11 @@ in
           workspace = let
             telegram = lib.getExe pkgs.telegram-desktop;
             slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
+            temporis = lib.getExe pkgs.temporis-desktop;
           in [
             "special:telegram, on-created-empty:${telegram}"
             "special:Slack, on-created-empty:${slack}"
+            "special:temporis, on-created-empty:${temporis}"
           ];
           layerrule = [
             "animation fade,waybar"
@@ -240,6 +242,11 @@ in
             "size 50% 40%,class:^(org.telegram.desktop)$"
             "center,class:^(org.telegram.desktop)$"
             "workspace special:telegram,class:^(org.telegram.desktop)$"
+
+            "float,class:^(com.reciperium.temporis)$"
+            "size 60% 70%,class:^(com.reciperium.temporis)$"
+            "center,class:^(com.reciperium.temporis)$"
+            "workspace special:temporis,class:^(com.reciperium.temporis)$"
           ];
         };
       };
