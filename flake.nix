@@ -35,6 +35,13 @@
       };
     };
 
+    temporis = {
+      url = "github:reciperium/temporis";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     zig.url = "github:mitchellh/zig-overlay";
 
     neovim-nightly = {

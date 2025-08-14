@@ -89,6 +89,7 @@ in
             "$mod, t, exec, ${toggleScratchpad} wrap hackernews 'hackernews_tui'"
             "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ${config.terminal.cli.spotify.exe}"
             "$mod, p, togglespecialworkspace, Slack"
+            "$mod_CTRL, p, togglespecialworkspace, temporis"
             "$mod_SHIFT, t, togglespecialworkspace, telegram"
           ]
           ++ (map (n: "$mod,${n},workspace,name:${n}") workspaces)

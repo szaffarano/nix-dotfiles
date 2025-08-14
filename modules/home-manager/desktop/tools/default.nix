@@ -34,6 +34,8 @@ in
         docker-credential-helpers
         bruno
 
+        inputs.temporis.temporis-desktop
+
         # security
         # TODO: move to security.nix ?
         wireshark
