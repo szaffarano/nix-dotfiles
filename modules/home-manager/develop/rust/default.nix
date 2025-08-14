@@ -22,16 +22,15 @@ in
             CARGO_HOME = cargoHome;
           };
           packages = [
-            (rust-bin.nightly.latest.default.override
-              {
-                extensions = ["rust-src"];
-                targets = ["x86_64-pc-windows-gnu"];
-              })
             bacon
+            cargo
             cargo-bloat
-            cargo-udeps
             cargo-show-asm
+            cargo-udeps
+            clippy
             gcc
+            rustc
+            rustfmt
           ];
         };
       };
