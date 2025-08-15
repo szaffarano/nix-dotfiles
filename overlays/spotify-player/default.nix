@@ -11,8 +11,8 @@ final: prev: {
       src = prev.fetchFromGitHub {
         owner = "librespot-org";
         repo = "librespot";
-        rev = "19f635f90b24a96640ec20a234162ed769a5216b";
-        hash = "sha256-AehNjxTjlVhbZA4t7+mpZINy+ArQrcWcP9WFCJ+M0ZE=";
+        rev = "9456a02afa3ba1c96470d532ebc6e9b858824a3c";
+        hash = "sha256-VlTqRfBL1zFc6YePHGpM4Y+HJX9Sp1A1jBKnUzwZfys=";
       };
 
       installPhase = ''
