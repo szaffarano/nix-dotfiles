@@ -1,7 +1,6 @@
 require('telescope').setup {}
 
 require('telescope').load_extension 'fzf'
-require('telescope').load_extension 'ui-select'
 
 local utils = require 'sebas.utils.ts'
 local builtin = require 'telescope.builtin'
