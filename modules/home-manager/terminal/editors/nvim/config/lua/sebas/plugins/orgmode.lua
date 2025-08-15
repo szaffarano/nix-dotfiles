@@ -1,6 +1,11 @@
-local org_base_path = '~/Documents/org.new'
-local refile = org_base_path .. '/captures/refile.org'
 local utils = require 'sebas.utils.ts'
+
+local org_base_path = '~/Documents/org.new'
+
+local refile = org_base_path .. '/captures/refile.org'
+local todos = org_base_path .. '/captures/todos.org'
+local work = org_base_path .. '/captures/work.org'
+local journal = org_base_path .. '/captures/journal.org'
 
 return {
   {
@@ -29,6 +34,12 @@ return {
         win_border = 'single',
         win_split_mode = 'auto',
 
+        ui = {
+          input = {
+            use_vim_ui = true,
+          },
+        },
+
         mappings = {
           org = {
             org_timestamp_up = '<A-k>',
@@ -37,24 +48,14 @@ return {
         },
 
         org_capture_templates = {
-          f = {
-            description = 'Fleeting Note',
-            template = '* %?  \nCaptured: %U',
-            target = refile,
-          },
-          l = {
-            description = 'Literature Note',
-            template = '* %^{Title} :literature:\n:PROPERTIES:\n:SOURCE: %^{Author, Title, Year, Page}\n:END:\n- Summary:\n  %?\n- Key points:\n  - \n- Questions:\n  - ',
-            target = refile,
-          },
           r = {
             description = 'Refile',
-            template = '* TODO %?  :triage: \n  SCHEDULED: %T',
+            template = '* %?  :review: \n  SCHEDULED: %T',
           },
           t = {
-            description = 'Todo',
-            template = '* TODO %? :triage:personal:\n  SCHEDULED: %T',
-            target = org_base_path .. '/captures/todos.org',
+            description = 'Personal [T]odo',
+            template = '* TODO %? :triage:\n  SCHEDULED: %T',
+            target = todos,
             headline = 'Inbox',
             ---@diagnostic disable-next-line: missing-fields
             datetree = {
@@ -63,9 +64,9 @@ return {
             },
           },
           w = {
-            description = 'Work todo',
-            template = '* TODO %?  :triage:work: \n  SCHEDULED: %T',
-            target = org_base_path .. '/captures/work.org',
+            description = '[W]ork Todo',
+            template = '* TODO %?  :triage: \n  SCHEDULED: %T',
+            target = work,
             headline = 'Inbox',
             ---@diagnostic disable-next-line: missing-fields
             datetree = {
@@ -76,17 +77,7 @@ return {
           j = {
             description = 'Journal',
             template = '\n*** %U\n    %?',
-            target = org_base_path .. '/captures/journal.org',
-            ---@diagnostic disable-next-line: missing-fields
-            datetree = {
-              tree_type = 'week',
-              reversed = true,
-            },
-          },
-          d = {
-            description = 'Daily',
-            template = '* Daily %U  :note: \n  %?',
-            target = org_base_path .. '/daily.org',
+            target = journal,
             ---@diagnostic disable-next-line: missing-fields
             datetree = {
               tree_type = 'week',
@@ -101,7 +92,7 @@ return {
             types = {
               {
                 type = 'tags',
-                match = 'triage',
+                match = 'review',
                 org_agenda_overriding_header = 'Fleeting notes to triage',
                 org_agenda_span = 'week',
               },
