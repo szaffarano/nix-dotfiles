@@ -78,6 +78,7 @@ in
           bind C-g run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=lazygit lazygit"
           bind C-o run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=opencode mise exec opencode -- opencode"
           bind C-d run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=claude mise exec node@latest -- claude"
+          bind C-j run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=gemini mise exec gemini -- gemini"
 
           # ============================================= #
           # Theme                                         #

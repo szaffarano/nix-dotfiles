@@ -36,6 +36,7 @@ in {
           ruff = "latest";
           terraform = "latest";
           tflint = "latest";
+          gemini = "latest";
         };
       };
     };
