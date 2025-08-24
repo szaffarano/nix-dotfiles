@@ -11,8 +11,8 @@ final: prev: {
       src = prev.fetchFromGitHub {
         owner = "librespot-org";
         repo = "librespot";
-        rev = "9456a02afa3ba1c96470d532ebc6e9b858824a3c";
-        hash = "sha256-VlTqRfBL1zFc6YePHGpM4Y+HJX9Sp1A1jBKnUzwZfys=";
+        rev = "v0.7.0";
+        hash = "sha256-IsHyYH4RDMRqXLNv6RZNzRTl3+zxan0TM/bjHoZC8YA=";
       };
 
       installPhase = ''
@@ -54,7 +54,7 @@ final: prev: {
   in
     prev.spotify-player.overrideAttrs (_: rec {
       pname = "spotify-player";
-      version = "0.21.0-dev";
+      version = "0.21.0-librespot-0.7-dev";
       src = spotifyPlayerPatchedSrc;
       cargoDeps = final.rustPlatform.fetchCargoVendor {
         inherit src;
