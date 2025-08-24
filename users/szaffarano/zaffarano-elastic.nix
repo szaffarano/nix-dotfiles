@@ -35,6 +35,7 @@
   develop = {
     enable = true;
     asm.enable = true;
+    emacs.enable = true;
     idea = {
       enable = true;
       ultimate = true;

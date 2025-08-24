@@ -9,6 +9,7 @@ in
   with lib; {
     imports = [
       ./asm
+      ./emacs
       ./idea
       ./mise
       ./nodejs
