@@ -3,21 +3,19 @@ final: prev: {
     spotifyPlayerSrc = prev.fetchFromGitHub {
       owner = "aome510";
       repo = "spotify-player";
-      rev = "b92c7379b192e6492ec37b722ecb9934e6803c2f";
-      hash = "sha256-cWJAj0n3Q8WC5U0PvDMeDQ6yjxYtvoF5N9LJPJJnixo=";
+      rev = "bd38dd05a3c52107f76665dc88002e5a0815d095";
+      hash = "sha256-DCIZHAfI3x9I6j2f44cDcXbMpZbNXJ62S+W19IY6Qus=";
     };
     librespotSrc = prev.stdenv.mkDerivation {
       name = "librespot-patched-src";
       src = prev.fetchFromGitHub {
         owner = "librespot-org";
         repo = "librespot";
-        rev = "v0.7.0";
-        hash = "sha256-IsHyYH4RDMRqXLNv6RZNzRTl3+zxan0TM/bjHoZC8YA=";
+        rev = "c715885747a95ec22f9502825cb0d2d8833c3779";
+        hash = "sha256-B/GoRIwnqd4c/2PXNsr1bDqsLmI1dbqIo1K/azox+XU=";
       };
 
-      installPhase = ''
-        cp -r . $out
-      '';
+      installPhase = "cp -r . $out";
     };
 
     spotifyPlayerPatchedSrc = prev.runCommand "spotify-player-patched-src" {} ''
@@ -34,11 +32,11 @@ final: prev: {
          config_parser2 = "0.1.6"
          crossterm = "0.29.0"
          dirs-next = "2.0.0"
-        -librespot-connect = { version = "0.6.0", optional = true }
-        -librespot-core = "0.6.0"
-        -librespot-oauth = "0.6.0"
-        -librespot-playback = { version = "0.6.0", optional = true }
-        -librespot-metadata = "0.6.0"
+        -librespot-connect = { version = "0.7.0", optional = true }
+        -librespot-core = "0.7.0"
+        -librespot-oauth = "0.7.0"
+        -librespot-playback = { version = "0.7.0", optional = true }
+        -librespot-metadata = "0.7.0"
         +librespot-connect = { path = "${librespotSrc}/connect", optional = true }
         +librespot-core = { path = "${librespotSrc}/core" }
         +librespot-oauth = { path = "${librespotSrc}/oauth" }
@@ -48,17 +46,15 @@ final: prev: {
          chrono = "0.4.41"
          reqwest = { version = "0.12.22", features = ["json"] }
       ''}
-      patch -p1 < ${./1532.patch}
-      patch -p1 < ${./Cargo.lock.patch}
     '';
   in
     prev.spotify-player.overrideAttrs (_: rec {
       pname = "spotify-player";
-      version = "0.21.0-librespot-0.7-dev";
+      version = "0.21.0-librespot-dev";
       src = spotifyPlayerPatchedSrc;
       cargoDeps = final.rustPlatform.fetchCargoVendor {
         inherit src;
-        hash = "sha256-Io7dU3tkEAQR0Uphiulc/BbWibjXtDp4AyAJiwM3/Lw=";
+        hash = "sha256-fNDztl0Vxq2fUzc6uLNu5iggNRnRB2VxzWm+AlSaoU0=";
       };
     });
 }
