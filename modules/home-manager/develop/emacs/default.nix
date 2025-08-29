@@ -12,7 +12,11 @@ in
     config = lib.mkIf cfg.enable {
       programs.emacs = {
         enable = true;
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs-nox;
+      };
+      xdg.configFile = {
+        "emacs/early-init.el".source = ./early-init.el;
+        "emacs/init.el".source = ./init.el;
       };
     };
   }
