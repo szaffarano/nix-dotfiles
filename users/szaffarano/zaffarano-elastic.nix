@@ -1,33 +1,8 @@
-{pkgs, ...}: let
-  vscode-config = pkgs.vscode-with-extensions.override {
-    vscodeExtensions = with pkgs.vscode-extensions;
-      [
-        asvetliakov.vscode-neovim
-        enkia.tokyo-night
-        github.copilot
-        github.copilot-chat
-        ms-pyright.pyright
-        ms-python.python
-        ms-vscode-remote.vscode-remote-extensionpack
-        ms-vscode-remote.remote-containers
-        rust-lang.rust-analyzer
-        vscode-icons-team.vscode-icons
-      ]
-      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      ];
-  };
-in {
+{pkgs, ...}: {
   home = {
     custom = {
       features.enable = [];
-      allowed-unfree-packages = with pkgs; [
-        vscode
-        vscode-extensions.github.copilot
-        vscode-extensions.github.copilot-chat
-        vscode-extensions.ms-vscode-remote.vscode-remote-extensionpack
-        vscode-extensions.ms-vscode-remote.remote-containers
-        vscode-with-extensions
-      ];
+      allowed-unfree-packages = [];
       permitted-insecure-packages = ["python-2.7.18.8"]; # needed by bazel-5.1.1
     };
     packages = with pkgs; [
@@ -37,7 +12,6 @@ in {
       openssl
       pkg-config
       upx
-      vscode-config
       wl-clipboard
       devpod
       devpod-desktop

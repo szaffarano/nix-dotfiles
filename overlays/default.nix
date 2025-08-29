@@ -1,5 +1,9 @@
 {inputs, ...}: {
-  additions = final: _: import ../pkgs {pkgs = final;};
+  additions = final: _:
+    import ../pkgs {
+      pkgs = final;
+      inherit inputs;
+    };
 
   neovim = inputs.neovim-nightly.overlays.default;
 
