@@ -5,6 +5,7 @@
     arch = callPackage ./arch {};
     bazel_5_1_1 = callPackage ./bazel/bazel_5 {
       inherit (darwin) cctools;
+      inherit (llvmPackages_12) stdenv;
       inherit
         (darwin.apple_sdk.frameworks)
         CoreFoundation
@@ -13,10 +14,6 @@
         ;
       buildJdk = jdk11_headless;
       runJdk = jdk11_headless;
-      stdenv =
-        if stdenv.cc.isClang
-        then llvmPackages_12.stdenv
-        else gcc12Stdenv;
       bazel_self = bazel_5_1_1;
     };
     boot-status = callPackage ./boot-status {};
