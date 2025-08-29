@@ -23,7 +23,7 @@ in
 
     config = mkIf cfg.enable {
       home.packages = with pkgs; [
-        anki
+        # anki
 
         # books
         calibre

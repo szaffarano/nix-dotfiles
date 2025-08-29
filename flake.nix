@@ -17,7 +17,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/9cbcd62ada85e015e8117bd7e901bf40b6c767bc";
+    nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/20075955deac2583bb12f07151c2df830ef346b4";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -137,9 +137,6 @@
           f (
             import nixpkgs {
               inherit system;
-              config.permittedInsecurePackages = [
-                "python-2.7.18.8" # needed by bazel 5.1.1
-              ];
             }
           )
       );
@@ -148,7 +145,7 @@
   in {
     overlays = import ./overlays {inherit inputs outputs;};
 
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs inputs;});
 
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs inputs outputs;});
 
