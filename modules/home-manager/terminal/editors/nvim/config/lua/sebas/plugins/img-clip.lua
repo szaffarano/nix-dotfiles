@@ -6,7 +6,7 @@ return {
       embed_image_as_base64 = false,
       prompt_for_file_name = true,
       drag_and_drop = {
-        insert_mode = true,
+        insert_mode = false,
       },
       use_absolute_path = false,
       relative_to_current_file = true,
@@ -31,6 +31,6 @@ return {
     },
   },
   keys = {
-    { '<leader>ip', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
+    { '<leader>ip', '<cmd>PasteImage<cr>', desc = '[I]mage [P]aste from system clipboard' },
   },
 }
