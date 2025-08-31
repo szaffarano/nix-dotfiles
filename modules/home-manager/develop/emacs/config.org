@@ -1,0 +1,282 @@
+#+TITLE: Emacs Configuration: A Journey from Vim
+#+AUTHOR: Sebastián Zaffarano
+#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments link
+#+STARTUP: overview
+
+* Introduction
+  This is my personal Emacs configuration using a literate programming approach
+  with Org mode.
+
+  I'll try the following features
+  - [X] Packages managed by [[https://github.com/progfolio/elpaca][elpaca]]
+  - [-] Evil mode for Vim-like editing (WIP: basic setup)
+  - [ ] Org-mode and Org-roam for note-taking / zettelkasten
+  - [ ] Fast startup with deferred loading
+  - [ ] Terminal-friendly setup
+  - [ ] …
+
+  To use this configuration:
+  1. Save this file as =~/.config/emacs/config.org=
+  2. Create a minimal =init.el= that loads this file (see below)
+  #+begin_src emacs-lisp  :tangle no
+  (let ((config-org (expand-file-name "config.org" user-emacs-directory))
+        (config-el (expand-file-name "config.el" user-emacs-directory)))
+    (cond
+     ((not (file-exists-p config-org))
+      (error "Configuration file %s not found!" config-org))
+     ((or (not (file-exists-p config-el))
+          (file-newer-than-file-p config-org config-el))
+      (require 'org)
+      (org-babel-load-file config-org))
+     (t
+      (load-file config-el))))
+  #+end_src
+  3. Start Emacs and let it tangle and load the configuration
+
+* Early Initialization
+  :PROPERTIES:
+  :header-args:emacs-lisp: :tangle early-init.el
+  :END:
+
+  The early-init file is loaded before the package system and GUI are initialized.
+  This allows us to optimize startup performance.
+
+  #+begin_src emacs-lisp
+  ;;; early-init.el --- Early initialization file -*- lexical-binding: t -*-
+
+  ;; Defer garbage collection during startup
+  (setq gc-cons-threshold most-positive-fixnum
+        gc-cons-percentage 0.6)
+
+  ;; Reset gc-cons-threshold after startup
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq gc-cons-threshold (* 2 1000 1000)
+                    gc-cons-percentage 0.1)))
+
+  ;; Prevent unwanted runtime compilation for native-comp
+  (setq native-comp-deferred-compilation nil
+        native-comp-async-report-warnings-errors nil)
+
+  ;; Disable package.el in favor of elpaca
+  (setq package-enable-at-startup nil)
+
+  ;; Remove some visual elements early
+  (push '(menu-bar-lines . 0) default-frame-alist)
+  (push '(tool-bar-lines . 0) default-frame-alist)
+  (push '(vertical-scroll-bars) default-frame-alist)
+
+  ;; Disable startup screen
+  (setq inhibit-startup-screen t
+        inhibit-startup-message t
+        inhibit-startup-echo-area-message t
+        initial-scratch-message nil)
+
+  ;; Ignore X resources
+  (setq inhibit-x-resources t)
+
+  (provide 'early-init)
+  ;;; early-init.el ends here
+  #+end_src
+
+* Main Configuration
+  :PROPERTIES:
+  :header-args:emacs-lisp: :tangle config.el
+  :END:
+
+** Package Management
+
+   Bootstrap elpaca package manager for asynchronous package installation.
+
+   #+begin_src emacs-lisp
+      (defvar elpaca-installer-version 0.11)
+      (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+      (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+      (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+      (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                                    :ref nil :depth 1 :inherit ignore
+                                    :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                                    :build (:not elpaca--activate-package)))
+      (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+             (build (expand-file-name "elpaca/" elpaca-builds-directory))
+             (order (cdr elpaca-order))
+             (default-directory repo))
+        (add-to-list 'load-path (if (file-exists-p build) build repo))
+        (unless (file-exists-p repo)
+          (make-directory repo t)
+          (when (<= emacs-major-version 28) (require 'subr-x))
+          (condition-case-unless-debug err
+              (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                        ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                        ,@(when-let* ((depth (plist-get order :depth)))
+                                                            (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                        ,(plist-get order :repo) ,repo))))
+                        ((zerop (call-process "git" nil buffer t "checkout"
+                                              (or (plist-get order :ref) "--"))))
+                        (emacs (concat invocation-directory invocation-name))
+                        ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                              "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                        ((require 'elpaca))
+                        ((elpaca-generate-autoloads "elpaca" repo)))
+                  (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+                (error "%s" (with-current-buffer buffer (buffer-string))))
+            ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+        (unless (require 'elpaca-autoloads nil t)
+          (require 'elpaca)
+          (elpaca-generate-autoloads "elpaca" repo)
+          (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+      (add-hook 'after-init-hook #'elpaca-process-queues)
+      (elpaca `(,@elpaca-order))
+
+   (elpaca elpaca-use-package
+     (elpaca-use-package-mode))
+
+   ;; Enable use-package statistics
+   (setq use-package-compute-statistics t)
+
+   ;; Block until current queue processed
+   (elpaca-wait)
+   #+end_src
+
+** Basic Emacs Settings
+
+   Core Emacs configuration for a better out-of-box experience.
+
+*** Lintering
+    #+begin_src emacs-lisp
+    (use-package no-littering
+      :ensure t
+      :init
+      (setq no-littering-etc-directory (expand-file-name "~/.cache/emacs/etc")
+            no-littering-var-directory (expand-file-name "~/.cache/emacs/var"))
+      :config
+      (no-littering-theme-backups)
+      (setq url-history-file (no-littering-expand-etc-file-name "url/history")
+            custom-file (no-littering-expand-etc-file-name "custom.el")))
+
+    #+end_src
+*** General Settings
+
+    #+begin_src emacs-lisp
+    (setq ring-bell-function 'ignore)
+    (setq create-lockfiles nil)
+    (setq confirm-kill-emacs nil)
+    (setq use-dialog-box nil)
+    (setq use-short-answers t)
+    (setq echo-keystrokes 0.1)
+
+    (setq inhibit-startup-message t)
+    (setq display-line-numbers-type 'relative)
+    (global-display-line-numbers-mode 1)
+
+    (global-eldoc-mode -1)
+    (tooltip-mode -1)
+    (menu-bar-mode -1)
+    (electric-pair-mode 1)
+    (file-name-shadow-mode 1)
+    (when (display-graphic-p)
+      (set-fringe-mode 15)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1))
+
+    (setq-default indent-tabs-mode nil)
+    (setq-default tab-width 2)
+
+    ;; Smooth scrolling
+    (setq scroll-margin 10
+          scroll-conservatively 101
+          scroll-step 1
+          scroll-preserve-screen-position t
+          fast-but-imprecise-scrolling t)
+
+    (when (fboundp 'pixel-scroll-precision-mode)
+      (pixel-scroll-precision-mode 1))
+
+    ;; Ignoring case for completion
+    (setq read-file-name-completion-ignore-case t
+          read-buffer-completion-ignore-case t
+          completion-ignore-case t)
+
+    (setq-default truncate-lines t)
+    (setq window-min-height 1)
+    (setq window-min-width 2)
+
+    ;; Clean up backup files and auto saves into single folder
+    (defconst my/backup-dir
+      (expand-file-name "emacs/backup/"
+                        (or (getenv "XDG_DATA_HOME")
+                            (expand-file-name "~/.local/share/"))))
+    (unless (file-exists-p my/backup-dir)
+      (make-directory my/backup-dir t))
+
+    (setq backup-directory-alist
+          `(("." . ,my/backup-dir)))
+    (setq auto-save-file-name-transforms
+          `((".*" ,my/backup-dir t)))
+
+    (setq backup-by-copying t
+          delete-old-versions t
+          kept-new-versions 6
+          kept-old-versions 2
+          version-control t)
+
+    (recentf-mode 1)
+    (setq recentf-max-menu-items 15
+          recentf-max-saved-items 50)
+
+    (setq dired-dwim-target t)
+
+    (provide 'core)
+    #+end_src
+
+*** Theme
+    Configure themes and modeline.
+    #+begin_src emacs-lisp
+    (use-package doom-themes
+      :ensure t
+      :config
+      (setq doom-themes-enable-bold t
+            doom-themes-enable-italic t)
+      (load-theme 'doom-one t)
+      (doom-themes-org-config))
+
+    ;; Modeline
+    (use-package doom-modeline
+      :ensure t
+      :init (doom-modeline-mode 1)
+      :config
+      (setq doom-modeline-height 25)
+      (setq doom-modeline-bar-width 3)
+      (setq doom-modeline-buffer-file-name-style 'truncate-except-project))
+
+    #+end_src
+
+** Evil Mode
+
+   Configure Evil mode for Vim-like editing experience.
+
+   #+begin_src emacs-lisp
+    ;; Review options: https://evil.readthedocs.io/en/latest/settings.html
+    (use-package evil
+    :ensure (:wait t)
+    :init
+    (setq evil-undo-system 'undo-redo)
+    :config
+    (evil-mode t)
+    (evil-set-leader 'normal (kbd "SPC"))
+    (evil-set-leader 'visual (kbd "SPC")))
+   #+end_src
+** Org Mode
+*** Org
+    #+begin_src emacs-lisp
+    (use-package org
+    :ensure t
+    :defer t)
+    #+end_src
+
+*** Roam
+    #+begin_src emacs-lisp
+    (use-package org-roam
+    :ensure t
+    :after org)
+    #+end_src

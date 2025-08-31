@@ -15,7 +15,7 @@ in
         package = pkgs.emacs-nox;
       };
       xdg.configFile = {
-        "emacs/early-init.el".source = ./early-init.el;
+        "emacs/config.org".source = ./config.org;
         "emacs/init.el".source = ./init.el;
       };
     };
