@@ -26,7 +26,7 @@
     in {
       "${modifier}+Return" = "exec ${terminal}";
       "${modifier}+Shift+q" = "kill";
-      "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal htop";
+      "${modifier}+Shift+P" = "exec ${terminal} -a floating-terminal btop";
 
       "${modifier}+Shift+w" = "exec ${passwordManager}";
 

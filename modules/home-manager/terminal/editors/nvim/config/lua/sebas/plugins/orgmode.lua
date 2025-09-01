@@ -12,6 +12,10 @@ return {
     'nvim-orgmode/orgmode',
     event = 'VeryLazy',
     ft = { 'org' },
+    cmd = { 'Org' },
+    keys = {
+      { '<leader>o', desc = '> Org' },
+    },
     dependencies = {
       'nvim-orgmode/org-bullets.nvim',
       'nvim-orgmode/telescope-orgmode.nvim',
@@ -20,6 +24,7 @@ return {
     config = function()
       require('orgmode').setup {
         org_agenda_files = org_base_path .. '/**/*',
+        org_startup_folded = 'showeverything',
 
         org_id_link_to_org_use_id = true,
 

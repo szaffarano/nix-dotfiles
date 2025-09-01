@@ -1,0 +1,91 @@
+#+TITLE: Emacs Configuration: A Journey from Vim
+#+AUTHOR: Sebastián Zaffarano
+#+PROPERTY: header-args:emacs-lisp :tangle config.el :comments link
+#+STARTUP: overview
+
+* Introduction
+  This is my personal Emacs configuration using a literate programming approach
+  with Org mode.
+
+  I'll try the following features
+  - [X] Packages managed by [[https://github.com/progfolio/elpaca][elpaca]]
+  - [-] Evil mode for Vim-like editing (WIP: basic setup)
+  - [ ] Org-mode and Org-roam for note-taking / zettelkasten
+  - [ ] Fast startup with deferred loading
+  - [ ] Terminal-friendly setup
+  - [ ] …
+
+
+* Set lexical-binding
+  #+begin_src emacs-lisp
+  ;; -*- lexical-binding: t; -*-
+  #+end_src
+
+
+* Basic Options
+
+** Set encoding
+   #+begin_src emacs-lisp
+   (use-package emacs
+     :demand t
+     :ensure nil
+     :init
+     (prefer-coding-system 'utf-8))
+   #+end_src
+
+** GUI tweaks
+*** Indent
+    #+begin_src emacs-lisp
+    (setq fill-column 78)
+    (setq sentence-end-double-space nil)
+    (auto-fill-mode t)
+    (setq-default indent-tabs-mode nil)
+    (setq-default tab-width 2)
+    (global-set-key "\r" 'newline-and-indent)
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    #+end_src
+*** Misc
+    #+begin_src emacs-lisp
+    (setq display-line-numbers-type 'relative)
+    (global-display-line-numbers-mode t)
+    (global-visual-line-mode t)
+    (electric-pair-mode t)         ; electric-pair-mode on
+    #+end_src
+
+
+* Evil Mode
+
+  Configure Evil mode for Vim-like editing experience.
+
+  #+begin_src emacs-lisp
+   ;; Review options: https://evil.readthedocs.io/en/latest/settings.html
+   (use-package evil
+   :ensure (:wait t)
+   :init
+   (setq evil-undo-system 'undo-redo)
+   :config
+   (evil-mode t)
+   (evil-set-leader 'normal (kbd "SPC"))
+   (evil-set-leader 'visual (kbd "SPC")))
+  #+end_src
+
+
+* Org Mode
+** Org
+   #+begin_src emacs-lisp
+   (use-package org
+   :defer t
+   :custom
+   (org-directory "~/org/")
+   (org-default-notes-file (concat org-directory "notes.org"))
+   (org-refile-targets '((org-agenda-files . (:maxlevel . 3)))))
+   #+end_src
+
+** Roam
+   #+begin_src emacs-lisp
+   (use-package org-roam
+   :ensure t
+   :after org
+   :custom
+   (org-roam-directory (concat org-directory "/roam")))
+   #+end_src

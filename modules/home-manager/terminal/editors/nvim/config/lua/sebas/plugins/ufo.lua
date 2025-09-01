@@ -1,3 +1,24 @@
+---@param num integer Set the fold level to this number
+local set_buf_foldlevel = function(num)
+  vim.b.ufo_foldlevel = num
+  require('ufo').closeFoldsWith(num)
+end
+
+---@param num integer The amount to change the UFO fold level by
+local change_buf_foldlevel_by = function(num)
+  local foldlevel = vim.b.ufo_foldlevel or 0
+  -- Ensure the foldlevel can't be set negatively
+  if foldlevel + num >= 0 then
+    foldlevel = foldlevel + num
+  else
+    foldlevel = 0
+  end
+  if vim.b.ufo_foldlevel_max and foldlevel > vim.b.ufo_foldlevel_max then
+    return
+  end
+  set_buf_foldlevel(foldlevel)
+end
+
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
   local suffix = (' 󰁂 %d '):format(endLnum - lnum)
@@ -25,36 +46,94 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
   table.insert(newVirtText, { suffix, 'MoreMsg' })
   return newVirtText
 end
+
 local ftMap = {
   yaml = { 'treesitter', 'indent' },
+  org = { 'treesitter', 'indent' },
 }
+
 return {
   'kevinhwang91/nvim-ufo',
   dependencies = {
     'kevinhwang91/promise-async',
     'nvim-treesitter/nvim-treesitter',
   },
-  event = 'BufReadPost',
+  event = { 'BufRead', 'BufNewFile' },
+  keys = {
+    {
+      'zR',
+      function()
+        require('ufo').openAllFolds()
+      end,
+      desc = 'UFO: Open All Folds',
+    },
+    {
+      'zM',
+      function()
+        require('ufo').closeAllFolds()
+      end,
+      desc = 'UFO: Close All Folds',
+    },
+    {
+      'zm',
+      function()
+        local count = vim.v.count
+        if count == 0 then
+          count = 1
+        end
+        change_buf_foldlevel_by(-count)
+      end,
+      desc = 'UFO: Fold More',
+    },
+    {
+      'zr',
+      function()
+        local count = vim.v.count
+        if count == 0 then
+          count = 1
+        end
+        change_buf_foldlevel_by(count)
+      end,
+      desc = 'UFO: Fold Less',
+    },
+    {
+      'zS',
+      function()
+        if vim.v.count == 0 then
+          vim.notify('No foldlevel given to set!', vim.log.levels.WARN)
+        else
+          set_buf_foldlevel(vim.v.count)
+        end
+      end,
+      desc = 'UFO: Set Foldlevel',
+    },
+    {
+      'zK',
+      function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end,
+      desc = 'UFO: Peek Fold',
+    },
+  },
+  enabled = true,
   init = function()
     vim.o.foldcolumn = 'auto'
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
     vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
-
-    vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
-    vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
-    vim.keymap.set('n', 'zK', function()
-      local winid = require('ufo').peekFoldedLinesUnderCursor()
-      if not winid then
-        vim.lsp.buf.hover()
-      end
-    end, { desc = 'Peek Fold' })
   end,
   opts = {
     fold_virt_text_handler = handler,
     provider_selector = function(_, filetype, _)
-      return ftMap[filetype] or { 'lsp', 'indent' }
+      local selector = ftMap[filetype]
+      if selector == nil then
+        selector = { 'lsp', 'indent' }
+      end
+      return selector
     end,
   },
 }

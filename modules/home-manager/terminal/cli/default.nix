@@ -123,6 +123,7 @@
       hackernews-tui
       httpie
       libqalculate
+      lnav
       ncdu
       nh
       ripgrep-all
