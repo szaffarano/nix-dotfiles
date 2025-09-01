@@ -16,6 +16,7 @@ in
       };
       xdg.configFile = {
         "emacs/config.org".source = ./config.org;
+        "emacs/early-init.el".source = ./early-init.el;
         "emacs/init.el".source = ./init.el;
       };
     };
