@@ -1,17 +1,14 @@
 ;;; init.el --- Bootstrap literate configuration -*- lexical-binding: t -*-
 
-;; Set alternative locations for no-littering
-(defvar no-littering-etc-directory (expand-file-name "~/.cache/emacs/etc"))
-(defvar no-littering-var-directory (expand-file-name "~/.cache/emacs/var"))
-
 (defvar use-package-compute-statistics t)
 
-(when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache (expand-file-name "eln-cache" no-littering-var-directory)))
+(defvar emacs-state-directory
+  (expand-file-name "emacs/"
+                    (or (getenv "XDG_STATE_HOME") (expand-file-name "~/.local/state"))))
 
 ;; elpaca bootstrap
 (defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory (expand-file-name "elpaca/" no-littering-var-directory))
+(defvar elpaca-directory (expand-file-name "elpaca/" emacs-state-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
@@ -58,8 +55,7 @@
 (use-package no-littering
   :ensure t
   :init
-  (setq no-littering-etc-directory (expand-file-name "~/.cache/emacs/etc")
-        no-littering-var-directory (expand-file-name "~/.cache/emacs/var"))
+  (setq no-littering-var emacs-state-directory)
   :config
   (no-littering-theme-backups)
   (setq url-history-file (no-littering-expand-etc-file-name "url/history")
@@ -74,15 +70,24 @@
 
 (let ((config-el (expand-file-name "config.el" user-emacs-directory))
       (config-org (expand-file-name "config.org" user-emacs-directory)))
+
   (if (and (file-exists-p config-el)
            (file-exists-p config-org)
            (time-less-p (file-attribute-modification-time (file-attributes config-org))
                         (file-attribute-modification-time (file-attributes config-el))))
-      (load-file config-el)
+      (progn
+        (message "Loading existing compiled configuration from %s" config-el)
+        (load-file config-el)
+      )
     (if (file-exists-p config-org)
+      (progn
+        (message "Configuration updated - compiling %s to %s" config-org config-el)
+        (when (file-exists-p config-el)
+          (delete-file config-el))
         (org-babel-load-file config-org)
+      )
       (error "No file `%s' found!! No configuration loaded!!" config-org))))
-;;
+
 (provide 'init)
 
 ;;; init.el ends here
