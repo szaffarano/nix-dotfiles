@@ -78,7 +78,7 @@ in {
                 name = "Sebastián Zaffarano";
               };
               signing = {
-                sign-all = true;
+                behavior = "own";
                 backend = "gpg";
                 key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
               };
