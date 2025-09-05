@@ -9,9 +9,10 @@
     ./direnv.nix
     ./git.nix
     ./gpg.nix
-    ./spotify.nix
+    ./jujutsu.nix
     ./net.nix
     ./pass.nix
+    ./spotify.nix
     ./ssh.nix
     ./starship.nix
     ./tmux
