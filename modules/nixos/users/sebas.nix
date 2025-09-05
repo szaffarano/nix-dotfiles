@@ -76,7 +76,11 @@ in {
               user = {
                 inherit email;
                 name = "Sebastián Zaffarano";
-                # signing.key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
+              };
+              signing = {
+                sign-all = true;
+                backend = "gpg";
+                key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
               };
             };
           };
