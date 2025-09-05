@@ -50,6 +50,7 @@ end
 local ftMap = {
   yaml = { 'treesitter', 'indent' },
   org = { 'treesitter', 'indent' },
+  markdown = { 'treesitter', 'indent' },
 }
 
 return {
