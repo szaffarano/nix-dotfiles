@@ -43,6 +43,8 @@ in {
       git = lib.mkIf config.programs.git.enable {
         package = pkgs.gitFull;
 
+        lfs.enable = true;
+
         aliases = {
           br = "branch";
           ci = "commit";
