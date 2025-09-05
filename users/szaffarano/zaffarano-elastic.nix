@@ -29,7 +29,10 @@
     };
     syncthing.enable = true;
   };
-  terminal.cli.cloud.enable = true;
+  terminal.cli = {
+    cloud.enable = true;
+    jujutsu.enable = true;
+  };
   programs.nix-index.enable = true;
   develop = {
     enable = true;

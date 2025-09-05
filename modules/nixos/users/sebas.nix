@@ -71,6 +71,20 @@ in {
             };
           };
 
+          jujutsu = {
+            settings = {
+              user = {
+                inherit email;
+                name = "Sebastián Zaffarano";
+              };
+              signing = {
+                behavior = "own";
+                backend = "gpg";
+                key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
+              };
+            };
+          };
+
           git = {
             enable = true;
             userEmail = email;
