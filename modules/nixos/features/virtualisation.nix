@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   feature_name = "virtualisation";
@@ -15,6 +16,7 @@ in {
         storageDriver = "btrfs";
       };
     };
+    environment.systemPackages = lib.mkIf enabled [pkgs.cosign];
 
     nixos.custom.features.register = feature_name;
   };

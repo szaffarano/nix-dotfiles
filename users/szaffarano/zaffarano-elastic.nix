@@ -14,7 +14,6 @@
       upx
       wl-clipboard
       devpod
-      devpod-desktop
     ];
   };
 
