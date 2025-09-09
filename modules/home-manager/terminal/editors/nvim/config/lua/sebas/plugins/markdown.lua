@@ -13,6 +13,7 @@ return {
   opts = {
     completions = { lsp = { enabled = true }, blink = { enabled = true } },
     file_types = file_types,
+    restart_highlighter = true,
     code = {
       border = 'thin',
       sign = false,
@@ -28,4 +29,7 @@ return {
     },
   },
   ft = file_types,
+  keys = {
+    { '<F3>', '<CMD>RenderMarkdown toggle<CR>', desc = 'Render Markdown' },
+  },
 }
