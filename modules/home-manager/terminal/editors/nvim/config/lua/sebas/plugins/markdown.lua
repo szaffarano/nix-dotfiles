@@ -11,8 +11,25 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
-    completions = { lsp = { enabled = true } },
+    completions = { lsp = { enabled = true }, blink = { enabled = true } },
     file_types = file_types,
+    restart_highlighter = true,
+    code = {
+      border = 'thin',
+      sign = false,
+      width = 'block',
+      min_width = 78,
+    },
+    heading = {
+      sign = false,
+      width = 'block',
+    },
+    indent = {
+      enable = true,
+    },
   },
   ft = file_types,
+  keys = {
+    { '<F3>', '<CMD>RenderMarkdown toggle<CR>', desc = 'Render Markdown' },
+  },
 }
