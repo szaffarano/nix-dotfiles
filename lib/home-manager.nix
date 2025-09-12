@@ -1,6 +1,5 @@
 {
   self,
-  nixpkgs,
   ...
 } @ inputs: config: let
   configFile = "${self}/users/${config.user.name}/${config.host.name}.nix";
