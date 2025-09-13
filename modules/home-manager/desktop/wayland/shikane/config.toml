@@ -115,3 +115,24 @@ search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
 mode = "1920x1080@74.986Hz"
 position = "2560,0"
 scale = 1.0
+
+[[profile]]
+name = "undocked-ba"
+
+[[profile.output]]
+enable = true
+search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
+mode = "1920x1080@48.001Hz"
+position = "90,1230"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=23MP55", "s=0x00001748", "v=LG Electronics"]
+mode = "1920x1080@59.94Hz"
+position = "2010,1230"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false

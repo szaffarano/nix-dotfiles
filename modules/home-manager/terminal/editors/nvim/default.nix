@@ -136,7 +136,7 @@ in {
 
       # used by codecompanion
       # vectorcode
-      # inputs.mcp-hub.default
+      inputs.nvim-mcp.default
 
       # LSP servers
       asm-lsp
