@@ -35,13 +35,39 @@ in
           enable = true;
           swaynag.enable = true;
 
-          extraConfigEarly = ''
-            workspace 1
-          '';
-
           config = {
             modifier = "Mod4";
+
+            defaultWorkspace = "1";
             workspaceAutoBackAndForth = true;
+            workspaceOutputAssign = [
+              {
+                workspace = "1";
+                output = "HDMI-A-1";
+              }
+              {
+                workspace = "2";
+                output = "HDMI-A-1";
+              }
+              {
+                workspace = "3";
+                output = "HDMI-A-1";
+              }
+
+              {
+                workspace = "4";
+                output = "eDP-1";
+              }
+              {
+                workspace = "5";
+                output = "eDP-1";
+              }
+              {
+                workspace = "6";
+                output = "eDP-1";
+              }
+            ];
+
             fonts = with config.fontProfiles.monospace; {
               names = [name];
               size = sizeAsInt * 0.9;

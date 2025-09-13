@@ -103,6 +103,11 @@
       url = "github:nix-community/flake-firefox-nightly";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvim-mcp = {
+      url = "github:linw1995/nvim-mcp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
