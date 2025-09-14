@@ -142,7 +142,7 @@ in {
       asm-lsp
       clang-tools
       codeium
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       gopls
       ltex-ls-plus
       python312Packages.pylatexenc

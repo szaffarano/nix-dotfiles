@@ -206,8 +206,8 @@ in
         programs.rofi = {
           enable = true;
           font = "${config.fontProfiles.regular.name} 11";
-          package = pkgs.rofi-wayland;
-          plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = pkgs.rofi-wayland;})];
+          package = pkgs.rofi;
+          plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = pkgs.rofi;})];
           theme = config.colorScheme.slug;
           extraConfig = {
             show-icons = true;

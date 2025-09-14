@@ -9,11 +9,12 @@
       asciinema
       asciinema-agg
       bazel_5_1_1
+      devpod
+      inputs.org-mcp-server.default
       openssl
       pkg-config
       upx
       wl-clipboard
-      devpod
     ];
   };
 
