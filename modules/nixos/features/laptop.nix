@@ -34,7 +34,7 @@ in {
 
     environment.systemPackages = with pkgs;
       lib.optionals enabled [
-        linuxKernel.packages.linux_zen.perf
+        perf
         powertop
       ];
 

@@ -6,7 +6,7 @@
 
 ### Preconditions
 
-1. Create a ssh keypair for the target machine
+1. Create an ssh keypair for the target machine
 
    ```bash
     # use a ramfs to not store the key in the disk
@@ -28,7 +28,7 @@
    recipient.
 
 1. Generate secrets for this machine using both the root and your key
-   recipients.  Example for the OS user:
+   recipients. Example for the OS user:
 
    ```bash
         # copy the following command output
