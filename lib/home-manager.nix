@@ -1,7 +1,4 @@
-{
-  self,
-  ...
-} @ inputs: config: let
+{self, ...} @ inputs: config: let
   configFile = "${self}/users/${config.user.name}/${config.host.name}.nix";
   outputs = self.outputs // {};
 in
