@@ -29,7 +29,7 @@
     };
 
     org-mcp-server = {
-      url = "github:szaffarano/org-mcp-server/42991e584271d46961ff2cfb36fe0b3bda7aac19";
+      url = "github:szaffarano/org-mcp-server";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

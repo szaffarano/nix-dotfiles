@@ -1185,17 +1185,16 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1757869307,
-        "narHash": "sha256-4vrLOlz0EVcWdltLfHS61i/FAAMgRO6GGhTx0KSeOwM=",
+        "lastModified": 1757939119,
+        "narHash": "sha256-QDqf+/QiqN6uP1Y68vxJYurFi+bU4W1XtEIGJziEfMI=",
         "owner": "szaffarano",
         "repo": "org-mcp-server",
-        "rev": "42991e584271d46961ff2cfb36fe0b3bda7aac19",
+        "rev": "6b9f291e2e9e65f6aa26282be45d88384f01ca14",
         "type": "github"
       },
       "original": {
         "owner": "szaffarano",
         "repo": "org-mcp-server",
-        "rev": "42991e584271d46961ff2cfb36fe0b3bda7aac19",
         "type": "github"
       }
     },
