@@ -28,6 +28,13 @@
       };
     };
 
+    org-mcp-server = {
+      url = "github:szaffarano/org-mcp-server";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     rofi-tools = {
       url = "github:szaffarano/rofi-tools";
       inputs = {

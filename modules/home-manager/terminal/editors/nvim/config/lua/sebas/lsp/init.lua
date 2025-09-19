@@ -1,3 +1,12 @@
+-- TODO move to another place
+vim.filetype.add {
+  extension = {
+    jinja = 'jinja',
+    jinja2 = 'jinja',
+    j2 = 'jinja',
+  },
+}
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
@@ -70,15 +79,16 @@ vim.diagnostic.config {
 
 vim.lsp.enable {
   'asm_lsp',
+  'basedpyright',
   'bashls',
   'clangd',
   'dockerls',
   'gopls',
+  'jinja_lsp',
   'jsonls',
   'ltex_plus',
   'lua_ls',
   'nil_ls',
-  'pyright',
   'ruff',
   'taplo',
   'terraformls',
