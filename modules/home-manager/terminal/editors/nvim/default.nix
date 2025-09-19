@@ -140,21 +140,22 @@ in {
 
       # LSP servers
       asm-lsp
+      basedpyright
       clang-tools
       codeium
       dockerfile-language-server
       gopls
+      jinja-lsp
       ltex-ls-plus
-      python312Packages.pylatexenc
       lua-language-server
       nil
       nodePackages.typescript-language-server
-      pyright
+      python312Packages.pylatexenc
       rust-analyzer
       taplo
       terraform-ls
-      yaml-language-server
       vscode-langservers-extracted
+      yaml-language-server
       zls
 
       # debug
