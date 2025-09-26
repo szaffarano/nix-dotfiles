@@ -34,7 +34,10 @@ function main() {
 	echo "About to update GPG expiration time"
 
 	output="/tmp/$keyid-$(date +%F).asc"
-	read -ra args < <(gpg -K --with-colons | awk -F: '/^fpr:/ { print $10 }' | tail -n "+2" | tr "\n" " ")
+	read -ra args < <(
+		gpg -K --with-colons | awk -F: '/^fpr:/ { print $10 }' | tail -n "+2" | tr "\n" " "
+		echo
+	)
 	echo "$CERTIFY_PASS" | gpg --batch --pinentry-mode=loopback \
 		--passphrase-fd 0 --quick-set-expire "$keyfp" "$expiration" \
 		"${args[@]}"
