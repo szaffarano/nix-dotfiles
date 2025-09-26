@@ -118,6 +118,9 @@ scale = 1.0
 
 [[profile]]
 name = "undocked-ba"
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
 
 [[profile.output]]
 enable = true

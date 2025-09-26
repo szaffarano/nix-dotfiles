@@ -5,7 +5,8 @@
   ...
 }: let
   cfg = config.desktop.wayland.shikane;
-  shikaneCmd = "${pkgs.shikane}/bin/shikanectl reload";
+  shikaneDocked = "${pkgs.shikane}/bin/shikanectl switch docked-ba";
+  shikaneUndocked = "${pkgs.shikane}/bin/shikanectl switch undocked-ba";
 in
   with lib; {
     options.desktop.wayland.shikane = {
@@ -41,7 +42,8 @@ in
 
       wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
         keybindings = {
-          "Ctrl+Alt+S" = "exec ${shikaneCmd}";
+          "Ctrl+Alt+D" = "exec ${shikaneDocked}";
+          "Ctrl+Alt+S" = "exec ${shikaneUndocked}";
         };
       };
 
@@ -49,7 +51,8 @@ in
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
         {
           bind = [
-            "CTRL_ALT,S,exec,${shikaneCmd}"
+            "CTRL_ALT,D,exec,${shikaneDocked}"
+            "CTRL_ALT,S,exec,${shikaneUndocked}"
           ];
         };
     };
