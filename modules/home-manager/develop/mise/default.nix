@@ -29,7 +29,7 @@ in {
         };
         tools = {
           claude-code = "latest";
-          java = "temurin-21.0.8+9.0.LTS";
+          java = "temurin-25.0.0+36.0.LTS";
           node = "lts";
           opencode = "latest";
           python = "latest";
