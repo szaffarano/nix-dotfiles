@@ -48,7 +48,7 @@ get_merged_pr_branches() {
 }
 
 get_local_branches() {
-	git branch | sed 's/^\*\? *//g' | grep -v "^${MAIN_BRANCH}$" | sort
+	git branch | sed 's/^\*\? *//g' | grep -v "^\s*${MAIN_BRANCH}$" | sort
 }
 
 find_branches_to_delete() {
@@ -110,7 +110,7 @@ process_merged_pr_branches() {
 }
 
 get_branches_merged_into_main() {
-	git branch --merged "$MAIN_BRANCH" | grep -v '^\*' | grep -v "^${MAIN_BRANCH}$" || true
+	git branch --merged "$MAIN_BRANCH" | grep -v '^\*' | grep -v "^\s*${MAIN_BRANCH}$" || true
 }
 
 process_branches_merged_into_main() {
