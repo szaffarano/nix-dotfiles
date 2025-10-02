@@ -33,17 +33,18 @@
     inherit bazel_5_1_1;
     arch = callPackage ./arch {};
     boot-status = callPackage ./boot-status {};
+    cleanup-merged-branches = callPackage ./cleanup-merged-branches {};
     cliphist-to-wofi = callPackage ./cliphist-to-wofi {};
     configure-gtk = callPackage ./configure-gtk {};
     flameshot-grim = callPackage ./flameshot {};
     get-keepass-entry = callPackage ./get-keepass-entry {};
+    hackernews-tui = callPackage ./hackernews-tui {};
     lock-screen = callPackage ./lock-screen {};
-    sync-lid = callPackage ./sync-lid {};
     resurrect-hyprlock = callPackage ./resurrect-hyprlock {};
+    sync-lid = callPackage ./sync-lid {};
     toggle-hyprland-scratchpad = callPackage ./toggle-hyprland-scratchpad {};
     toggle-sway-scratchpad = callPackage ./toggle-sway-scratchpad {};
     wallpaper = callPackage ./wallpaper {};
-    hackernews-tui = callPackage ./hackernews-tui {};
   };
 in
   packages // firefox-addons

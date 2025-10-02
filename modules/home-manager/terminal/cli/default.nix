@@ -119,6 +119,7 @@
       bc
       boot-status
       bottom
+      cleanup-merged-branches
       diffsitter
       eza
       hackernews-tui
