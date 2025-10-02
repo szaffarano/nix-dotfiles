@@ -57,6 +57,7 @@ in {
           bash-language-server
           yarn
           @devcontainers/cli
+          @github/copilot
         '';
         ".default-python-packages".text = lib.mkDefault ''
           poetry
