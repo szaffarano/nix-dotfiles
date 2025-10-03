@@ -12,12 +12,12 @@ return {
         require('dap-go').setup()
       end,
     },
-    {
-      'mfussenegger/nvim-dap-python',
-      config = function()
-        require('dap-python').setup 'uv'
-      end,
-    },
+    -- {
+    --   'mfussenegger/nvim-dap-python',
+    --   config = function()
+    --     require('dap-python').setup 'uv'
+    --   end,
+    -- },
   },
   config = function()
     local dap = require 'dap'

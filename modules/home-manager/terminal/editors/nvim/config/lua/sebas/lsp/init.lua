@@ -7,8 +7,30 @@ vim.filetype.add {
   },
 }
 
+local servers = {
+  'asm_lsp',
+  'basedpyright',
+  'bashls',
+  'clangd',
+  'copilot',
+  'dockerls',
+  'gopls',
+  'jinja_lsp',
+  'jsonls',
+  'ltex_plus',
+  'lua_ls',
+  'nil_ls',
+  'ruff',
+  'taplo',
+  'terraformls',
+  'ts_ls',
+  'yamlls',
+  'zls',
+}
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+
   callback = function(event)
     local map = function(keys, func, desc)
       if vim.fn.maparg(keys, 'n') == '' then
@@ -16,7 +38,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end
     end
 
-    --  To jump back, press <C-t>.
     map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
     map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
@@ -31,7 +52,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buf })
     end, 'Toggle inlay hints')
     map('K', vim.lsp.buf.hover, 'Hover Documentation')
-    map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration') --  For example, in C this would take you to the header.
+    map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
     -- Highlight references of the word under your cursor when your cursor
     -- rests there for a little while.
@@ -48,9 +69,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
-    if client and client:supports_method 'textDocument/completion' then
-      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
-    end
+    -- if client and client:supports_method 'textDocument/completion' then
+    --   vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+    -- end
   end,
 })
 
@@ -77,25 +98,7 @@ vim.diagnostic.config {
   },
 }
 
-vim.lsp.enable {
-  'asm_lsp',
-  'basedpyright',
-  'bashls',
-  'clangd',
-  'dockerls',
-  'gopls',
-  'jinja_lsp',
-  'jsonls',
-  'ltex_plus',
-  'lua_ls',
-  'nil_ls',
-  'ruff',
-  'taplo',
-  'terraformls',
-  'ts_ls', -- TODO: https://github.com/pmizio/typescript-tools.nvim
-  'yamlls',
-  'zls',
-}
+vim.lsp.enable(servers)
 
-vim.cmd 'set completeopt+=noselect'
-vim.o.winborder = 'rounded'
+-- vim.cmd 'set completeopt+=noselect'
+-- vim.o.winborder = 'rounded'
