@@ -7,5 +7,6 @@ return {
         completion = true,
       },
     },
+    picker = {},
   },
 }
