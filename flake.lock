@@ -692,11 +692,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759573136,
-        "narHash": "sha256-ILSPD0Dm8p0w0fCVzOx98ZH8yFDrR75GmwmH3fS2VnE=",
+        "lastModified": 1759691947,
+        "narHash": "sha256-+A9wFkB266FZH8Lz/TQfgWf5sOWmYPQZ6p3K8NgpuxU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5f06ceafc6c9b773a776b9195c3f47bbe1defa43",
+        "rev": "06e268d66bbf6d606b349a4f0be3af66ab3ea2be",
         "type": "github"
       },
       "original": {
@@ -1121,11 +1121,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1759678679,
-        "narHash": "sha256-cnZWDJ3UHlGpFwh+EZH1w37bRXprmfXw0+OgzowlAKs=",
+        "lastModified": 1759692353,
+        "narHash": "sha256-Gylxzjx1a9YGnzfKtL5gBCpJiq1ZL1dLTh4lcietO3Y=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "bbfeb9e587a3621cc550b110a501244dbf4ac1c7",
+        "rev": "46aa2238f1ac51f3f2bceb26ed9a18702519df09",
         "type": "github"
       },
       "original": {
@@ -1167,11 +1167,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1759679319,
-        "narHash": "sha256-2FeSk19TU+Yj19wvr/y47FND/zyulZIzfSBic6gHXNc=",
+        "lastModified": 1759693102,
+        "narHash": "sha256-1n9b3eMi6vW0sIcI1zOvccNvG3OHMayQG0FDF/BBKvg=",
         "owner": "szaffarano",
         "repo": "org-mcp-server",
-        "rev": "698a03f9f152f0450fecc29589acf33b52043028",
+        "rev": "2bfbdad28f3aa4ad40c518f696bdddd0bc73cc69",
         "type": "github"
       },
       "original": {
@@ -1262,11 +1262,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1758308754,
-        "narHash": "sha256-BNl8ypqrrqnSJRoU94l2qS7F41taKrrUGmFc5z3pKUI=",
+        "lastModified": 1759683052,
+        "narHash": "sha256-jQZ41qkH3PZj7dsRSRZWSWwWheSkk51dljHU6rAzlZM=",
         "owner": "szaffarano",
         "repo": "rofi-tools",
-        "rev": "a01071bd0629e033dae923dc71c3899d65f97626",
+        "rev": "677858eb25a09b46fcea9d5f0276fde32e0a2d2c",
         "type": "github"
       },
       "original": {
@@ -1759,11 +1759,11 @@
         "treefmt-nix": "treefmt-nix_5"
       },
       "locked": {
-        "lastModified": 1758310299,
-        "narHash": "sha256-EQHmi530ePlYRdjj/b+iF5edQFolZF0oVjSpyOE1Uk8=",
+        "lastModified": 1759680988,
+        "narHash": "sha256-a1pAwnSuv9WjTYrGhGPDvH3RzqfQrn+7qYhFrzgxX3c=",
         "owner": "szaffarano",
         "repo": "wofi-power-menu",
-        "rev": "1312c6c4f0f9181a3536f31b3715d90d38fcf26f",
+        "rev": "862675db85523c561d081cf0db13c1d80ddc920f",
         "type": "github"
       },
       "original": {
