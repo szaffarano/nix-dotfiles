@@ -37,34 +37,33 @@ in
 
           config = {
             modifier = "Mod4";
-
             defaultWorkspace = "1";
             workspaceAutoBackAndForth = true;
             workspaceOutputAssign = [
               {
                 workspace = "1";
-                output = "HDMI-A-1";
+                output = "DP-2";
               }
               {
                 workspace = "2";
-                output = "HDMI-A-1";
+                output = "DP-2";
               }
               {
                 workspace = "3";
-                output = "HDMI-A-1";
+                output = "DP-2";
               }
 
               {
                 workspace = "4";
-                output = "eDP-1";
+                output = "HDMI-A-1";
               }
               {
                 workspace = "5";
-                output = "eDP-1";
+                output = "HDMI-A-1";
               }
               {
                 workspace = "6";
-                output = "eDP-1";
+                output = "HDMI-A-1";
               }
             ];
 
