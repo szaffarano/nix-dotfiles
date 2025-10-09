@@ -25,6 +25,7 @@ in
         icdiff # Side-by-side highlighted command line diffs
         jless
         lshw
+        lsof
         nodePackages.json-diff
         openssl
         p7zip
