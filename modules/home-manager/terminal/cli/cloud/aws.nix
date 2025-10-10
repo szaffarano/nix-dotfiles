@@ -13,7 +13,7 @@ in
 
     config = mkIf cfg.enable {
       home.packages = with pkgs; [
-        awscli2
+        # awscli2
         aws-vault
         aws-iam-authenticator
       ];
