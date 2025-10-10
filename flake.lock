@@ -912,6 +912,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-jetbrains": {
+      "locked": {
+        "lastModified": 1760080652,
+        "narHash": "sha256-ux8eW4O9NvY3rM+5oqFMH9khNQe7o1yJm/ikNItjaIU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "923825a84ed377f3b3d808a997427fd8c222dba7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "923825a84ed377f3b3d808a997427fd8c222dba7",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1754788789,
@@ -1289,6 +1305,7 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "nixpkgs-bazel-5_1_1": "nixpkgs-bazel-5_1_1",
+        "nixpkgs-jetbrains": "nixpkgs-jetbrains",
         "nur": "nur",
         "nvim-mcp": "nvim-mcp",
         "org-mcp-server": "org-mcp-server",
