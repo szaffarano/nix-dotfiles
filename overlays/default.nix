@@ -17,7 +17,7 @@
 
   wl-clipboard = import ./wl-clipboard;
 
-  spotify-player = import ./spotify-player;
+  # spotify-player = import ./spotify-player;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
