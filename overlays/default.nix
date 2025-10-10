@@ -11,6 +11,8 @@
 
   cliphist = import ./cliphist;
 
+  intel-graphics-compiler = import ./intel-graphics-compiler;
+
   nur = inputs.nur.overlays.default;
 
   wl-clipboard = import ./wl-clipboard;
