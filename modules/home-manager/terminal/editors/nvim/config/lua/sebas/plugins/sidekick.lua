@@ -9,6 +9,11 @@ return {
         backend = 'tmux',
         enabled = true,
       },
+      tools = {
+        claude = {
+          cmd = { 'mise', 'exec', 'node@lts', '--', 'claude' },
+        },
+      },
     },
   },
 
