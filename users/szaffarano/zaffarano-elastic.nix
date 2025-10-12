@@ -11,6 +11,7 @@
       bazel_5_1_1
       devpod
       inputs.org-mcp-server.default
+      mullvad-browser
       openssl
       pkg-config
       upx

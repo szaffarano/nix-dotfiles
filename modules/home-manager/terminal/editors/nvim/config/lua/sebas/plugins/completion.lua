@@ -11,7 +11,7 @@ return {
       'rafamadriz/friendly-snippets',
       'fang2hou/blink-copilot',
     },
-    version = '1.*',
+    version = '*',
     build = 'nix run .#build-plugin',
 
     ---@module 'blink.cmp'
@@ -41,12 +41,13 @@ return {
 
       sources = {
         default = {
-          'lsp',
-          'path',
-          'snippets',
           'buffer',
           'copilot',
+          'lsp',
+          'omni',
           'orgmode',
+          'path',
+          'snippets',
         },
         providers = {
           copilot = { name = 'Copilot', module = 'blink-copilot', score_offset = 300, async = true },

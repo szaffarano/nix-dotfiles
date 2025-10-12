@@ -18,7 +18,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/20075955deac2583bb12f07151c2df830ef346b4";
-    nixpkgs-jetbrains.url = "github:nixos/nixpkgs/923825a84ed377f3b3d808a997427fd8c222dba7";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -52,12 +51,12 @@
 
     zig.url = "github:mitchellh/zig-overlay";
 
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    # neovim-nightly = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #   };
+    # };
 
     disko = {
       url = "github:nix-community/disko";
