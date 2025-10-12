@@ -5,13 +5,13 @@
       inherit inputs;
     };
 
-  neovim = inputs.neovim-nightly.overlays.default;
+  # neovim = inputs.neovim-nightly.overlays.default;
 
   zig = inputs.zig.overlays.default;
 
   cliphist = import ./cliphist;
 
-  intel-graphics-compiler = import ./intel-graphics-compiler;
+  # intel-graphics-compiler = import ./intel-graphics-compiler;
 
   nur = inputs.nur.overlays.default;
 

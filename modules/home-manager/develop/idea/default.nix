@@ -1,18 +1,10 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   ...
 }: let
   cfg = config.develop.idea;
-  jetbrains_pkgs = import inputs.nixpkgs-jetbrains {
-    inherit (pkgs) system;
-    config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "idea-ultimate"
-      ];
-  };
 in
   with lib; {
     imports = [];
@@ -21,7 +13,7 @@ in
       ultimate = mkEnableOption "ultimate";
     };
 
-    config = with jetbrains_pkgs; let
+    config = with pkgs; let
       package =
         if cfg.ultimate
         then jetbrains.idea-ultimate
