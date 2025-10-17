@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   home = {
     custom = {
       features.enable = [];
@@ -60,6 +64,40 @@
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
       uris = ["qemu:///system"];
+    };
+  };
+
+  systemd.user.services.monitor-elastic-endpoint = {
+    Unit = {
+      Description = "Monitor elastic-endpoint process";
+      After = ["graphical-session-pre.target"];
+      PartOf = ["graphical-session.target"];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${lib.getExe pkgs.check-elastic-endpoint}";
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
+  systemd.user.timers.monitor-elastic-endpoint = {
+    Unit = {
+      Description = "Run elastic-endpoint monitor every hour";
+      PartOf = ["graphical-session.target"];
+    };
+
+    Timer = {
+      OnBootSec = "1min";
+      OnUnitActiveSec = "1h";
+      Persistent = true;
+    };
+
+    Install = {
+      WantedBy = ["timers.target"];
     };
   };
 
