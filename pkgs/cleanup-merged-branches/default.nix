@@ -14,5 +14,6 @@
   meta = with lib; {
     licenses = licenses.mit;
     platforms = platforms.all;
+    mainProgram = "cleanup-merged-branches";
   };
 }
