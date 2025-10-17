@@ -78,10 +78,6 @@
       Type = "oneshot";
       ExecStart = "${lib.getExe pkgs.check-elastic-endpoint}";
     };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
   };
 
   systemd.user.timers.monitor-elastic-endpoint = {
