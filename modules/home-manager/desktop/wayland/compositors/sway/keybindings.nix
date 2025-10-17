@@ -108,7 +108,7 @@
       "${modifier}+t" = "exec ${hackernews}";
       "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
       "${modifier}+Control+p" = ''[app_id="com.reciperium.temporis"] scratchpad show'';
-      "${modifier}+p" = ''[class="Slack"] scratchpad show'';
+      "${modifier}+p" = ''[app_id="Slack"] scratchpad show'';
     };
   };
 }

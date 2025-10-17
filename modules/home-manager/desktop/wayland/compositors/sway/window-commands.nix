@@ -19,10 +19,6 @@ _: {
       }
       {
         command = "move to scratchpad";
-        criteria.class = "Slack";
-      }
-      {
-        command = "move to scratchpad";
         criteria = {
           app_id = "musicPlayer";
         };

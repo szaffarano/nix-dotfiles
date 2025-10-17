@@ -33,6 +33,7 @@
     inherit bazel_5_1_1;
     arch = callPackage ./arch {};
     boot-status = callPackage ./boot-status {};
+    check-elastic-endpoint = callPackage ./check-elastic-endpoint {};
     cleanup-merged-branches = callPackage ./cleanup-merged-branches {};
     cliphist-to-wofi = callPackage ./cliphist-to-wofi {};
     configure-gtk = callPackage ./configure-gtk {};
