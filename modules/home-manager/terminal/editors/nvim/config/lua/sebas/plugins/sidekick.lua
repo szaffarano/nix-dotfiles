@@ -14,6 +14,10 @@ return {
           cmd = { 'mise', 'exec', 'node@lts', '--', 'claude' },
         },
       },
+      prompts = {
+        diagnostics_mcp = 'Use mcp nvim to fix the diagnostics in connected nvim, buffer {file} (check resources, use code actions if available)',
+        diagnostics_mcp_all = 'Use mcp nvim to fix the diagnostics in connected nvim in all quickfixes reported by LSP (check resources, use code actions if available)',
+      },
     },
   },
 
