@@ -18,6 +18,9 @@ in
         Service = {
           ExecStart = "${lib.getExe pkgs.bash} -c '${refreshWallpapersCmd}'";
         };
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
       };
       systemd.user.timers.refresh-wallpapers = {
         Unit = {
