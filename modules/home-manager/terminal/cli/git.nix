@@ -23,7 +23,7 @@ in {
           gs = "git status";
         };
       };
-      delta = {
+      delta = lib.mkIf config.programs.git.enable {
         enable = true;
         options = {
           features = "chameleon";
