@@ -23,6 +23,13 @@ in {
           gs = "git status";
         };
       };
+      delta = lib.mkIf config.programs.git.enable {
+        enable = true;
+        options = {
+          features = "chameleon";
+          side-by-side = false;
+        };
+      };
       gh = lib.mkIf gh_enabled {
         enable = true;
         extensions = with pkgs; [
@@ -45,33 +52,25 @@ in {
 
         lfs.enable = true;
 
-        aliases = {
-          br = "branch";
-          ci = "commit";
-          co = "checkout";
-          cpa = "cherry-pick --abort";
-          cpc = "cherry-pick --continue";
-          cpx = "cherry-pick -x";
-          dc = "diff --cached";
-          df = "diff";
-          shf = "show --name-only --format=''";
-          sho = "show --name-only";
-          st = "status";
-          wl = "worktree list";
-          wa = "!f() { b=$1; git worktree add ../$b -b szaffarano/$b; }; f";
-          wr = "!f() { b=$1; git worktree remove ../$b && git branch -D szaffarano/$b; }; f";
-        };
-
-        delta = {
-          enable = true;
-          options = {
-            features = "chameleon";
-            side-by-side = false;
-          };
-        };
-
-        extraConfig = {
+        settings = {
           branch.sort = "-committerdate";
+
+          alias = {
+            br = "branch";
+            ci = "commit";
+            co = "checkout";
+            cpa = "cherry-pick --abort";
+            cpc = "cherry-pick --continue";
+            cpx = "cherry-pick -x";
+            dc = "diff --cached";
+            df = "diff";
+            shf = "show --name-only --format=''";
+            sho = "show --name-only";
+            st = "status";
+            wl = "worktree list";
+            wa = "!f() { b=$1; git worktree add ../$b -b szaffarano/$b; }; f";
+            wr = "!f() { b=$1; git worktree remove ../$b && git branch -D szaffarano/$b; }; f";
+          };
           color = {
             branch = {
               current = "yellow reverse";
