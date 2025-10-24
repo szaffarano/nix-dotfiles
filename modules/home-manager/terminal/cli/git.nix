@@ -55,7 +55,7 @@ in {
         settings = {
           branch.sort = "-committerdate";
 
-          aliases = {
+          alias = {
             br = "branch";
             ci = "commit";
             co = "checkout";
