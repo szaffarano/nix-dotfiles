@@ -23,7 +23,7 @@ return {
     },
     config = function()
       require('orgmode').setup {
-        org_agenda_files = org_base_path .. '/**/*',
+        org_agenda_files = org_base_path .. '/**/*.org',
         org_startup_folded = 'showeverything',
 
         org_id_link_to_org_use_id = true,
