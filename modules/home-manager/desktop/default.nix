@@ -26,7 +26,8 @@ in
         # anki
 
         # books
-        calibre
+        # TODO: broken package
+        # calibre
         foliate
         koodo-reader
         koreader
