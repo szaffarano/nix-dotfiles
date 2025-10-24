@@ -87,8 +87,10 @@ in {
 
           git = {
             enable = true;
-            userEmail = email;
-            userName = "Sebastián Zaffarano";
+            settings.user = {
+              inherit email;
+              name = "Sebastián Zaffarano";
+            };
             signing.key = lib.mkIf hasGpgKeys (builtins.elemAt userGpgKeys 0);
           };
         };
