@@ -7,7 +7,7 @@
     custom = {
       features.enable = [];
       allowed-unfree-packages = [];
-      permitted-insecure-packages = ["python-2.7.18.8"]; # needed by bazel-5.1.1
+      permitted-insecure-packages = ["python-2.7.18.12"]; # needed by bazel-5.1.1
     };
     packages = with pkgs; [
       asciinema
