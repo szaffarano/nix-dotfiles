@@ -14,7 +14,7 @@ in
       programs.zellij = {
         enable = true;
       };
-      programs.fish = {
+      programs.fish = mkIf config.programs.fish.enable {
         interactiveShellInit = ''
           ${lib.getExe config.programs.zellij.package} setup --generate-completion fish | source
         '';
