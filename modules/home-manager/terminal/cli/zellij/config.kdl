@@ -14,9 +14,6 @@ keybinds clear-defaults=false {
         }
     }
     tmux {
-        bind "Ctrl d" {
-
-        }
         bind "Enter" {
             SwitchToMode "Scroll"
         }
