@@ -18,6 +18,7 @@
     ./tmux
     ./tools.nix
     ./yubikey.nix
+    ./zellij
   ];
 
   options.terminal.cli = {};

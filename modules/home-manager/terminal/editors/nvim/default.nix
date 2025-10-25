@@ -118,11 +118,12 @@ in {
       fswatch
 
       # formatters
-      asmfmt
-      ruff
-      nasmfmt
       alejandra
+      asmfmt
+      kdlfmt
+      nasmfmt
       prettierd
+      ruff
       shfmt
       stylua
 
