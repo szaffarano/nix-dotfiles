@@ -18,6 +18,7 @@ return {
       asm = { 'nasmfmt' },
       bash = { 'shfmt' },
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      kdl = { 'kdlfmt' },
       lua = { 'stylua' },
       nix = { 'alejandra' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
