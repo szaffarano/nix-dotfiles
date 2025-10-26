@@ -24,6 +24,10 @@ in
             font = "${monospace.name}:size=${builtins.toString (monospace.sizeAsInt * 0.9)}";
             selection-target = "both";
           };
+          key-bindings = {
+            show-urls-copy = "Control+Shift+y";
+          };
+
           colors = with config.colorScheme.palette; {
             foreground = base05;
             background = base00;
