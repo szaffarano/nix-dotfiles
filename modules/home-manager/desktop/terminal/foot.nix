@@ -24,6 +24,7 @@ in
             font = "${monospace.name}:size=${builtins.toString (monospace.sizeAsInt * 0.9)}";
             selection-target = "both";
           };
+
           key-bindings = {
             show-urls-copy = "Control+Shift+y";
           };
@@ -47,6 +48,11 @@ in
             bright5 = base0E;
             bright6 = base0C;
             bright7 = base07;
+          };
+
+          bell = {
+            notify = "yes";
+            urgent = "yes";
           };
         };
       };
