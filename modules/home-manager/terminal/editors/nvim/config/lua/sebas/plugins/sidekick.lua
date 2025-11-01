@@ -55,6 +55,13 @@ return {
       desc = 'Send This',
     },
     {
+      '<leader>af',
+      function()
+        require('sidekick.cli').send { msg = '{file}' }
+      end,
+      desc = 'Send File',
+    },
+    {
       '<leader>av',
       function()
         require('sidekick.cli').send { msg = '{selection}' }

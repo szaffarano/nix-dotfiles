@@ -17,7 +17,7 @@ local servers = {
   'gopls',
   'jinja_lsp',
   'jsonls',
-  'ltex_plus',
+  -- 'ltex_plus',
   'lua_ls',
   'nil_ls',
   'ruff',
@@ -32,18 +32,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
 
   callback = function(event)
+    local ts = require 'telescope.builtin'
+
     local map = function(keys, func, desc)
       if vim.fn.maparg(keys, 'n') == '' then
         vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
       end
     end
 
-    map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-    map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-    map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-    map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    map('gd', ts.lsp_definitions, '[G]oto [D]efinition')
+    map('gr', ts.lsp_references, '[G]oto [R]eferences')
+    map('gI', ts.lsp_implementations, '[G]oto [I]mplementation')
+    map('<leader>D', ts.lsp_type_definitions, 'Type [D]efinition')
+    map('<leader>ds', ts.lsp_document_symbols, '[D]ocument [S]ymbols')
+    map('<leader>ws', ts.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
     map('<leader>rs', vim.lsp.buf.rename, '[R]ename [S]ymbol')
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
     map('<leader>k', function()
