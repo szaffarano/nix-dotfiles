@@ -4,14 +4,14 @@
   outputs,
   ...
 }: let
-  inherit (inputs.disko.packages.${pkgs.system}) disko;
+  inherit (inputs.disko.packages.${pkgs.stdenv.hostPlatform.system}) disko;
 in {
   default = pkgs.mkShell {
-    inherit (outputs.checks.${pkgs.system}.pre-commit-check) shellHook;
+    inherit (outputs.checks.${pkgs.stdenv.hostPlatform.system}.pre-commit-check) shellHook;
 
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
 
-    buildInputs = outputs.checks.${pkgs.system}.pre-commit-check.enabledPackages ++ [pkgs.pkg-config];
+    buildInputs = outputs.checks.${pkgs.stdenv.hostPlatform.system}.pre-commit-check.enabledPackages ++ [pkgs.pkg-config];
 
     nativeBuildInputs = with pkgs; [
       age

@@ -23,23 +23,19 @@
 
     wofi-tools = {
       url = "github:szaffarano/wofi-power-menu";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     org-mcp-server = {
       url = "github:szaffarano/org-mcp-server";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     rofi-tools = {
       url = "github:szaffarano/rofi-tools";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     temporis = {
@@ -115,6 +111,11 @@
       url = "github:linw1995/nvim-mcp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -164,7 +165,7 @@
 
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs inputs outputs;});
 
-    formatter = forEachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+    formatter = forEachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
 
     nixosConfigurations = {
       bock = nixpkgs.lib.nixosSystem {
@@ -213,7 +214,7 @@
     };
 
     checks = forEachSystem (pkgs: {
-      pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.system}.run {
+      pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
         src = self;
         hooks = {
           deadnix.enable = true;
