@@ -17,7 +17,7 @@ local servers = {
   'gopls',
   'jinja_lsp',
   'jsonls',
-  'ltex_plus',
+  -- 'ltex_plus',
   'lua_ls',
   'nil_ls',
   'ruff',
@@ -32,27 +32,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
 
   callback = function(event)
-    local map = function(keys, func, desc)
-      if vim.fn.maparg(keys, 'n') == '' then
-        vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-      end
-    end
+    local ts = require 'telescope.builtin'
 
-    map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-    map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-    map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-    map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-    map('<leader>rs', vim.lsp.buf.rename, '[R]ename [S]ymbol')
-    map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-    map('<leader>k', function()
+    Snacks.keymap.set('n', 'gd', ts.lsp_definitions, { desc = 'LSP: [G]oto [D]efinition' })
+    Snacks.keymap.set('n', 'gr', ts.lsp_references, { desc = 'LSP: [G]oto [R]eferences' })
+    Snacks.keymap.set('n', 'gI', ts.lsp_implementations, { desc = 'LSP: [G]oto [I]mplementation' })
+    Snacks.keymap.set('n', '<leader>D', ts.lsp_type_definitions, { desc = 'LSP: Type [D]efinition' })
+    Snacks.keymap.set('n', '<leader>ds', ts.lsp_document_symbols, { desc = 'LSP: [D]ocument [S]ymbols' })
+    Snacks.keymap.set('n', '<leader>ws', ts.lsp_dynamic_workspace_symbols, { desc = 'LSP: [W]orkspace [S]ymbols' })
+    Snacks.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, { desc = 'LSP: [R]ename [S]ymbol' })
+    Snacks.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: [C]ode [A]ction' })
+    Snacks.keymap.set('n', '<leader>k', function()
       local buf = vim.api.nvim_get_current_buf()
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buf }
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buf })
-    end, 'Toggle inlay hints')
-    map('K', vim.lsp.buf.hover, 'Hover Documentation')
-    map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    end, { desc = 'LSP: Toggle inlay hints' })
+    Snacks.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: Hover Documentation' })
+    Snacks.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP: [G]oto [D]eclaration' })
 
     -- Highlight references of the word under your cursor when your cursor
     -- rests there for a little while.
