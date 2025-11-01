@@ -2,6 +2,7 @@ return {
   'rcarriga/nvim-notify',
   dependencies = { 'nvim-lua/plenary.nvim' },
   lazy = false,
+  enabled = false,
   config = function()
     local notify = require 'notify'
     local log = require('plenary.log').new {
