@@ -18,6 +18,7 @@
       mullvad-browser
       openssl
       pkg-config
+      swagger-codegen
       upx
       wl-clipboard
     ];
