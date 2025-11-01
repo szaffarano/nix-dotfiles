@@ -19,7 +19,6 @@ in {
     };
     programs.firefox = {
       enable = true;
-      package = with pkgs; firefox-wayland;
       profiles.sebas = {
         id = 0;
         isDefault = true;

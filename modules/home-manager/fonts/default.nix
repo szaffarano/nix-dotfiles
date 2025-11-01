@@ -75,7 +75,7 @@ in {
         name = "Noto Color Emoji";
         size = "10px";
         sizeAsInt = config.lib.fontProfiles.pxToInt size;
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-color-emoji;
       };
     };
   };

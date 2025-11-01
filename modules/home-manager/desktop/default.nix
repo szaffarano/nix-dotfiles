@@ -34,7 +34,7 @@ in
 
         qview
         speedcrunch
-        tor-browser-bundle-bin
+        tor-browser
         # transmission_4-qt
         chromium
 
@@ -43,7 +43,7 @@ in
         liberation_ttf
         noto-fonts
         noto-fonts-cjk-sans
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         nerd-fonts.fira-code
       ];
 
