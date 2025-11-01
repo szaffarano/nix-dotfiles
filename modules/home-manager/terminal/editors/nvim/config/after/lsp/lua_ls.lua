@@ -2,7 +2,17 @@ return {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim', 'it', 'describe', 'before_each', 'after_each', 'LOG', 'P' },
+        globals = {
+          'after_each',
+          'before_each',
+          'describe',
+          'it',
+          'LOG',
+          'Org',
+          'P',
+          'Snacks',
+          'vim',
+        },
       },
       completion = {
         keywordSnippet = 'Replace',
