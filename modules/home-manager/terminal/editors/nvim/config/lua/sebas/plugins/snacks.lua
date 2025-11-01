@@ -16,7 +16,7 @@ return {
       desc = 'Notifier Hide',
     })
     Snacks.keymap.set('n', '<localleader>lh', Snacks.notifier.show_history, {
-      desc = 'Notifier get History',
+      desc = 'Notifier Get History',
     })
   end,
 }
