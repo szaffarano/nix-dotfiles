@@ -15,7 +15,7 @@ in
         broot # interactive tree view, a fuzzy search
         btop
         czkawka # duplicate files finder
-        du-dust
+        dust
         dua # Disk Usage Analyzer
         duf # Disk Usage/Free Utility - a better 'df' alternative
         file

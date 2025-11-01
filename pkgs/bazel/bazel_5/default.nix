@@ -8,7 +8,6 @@
   runCommand,
   runCommandCC,
   makeWrapper,
-  recurseIntoAttrs, # this package (through the fixpoint glass)
   bazel_self, # needed only for the updater
   bazel_5,
   lr,
@@ -398,7 +397,7 @@ in
 
         # downstream packages using buildBazelPackage
         # fixed-output hashes of the fetch phase need to be spot-checked manually
-        downstream = recurseIntoAttrs {inherit bazel-watcher;};
+        downstream = lib.recurseIntoAttrs {inherit bazel-watcher;};
       };
 
     src_for_updater = stdenv.mkDerivation {

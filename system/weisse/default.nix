@@ -25,8 +25,6 @@ in {
     sebas
   ];
 
-  # boot.kernelPackages =  inputs.nixpkgs-kernel.legacyPackages.${pkgs.hostPlatform.system}.linuxKernel.packages.linux_zen;
-
   security.rtkit.enable = true;
   systemd.tpm2.enable = false;
   boot.initrd.systemd.tpm2.enable = false;

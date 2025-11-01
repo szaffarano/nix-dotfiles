@@ -15,11 +15,10 @@ in {
         grammarly
         okta-browser-plugin
       ];
-      packages = with pkgs; [inputs.firefox-nightly.packages.${system}.firefox-nightly-bin];
+      packages = [inputs.firefox-nightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin];
     };
     programs.firefox = {
       enable = true;
-      package = with pkgs; firefox-wayland;
       profiles.sebas = {
         id = 0;
         isDefault = true;
