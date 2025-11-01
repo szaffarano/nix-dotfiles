@@ -10,7 +10,7 @@ in
       "${self}/modules/home-manager"
     ];
 
-    pkgs = import inputs.nixpkgs {system = config.host.arch;};
+    pkgs = import inputs.nixpkgs {stdenv.hostPlatform.system = config.host.arch;};
 
     extraSpecialArgs = {inherit inputs outputs;};
   }

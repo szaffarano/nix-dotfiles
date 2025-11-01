@@ -6,7 +6,7 @@
   firefox-addons = import ./firefox-addons {inherit (pkgs) fetchurl stdenv lib;};
   callPackage = pkgs.lib.callPackageWith (pkgs // packages);
   bazel_pkgs = import inputs.nixpkgs-bazel-5_1_1 {
-    inherit (pkgs) system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.permittedInsecurePackages = [
       "python-2.7.18.12" # needed by bazel 5.1.1
     ];

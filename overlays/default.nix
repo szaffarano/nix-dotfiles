@@ -20,8 +20,8 @@
   # spotify-player = import ./spotify-player;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
-  # 'inputs.${flake}.packages.${pkgs.system}' or
-  # 'inputs.${flake}.legacyPackages.${pkgs.system}'
+  # 'inputs.${flake}.packages.${pkgs.stdenv.hostPlatform.system}' or
+  # 'inputs.${flake}.legacyPackages.${pkgs.stdenv.hostPlatform.system}'
   #
   # Thanks Misterio77!
   flake-inputs = final: _: {
