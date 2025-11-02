@@ -1,14 +1,7 @@
+local ltex_utils = require 'sebas.utils.ltex'
+
 return {
-  filetypes = {
-    'gitcommit',
-    'mail',
-    'markdown',
-    'mdx',
-    'org',
-    'pandoc',
-    'rst',
-    'tex',
-  },
+  filetypes = ltex_utils.filetypes,
   settings = {
     ltex = {
       language = { 'en-US', 'es-AR' },
