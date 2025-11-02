@@ -1,16 +1,9 @@
+local ltex_utils = require 'sebas.utils.ltex'
+
 return {
   'barreiroleo/ltex_extra.nvim',
   branch = 'dev',
-  ft = {
-    'gitcommit',
-    'mail',
-    'markdown',
-    'mdx',
-    'org',
-    'pandoc',
-    'rst',
-    'tex',
-  },
+  ft = ltex_utils.filetypes,
   dependencies = { 'neovim/nvim-lspconfig' },
   opts = {
     load_langs = { 'en-US', 'es-AR' },
