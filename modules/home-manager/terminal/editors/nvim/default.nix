@@ -32,7 +32,7 @@
       # Create markdown.json
       cat > "$out/markdown/markdown-lang.json" << 'EOF'
       {
-        "ltex language": {
+        "markdownlint disable": {
           "prefix": "<MD",
           "body": [
             "<!-- markdownlint-disable-next-line -->",
