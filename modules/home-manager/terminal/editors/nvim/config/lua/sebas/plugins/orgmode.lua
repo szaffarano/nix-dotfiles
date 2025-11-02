@@ -11,6 +11,7 @@ return {
   {
     'nvim-orgmode/orgmode',
     event = 'VeryLazy',
+    commit = '03777ca', -- pinned until https://github.com/nvim-orgmode/orgmode/issues/1049 is fixed
     ft = { 'org' },
     cmd = { 'Org' },
     keys = {
