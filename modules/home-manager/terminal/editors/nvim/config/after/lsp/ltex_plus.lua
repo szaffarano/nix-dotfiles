@@ -1,4 +1,14 @@
 return {
+  filetypes = {
+    'gitcommit',
+    'mail',
+    'markdown',
+    'mdx',
+    'org',
+    'pandoc',
+    'rst',
+    'tex',
+  },
   settings = {
     ltex = {
       language = { 'en-US', 'es-AR' },
