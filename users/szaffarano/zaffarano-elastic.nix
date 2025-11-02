@@ -14,6 +14,7 @@
       asciinema-agg
       bazel_5_1_1
       devpod
+      helix
       inputs.org-mcp-server.default
       mullvad-browser
       openssl

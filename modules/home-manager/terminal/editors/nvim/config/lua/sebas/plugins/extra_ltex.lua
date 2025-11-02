@@ -1,7 +1,16 @@
 return {
   'barreiroleo/ltex_extra.nvim',
   branch = 'dev',
-  ft = { 'gitcommit', 'markdown', 'org', 'pandoc', 'plaintex', 'rmd', 'rst', 'tex', 'mdx' },
+  ft = {
+    'gitcommit',
+    'mail',
+    'markdown',
+    'mdx',
+    'org',
+    'pandoc',
+    'rst',
+    'tex',
+  },
   dependencies = { 'neovim/nvim-lspconfig' },
   opts = {
     load_langs = { 'en-US', 'es-AR' },

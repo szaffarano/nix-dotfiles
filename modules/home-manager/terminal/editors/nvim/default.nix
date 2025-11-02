@@ -19,14 +19,28 @@
         hash = "sha256-EgpOrLyhZw0V7caUykO/vMZd7kVh4XpulOhntxDi2k0=";
       };
     } ''
-      mkdir -p $out/rust
+      mkdir -p $out/markdown
       mkdir -p $out/org
+      mkdir -p $out/rust
 
       # Process rust snippets
       find $src/snippets/ -type f | while read -r file; do
         name=$(basename "$file")
         fixjson "$file" | jq . > "$out/rust/$name.json"
       done
+
+      # Create markdown.json
+      cat > "$out/markdown/markdown-lang.json" << 'EOF'
+      {
+        "markdownlint disable": {
+          "prefix": "<MD",
+          "body": [
+            "<!-- markdownlint-disable-next-line -->",
+            "$0"
+          ]
+        }
+      }
+      EOF
 
       # Create org-lang.json
       cat > "$out/org/org-lang.json" << 'EOF'
@@ -92,6 +106,10 @@ in {
     };
   };
 
+  home.file = {
+    ".markdownlintrc".source = ./.markdownlintrc;
+  };
+
   xdg = {
     configFile = {
       "nvim" = {
@@ -130,6 +148,7 @@ in {
       # linters
       nodePackages.jsonlint
       markdownlint-cli
+      marksman
       golangci-lint
       shellcheck
       hadolint
