@@ -8,6 +8,6 @@ return {
   opts = {
     load_langs = { 'en-US', 'es-AR' },
     path = vim.fn.expand '$HOME/Documents/dict',
-    log_level = 'info',
+    log_level = 'error',
   },
 }

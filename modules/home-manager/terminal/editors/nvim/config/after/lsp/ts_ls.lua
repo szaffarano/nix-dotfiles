@@ -1,5 +1,5 @@
 return {
   init_options = {
-    maxTsServerMemory = 8192,
+    maxTsServerMemory = 12288,
   },
 }
