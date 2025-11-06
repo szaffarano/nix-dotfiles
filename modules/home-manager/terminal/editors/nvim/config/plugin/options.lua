@@ -49,6 +49,7 @@ vim.opt.scrolloff = 10
 
 vim.opt.signcolumn = 'yes'
 vim.opt.colorcolumn = '80,120'
+vim.opt.textwidth = 120
 
 vim.opt.spelllang = 'en,es,de,sv'
 
@@ -75,5 +76,3 @@ vim.opt.cursorcolumn = false -- Highlight the screen column of the cursor
 vim.opt.laststatus = 3 -- When to use a status line for the last window
 vim.opt.termguicolors = true -- Enables 24-bit RGB color in the |TUI|
 vim.opt.spell = false -- Highlight spelling mistakes (local to window)
-
-vim.opt.textwidth = 0 -- Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
