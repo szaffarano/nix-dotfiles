@@ -6,6 +6,14 @@ vim.keymap.set('n', '<leader>ca', function()
   vim.cmd.RustLsp 'codeAction'
 end, { buffer = bufnr, desc = '[C]ode [A]ction (Rust)' })
 
+vim.keymap.set('n', '<leader>rd', function()
+  vim.cmd.RustLsp 'relatedDiagnostics'
+end, { buffer = bufnr, desc = '[R]elated [D]iagnostics (Rust)' })
+
+vim.keymap.set('n', '<leader>h', function()
+  vim.cmd.RustLsp { 'hover', 'range' }
+end, { buffer = bufnr, desc = '[H]over range (Rust)' })
+
 vim.keymap.set('n', 'K', function()
   vim.cmd.RustLsp { 'hover', 'actions' }
 end, { buffer = bufnr, desc = 'Hover Documentation (Rust)' })
@@ -34,7 +42,6 @@ else
 end
 
 -- mappings to review:
--- vim.cmd.RustLsp('relatedDiagnostics')
 -- vim.cmd.RustLsp('openCargo')
 -- vim.cmd.RustLsp('openDocs')
 -- vim.cmd.RustLsp('joinLines'):qa
