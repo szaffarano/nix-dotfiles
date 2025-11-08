@@ -26,8 +26,7 @@ in
         # anki
 
         # books
-        # TODO: broken package
-        # calibre
+        calibre
         foliate
         koodo-reader
         koreader
@@ -35,7 +34,7 @@ in
         qview
         speedcrunch
         tor-browser
-        # transmission_4-qt
+        transmission_4-qt
         chromium
 
         fontconfig
