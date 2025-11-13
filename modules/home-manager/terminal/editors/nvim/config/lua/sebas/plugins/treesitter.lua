@@ -70,10 +70,10 @@ return {
         select.select_textobject('@local.scope', 'locals')
       end, { desc = 'Select [A]round [S]cope' })
 
-      vim.keymap.set({ 'x', 'o' }, 'ai', function()
+      vim.keymap.set({ 'x', 'o' }, 'ab', function()
         select.select_textobject('@block.inner', 'textobjects')
       end, { desc = 'Select [A]round [B]lock' })
-      vim.keymap.set({ 'x', 'o' }, 'ii', function()
+      vim.keymap.set({ 'x', 'o' }, 'ib', function()
         select.select_textobject('@block.outer', 'textobjects')
       end, { desc = 'Select [I]nside [B]block' })
 
