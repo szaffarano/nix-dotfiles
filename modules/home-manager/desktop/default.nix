@@ -23,13 +23,12 @@ in
 
     config = mkIf cfg.enable {
       home.packages = with pkgs; [
-        # anki
+        anki
 
         # books
         calibre
-        foliate
-        koodo-reader
         koreader
+        readest
 
         qview
         speedcrunch

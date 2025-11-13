@@ -49,6 +49,7 @@ in {
       };
     };
     features.enable = [
+      "calibre"
       "desktop"
       "cross-compile"
       "elastic-endpoint"

@@ -15,8 +15,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "rust10x";
         repo = "rust10x-vscode";
-        rev = "b5917ecaf69200f62297dd5e4a29ea6e27f3790f";
-        hash = "sha256-EgpOrLyhZw0V7caUykO/vMZd7kVh4XpulOhntxDi2k0=";
+        rev = "9d9901d0afb79f4dbf381aa36da88cb619fd1e63";
+        hash = "sha256-MzoOws0Qc2g51IoH4XFH2K2RlR21bUGxAozxJmawyD0=";
       };
     } ''
       mkdir -p $out/markdown
@@ -120,10 +120,9 @@ in {
         source = nvimSnippets;
       };
     };
-
     dataFile = {
-      "nvim/treesitter-parsers" = {
-        source = treesitter-parsers;
+      "nvim/site/parser" = {
+        source = "${treesitter-parsers}/parser";
       };
     };
   };
