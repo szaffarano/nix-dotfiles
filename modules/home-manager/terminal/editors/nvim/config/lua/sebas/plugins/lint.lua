@@ -5,13 +5,14 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
-        go = { 'golangcilint' },
-        zsh = { 'zsh' },
-        sh = { 'shellcheck' },
-        nix = { 'nix' },
+        bash = { 'bash' },
         dockerfile = { 'hadolint' },
-        json = { 'jsonlint' },
+        fish = { 'fish' },
+        go = { 'golangcilint' },
+        markdown = { 'markdownlint' },
+        nix = { 'nix' },
+        sh = { 'shellcheck' },
+        zsh = { 'zsh' },
       }
 
       -- Create autocommand which carries out the actual linting

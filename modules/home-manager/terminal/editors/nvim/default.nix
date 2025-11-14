@@ -145,7 +145,6 @@ in {
       stylua
 
       # linters
-      nodePackages.jsonlint
       markdownlint-cli
       marksman
       golangci-lint
