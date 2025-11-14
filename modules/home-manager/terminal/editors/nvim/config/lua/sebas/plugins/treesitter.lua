@@ -59,10 +59,10 @@ return {
         select.select_textobject('@loop.inner', 'textobjects')
       end, { desc = 'Select [I]nside [L]oop' })
 
-      vim.keymap.set({ 'x', 'o' }, 'ai', function()
+      vim.keymap.set({ 'x', 'o' }, 'ii', function()
         select.select_textobject('@conditional.outer', 'textobjects')
       end, { desc = 'Select [A]round [I]f conditional' })
-      vim.keymap.set({ 'x', 'o' }, 'ii', function()
+      vim.keymap.set({ 'x', 'o' }, 'ai', function()
         select.select_textobject('@conditional.inner', 'textobjects')
       end, { desc = 'Select [I]nside [I]f conditional' })
 
@@ -71,10 +71,10 @@ return {
       end, { desc = 'Select [A]round [S]cope' })
 
       vim.keymap.set({ 'x', 'o' }, 'ab', function()
-        select.select_textobject('@block.inner', 'textobjects')
+        select.select_textobject('@block.outer', 'textobjects')
       end, { desc = 'Select [A]round [B]lock' })
       vim.keymap.set({ 'x', 'o' }, 'ib', function()
-        select.select_textobject('@block.outer', 'textobjects')
+        select.select_textobject('@block.inner', 'textobjects')
       end, { desc = 'Select [I]nside [B]block' })
 
       vim.keymap.set({ 'n', 'x', 'o' }, ']f', function()
