@@ -112,6 +112,9 @@ in {
       configFile = config.sops.secrets.wireguard.path;
       autostart = false;
     };
+    firewall = {
+      allowedTCPPorts = [9200 8200];
+    };
   };
 
   sops.secrets = {
