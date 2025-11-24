@@ -23,6 +23,8 @@ in
 
         interactiveShellInit = ''
           fish_vi_key_bindings
+          # TODO: workaround for https://github.com/nix-community/home-manager/issues/8178
+          set -p fish_complete_path ${config.programs.fish.package}/share/fish/completions
         '';
 
         shellAliases = {
