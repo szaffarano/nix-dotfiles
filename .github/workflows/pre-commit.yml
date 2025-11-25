@@ -7,6 +7,7 @@ on:
       - develop
 jobs:
   check:
+    name: Lint and type-check Nix code
     runs-on: ubuntu-latest
     permissions:
       contents: read
