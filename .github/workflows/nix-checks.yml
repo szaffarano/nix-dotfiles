@@ -2,15 +2,15 @@ name: CI | Nix checks
 on:
   push:
     paths:
-      - '**/*.nix'
-      - 'flake.lock'
-      - 'flake.nix'
+      - "**/*.nix"
+      - "flake.lock"
+      - "flake.nix"
 jobs:
   deadnix:
     name: Deadnix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - uses: cachix/cachix-action@v16
         with:
@@ -24,7 +24,7 @@ jobs:
     name: Statix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
       - uses: cachix/cachix-action@v16
         with:
