@@ -14,3 +14,6 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_logiPat = 1
 vim.g.loaded_rrhelper = 1
+
+-- ugly workaround for https://github.com/neovim/neovim/issues/14433
+vim.g.omni_sql_default_compl_type = 'syntax'
