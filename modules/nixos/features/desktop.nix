@@ -14,7 +14,7 @@ in {
     };
 
     environment = {
-      enableAllTerminfo = true;
+      enableAllTerminfo = false;
     };
 
     hardware = lib.mkIf enable {
