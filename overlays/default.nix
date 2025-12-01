@@ -5,6 +5,7 @@
       inherit inputs;
     };
 
+  # FIXME: not using nightly until https://github.com/nvim-orgmode/orgmode/issues/1049 is fixed
   # neovim = inputs.neovim-nightly.overlays.default;
 
   zig = inputs.zig.overlays.default;
