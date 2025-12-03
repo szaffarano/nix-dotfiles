@@ -1,7 +1,16 @@
 _: {
   config = {
     wayland.windowManager.sway.config.floating.criteria = [
+      {window_role = "pop-up";}
+      {window_role = "bubble";}
+      {window_role = "dialog";}
+      {window_type = "dialog";}
+
       {app_id = "org.pulseaudio.pavucontrol";}
+
+      {app_id = "floating";}
+      {app_id = "floating_update";}
+
       {app_id = "zenity";}
       {
         title = "Settings";
