@@ -93,7 +93,9 @@
     };
 
     pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
+      # TODO switch back to the cachix repo once https://github.com/cachix/git-hooks.nix/pull/664 is merged
+      url = "github:szaffarano/git-hooks.nix?ref=feat/rumdl";
+      # url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -217,15 +219,15 @@
       pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
         src = self;
         hooks = {
+          alejandra.enable = true;
           deadnix.enable = true;
           detect-private-keys.enable = true;
           end-of-file-fixer.enable = true;
-          markdownlint.enable = true;
           mixed-line-endings.enable = true;
-          alejandra.enable = true;
           pyright.enable = true;
           ruff.enable = true;
           ruff-format.enable = true;
+          rumdl.enable = true;
           shfmt.enable = true;
           statix.enable = true;
           stylua.enable = true;

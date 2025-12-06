@@ -9,7 +9,7 @@ return {
         dockerfile = { 'hadolint' },
         fish = { 'fish' },
         go = { 'golangcilint' },
-        markdown = { 'markdownlint' },
+        markdown = { 'rumdl' },
         nix = { 'nix' },
         sh = { 'shellcheck' },
         zsh = { 'zsh' },

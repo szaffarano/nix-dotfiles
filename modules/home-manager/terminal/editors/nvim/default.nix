@@ -141,12 +141,11 @@ in {
       nasmfmt
       prettierd
       ruff
+      rumdl
       shfmt
       stylua
 
       # linters
-      markdownlint-cli
-      marksman
       golangci-lint
       shellcheck
       hadolint
@@ -166,6 +165,7 @@ in {
       jinja-lsp
       ltex-ls-plus
       lua-language-server
+      marksman
       nil
       nodePackages.typescript-language-server
       python312Packages.pylatexenc

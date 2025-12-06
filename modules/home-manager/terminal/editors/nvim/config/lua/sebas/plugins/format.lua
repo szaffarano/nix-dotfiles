@@ -25,6 +25,7 @@ return {
       rust = { 'rustfmt' },
       sh = { 'shfmt' },
       terraform = { 'terraform_fmt' },
+      markdown = { 'rumdl' },
       toml = { 'taplo' },
       typescript = { 'prettierd', 'prettier', stop_after_first = true },
       yml = { 'yq' },
@@ -38,6 +39,11 @@ return {
       return { timeout_ms = 500, lsp_fallback = true }
     end,
     formatters = {
+      rumdl = {
+        command = 'rumdl',
+        args = { 'fmt', '-', '--quiet' },
+        stdin = true,
+      },
       nasmfmt = {
         command = 'nasmfmt',
         args = { '$FILENAME' },
