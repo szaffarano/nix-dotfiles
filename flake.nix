@@ -93,9 +93,7 @@
     };
 
     pre-commit-hooks = {
-      # TODO switch back to the cachix repo once https://github.com/cachix/git-hooks.nix/pull/664 is merged
-      url = "github:szaffarano/git-hooks.nix?ref=feat/rumdl";
-      # url = "github:cachix/git-hooks.nix";
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

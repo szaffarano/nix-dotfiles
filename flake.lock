@@ -1085,16 +1085,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1765012800,
-        "narHash": "sha256-mjccWBvr5WT9oWnViBI5FeLlY13JeXvxOsVmbKEu6Qg=",
-        "owner": "szaffarano",
+        "lastModified": 1765016596,
+        "narHash": "sha256-rhSqPNxDVow7OQKi4qS5H8Au0P4S3AYbawBSmJNUtBQ=",
+        "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "b4e3560aee411b06b62acaf3ac103c3705831ab9",
+        "rev": "548fc44fca28a5e81c5d6b846e555e6b9c2a5a3c",
         "type": "github"
       },
       "original": {
-        "owner": "szaffarano",
-        "ref": "feat/rumdl",
+        "owner": "cachix",
         "repo": "git-hooks.nix",
         "type": "github"
       }
