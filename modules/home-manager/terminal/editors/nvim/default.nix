@@ -32,10 +32,10 @@
       # Create markdown.json
       cat > "$out/markdown/markdown-lang.json" << 'EOF'
       {
-        "markdownlint disable": {
+        "rumdl disable": {
           "prefix": "<MD",
           "body": [
-            "<!-- markdownlint-disable-next-line -->",
+            "<!-- rumdl-disable -->",
             "$0"
           ]
         }
@@ -108,7 +108,7 @@ in {
 
   xdg = {
     configFile = {
-      "rumdl.toml".source = ./rumdl.toml;
+      "rumdl/rumdl.toml".source = ./rumdl.toml;
       "nvim" = {
         source = ./config;
         recursive = true;
