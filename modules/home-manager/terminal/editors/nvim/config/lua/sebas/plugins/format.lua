@@ -20,12 +20,12 @@ return {
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
       kdl = { 'kdlfmt' },
       lua = { 'stylua' },
+      markdown = { 'rumdl' },
       nix = { 'alejandra' },
       python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
       rust = { 'rustfmt' },
       sh = { 'shfmt' },
       terraform = { 'terraform_fmt' },
-      markdown = { 'rumdl' },
       toml = { 'taplo' },
       typescript = { 'prettierd', 'prettier', stop_after_first = true },
       yml = { 'yq' },
@@ -39,19 +39,9 @@ return {
       return { timeout_ms = 500, lsp_fallback = true }
     end,
     formatters = {
-      rumdl = {
-        command = 'rumdl',
-        args = { 'fmt', '-', '--quiet' },
-        stdin = true,
-      },
-      nasmfmt = {
-        command = 'nasmfmt',
-        args = { '$FILENAME' },
-        stdin = false,
-      },
-      shfmt = {
-        prepend_args = { '-i', '2' },
-      },
+      nasmfmt = { command = 'nasmfmt', args = { '$FILENAME' }, stdin = false },
+      rumdl = { command = 'rumdl', args = { 'fmt', '-', '--quiet' }, stdin = true },
+      shfmt = { prepend_args = { '-i', '2' } },
     },
   },
   init = function()
