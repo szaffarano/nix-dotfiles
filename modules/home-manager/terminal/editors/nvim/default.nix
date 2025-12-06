@@ -106,12 +106,9 @@ in {
     };
   };
 
-  home.file = {
-    ".markdownlintrc".source = ./.markdownlintrc;
-  };
-
   xdg = {
     configFile = {
+      "rumdl.toml".source = ./rumdl.toml;
       "nvim" = {
         source = ./config;
         recursive = true;
