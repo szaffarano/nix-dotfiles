@@ -44,18 +44,12 @@ in
         enable = true;
         systemdTarget = "graphical-session.target";
         events =
-          [
-            {
-              event = "before-sleep";
-              command = "${lockScreen} 0";
-            }
-          ]
-          ++ (lib.optionals config.wayland.windowManager.sway.enable [
-            {
-              event = "lock";
-              command = "${lockScreen} 0";
-            }
-          ]);
+          {
+            "before-sleep" = "${lockScreen} 0";
+          }
+          // (lib.optionals config.wayland.windowManager.sway.enable {
+            "lock" = "${lockScreen} 0";
+          });
         timeouts =
           # Lock screen
           [
