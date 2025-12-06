@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rvben/rumdl/main/rumdl.schema.json
+[global]
+line-length = 100
+
+[MD013]
+heading_line_length = 80
+code_block_line_length = 120

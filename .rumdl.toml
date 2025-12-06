@@ -1,0 +1,12 @@
+[global]
+exclude = [".git", ".github", "result"]
+
+respect-gitignore = true
+
+[MD013]
+line-length = 100
+code-blocks = false
+tables = false
+
+[MD044]
+names = ["rumdl", "Markdown", "GitHub"]
