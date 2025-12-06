@@ -217,15 +217,15 @@
       pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
         src = self;
         hooks = {
+          alejandra.enable = true;
           deadnix.enable = true;
           detect-private-keys.enable = true;
           end-of-file-fixer.enable = true;
-          markdownlint.enable = true;
           mixed-line-endings.enable = true;
-          alejandra.enable = true;
           pyright.enable = true;
           ruff.enable = true;
           ruff-format.enable = true;
+          rumdl.enable = true;
           shfmt.enable = true;
           statix.enable = true;
           stylua.enable = true;

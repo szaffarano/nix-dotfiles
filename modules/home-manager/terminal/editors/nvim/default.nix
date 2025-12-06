@@ -32,10 +32,10 @@
       # Create markdown.json
       cat > "$out/markdown/markdown-lang.json" << 'EOF'
       {
-        "markdownlint disable": {
+        "rumdl disable": {
           "prefix": "<MD",
           "body": [
-            "<!-- markdownlint-disable-next-line -->",
+            "<!-- rumdl-disable -->",
             "$0"
           ]
         }
@@ -106,12 +106,9 @@ in {
     };
   };
 
-  home.file = {
-    ".markdownlintrc".source = ./.markdownlintrc;
-  };
-
   xdg = {
     configFile = {
+      "rumdl/rumdl.toml".source = ./rumdl.toml;
       "nvim" = {
         source = ./config;
         recursive = true;
@@ -141,12 +138,11 @@ in {
       nasmfmt
       prettierd
       ruff
+      rumdl
       shfmt
       stylua
 
       # linters
-      markdownlint-cli
-      marksman
       golangci-lint
       shellcheck
       hadolint
@@ -166,6 +162,7 @@ in {
       jinja-lsp
       ltex-ls-plus
       lua-language-server
+      marksman
       nil
       nodePackages.typescript-language-server
       python312Packages.pylatexenc
