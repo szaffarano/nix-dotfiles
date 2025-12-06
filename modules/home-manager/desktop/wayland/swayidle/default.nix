@@ -47,9 +47,9 @@ in
           {
             "before-sleep" = "${lockScreen} 0";
           }
-          // (lib.optionals config.wayland.windowManager.sway.enable {
+          // lib.optionalAttrs config.wayland.windowManager.sway.enable {
             "lock" = "${lockScreen} 0";
-          });
+          };
         timeouts =
           # Lock screen
           [
