@@ -16,12 +16,12 @@ in
     config = with pkgs; let
       package =
         if cfg.ultimate
-        then jetbrains.idea-ultimate
+        then jetbrains.idea
         else jetbrains.idea-community;
     in
       lib.mkIf cfg.enable {
         home = {
-          custom.allowed-unfree-packages = with pkgs; lib.optionals cfg.ultimate [jetbrains.idea-ultimate];
+          custom.allowed-unfree-packages = with pkgs; lib.optionals cfg.ultimate [jetbrains.idea];
           packages = [package];
           file.".ideavimrc" = {
             source = ./ideavimrc;
