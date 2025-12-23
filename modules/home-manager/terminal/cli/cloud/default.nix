@@ -23,8 +23,7 @@ in
 
       terminal.cli = {
         aws.enable = true;
-        # FIXME: broken package
-        gcp.enable = false;
+        gcp.enable = true;
         k8s.enable = true;
       };
     };
