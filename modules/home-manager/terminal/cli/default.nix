@@ -121,7 +121,8 @@
       boot-status
       bottom
       cleanup-merged-branches
-      diffsitter
+      # FIXME: broken package
+      # diffsitter
       eza
       hackernews-tui
       httpie
