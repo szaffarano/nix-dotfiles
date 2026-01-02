@@ -32,7 +32,8 @@ in
       home.packages = with pkgs; [
         virt-manager
         docker-credential-helpers
-        bruno
+        # FIXME: broken package
+        # bruno
 
         inputs.temporis.temporis-desktop
 
