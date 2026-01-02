@@ -6,7 +6,8 @@
 }: let
   cfg = config.desktop.wayland.compositors;
   nmAppletCmd = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-  paSysTrayCmd = "${pkgs.pasystray}/bin/pasystray";
+  # FIXME broken package
+  # paSysTrayCmd = "${pkgs.pasystray}/bin/pasystray";
 in
   with lib; {
     imports = [
@@ -24,7 +25,7 @@ in
       wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
         startup = [
           {command = "sleep 6 && ${nmAppletCmd}";}
-          {command = "sleep 6 && ${paSysTrayCmd}";}
+          # {command = "sleep 6 && ${paSysTrayCmd}";}
         ];
       };
 
@@ -33,7 +34,7 @@ in
         {
           exec-once = [
             "sleep 6 && ${nmAppletCmd}"
-            "sleep 6 && ${paSysTrayCmd}"
+            # "sleep 6 && ${paSysTrayCmd}"
           ];
         };
     };
