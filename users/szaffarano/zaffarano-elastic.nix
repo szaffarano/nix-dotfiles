@@ -42,7 +42,6 @@
     cloud.enable = true;
     jujutsu.enable = true;
   };
-  programs.nix-index.enable = true;
   develop = {
     enable = true;
     asm.enable = true;
@@ -61,6 +60,15 @@
   terminal = {
     zsh.enable = false;
     fish.enable = true;
+  };
+
+  programs = {
+    fish = {
+      # FIXME: workaround for zwift module not being exporting env var
+      shellInit = ''set -xg ZWIFT_USERNAME sebas@zaffarano.com.ar '';
+    };
+    mise.enable = true;
+    nix-index.enable = true;
   };
 
   dconf.settings = {
@@ -99,8 +107,6 @@
       WantedBy = ["timers.target"];
     };
   };
-
-  programs.mise.enable = true;
 
   sound.enable = true;
 }
