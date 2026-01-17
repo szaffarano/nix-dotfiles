@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   inputs,
   lib,
   ...
@@ -20,6 +21,10 @@ in {
         allowedTCPPorts = [21587 21588];
       };
     };
+    environment.systemPackages = with pkgs;
+      lib.optionals enabled [
+        libsecret
+      ];
 
     programs.zwift = {
       containerTool = "podman";
