@@ -2,6 +2,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    branch = 'main',
+    lazy = false,
     opts = {
       auto_install = false,
       ensure_installed = {},
@@ -15,7 +17,7 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
     branch = 'main',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
+      { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
     },
     config = function()
       ---@diagnostic disable-next-line: missing-fields

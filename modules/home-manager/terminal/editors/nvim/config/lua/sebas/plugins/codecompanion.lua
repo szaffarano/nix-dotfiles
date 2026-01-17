@@ -135,7 +135,7 @@ Example `fix(commands): bump error when no user provided`.
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
+      { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
       'ravitemer/mcphub.nvim',
       'stevearc/aerial.nvim',
       'ravitemer/codecompanion-history.nvim',
