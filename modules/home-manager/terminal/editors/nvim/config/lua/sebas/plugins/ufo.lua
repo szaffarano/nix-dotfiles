@@ -57,7 +57,7 @@ return {
   'kevinhwang91/nvim-ufo',
   dependencies = {
     'kevinhwang91/promise-async',
-    'nvim-treesitter/nvim-treesitter',
+    { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
   },
   event = { 'BufRead', 'BufNewFile' },
   keys = {

@@ -121,6 +121,9 @@ in {
       "nvim/site/parser" = {
         source = "${treesitter-parsers}/parser";
       };
+      "nvim/site/queries" = {
+        source = "${treesitter-parsers}/queries";
+      };
     };
   };
 

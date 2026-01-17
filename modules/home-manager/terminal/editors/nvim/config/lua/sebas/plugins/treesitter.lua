@@ -2,20 +2,24 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    opts = {
-      auto_install = false,
-      ensure_installed = {},
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true },
-    },
+    branch = 'main',
+    lazy = false,
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          if vim.treesitter.language.get_lang(vim.bo.filetype) then
+            pcall(vim.treesitter.start)
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     branch = 'main',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
+      { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
     },
     config = function()
       ---@diagnostic disable-next-line: missing-fields

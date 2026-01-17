@@ -19,7 +19,7 @@ return {
     dependencies = {
       'nvim-orgmode/org-bullets.nvim',
       'nvim-orgmode/telescope-orgmode.nvim',
-      'nvim-treesitter/nvim-treesitter',
+      { 'nvim-treesitter/nvim-treesitter', branch = 'main' },
     },
     config = function()
       require('orgmode').setup {
