@@ -4,14 +4,16 @@ return {
     build = ':TSUpdate',
     branch = 'main',
     lazy = false,
-    opts = {
-      auto_install = false,
-      ensure_installed = {},
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true },
-    },
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          if vim.treesitter.language.get_lang(vim.bo.filetype) then
+            pcall(vim.treesitter.start)
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
