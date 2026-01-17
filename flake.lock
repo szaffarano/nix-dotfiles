@@ -881,6 +881,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_10": {
+      "locked": {
+        "lastModified": 1734435836,
+        "narHash": "sha256-kMBQ5PRiFLagltK0sH+08aiNt3zGERC2297iB6vrvlU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4989a246d7a390a859852baddb1013f825435cee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1768305791,
@@ -1196,7 +1212,8 @@
         "temporis": "temporis",
         "treefmt-nix": "treefmt-nix_3",
         "wofi-tools": "wofi-tools",
-        "zig": "zig"
+        "zig": "zig",
+        "zwift": "zwift"
       }
     },
     "rpi-bluez-firmware-src": {
@@ -1645,6 +1662,24 @@
       "original": {
         "owner": "mitchellh",
         "repo": "zig-overlay",
+        "type": "github"
+      }
+    },
+    "zwift": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_10"
+      },
+      "locked": {
+        "lastModified": 1767108968,
+        "narHash": "sha256-Q+T0tsbwDFMHpr5UZkvedC4nbnxB9c6nI40Wkq/IhpU=",
+        "owner": "netbrain",
+        "repo": "zwift",
+        "rev": "d46213720efb944a4017e90d90497d6c30962a24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "netbrain",
+        "repo": "zwift",
         "type": "github"
       }
     }

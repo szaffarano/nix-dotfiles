@@ -15,5 +15,6 @@
     ./syncthing.nix
     ./virtualisation.nix
     ./yubikey.nix
+    ./zwift.nix
   ];
 }

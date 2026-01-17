@@ -63,6 +63,7 @@ in {
       "syncthing"
       "virtualisation"
       "yubikey"
+      "zwift"
     ];
   };
   security.pam.services = {
