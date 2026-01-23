@@ -34,7 +34,6 @@ in {
         enable = true;
         extensions = with pkgs; [
           gh-dash
-          gh-copilot
           gh-markdown-preview
         ];
         settings = {
@@ -132,7 +131,6 @@ in {
     };
     home = lib.mkIf config.programs.git.enable {
       custom = {
-        allowed-unfree-packages = with pkgs; [gh-copilot];
         features.register = "gh";
       };
       packages = with pkgs;
