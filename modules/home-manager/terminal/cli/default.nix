@@ -40,12 +40,18 @@
       bash.enable = true;
 
       atuin = {
+        daemon.enable = true;
         enable = true;
         enableZshIntegration = config.programs.zsh.enable;
         enableFishIntegration = config.programs.fish.enable;
         flags = ["--disable-up-arrow"];
         settings = {
+          enter_accept = false;
+          inline_height = 14;
           keymap_mode = "vim-insert";
+          show_preview = false;
+          show_tabs = false;
+          style = "compact";
         };
       };
 
