@@ -25,7 +25,7 @@ in
       home.packages = with pkgs; [
         pre-commit
         go
-        nixfmt-rfc-style
+        nixfmt
         hyperfine
       ];
     };
