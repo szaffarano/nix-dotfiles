@@ -63,10 +63,6 @@
   };
 
   programs = {
-    fish = {
-      # FIXME: workaround for zwift module not being exporting env var
-      shellInit = ''set -xg ZWIFT_USERNAME sebas@zaffarano.com.ar '';
-    };
     mise.enable = true;
     nix-index.enable = true;
   };

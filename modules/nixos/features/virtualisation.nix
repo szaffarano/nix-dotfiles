@@ -12,7 +12,7 @@ in {
     virtualisation = lib.mkIf enabled {
       libvirtd.enable = true;
       docker = {
-        enable = true;
+        enable = lib.mkForce true;
         storageDriver = "btrfs";
       };
     };
