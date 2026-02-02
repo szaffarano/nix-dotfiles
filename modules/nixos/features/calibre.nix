@@ -10,13 +10,7 @@ in {
   config = {
     networking = lib.mkIf enabled {
       firewall = {
-        allowedUDPPorts = [
-          54982
-          48123
-          39001
-          44044
-          59678
-        ];
+        allowedUDPPorts = [54982];
         allowedTCPPorts = [9090];
       };
     };
