@@ -3,6 +3,8 @@
 exclude = [".git", ".github"]
 respect-gitignore = true
 
+disable = ["MD033"]
+
 [MD013]
 line-length = 100
 code-blocks = false

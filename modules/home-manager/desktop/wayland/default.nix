@@ -119,7 +119,7 @@ in
           videos = "$HOME/Videos";
 
           extraConfig = {
-            XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+            SCREENSHOTS = "$HOME/Pictures/Screenshots";
           };
         };
       };

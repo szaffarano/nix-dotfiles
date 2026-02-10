@@ -28,9 +28,9 @@ in
         '';
 
         shellAliases = {
-          nix-build-cached = "nh os switch --ask | cachix push szaffarano";
-          nix-build = "nh os switch --ask";
-          nix-cleanup = "nh clean all --keep-since 5d --keep 3";
+          nixb-cached = "nh os switch --ask | cachix push szaffarano";
+          nixb = "nh os switch --ask";
+          nixc = "nh clean all --keep-since 5d --keep 3";
           open = "xdg-open";
           pbcopy = "wl-copy";
         };
