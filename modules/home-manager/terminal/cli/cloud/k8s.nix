@@ -23,7 +23,6 @@ in
       };
 
       home.packages = with pkgs; [
-        argocd
         k9s
         kind
         kubeconform
