@@ -26,7 +26,6 @@
 
 1. Update the [.sops.yaml](./.sops.yaml) configuration file adding the age
    recipient.
-
 1. Generate secrets for this machine using both the root and your key
    recipients. Example for the OS user:
 
