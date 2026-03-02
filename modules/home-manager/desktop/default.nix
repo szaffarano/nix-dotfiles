@@ -26,7 +26,8 @@ in
         anki
 
         # books
-        calibre
+        # FIXME: broken
+        # calibre
         koreader
         readest
 
