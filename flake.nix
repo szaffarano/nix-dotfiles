@@ -201,10 +201,6 @@
       };
     };
 
-    darwinConfigurations = {
-      "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
-    };
-
     deploy.nodes.lambic = {
       hostname = "lambic";
       profiles.system = {

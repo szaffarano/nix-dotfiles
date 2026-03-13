@@ -20,6 +20,7 @@ in
       home.packages = with pkgs; [ruby];
       programs.zsh = {
         enable = lib.mkDefault true;
+        dotDir = "${config.xdg.configHome}/zsh";
         syntaxHighlighting.enable = true;
         enableCompletion = true;
         completionInit = ''

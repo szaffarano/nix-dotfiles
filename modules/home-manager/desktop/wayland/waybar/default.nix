@@ -6,7 +6,7 @@
 }: let
   cfg = config.desktop.wayland.waybar;
   pavucontrol = lib.getExe pkgs.pavucontrol;
-  blueberry = "${pkgs.blueberry}/bin/blueberry";
+  blueman = "${pkgs.blueman}/bin/blueman-manager";
   swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
 in
   with lib; {
@@ -147,7 +147,7 @@ in
             };
 
             bluetooth = {
-              on-click = "${blueberry}";
+              on-click = "${blueman}";
               format = " {status}";
               format-device-preference = ["Keychron K2"];
               # format-connected = " {device_alias}";
