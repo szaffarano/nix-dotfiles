@@ -118,11 +118,6 @@
     };
 
     zwift.url = "github:netbrain/zwift";
-
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -204,10 +199,6 @@
           "${self}/system/lambic"
         ];
       };
-    };
-
-    darwinConfigurations = {
-      "szaffarano@macbook" = localLib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
     };
 
     deploy.nodes.lambic = {
