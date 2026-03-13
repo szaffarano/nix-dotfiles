@@ -10,7 +10,7 @@ with lib; {
     rawKeys = builtins.readFile (
       pkgs.fetchurl {
         url = "https://api.github.com/users/szaffarano/gpg_keys";
-        hash = "sha256-6drqcf2yREpDGNySzAxIouqdGv3P8HBP7T7NKhb+oM4=";
+        hash = "sha256-vwYoIPI1OtiDQZ9vk1Ou+vyv3v8tRTFapClhFl6jOcw=";
       }
     );
 
