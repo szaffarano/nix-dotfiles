@@ -202,7 +202,7 @@
     };
 
     darwinConfigurations = {
-      "szaffarano@macbook" = lib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
+      "szaffarano@macbook" = localLib.mkDarwin "szaffarano" "macbook" "aarch64-darwin";
     };
 
     deploy.nodes.lambic = {
