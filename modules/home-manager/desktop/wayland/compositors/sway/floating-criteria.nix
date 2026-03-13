@@ -21,7 +21,7 @@ _: {
         app_id = "^(?!firefox$).*";
       }
       {app_id = "nm-connection-editor";}
-      {app_id = "blueberry.py";}
+      {app_id = ".blueman-manager-wrapped";}
       {app_id = "transmission-qt";}
       {app_id = "floating-terminal";}
       {

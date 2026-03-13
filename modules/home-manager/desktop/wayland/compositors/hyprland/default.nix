@@ -196,7 +196,7 @@ in
 
             "float,class:^(org.keepassxc.KeePassXC)$"
             "float,class:^(nm-connection-editor)$"
-            "float,class:^(blueberry.py)$"
+            "float,class:^(.blueman-manager-wrapped)$"
             "float,class:^(transmission-qt)$"
 
             "float,class:^(org.pulseaudio.pavucontrol)$"
