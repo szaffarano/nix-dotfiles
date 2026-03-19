@@ -29,7 +29,7 @@ in
             show-urls-copy = "Control+Shift+y";
           };
 
-          colors = with config.colorScheme.palette; {
+          colors-dark = with config.colorScheme.palette; {
             foreground = base05;
             background = base00;
             regular0 = base00;
