@@ -10,13 +10,13 @@
 
   zig = inputs.zig.overlays.default;
 
-  cliphist = import ./cliphist;
+  # cliphist = import ./cliphist;
 
   # intel-graphics-compiler = import ./intel-graphics-compiler;
 
   nur = inputs.nur.overlays.default;
 
-  wl-clipboard = import ./wl-clipboard;
+  # wl-clipboard = import ./wl-clipboard;
 
   # spotify-player = import ./spotify-player;
 
