@@ -26,7 +26,7 @@ in
         jless
         lshw
         lsof
-        nodePackages.json-diff
+        json-diff
         openssl
         p7zip
         psmisc # A set of small useful utilities that use the proc filesystem
