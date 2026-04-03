@@ -167,7 +167,7 @@ in {
       lua-language-server
       marksman
       nil
-      nodePackages.typescript-language-server
+      typescript-language-server
       python312Packages.pylatexenc
       rust-analyzer
       taplo
