@@ -41,6 +41,7 @@ in
           name = gtk-theme;
           package = theme-pkg;
         };
+        gtk4.theme = config.gtk.theme;
       };
 
       services.xsettingsd = {

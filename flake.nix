@@ -80,8 +80,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
-
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -188,16 +186,6 @@
       pilsen = nixpkgs.lib.nixosSystem {
         modules = ["${self}/system/pilsen"];
         inherit specialArgs;
-      };
-
-      lambic = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        inherit specialArgs;
-        modules = [
-          inputs.raspberry-pi-nix.nixosModules.raspberry-pi
-          inputs.raspberry-pi-nix.nixosModules.sd-image
-          "${self}/system/lambic"
-        ];
       };
     };
 
