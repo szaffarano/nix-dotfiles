@@ -18,7 +18,7 @@ in {
 
     boot = lib.mkIf enabled {
       kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_zen;
-      binfmt.emulatedSystems = lib.mkIf (pkgs.hostPlatform == "x86_64-linux") [
+      binfmt.emulatedSystems = lib.mkIf (pkgs.stdenv.hostPlatform == "x86_64-linux") [
         "aarch64-linux"
         "i686-linux"
       ];
@@ -27,7 +27,7 @@ in {
 
     services = lib.mkIf enabled {
       upower.enable = lib.mkDefault true;
-      thermald.enable = lib.mkDefault (pkgs.hostPlatform == "x86_64-linux");
+      thermald.enable = lib.mkDefault (pkgs.stdenv.hostPlatform == "x86_64-linux");
     };
 
     powerManagement.powertop.enable = enabled;
