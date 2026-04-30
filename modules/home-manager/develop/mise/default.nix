@@ -28,6 +28,7 @@ in {
           gpg_verify = false;
         };
         tools = {
+          bun = "latest";
           java = "temurin-25.0.0+36.0.LTS";
           node = "lts";
           python = "latest";
