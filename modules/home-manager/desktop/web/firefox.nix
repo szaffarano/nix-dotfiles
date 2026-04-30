@@ -19,6 +19,7 @@ in {
     };
     programs.firefox = {
       enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
       profiles.sebas = {
         id = 0;
         isDefault = true;
