@@ -30,12 +30,10 @@ in {
         tools = {
           java = "temurin-25.0.0+36.0.LTS";
           node = "lts";
-          opencode = "latest";
           python = "latest";
           ruff = "latest";
           terraform = "latest";
           tflint = "latest";
-          gemini = "latest";
         };
       };
     };
