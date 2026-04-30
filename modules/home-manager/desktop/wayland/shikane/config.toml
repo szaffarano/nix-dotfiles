@@ -26,7 +26,6 @@ adaptive_sync = false
 enable = false
 search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
 
-
 [[profile]]
 name = "docked-dual-B-sw"
 exec = [
@@ -49,7 +48,6 @@ adaptive_sync = false
 [[profile.output]]
 enable = false
 search = ["m=0x152E", "s=", "v=Chimei Innolux Corporation"]
-
 
 [[profile]]
 name = "docked-single-sw"

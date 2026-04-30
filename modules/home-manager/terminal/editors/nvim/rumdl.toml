@@ -1,9 +1,4 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/rvben/rumdl/main/rumdl.schema.json
-[global]
-exclude = [".git", ".github"]
-respect-gitignore = true
-
-disable = ["MD033"]
 
 [MD013]
 line-length = 100
@@ -12,3 +7,8 @@ tables = false
 
 [MD044]
 names = ["rumdl", "Markdown", "GitHub"]
+
+[global]
+exclude = [".git", ".github"]
+respect-gitignore = true
+disable = ["MD033"]
