@@ -129,8 +129,10 @@ in {
 
   home = {
     sessionVariables.EDITOR = "nvim";
-    custom.allowed-unfree-packages = [pkgs.codeium];
+    custom.allowed-unfree-packages = [];
     packages = with pkgs; [
+      live-nvim
+
       tree-sitter
       fswatch
 
@@ -159,7 +161,6 @@ in {
       asm-lsp
       basedpyright
       clang-tools
-      codeium
       dockerfile-language-server
       gopls
       jinja-lsp
