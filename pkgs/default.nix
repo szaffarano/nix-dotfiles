@@ -40,6 +40,7 @@
     flameshot-grim = callPackage ./flameshot {};
     get-keepass-entry = callPackage ./get-keepass-entry {};
     hackernews-tui = callPackage ./hackernews-tui {};
+    live-nvim = callPackage ./live-nvim {};
     lock-screen = callPackage ./lock-screen {};
     resurrect-hyprlock = callPackage ./resurrect-hyprlock {};
     sync-lid = callPackage ./sync-lid {};

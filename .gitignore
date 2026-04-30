@@ -2,3 +2,4 @@ result
 .luarc.json
 .direnv
 .pre-commit-config.yaml
+.worktrees

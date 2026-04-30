@@ -189,16 +189,6 @@
       };
     };
 
-    deploy.nodes.lambic = {
-      hostname = "lambic";
-      profiles.system = {
-        sshUser = "sebas";
-        user = "root";
-        interactiveSudo = true;
-        path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.lambic;
-      };
-    };
-
     checks = forEachSystem (pkgs: {
       pre-commit-check = inputs.pre-commit-hooks.lib.${pkgs.stdenv.hostPlatform.system}.run {
         src = self;
