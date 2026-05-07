@@ -12,6 +12,7 @@
     packages = with pkgs; [
       asciinema
       asciinema-agg
+      devenv
       bazel_5_1_1
       devpod
       helix
