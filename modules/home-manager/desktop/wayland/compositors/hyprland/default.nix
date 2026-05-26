@@ -173,7 +173,7 @@ in
             temporis = lib.getExe pkgs.temporis-desktop;
           in [
             "special:telegram, on-created-empty:${telegram}"
-            "special:Slack, on-created-empty:${slack}"
+            "special:slack, on-created-empty:${slack}"
             "special:temporis, on-created-empty:${temporis}"
           ];
           layerrule = [
@@ -232,11 +232,11 @@ in
             "center,class:^(musicPlayer)$"
             "workspace special:musicPlayer,class:^(musicPlayer)$"
 
-            "float,class:^(Slack)$"
-            "size 70% 80%,class:^(Slack)$"
-            "center,class:^(Slack)$"
-            "stayfocused, class:^(Slack)$"
-            "workspace special:Slack,class:^(Slack)$"
+            "float,class:^(slack)$"
+            "size 70% 80%,class:^(slack)$"
+            "center,class:^(slack)$"
+            "stayfocused, class:^(slack)$"
+            "workspace special:slack,class:^(slack)$"
 
             "float,class:^(org.telegram.desktop)$"
             "size 50% 40%,class:^(org.telegram.desktop)$"
