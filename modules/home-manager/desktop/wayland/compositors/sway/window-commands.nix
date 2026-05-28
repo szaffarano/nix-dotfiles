@@ -15,7 +15,7 @@ _: {
       }
       {
         command = "move to scratchpad";
-        criteria.app_id = "Slack";
+        criteria.app_id = "slack";
       }
       {
         command = "move to scratchpad";
