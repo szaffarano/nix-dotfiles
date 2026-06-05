@@ -150,9 +150,6 @@
           f (
             import nixpkgs {
               inherit system;
-              config.permittedInsecurePackages = [
-                "python-2.7.18.12" # needed by bazel 5.1.1
-              ];
             }
           )
       );

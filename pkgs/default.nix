@@ -8,11 +8,12 @@
   bazel_pkgs = import inputs.nixpkgs-bazel-5_1_1 {
     inherit (pkgs.stdenv.hostPlatform) system;
     config.permittedInsecurePackages = [
-      "python-2.7.18.12" # needed by bazel 5.1.1
+      "python-2.7.18.8" # needed by bazel 5.1.1
     ];
   };
   bazel_5_1_1 = with bazel_pkgs;
     callPackage ./bazel/bazel_5 {
+      inherit python27;
       inherit (darwin) cctools;
       inherit
         (darwin.apple_sdk.frameworks)

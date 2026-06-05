@@ -23,7 +23,7 @@ in
 
       terminal.cli = {
         aws.enable = true;
-        gcp.enable = true;
+        gcp.enable = false;
         k8s.enable = true;
       };
     };
