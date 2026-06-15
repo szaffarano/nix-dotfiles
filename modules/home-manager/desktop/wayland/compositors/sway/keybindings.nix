@@ -98,7 +98,10 @@
       "XF86AudioPrev" = "exec playerctl previous";
 
       "${modifier}+Control_L+Left" = "move workspace to output left";
-      "${modifier}+Control_L+Right" = "move workspace to output left";
+      "${modifier}+Control_L+Right" = "move workspace to output right";
+
+      "${modifier}+Control_L+Alt+Left" = "move container to output left";
+      "${modifier}+Control_L+Alt+Right" = "move container to output right";
 
       "${modifier}+minus" = "scratchpad show";
       "${modifier}+Shift+minus" = "move scratchpad";
