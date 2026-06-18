@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         # FIXME remove flag once https://github.com/DeterminateSystems/update-flake-lock/issues/223 is fixed
         with:
           persist-credentials: false
