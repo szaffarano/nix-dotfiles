@@ -7,7 +7,5 @@ return {
     'bash-language-server',
     'start',
   },
-  settings = {
-    filetypes = { 'sh', 'zsh', 'bash' },
-  },
+  filetypes = { 'sh', 'zsh', 'bash' },
 }

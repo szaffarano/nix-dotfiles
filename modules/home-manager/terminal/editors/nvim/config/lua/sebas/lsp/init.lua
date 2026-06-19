@@ -101,6 +101,14 @@ vim.diagnostic.config {
   },
 }
 
+vim.lsp.config('*', {
+  capabilities = {
+    general = {
+      positionEncodings = { 'utf-16' },
+    },
+  },
+})
+
 vim.lsp.enable(servers)
 
 -- vim.cmd 'set completeopt+=noselect'

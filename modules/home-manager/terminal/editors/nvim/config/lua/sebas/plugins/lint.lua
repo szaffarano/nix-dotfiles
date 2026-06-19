@@ -20,12 +20,17 @@ return {
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
-        callback = function(event)
+        callback = function()
           require('lint').try_lint()
-          local function toggle_diagnostic()
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('BufEnter', {
+        group = lint_augroup,
+        callback = function(event)
+          vim.keymap.set({ 'n', 'v' }, '<F2>', function()
             vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end
-          vim.keymap.set({ 'n', 'v' }, '<F2>', toggle_diagnostic, { buffer = event.buf, desc = 'Toggle diagnostic' })
+          end, { buffer = event.buf, desc = 'Toggle diagnostic' })
         end,
       })
 

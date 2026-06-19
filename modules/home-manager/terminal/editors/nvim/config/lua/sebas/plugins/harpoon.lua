@@ -39,10 +39,10 @@ return {
     end, { desc = 'Harpoon Window' })
 
     vim.keymap.set('n', '<C-n>', function()
-      harpoon:list():prev()
+      harpoon:list():next()
     end)
     vim.keymap.set('n', '<C-p>', function()
-      harpoon:list():next()
+      harpoon:list():prev()
     end)
   end,
 }

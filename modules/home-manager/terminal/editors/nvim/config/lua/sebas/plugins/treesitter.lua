@@ -6,6 +6,7 @@ return {
     lazy = false,
     config = function()
       vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('nvim-treesitter-ft', { clear = true }),
         callback = function()
           if vim.treesitter.language.get_lang(vim.bo.filetype) then
             pcall(vim.treesitter.start)
@@ -64,11 +65,11 @@ return {
       end, { desc = 'Select [I]nside [L]oop' })
 
       vim.keymap.set({ 'x', 'o' }, 'ii', function()
-        select.select_textobject('@conditional.outer', 'textobjects')
-      end, { desc = 'Select [A]round [I]f conditional' })
-      vim.keymap.set({ 'x', 'o' }, 'ai', function()
         select.select_textobject('@conditional.inner', 'textobjects')
       end, { desc = 'Select [I]nside [I]f conditional' })
+      vim.keymap.set({ 'x', 'o' }, 'ai', function()
+        select.select_textobject('@conditional.outer', 'textobjects')
+      end, { desc = 'Select [A]round [I]f conditional' })
 
       vim.keymap.set({ 'x', 'o' }, 'as', function()
         select.select_textobject('@local.scope', 'locals')
@@ -129,12 +130,12 @@ return {
         move.goto_previous_end('@class.outer', 'textobjects')
       end, { desc = 'Previous [C]lass end' })
 
-      vim.keymap.set({ 'n', 'x', 'o' }, ']d', function()
+      vim.keymap.set({ 'n', 'x', 'o' }, ']i', function()
         move.goto_next('@conditional.outer', 'textobjects')
-      end, { desc = 'Next con[D]itional' })
-      vim.keymap.set({ 'n', 'x', 'o' }, '[d', function()
+      end, { desc = 'Next [I]f conditional' })
+      vim.keymap.set({ 'n', 'x', 'o' }, '[i', function()
         move.goto_previous('@conditional.outer', 'textobjects')
-      end, { desc = 'Previous con[D]itional' })
+      end, { desc = 'Previous [I]f conditional' })
     end,
   },
 }

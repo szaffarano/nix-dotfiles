@@ -12,7 +12,6 @@ vim.keymap.set('n', ']d', function()
   vim.diagnostic.jump { count = 1 }
 end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- clipboard
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Copy to OS clipboard' })
@@ -43,7 +42,7 @@ vim.keymap.set({ 'n', 'v' }, '<C-x>', '<Cmd>bdelete<CR>', { desc = 'Delete curre
 
 vim.keymap.set({ 'x' }, 'p', 'pgvy', { desc = 'Retain the buffer content after pasting over a visual selection' })
 
-function ToggleQuickfix()
+local function toggle_quickfix()
   local windows = vim.fn.getwininfo()
   for _, win in ipairs(windows) do
     if win.quickfix == 1 then
@@ -54,7 +53,7 @@ function ToggleQuickfix()
   vim.cmd.copen()
 end
 
-vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>q', toggle_quickfix, { desc = 'Toggle [Q]uickfix list' })
 
 vim.keymap.set('n', '<leader>cp', function()
   local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':.')

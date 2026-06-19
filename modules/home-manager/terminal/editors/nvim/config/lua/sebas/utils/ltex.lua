@@ -5,7 +5,6 @@ M.filetypes = {
   'gitcommit',
   'mail',
   'markdown',
-  'mdx',
   'org',
   'pandoc',
   'rst',

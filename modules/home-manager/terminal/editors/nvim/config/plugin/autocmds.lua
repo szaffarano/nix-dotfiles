@@ -18,7 +18,6 @@ vim.api.nvim_create_autocmd('FileType', {
     'tex',
     'latex',
     'markdown',
-    'mdx',
     'org',
   },
   command = 'setlocal spell spelllang=en,es,de,sv',
@@ -35,7 +34,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Autosave
-local group = vim.api.nvim_create_augroup('autosave', {})
+local group = vim.api.nvim_create_augroup('autosave', { clear = true })
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'AutoSaveWritePost',
