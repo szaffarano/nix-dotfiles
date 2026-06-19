@@ -97,6 +97,9 @@
       "XF86AudioNext" = "exec playerctl next";
       "XF86AudioPrev" = "exec playerctl previous";
 
+      "XF86MonBrightnessUp" = "exec brightnessctl set +5%";
+      "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+
       "${modifier}+Control_L+Left" = "move workspace to output left";
       "${modifier}+Control_L+Right" = "move workspace to output right";
 

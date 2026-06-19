@@ -1,9 +1,4 @@
-vim.filetype.add {
-  extension = { mdx = 'mdx' },
-}
-vim.treesitter.language.register('markdown', 'mdx')
-
-local file_types = { 'markdown', 'mdx', 'codecompanion', 'Avante' }
+local file_types = { 'markdown', 'codecompanion', 'Avante' }
 
 return {
   'MeanderingProgrammer/render-markdown.nvim',
@@ -29,6 +24,12 @@ return {
     },
   },
   ft = file_types,
+  init = function()
+    -- Map .mdx extension directly to markdown so LSP/treesitter/render-markdown
+    -- all activate without an intermediate 'mdx' filetype and the compound
+    -- 'markdown.mdx' health-check warning.
+    vim.filetype.add { extension = { mdx = 'markdown' } }
+  end,
   keys = {
     { '<F3>', '<CMD>RenderMarkdown toggle<CR>', desc = 'Render Markdown' },
   },
