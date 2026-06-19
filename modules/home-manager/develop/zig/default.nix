@@ -12,7 +12,7 @@ in
     config = with pkgs;
       lib.mkIf cfg.enable {
         home = {
-          packages = [zigpkgs.default];
+          packages = [zigpkgs.master];
         };
       };
   }
