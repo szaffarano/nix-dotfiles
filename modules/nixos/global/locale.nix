@@ -12,6 +12,7 @@
         "sv_SE.UTF-8/UTF-8"
       ];
     };
-    time.timeZone = lib.mkDefault "Europe/Stockholm";
+    time.timeZone = lib.mkDefault "America/Buenos_Aires";
+    # time.timeZone = lib.mkDefault "Europe/Stockholm";
   };
 }
