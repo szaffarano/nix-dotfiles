@@ -199,6 +199,8 @@ in
             "float,class:^(.blueman-manager-wrapped)$"
             "float,class:^(transmission-qt)$"
 
+            "float,title:^timezone-toggle$"
+
             "float,class:^(org.pulseaudio.pavucontrol)$"
 
             "float,title:Meeting chat,class:zoom"
