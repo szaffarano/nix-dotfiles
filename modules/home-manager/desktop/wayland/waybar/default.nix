@@ -8,6 +8,60 @@
   pavucontrol = lib.getExe pkgs.pavucontrol;
   blueman = "${pkgs.blueman}/bin/blueman-manager";
   swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
+
+  # Timezone switch scripts (wrapper scripts to avoid quoting issues)
+  tzSwitchAR = pkgs.writeShellScriptBin "tz-switch-ar" ''
+    echo "Switching timezone to Buenos Aires..."
+    sudo timedatectl set-timezone America/Buenos_Aires
+  '';
+
+  tzSwitchSE = pkgs.writeShellScriptBin "tz-switch-se" ''
+    echo "Switching timezone to Stockholm..."
+    sudo timedatectl set-timezone Europe/Stockholm
+  '';
+
+  # Terminal launcher function
+  terminalLauncher = scriptPath:
+    if config.desktop.terminal.foot.enable
+    then "${pkgs.foot}/bin/foot -T timezone-toggle -e ${scriptPath}"
+    else if config.desktop.terminal.wezterm.enable
+    then "${pkgs.wezterm}/bin/wezterm start --class timezone-toggle -- ${scriptPath}"
+    else throw "waybar timezone module requires either foot or wezterm to be enabled";
+
+  # Timezone check script
+  tzCheckScript = pkgs.writeShellScriptBin "waybar-timezone-check" ''
+    current_tz=$(timedatectl show --property=Timezone --value 2>/dev/null || echo "")
+
+    case "$current_tz" in
+      "Europe/Stockholm")
+        echo "🇸🇪 SE"
+        ;;
+      "America/Buenos_Aires")
+        echo "🇦🇷 AR"
+        ;;
+      *)
+        echo "??"
+        ;;
+    esac
+  '';
+
+  # Timezone toggle script
+  tzToggleScript = pkgs.writeShellScriptBin "waybar-timezone-toggle" ''
+    current_tz=$(timedatectl show --property=Timezone --value 2>/dev/null || echo "")
+    notify="${pkgs.libnotify}/bin/notify-send"
+
+    case "$current_tz" in
+      "America/Buenos_Aires")
+        ${terminalLauncher "${tzSwitchSE}/bin/tz-switch-se"}
+        $notify "Timezone Changed" "Switched to Stockholm"
+        ;;
+      *)
+        # Default to Buenos Aires (handles Stockholm and unknown timezones)
+        ${terminalLauncher "${tzSwitchAR}/bin/tz-switch-ar"}
+        $notify "Timezone Changed" "Switched to Buenos Aires"
+        ;;
+    esac
+  '';
 in
   with lib; {
     options.desktop.wayland.waybar.enable = mkEnableOption "waybar";
@@ -59,6 +113,8 @@ in
               "idle_inhibitor"
               "custom/sep"
               "clock"
+              "custom/sep"
+              "custom/timezone-toggle"
               "custom/sep"
               "tray"
               "custom/sep"
@@ -237,6 +293,12 @@ in
             disk = {
               format = " {free}";
               interval = "30";
+            };
+
+            "custom/timezone-toggle" = {
+              exec = "${tzCheckScript}/bin/waybar-timezone-check";
+              interval = 30;
+              on-click = "${tzToggleScript}/bin/waybar-timezone-toggle";
             };
 
             "custom/notifications" = {

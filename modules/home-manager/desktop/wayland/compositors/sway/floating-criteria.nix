@@ -24,6 +24,7 @@ _: {
       {app_id = ".blueman-manager-wrapped";}
       {app_id = "transmission-qt";}
       {app_id = "floating-terminal";}
+      {title = "timezone-toggle";}
       {
         class = "jetbrains-idea-ce";
         title = "Welcome to IntelliJ IDEA";
