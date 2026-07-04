@@ -78,8 +78,9 @@
         enable = true;
         enableZshIntegration = config.programs.zsh.enable;
         enableFishIntegration = config.programs.fish.enable;
-        changeDirWidgetCommand = "fd --type d";
-        fileWidgetCommand = "fd --type f";
+        changeDirWidget.command = "fd --type d";
+        fileWidget.command = "fd --type f";
+        historyWidget.command = ""; # prefer atuin mapping
 
         colors = with config.colorScheme.palette; {
           "bg+" = withHash base01;
