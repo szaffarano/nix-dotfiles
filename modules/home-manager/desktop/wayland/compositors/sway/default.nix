@@ -33,6 +33,7 @@ in
 
         wayland.windowManager.sway = {
           enable = true;
+          systemd.enable = true;
           swaynag.enable = true;
 
           config = {
