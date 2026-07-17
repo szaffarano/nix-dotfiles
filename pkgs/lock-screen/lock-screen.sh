@@ -40,11 +40,19 @@ if [ "$TIMEOUT_SECS" -gt 0 ]; then
 	if ps -p "$PRE_PID" >/dev/null 2>&1; then
 		log "Timeout reached, locking"
 		kill "$PRE_PID"
-		swaylock -i "$img" --daemonize
+		if [ -n "$img" ]; then
+			swaylock -i "$img" --daemonize
+		else
+			swaylock --daemonize
+		fi
 	else
 		log "User aborted (process \"$PRE_PID\" not running)"
 	fi
 else
 	log "No timeout, locking immediately"
-	swaylock -i "$img" --daemonize
+	if [ -n "$img" ]; then
+		swaylock -i "$img" --daemonize
+	else
+		swaylock --daemonize
+	fi
 fi

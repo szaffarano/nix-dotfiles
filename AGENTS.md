@@ -381,9 +381,6 @@ sudo nixos-rebuild switch --flake .#<hostname>
 
 # Apply home-manager configuration
 home-manager switch --flake .
-
-# Build Raspberry Pi SD image
-nix build '.#nixosConfigurations.<hostname>.config.system.build.sdImage'
 ```
 
 ## Code Style Guidelines
@@ -442,7 +439,7 @@ nix build '.#nixosConfigurations.<hostname>.config.system.build.sdImage'
 - **weisse**: Laptop with desktop environment
 - **pilsen**: Desktop workstation
 - **zaffarano-elastic**: Work machine
-- **lambic**: Raspberry Pi (ARM64) - mentioned in README, may be in separate branch
+- **carbon**: Work laptop (replacing zaffarano-elastic)
 
 ## Common Tasks
 

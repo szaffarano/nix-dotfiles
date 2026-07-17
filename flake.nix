@@ -180,6 +180,11 @@
         inherit specialArgs;
       };
 
+      carbon = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/carbon"];
+        inherit specialArgs;
+      };
+
       pilsen = nixpkgs.lib.nixosSystem {
         modules = ["${self}/system/pilsen"];
         inherit specialArgs;

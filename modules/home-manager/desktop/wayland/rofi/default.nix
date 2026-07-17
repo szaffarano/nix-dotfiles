@@ -19,7 +19,7 @@ in
       rofiPowerMenu = builtins.concatStringsSep " " (lib.splitString "\n" ''
         ${lib.getExe config.programs.rofi.package}
           -show p
-          -modi 'p:rofi-power-menu --choices=suspend/logout/lockscreen/reboot/shutdown'
+          -modi 'p:rofi-power-menu --choices=suspend/logout/lockscreen/reboot/shutdown/hibernate'
           -theme-str 'window {width: 8em;} listview {lines: 5;scrollbar: false;}'
       '');
     in
