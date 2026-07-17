@@ -31,7 +31,6 @@ in
         kubernetes-helm
         kubeseal
         kustomize
-        minikube
       ];
     };
   }
