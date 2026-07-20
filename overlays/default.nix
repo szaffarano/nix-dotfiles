@@ -16,6 +16,7 @@
 
   nur = inputs.nur.overlays.default;
 
+  pass-secret-service = import ./pass-secret-service;
   # wl-clipboard = import ./wl-clipboard;
 
   # spotify-player = import ./spotify-player;
