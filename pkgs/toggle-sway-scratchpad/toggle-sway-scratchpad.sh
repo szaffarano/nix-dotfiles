@@ -12,8 +12,12 @@ function main() {
 	toggle "$APP_ID"
 }
 
+function logical_size() {
+	swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "W=" + (.current_mode.width / .scale | floor | tostring) + " H=" + (.current_mode.height / .scale | floor | tostring)'
+}
+
 function launch() {
-	eval "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "W=" + (.current_mode.width|tostring) + " H=" + (.current_mode.height|tostring)')"
+	eval "$(logical_size)"
 	WIDTH=$((W * 75 / 100))
 	HEIGHT=$((H * 75 / 100))
 
@@ -35,7 +39,10 @@ function wait_for() {
 }
 
 function toggle() {
-	sway "[app_id=$1]" "scratchpad show; move position center"
+	eval "$(logical_size)"
+	WIDTH=$((W * 75 / 100))
+	HEIGHT=$((H * 75 / 100))
+	sway "[app_id=$1]" "scratchpad show; resize set ${WIDTH} ${HEIGHT}; move position center"
 }
 
 function die() {
