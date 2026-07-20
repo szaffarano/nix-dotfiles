@@ -5,7 +5,8 @@
   ...
 }: let
   cfg = config.desktop.wayland.shikane;
-  shikaneDocked = "${pkgs.shikane}/bin/shikanectl switch docked-dual-A-sw-carbon";
+  shikaneDual = "${pkgs.shikane}/bin/shikanectl switch docked-dual-A-sw-carbon";
+  shikaneSingle = "${pkgs.shikane}/bin/shikanectl switch docked-single-sw-carbon";
   shikaneUndocked = "${pkgs.shikane}/bin/shikanectl switch undocked-sw-carbon";
 in
   with lib; {
@@ -42,8 +43,9 @@ in
 
       wayland.windowManager.sway.config = lib.mkIf config.desktop.wayland.compositors.sway.enable {
         keybindings = {
-          "Ctrl+Alt+D" = "exec ${shikaneDocked}";
-          "Ctrl+Alt+S" = "exec ${shikaneUndocked}";
+          "Ctrl+Alt+D" = "exec ${shikaneDual}";
+          "Ctrl+Alt+S" = "exec ${shikaneSingle}";
+          "Ctrl+Alt+U" = "exec ${shikaneUndocked}";
         };
       };
 
@@ -51,8 +53,9 @@ in
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
         {
           bind = [
-            "CTRL_ALT,D,exec,${shikaneDocked}"
-            "CTRL_ALT,S,exec,${shikaneUndocked}"
+            "CTRL_ALT,D,exec,${shikaneDual}"
+            "CTRL_ALT,S,exec,${shikaneSingle}"
+            "CTRL_ALT,U,exec,${shikaneUndocked}"
           ];
         };
     };
