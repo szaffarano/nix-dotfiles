@@ -132,9 +132,9 @@
       boot-status
       bottom
       cleanup-merged-branches
-      # FIXME: broken package
-      # diffsitter
+      diffsitter
       eza
+      fuse.bin
       hackernews-tui
       httpie
       libqalculate

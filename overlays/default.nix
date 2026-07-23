@@ -19,7 +19,8 @@
   pass-secret-service = import ./pass-secret-service;
   # wl-clipboard = import ./wl-clipboard;
 
-  # spotify-player = import ./spotify-player;
+  # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/544671 is promoted
+  spotify-player = import ./spotify-player;
 
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.stdenv.hostPlatform.system}' or
