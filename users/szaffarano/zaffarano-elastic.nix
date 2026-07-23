@@ -17,7 +17,6 @@
       devenv
       devpod
       helix
-      inputs.org-mcp-server.default
       mullvad-browser
       openssl
       pkg-config

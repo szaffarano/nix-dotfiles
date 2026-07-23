@@ -15,6 +15,7 @@
     ./spotify.nix
     ./ssh.nix
     ./starship.nix
+    ./org-mcp
     ./tmux
     ./tools.nix
     ./yubikey.nix
@@ -28,6 +29,7 @@
       direnv.enable = lib.mkDefault true;
       spotify.enable = lib.mkDefault true;
       net.enable = lib.mkDefault true;
+      org-mcp.enable = lib.mkDefault true;
       pass.enable = lib.mkDefault true;
       starship.enable = lib.mkDefault true;
       tmux.enable = lib.mkDefault true;
