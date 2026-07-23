@@ -933,11 +933,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1784795873,
-        "narHash": "sha256-CB6sPDFiKiWM4zxVSZyeXzvQ2cs07pGM/3FmbdU8NTs=",
+        "lastModified": 1784809267,
+        "narHash": "sha256-oIPJIkvdcEuXDUql2zjnloI70HsQNjd7hvtxzVWdd8A=",
         "owner": "szaffarano",
         "repo": "org-mcp-server",
-        "rev": "0838802403bbb93c6ba9607b61bc2b62e2ad3874",
+        "rev": "665744b39c9b5f7a6a4230af8e8da384aa584a2b",
         "type": "github"
       },
       "original": {
