@@ -50,7 +50,7 @@ function main {
 
 		case "$mode" in
 		wrap)
-			hyprctl dispatch -- exec "[float] foot -a \"$workspace\" zsh --login -c \"$cmd\""
+			hyprctl dispatch -- exec "foot -a \"$workspace\" fish -c \"$cmd\""
 			;;
 		raw)
 			eval "$cmd" &
