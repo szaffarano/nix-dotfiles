@@ -158,8 +158,7 @@ in
           };
 
           monitor = [
-            "desc:LG Electronics LG HDR 4K 301MAPNGQZ84,2560x1440,auto,1"
-            "HDMI-A-1,highres,auto,1"
+            "desc:LG Electronics LG HDR 4K 301MAPNGQZ84,3840x2160@60,0x0,1.5"
             ",preferred,auto,1"
           ];
 
