@@ -172,11 +172,11 @@ in
           workspace = let
             telegram = lib.getExe pkgs.telegram-desktop;
             slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
-            # temporis = lib.getExe pkgs.temporis-desktop;
+            temporis = lib.getExe pkgs.inputs.temporis.temporis-desktop;
           in [
             "special:telegram, on-created-empty:${telegram}"
             "special:slack, on-created-empty:${slack}"
-            # "special:temporis, on-created-empty:${temporis}"
+            "special:temporis, on-created-empty:${temporis}"
           ];
           layerrule = [
             "match:namespace ^waybar$, animation fade"
@@ -246,10 +246,10 @@ in
             "match:class ^(org.telegram.desktop)$, center on"
             "match:class ^(org.telegram.desktop)$, workspace special:telegram"
 
-            # "match:class ^(com.reciperium.temporis)$, float on"
-            # "match:class ^(com.reciperium.temporis)$, size 60% 70%"
-            # "match:class ^(com.reciperium.temporis)$, center on"
-            # "match:class ^(com.reciperium.temporis)$, workspace special:temporis"
+            "match:class ^(com.reciperium.temporis)$, float on"
+            "match:class ^(com.reciperium.temporis)$, size 60% 70%"
+            "match:class ^(com.reciperium.temporis)$, center on"
+            "match:class ^(com.reciperium.temporis)$, workspace special:temporis"
           ];
         };
       };
