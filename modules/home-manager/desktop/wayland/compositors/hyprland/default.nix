@@ -42,13 +42,18 @@ in
         resurrect-hyprlock
       ];
 
-      home.sessionVariables = {
-        XCURSOR_SIZE = 16;
-        XCURSOR_THEME = theme.gtk.cursor-theme;
+      home.pointerCursor = {
+        enable = true;
+        package = pkgs.adwaita-icon-theme;
+        name = theme.gtk.cursor-theme;
+        size = 24;
+        gtk.enable = true;
+        hyprcursor.enable = true;
       };
 
       wayland.windowManager.hyprland = {
         enable = true;
+        configType = "hyprlang";
         xwayland.enable = true;
         systemd = {
           enable = true;
@@ -137,7 +142,6 @@ in
           misc = {
             close_special_on_empty = true;
             focus_on_activate = true;
-            new_window_takes_over_fullscreen = 2;
             background_color = rgb config.colorScheme.palette.base00;
             disable_hyprland_logo = true;
             force_default_wallpaper = 0;
@@ -151,7 +155,6 @@ in
           # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
           dwindle = {
             split_width_multiplier = 1.35;
-            pseudotile = true;
           };
 
           monitor = [
@@ -170,83 +173,84 @@ in
           workspace = let
             telegram = lib.getExe pkgs.telegram-desktop;
             slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
-            temporis = lib.getExe pkgs.temporis-desktop;
+            # temporis = lib.getExe pkgs.temporis-desktop;
           in [
             "special:telegram, on-created-empty:${telegram}"
             "special:slack, on-created-empty:${slack}"
-            "special:temporis, on-created-empty:${temporis}"
+            # "special:temporis, on-created-empty:${temporis}"
           ];
           layerrule = [
-            "animation fade,waybar"
-            "blur,waybar"
-            "ignorezero,waybar"
-            "blur,swaync-control-center"
-            "ignorezero,swaync-control-center"
-            "blur,wofi"
-            "ignorezero,wofi"
+            "match:namespace ^waybar$, animation fade"
+            "match:namespace ^waybar$, blur on"
+            "match:namespace ^waybar$, ignore_alpha 0"
+            "match:namespace ^swaync-control-center$, blur on"
+            "match:namespace ^swaync-control-center$, ignore_alpha 0"
+            "match:namespace ^wofi$, blur on"
+            "match:namespace ^wofi$, ignore_alpha 0"
           ];
 
-          windowrulev2 = [
-            "workspace name:1,class:^(firefox)$"
-            "workspace name:2,class:^(jetbrains-idea)$"
-            "workspace name:3,class:^(dev-terminal)$"
+          windowrule = [
+            "match:class ^(firefox)$, workspace name:1"
+            "match:class ^(jetbrains-idea)$, workspace name:2"
+            "match:class ^(dev-terminal)$, workspace name:3"
 
-            "float,class:^(com.zaffa.loppis)$"
-            "float,class:^(xdg-desktop-portal-gtk)$"
+            "match:class ^(com.zaffa.loppis)$, float on"
+            "match:class ^(xdg-desktop-portal-gtk)$, float on"
 
-            "float,class:^(org.keepassxc.KeePassXC)$"
-            "float,class:^(nm-connection-editor)$"
-            "float,class:^(.blueman-manager-wrapped)$"
-            "float,class:^(transmission-qt)$"
+            "match:class ^(org.keepassxc.KeePassXC)$, float on"
+            "match:class ^(nm-connection-editor)$, float on"
+            "match:class ^(.blueman-manager-wrapped)$, float on"
+            "match:class ^(transmission-qt)$, float on"
 
-            "float,class:^(org.pulseaudio.pavucontrol)$"
+            "match:class ^(org.pulseaudio.pavucontrol)$, float on"
 
-            "float,title:Meeting chat,class:zoom"
-            "move 100%-w-20 30%,title:Meeting chat,class:zoom"
-            "size 15% 60%,title:Meeting chat,class:zoom"
+            "match:class ^Zoom$, float on"
 
-            "float,title:Webinar chat,class:zoom"
-            "move 100%-w-20 30%,title:Meeting chat,class:zoom"
-            "size 15% 60%,title:Meeting chat,class:zoom"
+            "match:class ^Zoom$ match:title Meeting chat, float on"
+            "match:class ^Zoom$ match:title Meeting chat, move 100%-w-20 30%"
+            "match:class ^Zoom$ match:title Meeting chat, size 15% 60%"
 
-            "float,title:^Participants.*$,class:zoom"
-            "move 100%-w-20 30%,title:^Participants.*$,class:zoom"
-            "size 15% 60%,title:^Participants.*,class:zoom"
+            "match:class ^Zoom$ match:title Webinar chat, float on"
+            "match:class ^Zoom$ match:title Webinar chat, move 100%-w-20 30%"
+            "match:class ^Zoom$ match:title Webinar chat, size 15% 60%"
 
-            "float,class:^(pavucontrol)$"
-            "size 60% 60%,class:^(pavucontrol)$"
-            "center,class:^(pavucontrol)$"
+            "match:class ^Zoom$ match:title ^Participants.*$, float on"
+            "match:class ^Zoom$ match:title ^Participants.*$, move 100%-w-20 30%"
+            "match:class ^Zoom$ match:title ^Participants.*$, size 15% 60%"
 
-            "float,class:^(orgmode)$"
-            "size 70% 80%,class:^(orgmode)$"
-            "center,class:^(orgmode)$"
-            "workspace special:orgmode,class:^(orgmode)$"
+            "match:class ^(pavucontrol)$, float on"
+            "match:class ^(pavucontrol)$, size 60% 60%"
+            "match:class ^(pavucontrol)$, center on"
 
-            "float,class:^(hackernews)$"
-            "size 70% 80%,class:^(hackernews)$"
-            "center,class:^(hackernews)$"
-            "workspace special:hackernews,class:^(hackernews)$"
+            "match:class ^(orgmode)$, float on"
+            "match:class ^(orgmode)$, size 70% 80%"
+            "match:class ^(orgmode)$, center on"
+            "match:class ^(orgmode)$, workspace special:orgmode"
 
-            "float,class:^(musicPlayer)$"
-            "size 50% 50%,class:^(musicPlayer)$"
-            "center,class:^(musicPlayer)$"
-            "workspace special:musicPlayer,class:^(musicPlayer)$"
+            "match:class ^(hackernews)$, float on"
+            "match:class ^(hackernews)$, size 70% 80%"
+            "match:class ^(hackernews)$, center on"
+            "match:class ^(hackernews)$, workspace special:hackernews"
 
-            "float,class:^(slack)$"
-            "size 70% 80%,class:^(slack)$"
-            "center,class:^(slack)$"
-            "stayfocused, class:^(slack)$"
-            "workspace special:slack,class:^(slack)$"
+            "match:class ^(musicPlayer)$, float on"
+            "match:class ^(musicPlayer)$, size 50% 50%"
+            "match:class ^(musicPlayer)$, center on"
+            "match:class ^(musicPlayer)$, workspace special:musicPlayer"
 
-            "float,class:^(org.telegram.desktop)$"
-            "size 50% 40%,class:^(org.telegram.desktop)$"
-            "center,class:^(org.telegram.desktop)$"
-            "workspace special:telegram,class:^(org.telegram.desktop)$"
+            "match:class ^(slack)$, float on"
+            "match:class ^(slack)$, size 70% 80%"
+            "match:class ^(slack)$, center on"
+            "match:class ^(slack)$, workspace special:slack"
 
-            "float,class:^(com.reciperium.temporis)$"
-            "size 60% 70%,class:^(com.reciperium.temporis)$"
-            "center,class:^(com.reciperium.temporis)$"
-            "workspace special:temporis,class:^(com.reciperium.temporis)$"
+            "match:class ^(org.telegram.desktop)$, float on"
+            "match:class ^(org.telegram.desktop)$, size 50% 40%"
+            "match:class ^(org.telegram.desktop)$, center on"
+            "match:class ^(org.telegram.desktop)$, workspace special:telegram"
+
+            # "match:class ^(com.reciperium.temporis)$, float on"
+            # "match:class ^(com.reciperium.temporis)$, size 60% 70%"
+            # "match:class ^(com.reciperium.temporis)$, center on"
+            # "match:class ^(com.reciperium.temporis)$, workspace special:temporis"
           ];
         };
       };

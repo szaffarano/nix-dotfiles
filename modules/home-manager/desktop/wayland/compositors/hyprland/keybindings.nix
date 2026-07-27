@@ -52,6 +52,8 @@ in
           ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
           ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
         ];
 
         bind = let
@@ -63,19 +65,22 @@ in
             "$mod, Return, exec,$terminal"
             "$mod_SHIFT, Q, killactive"
 
+            "$mod_CTRL_SHIFT, BackSpace, exec, systemctl suspend"
+            "$mod_CTRL, BackSpace, exec, ${lib.getExe pkgs.hyprlock}"
+
             "$mod,f,fullscreen,0"
             "$mod_SHIFT,f,fullscreen,1"
             "$mod,space,togglefloating"
-            "$mod,s,togglesplit"
+            "$mod,s,layoutmsg,togglesplit"
 
-            "$mod,minus,splitratio,-0.25"
-            "$mod_SHIFT,minus,splitratio,-0.3333333"
+            "$mod,minus,layoutmsg,splitratio -0.25"
+            "$mod_SHIFT,minus,layoutmsg,splitratio -0.3333333"
 
-            "$mod,equal,splitratio,0.25"
-            "$mod_SHIFT,equal,splitratio,0.3333333"
+            "$mod,equal,layoutmsg,splitratio 0.25"
+            "$mod_SHIFT,equal,layoutmsg,splitratio 0.3333333"
 
             "$mod,g,togglegroup"
-            "$mod,t,lockactivegroup,toggle"
+            "$mod_CTRL,g,lockactivegroup,toggle"
             "$mod_CTRL,l,changegroupactive,f"
             "$mod_CTRL,h,changegroupactive,b"
             "$mod_SHIFT,g,moveoutofgroup"
