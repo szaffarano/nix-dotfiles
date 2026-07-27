@@ -166,8 +166,10 @@ scale = 1.0
 transform = "normal"
 adaptive_sync = false
 
+# 3-output profiles first (most specific) so shikane matches them before 2-output ones
+
 [[profile]]
-name = "docked-single-sw-carbon"
+name = "docked-single-B-sw-carbon"
 exec = [
   "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
 ]
@@ -239,3 +241,66 @@ search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
 [[profile.output]]
 enable = false
 search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
+
+[[profile]]
+name = "asus-only-sw-carbon"
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
+
+[[profile.output]]
+enable = false
+search = ["m=N140JLG-GT3", "s=", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = false
+search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+
+[[profile.output]]
+enable = true
+search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
+mode = "1920x1080@74.986Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
+# 2-output profiles: auto-detect when one external is absent
+
+[[profile]]
+name = "docked-single-A-sw-carbon"
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
+
+[[profile.output]]
+enable = false
+search = ["m=N140JLG-GT3", "s=", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+mode = "3840x2160@60Hz"
+position = "0,0"
+scale = 1.5
+transform = "normal"
+adaptive_sync = false
+
+[[profile]]
+name = "asus-laptop-sw-carbon"
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
+
+[[profile.output]]
+enable = false
+search = ["m=N140JLG-GT3", "s=", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=ASUS VA24E", "s=LBLMTF309577", "v=ASUSTek COMPUTER INC"]
+mode = "1920x1080@74.986Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false

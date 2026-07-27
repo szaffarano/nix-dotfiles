@@ -25,10 +25,10 @@ in
 
     config = mkIf cfg.enable {
       desktop.wayland = {
-        kanshi.enable = lib.mkDefault false;
+        kanshi.enable = lib.mkDefault true;
         mako.enable = lib.mkDefault false;
         rofi.enable = lib.mkDefault true;
-        shikane.enable = lib.mkDefault true;
+        shikane.enable = lib.mkDefault false;
         waybar.enable = lib.mkDefault true;
         wofi.enable = lib.mkDefault true;
         wpaperd.enable = lib.mkDefault true;

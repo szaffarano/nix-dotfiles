@@ -101,11 +101,6 @@ in
                 "urgent" = "";
                 "default" = "";
               };
-              persistent-workspaces = {
-                "1" = [];
-                "2" = [];
-                "3" = [];
-              };
             };
 
             "sway/language" = {

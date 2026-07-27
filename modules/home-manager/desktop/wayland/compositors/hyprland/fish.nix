@@ -8,7 +8,7 @@
     programs.fish.loginShellInit = ''
       set TTY1 (tty)
       [ "$TTY1" = "/dev/tty1" ] && exec \
-        exec ${lib.getExe config.wayland.windowManager.hyprland.package} \
+        ${lib.getExe' config.wayland.windowManager.hyprland.package "start-hyprland"} \
           > ~/.cache/hyprland.log 2>~/.cache/hyprland.err.log
     '';
   };

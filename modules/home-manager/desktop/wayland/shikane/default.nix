@@ -6,7 +6,8 @@
 }: let
   cfg = config.desktop.wayland.shikane;
   shikaneDual = "${pkgs.shikane}/bin/shikanectl switch docked-dual-A-sw-carbon";
-  shikaneSingle = "${pkgs.shikane}/bin/shikanectl switch docked-single-sw-carbon";
+  shikaneSingle = "${pkgs.shikane}/bin/shikanectl switch docked-single-B-sw-carbon";
+  shikaneAsus = "${pkgs.shikane}/bin/shikanectl switch asus-only-sw-carbon";
   shikaneUndocked = "${pkgs.shikane}/bin/shikanectl switch undocked-sw-carbon";
 in
   with lib; {
@@ -45,6 +46,7 @@ in
         keybindings = {
           "Ctrl+Alt+D" = "exec ${shikaneDual}";
           "Ctrl+Alt+S" = "exec ${shikaneSingle}";
+          "Ctrl+Alt+A" = "exec ${shikaneAsus}";
           "Ctrl+Alt+U" = "exec ${shikaneUndocked}";
         };
       };
@@ -55,6 +57,7 @@ in
           bind = [
             "CTRL_ALT,D,exec,${shikaneDual}"
             "CTRL_ALT,S,exec,${shikaneSingle}"
+            "CTRL_ALT,A,exec,${shikaneAsus}"
             "CTRL_ALT,U,exec,${shikaneUndocked}"
           ];
         };

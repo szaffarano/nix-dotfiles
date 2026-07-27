@@ -28,8 +28,12 @@
 
   desktop = {
     enable = true;
-    wayland.compositors.hyprland.enable = false;
-    wayland.compositors.sway.enable = true;
+    wayland = {
+      compositors.hyprland.enable = false;
+      compositors.sway.enable = true;
+      kanshi.lgMode = "2560x1440@59.951Hz";
+      kanshi.lgScale = 1.0;
+    };
   };
   services = {
     flameshot = {
