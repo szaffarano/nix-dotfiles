@@ -167,7 +167,26 @@ transform = "normal"
 adaptive_sync = false
 
 [[profile]]
-name = "docked-single-sw-carbon"
+name = "docked-single-A-sw-carbon"
+exec = [
+  "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
+]
+
+[[profile.output]]
+enable = false
+search = ["m=N140JLG-GT3", "s=", "v=Chimei Innolux Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=LG HDR 4K", "s=301MAPNGQZ84", "v=LG Electronics"]
+mode = "3840x2160@60Hz"
+position = "0,0"
+scale = 1.5
+transform = "normal"
+adaptive_sync = false
+
+[[profile]]
+name = "docked-single-B-sw-carbon"
 exec = [
   "notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"",
 ]

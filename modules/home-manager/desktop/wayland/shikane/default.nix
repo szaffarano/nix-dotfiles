@@ -6,7 +6,7 @@
 }: let
   cfg = config.desktop.wayland.shikane;
   shikaneDual = "${pkgs.shikane}/bin/shikanectl switch docked-dual-A-sw-carbon";
-  shikaneSingle = "${pkgs.shikane}/bin/shikanectl switch docked-single-sw-carbon";
+  shikaneSingle = "${pkgs.shikane}/bin/shikanectl switch docked-single-A-sw-carbon";
   shikaneUndocked = "${pkgs.shikane}/bin/shikanectl switch undocked-sw-carbon";
 in
   with lib; {
