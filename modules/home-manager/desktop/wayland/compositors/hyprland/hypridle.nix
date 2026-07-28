@@ -15,8 +15,8 @@ in
       xdg.configFile."hypr/hypridle.conf".text =
         localLib.toHyprconf {
           general = let
-            lockCmd = lib.getExe pkgs.hyprlock;
-            lockCmdImmediate = "${lib.getExe pkgs.hyprlock} --immediate";
+            lockCmd = "${lib.getExe pkgs.hyprlock} --grace 5";
+            lockCmdImmediate = "${lib.getExe pkgs.hyprlock} --immediate-render";
           in {
             lock_cmd = "pidof hyprlock || ${lockCmd}";
             before_sleep_cmd = "pidof hyprlock || ${lockCmdImmediate}";
