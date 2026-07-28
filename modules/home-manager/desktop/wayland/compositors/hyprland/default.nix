@@ -199,11 +199,14 @@ in
             "match:class ^(org.keepassxc.KeePassXC)$, float on"
             "match:class ^(nm-connection-editor)$, float on"
             "match:class ^(.blueman-manager-wrapped)$, float on"
+            "match:class ^(blueman-manager)$, float on"
             "match:class ^(transmission-qt)$, float on"
 
             "match:class ^(org.pulseaudio.pavucontrol)$, float on"
 
             "match:class ^Zoom$, float on"
+
+            "match:class ^udiskie$, float on"
 
             "match:class ^Zoom$ match:title Meeting chat, float on"
             "match:class ^Zoom$ match:title Meeting chat, move 100%-w-20 30%"

@@ -14,10 +14,6 @@ in
       home.packages = with pkgs; [hyprlock];
       xdg.configFile."hypr/hyprlock.conf".text =
         localLib.toHyprconf {
-          general = {
-            grace = 5;
-          };
-
           background = {
             path = "${config.home.homeDirectory}/Pictures/screen-lock.png";
           };
@@ -36,7 +32,7 @@ in
           };
 
           label = {
-            color = rgba config.colorScheme.palette.base0A "1.0";
+            color = rgba config.colorScheme.palette.base0A "ff";
             position = "0,35";
             font_family = config.fontProfiles.monospace.name;
             font_size = config.fontProfiles.monospace.sizeAsInt * 2;

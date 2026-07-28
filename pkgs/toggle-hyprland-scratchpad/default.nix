@@ -1,18 +1,20 @@
 {
+  fd,
+  fish,
+  foot,
+  hyprland,
+  jq,
   lib,
   writeShellApplication,
-  fd,
-  hyprland,
-  foot,
-  jq,
 }:
 (writeShellApplication {
   name = "toggle-hyprland-scratchpad";
   runtimeInputs = [
     fd
+    fish
     foot
-    jq
     hyprland
+    jq
   ];
   text = builtins.readFile ./toggle-hyprland-scratchpad.sh;
 })
