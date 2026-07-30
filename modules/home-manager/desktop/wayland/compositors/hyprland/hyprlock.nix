@@ -21,7 +21,7 @@ in
           input-field = {
             hide_input = false;
 
-            size = "200, 30";
+            size = "250, 30";
 
             outer_color = rgb config.colorScheme.palette.base0A;
             inner_color = rgb config.colorScheme.palette.base00;
