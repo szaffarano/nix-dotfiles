@@ -68,7 +68,7 @@ in
           "$terminal" = terminal;
           "$mod" = "SUPER";
 
-          # https://wiki.hyprland.org/Configuring/Variables/#general
+          # https://wiki.hypr.land/Configuring/Basics/Variables/#general
           general = {
             layout = "dwindle";
             gaps_out = 3;
@@ -92,14 +92,16 @@ in
             "col.border_active" = rgb config.colorScheme.palette.base06;
             "col.border_locked_active" = rgb config.colorScheme.palette.base06;
             groupbar = {
-              font_size = config.fontProfiles.monospace.sizeAsInt;
-              text_color = rgb config.colorScheme.palette.base05;
               "col.active" = rgb config.colorScheme.palette.base02;
               "col.inactive" = rgb config.colorScheme.palette.base01;
+              font_size = config.fontProfiles.monospace.sizeAsInt;
+              font_weight_active = "bold";
+              gradients = true;
+              text_color = rgb config.colorScheme.palette.base05;
             };
           };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#decoration
+          # https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
           decoration = {
             rounding = 3;
             active_opacity = 0.99;
@@ -122,7 +124,7 @@ in
             enabled = false;
           };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#input
+          # https://wiki.hypr.land/Configuring/Basics/Variables/#input
           input = {
             kb_layout = "us,us";
             kb_variant = "altgr-intl,dvorak";
@@ -138,7 +140,7 @@ in
             };
           };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#misc
+          # https://wiki.hypr.land/Configuring/Basics/Variables/#misc
           misc = {
             close_special_on_empty = true;
             focus_on_activate = true;
@@ -152,7 +154,7 @@ in
             movefocus_cycles_fullscreen = false;
           };
 
-          # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
+          # https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
           dwindle = {
             split_width_multiplier = 1.35;
           };
