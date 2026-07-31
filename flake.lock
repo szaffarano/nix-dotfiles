@@ -911,11 +911,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1785416003,
-        "narHash": "sha256-l1ycncjIYPiVmeM03ZJuy0D3ttbb8EkbLGmZdQBuRhE=",
+        "lastModified": 1785485549,
+        "narHash": "sha256-vkPSGsIU+sVXerOJxVQ4x0vWveZgb+dkgbL9LgYoyUQ=",
         "owner": "szaffarano",
         "repo": "org-mcp-server",
-        "rev": "831698408cfd4faf30046a45e3c452843c97660f",
+        "rev": "2191220252ec94fe78039e2863a73e25e5429c10",
         "type": "github"
       },
       "original": {
