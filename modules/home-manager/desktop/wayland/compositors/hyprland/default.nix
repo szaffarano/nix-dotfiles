@@ -172,13 +172,20 @@ in
           ];
 
           workspace = let
+            foot = lib.getExe pkgs.foot;
             telegram = lib.getExe pkgs.telegram-desktop;
             slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
             temporis = lib.getExe pkgs.inputs.temporis.temporis-desktop;
+            orgmode = "[float] ${foot} -a orgmode ${lib.getExe config.programs.neovim.finalPackage} +Agenda";
+            hackernews = "[float] ${foot} -a hackernews ${lib.getExe pkgs.hackernews-tui}";
+            musicPlayer = "[float] ${foot} -a musicPlayer ${config.terminal.cli.spotify.exe}";
           in [
             "special:telegram, on-created-empty:${telegram}"
             "special:slack, on-created-empty:${slack}"
             "special:temporis, on-created-empty:${temporis}"
+            "special:orgmode, on-created-empty:${orgmode}"
+            "special:hackernews, on-created-empty:${hackernews}"
+            "special:musicPlayer, on-created-empty:${musicPlayer}"
           ];
           layerrule = [
             "match:namespace ^waybar$, animation fade"
@@ -212,47 +219,47 @@ in
 
             "match:class ^Zoom$ match:title Meeting chat, float on"
             "match:class ^Zoom$ match:title Meeting chat, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title Meeting chat, size 15% 60%"
+            "match:class ^Zoom$ match:title Meeting chat, size (monitor_w*0.15) (monitor_h*0.60)"
 
             "match:class ^Zoom$ match:title Webinar chat, float on"
             "match:class ^Zoom$ match:title Webinar chat, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title Webinar chat, size 15% 60%"
+            "match:class ^Zoom$ match:title Webinar chat, size (monitor_w*0.15) (monitor_h*0.60)"
 
             "match:class ^Zoom$ match:title ^Participants.*$, float on"
             "match:class ^Zoom$ match:title ^Participants.*$, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title ^Participants.*$, size 15% 60%"
+            "match:class ^Zoom$ match:title ^Participants.*$, size (monitor_w*0.15) (monitor_h*0.60)"
 
             "match:class ^(pavucontrol)$, float on"
-            "match:class ^(pavucontrol)$, size 60% 60%"
+            "match:class ^(pavucontrol)$, size (monitor_w*0.60) (monitor_h*0.60)"
             "match:class ^(pavucontrol)$, center on"
 
             "match:class ^(orgmode)$, float on"
-            "match:class ^(orgmode)$, size 70% 80%"
+            "match:class ^(orgmode)$, size (monitor_w*0.70) (monitor_h*0.80)"
             "match:class ^(orgmode)$, center on"
             "match:class ^(orgmode)$, workspace special:orgmode"
 
             "match:class ^(hackernews)$, float on"
-            "match:class ^(hackernews)$, size 70% 80%"
+            "match:class ^(hackernews)$, size (monitor_w*0.70) (monitor_h*0.80)"
             "match:class ^(hackernews)$, center on"
             "match:class ^(hackernews)$, workspace special:hackernews"
 
             "match:class ^(musicPlayer)$, float on"
-            "match:class ^(musicPlayer)$, size 50% 50%"
+            "match:class ^(musicPlayer)$, size (monitor_w*0.50) (monitor_h*0.50)"
             "match:class ^(musicPlayer)$, center on"
             "match:class ^(musicPlayer)$, workspace special:musicPlayer"
 
             "match:class ^(slack)$, float on"
-            "match:class ^(slack)$, size 70% 80%"
+            "match:class ^(slack)$, size (monitor_w*0.70) (monitor_h*0.80)"
             "match:class ^(slack)$, center on"
             "match:class ^(slack)$, workspace special:slack"
 
             "match:class ^(org.telegram.desktop)$, float on"
-            "match:class ^(org.telegram.desktop)$, size 50% 40%"
+            "match:class ^(org.telegram.desktop)$, size (monitor_w*0.50) (monitor_h*0.40)"
             "match:class ^(org.telegram.desktop)$, center on"
             "match:class ^(org.telegram.desktop)$, workspace special:telegram"
 
             "match:class ^(com.reciperium.temporis)$, float on"
-            "match:class ^(com.reciperium.temporis)$, size 60% 70%"
+            "match:class ^(com.reciperium.temporis)$, size (monitor_w*0.60) (monitor_h*0.70)"
             "match:class ^(com.reciperium.temporis)$, center on"
             "match:class ^(com.reciperium.temporis)$, workspace special:temporis"
           ];

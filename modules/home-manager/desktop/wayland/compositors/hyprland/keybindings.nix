@@ -56,9 +56,7 @@ in
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
         ];
 
-        bind = let
-          toggleScratchpad = lib.getExe pkgs.toggle-hyprland-scratchpad;
-        in
+        bind =
           [
             "$mod, Return, exec,$terminal"
             "$mod_SHIFT, Q, killactive"
@@ -88,9 +86,9 @@ in
             ", XF86AudioNext, exec, playerctl next"
             ", XF86AudioPrev, exec, playerctl previous"
 
-            "$mod, o, exec, ${toggleScratchpad} wrap orgmode 'nvim +Agenda'"
-            "$mod, t, exec, ${toggleScratchpad} wrap hackernews 'hackernews_tui'"
-            "$mod, m, exec, ${toggleScratchpad} wrap musicPlayer ${config.terminal.cli.spotify.exe}"
+            "$mod, o, togglespecialworkspace, orgmode"
+            "$mod, t, togglespecialworkspace, hackernews"
+            "$mod, m, togglespecialworkspace, musicPlayer"
             "$mod, p, togglespecialworkspace, slack"
             "$mod_CTRL, p, togglespecialworkspace, temporis"
             "$mod_SHIFT, t, togglespecialworkspace, telegram"
