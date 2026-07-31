@@ -16,20 +16,6 @@ function die {
 	exit 1
 }
 
-function find_pid {
-	local retries=20
-	local workspace="$1"
-	while ((retries > 0)); do
-		pid=$(hyprctl clients -j | jq ".[] | select (.class == \"$workspace\") | .pid")
-		if [ -n "$pid" ]; then
-			echo -n "$pid"
-			break
-		fi
-		sleep .1
-		retries=$((retries - 1))
-	done
-}
-
 function usage {
 	die "Usage: toggle-hyprland-scratchpad [raw|wrap] <workspace> <cmd>"
 }
@@ -50,7 +36,7 @@ function main {
 
 		case "$mode" in
 		wrap)
-			hyprctl dispatch -- exec "foot -a \"$workspace\" fish -c \"$cmd\""
+			hyprctl dispatch -- exec "[float] foot -a \"$workspace\" fish -c \"$cmd\""
 			;;
 		raw)
 			eval "$cmd" &
@@ -59,14 +45,6 @@ function main {
 			die "Unknown mode $mode"
 			;;
 		esac
-
-		pid=$(find_pid "$workspace")
-		if [ -z "$pid" ]; then
-			die "Error getting pid for $workspace"
-		fi
-
-		log "Moving $pid to workspace special"
-		hyprctl dispatch movetoworkspace special:"$workspace",pid:"$pid"
 	else
 		log "App on workspace [$workspace] already  launched, toggling it"
 		hyprctl dispatch togglespecialworkspace "$workspace"
