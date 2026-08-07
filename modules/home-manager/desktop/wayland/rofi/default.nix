@@ -196,10 +196,18 @@ in
           lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
             bind = [
-              "$mod_SHIFT,S,exec,${rofiCalc}"
-              "$mod,x,exec,${rofi} -show drun"
-              "$mod,d,exec,${rofi} -show run"
-              "$mod,backspace,exec,${rofiPowerMenu}"
+              {
+                _args = ["SUPER + SHIFT + s" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON rofiCalc})")];
+              }
+              {
+                _args = ["SUPER + x" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${rofi} -show drun"})")];
+              }
+              {
+                _args = ["SUPER + d" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${rofi} -show run"})")];
+              }
+              {
+                _args = ["SUPER + backspace" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON rofiPowerMenu})")];
+              }
             ];
           };
 

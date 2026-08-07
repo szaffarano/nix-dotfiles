@@ -5,6 +5,18 @@
   ...
 }: let
   cfg = config.desktop.wayland.compositors.hyprland;
+  mod = "SUPER";
+  inherit (lib.generators) mkLuaInline;
+
+  # `hl.bind(keys, dispatcher [, opts])`
+  # `disp` is raw Lua (an `hl.dsp.*(...)` expression).
+  mkBind = keys: disp: {
+    _args = [keys (mkLuaInline disp)];
+  };
+  mkBindOpts = keys: disp: opts: {
+    _args = [keys (mkLuaInline disp) opts];
+  };
+
   workspaces = [
     "0"
     "1"
@@ -42,80 +54,96 @@
 in
   with lib; {
     config = mkIf cfg.enable {
-      wayland.windowManager.hyprland.settings = {
-        bindm = [
-          "SUPER,mouse:272,movewindow"
-          "SUPER,mouse:273,resizewindow"
-        ];
+      wayland.windowManager.hyprland.settings.bind =
+        [
+          # Mouse move/resize (was bindm)
+          (mkBindOpts "${mod} + mouse:272" "hl.dsp.window.drag()" {mouse = true;})
+          (mkBindOpts "${mod} + mouse:273" "hl.dsp.window.resize()" {mouse = true;})
 
-        bindel = [
-          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-        ];
+          # Volume / brightness (was bindel: locked + repeating)
+          (mkBindOpts "XF86AudioRaiseVolume" ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")'' {
+            locked = true;
+            repeating = true;
+          })
+          (mkBindOpts "XF86AudioLowerVolume" ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")'' {
+            locked = true;
+            repeating = true;
+          })
+          (mkBindOpts "XF86AudioMute" ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'' {
+            locked = true;
+            repeating = true;
+          })
+          (mkBindOpts "XF86MonBrightnessUp" ''hl.dsp.exec_cmd("brightnessctl set +5%")'' {
+            locked = true;
+            repeating = true;
+          })
+          (mkBindOpts "XF86MonBrightnessDown" ''hl.dsp.exec_cmd("brightnessctl set 5%-")'' {
+            locked = true;
+            repeating = true;
+          })
 
-        bind =
-          [
-            "$mod, Return, exec,$terminal"
-            "$mod_SHIFT, Q, killactive"
+          # Core binds
+          (mkBind "${mod} + Return" ''hl.dsp.exec_cmd(${builtins.toJSON config.home.sessionVariables.TERMINAL})'')
+          (mkBind "${mod} + SHIFT + Q" "hl.dsp.window.close()")
 
-            "$mod_CTRL_SHIFT, BackSpace, exec, systemctl suspend"
-            "$mod_CTRL, BackSpace, exec, ${lib.getExe pkgs.hyprlock}"
+          (mkBind "${mod} + CTRL + SHIFT + BackSpace" ''hl.dsp.exec_cmd("systemctl suspend")'')
+          (mkBind "${mod} + CTRL + BackSpace" ''hl.dsp.exec_cmd(${builtins.toJSON (lib.getExe pkgs.hyprlock)})'')
 
-            "$mod,f,fullscreen,0"
-            "$mod_SHIFT,f,fullscreen,1"
-            "$mod,space,togglefloating"
-            "$mod,s,layoutmsg,togglesplit"
+          (mkBind "${mod} + f" "hl.dsp.window.fullscreen(0)")
+          (mkBind "${mod} + SHIFT + f" "hl.dsp.window.fullscreen(1)")
+          (mkBind "${mod} + space" ''hl.dsp.window.float({ action = "toggle" })'')
+          (mkBind "${mod} + s" ''hl.dsp.layout("togglesplit")'')
 
-            "$mod,minus,layoutmsg,splitratio -0.25"
-            "$mod_SHIFT,minus,layoutmsg,splitratio -0.3333333"
+          (mkBind "${mod} + minus" ''hl.dsp.layout("splitratio -0.25")'')
+          (mkBind "${mod} + SHIFT + minus" ''hl.dsp.layout("splitratio -0.3333333")'')
+          (mkBind "${mod} + equal" ''hl.dsp.layout("splitratio 0.25")'')
+          (mkBind "${mod} + SHIFT + equal" ''hl.dsp.layout("splitratio 0.3333333")'')
 
-            "$mod,equal,layoutmsg,splitratio 0.25"
-            "$mod_SHIFT,equal,layoutmsg,splitratio 0.3333333"
+          (mkBind "${mod} + g" "hl.dsp.group.toggle()")
+          (mkBind "${mod} + CTRL + g" "hl.dsp.group.lock_active()")
+          (mkBind "${mod} + CTRL + l" "hl.dsp.group.next()")
+          (mkBind "${mod} + CTRL + h" "hl.dsp.group.prev()")
+          (mkBind "${mod} + SHIFT + g" ''hl.dsp.window.move({ out_of_group = true })'')
 
-            "$mod,g,togglegroup"
-            "$mod_CTRL,g,lockactivegroup,toggle"
-            "$mod_CTRL,l,changegroupactive,f"
-            "$mod_CTRL,h,changegroupactive,b"
-            "$mod_SHIFT,g,moveoutofgroup"
+          (mkBind "XF86AudioPlay" ''hl.dsp.exec_cmd("playerctl play-pause")'')
+          (mkBind "XF86AudioPause" ''hl.dsp.exec_cmd("playerctl play-pause")'')
+          (mkBind "XF86AudioNext" ''hl.dsp.exec_cmd("playerctl next")'')
+          (mkBind "XF86AudioPrev" ''hl.dsp.exec_cmd("playerctl previous")'')
 
-            ", XF86AudioPlay, exec, playerctl play-pause"
-            ", XF86AudioPause, exec, playerctl play-pause"
-            ", XF86AudioNext, exec, playerctl next"
-            ", XF86AudioPrev, exec, playerctl previous"
-
-            "$mod, o, togglespecialworkspace, orgmode"
-            "$mod, t, togglespecialworkspace, hackernews"
-            "$mod, m, togglespecialworkspace, musicPlayer"
-            "$mod, p, togglespecialworkspace, slack"
-            "$mod_CTRL, p, togglespecialworkspace, temporis"
-            "$mod_SHIFT, t, togglespecialworkspace, telegram"
+          (mkBind "${mod} + o" ''hl.dsp.workspace.toggle_special("orgmode")'')
+          (mkBind "${mod} + t" ''hl.dsp.workspace.toggle_special("hackernews")'')
+          (mkBind "${mod} + m" ''hl.dsp.workspace.toggle_special("musicPlayer")'')
+          (mkBind "${mod} + p" ''hl.dsp.workspace.toggle_special("slack")'')
+          (mkBind "${mod} + CTRL + p" ''hl.dsp.workspace.toggle_special("temporis")'')
+          (mkBind "${mod} + SHIFT + t" ''hl.dsp.workspace.toggle_special("telegram")'')
+        ]
+        ++ (map (n: mkBind "${mod} + ${n}" ''hl.dsp.focus({ workspace = "name:${n}" })'') workspaces)
+        ++ (map (n: mkBind "${mod} + SHIFT + ${n}" ''hl.dsp.window.move({ workspace = "name:${n}", silent = true })'') workspaces)
+        ++ (mapAttrsToList (key: direction: mkBind "${mod} + ${key}" ''hl.dsp.focus({ direction = "${direction}" })'') directions)
+        ++ (mapAttrsToList (key: direction: mkBind "${mod} + SHIFT + ${key}" ''hl.dsp.window.swap({ direction = "${direction}" })'') directions)
+        # movewindoworgroup: move window in a direction, merging into a group if present.
+        ++ (mapAttrsToList (key: direction: mkBind "${mod} + ALT + ${key}" ''hl.dsp.window.move({ direction = "${direction}", group_aware = true })'') directions)
+        ++ (optionals config.desktop.wayland.swaync.enable (
+          let
+            swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
+          in [
+            (mkBind "CTRL + ALT + SPACE" ''hl.dsp.exec_cmd("${swayNcClient} --hide-latest")'')
+            (mkBind "CTRL + SHIFT + SPACE" ''hl.dsp.exec_cmd("${swayNcClient} --close-all")'')
           ]
-          ++ (map (n: "$mod,${n},workspace,name:${n}") workspaces)
-          ++ (map (n: "$modSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
-          ++ (mapAttrsToList (key: direction: "$mod,${key},movefocus,${direction}") directions)
-          ++ (mapAttrsToList (key: direction: "$mod_SHIFT,${key},swapwindow,${direction}") directions)
-          ++ (mapAttrsToList (key: direction: "$mod_ALT,${key},movewindoworgroup,${direction}") directions)
-          ++ (optionals config.desktop.wayland.swaync.enable (
-            let
-              swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
-            in [
-              "CTRL_ALT,SPACE,exec, ${swayNcClient} --hide-latest"
-              "CTRL_SHIFT,SPACE,exec, ${swayNcClient} --close-all"
-            ]
-          ))
-          ++ (optionals config.desktop.tools.keepassxc.enable (
-            let
-              passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
-            in ["$mod_SHIFT,w,exec,${passwordManager}"]
-          ))
-          ++ (optionals config.services.mako.enable (
-            let
-              makoctl = "${config.services.mako.package}/bin/makoctl";
-            in ["$mod,w,exec,${makoctl} dismiss"]
-          ));
-      };
+        ))
+        ++ (optionals config.desktop.tools.keepassxc.enable (
+          let
+            passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
+          in [
+            (mkBind "${mod} + SHIFT + w" ''hl.dsp.exec_cmd("${passwordManager}")'')
+          ]
+        ))
+        ++ (optionals config.services.mako.enable (
+          let
+            makoctl = "${config.services.mako.package}/bin/makoctl";
+          in [
+            (mkBind "${mod} + w" ''hl.dsp.exec_cmd("${makoctl} dismiss")'')
+          ]
+        ));
     };
   }

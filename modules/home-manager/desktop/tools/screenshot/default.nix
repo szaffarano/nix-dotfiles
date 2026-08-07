@@ -42,8 +42,18 @@ in
       in
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
           bind = [
-            ", Print, exec, ${grimblast} save area - | ${swappy} -f -"
-            "SHIFT, Print, exec, ${grimblast} save screen - | ${swappy} -f -"
+            {
+              _args = [
+                "Print"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save area - | ${swappy} -f -"})")
+              ];
+            }
+            {
+              _args = [
+                "SHIFT + Print"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save screen - | ${swappy} -f -"})")
+              ];
+            }
           ];
         };
     };

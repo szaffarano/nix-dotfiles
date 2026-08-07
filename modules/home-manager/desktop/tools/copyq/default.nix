@@ -20,8 +20,20 @@ in
       };
       wayland.windowManager.hyprland = lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
         settings = {
-          bind = ["CTRL_ALT,v,exec,copyq toggle"];
-          windowrulev2 = ["float,class:^(com.github.hluk.copyq)$"];
+          bind = [
+            {
+              _args = [
+                "CTRL + ALT + v"
+                (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("copyq toggle")'')
+              ];
+            }
+          ];
+          window_rule = [
+            {
+              match.class = "^(com.github.hluk.copyq)$";
+              float = true;
+            }
+          ];
         };
       };
 

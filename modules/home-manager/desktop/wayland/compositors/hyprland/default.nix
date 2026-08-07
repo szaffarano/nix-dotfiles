@@ -53,7 +53,7 @@ in
 
       wayland.windowManager.hyprland = {
         enable = true;
-        configType = "hyprlang";
+        configType = "lua";
         xwayland.enable = true;
         systemd = {
           enable = true;
@@ -64,114 +64,127 @@ in
           ];
         };
 
+        # Migrated to the Lua config backend (hyprlang is being removed upstream).
+        # Each top-level attribute maps to an `hl.<name>(...)` call; list values
+        # generate one call per element. Raw Lua expressions are produced with
+        # `lib.generators.mkLuaInline`.
         settings = {
-          "$terminal" = terminal;
-          "$mod" = "SUPER";
-
-          # https://wiki.hypr.land/Configuring/Basics/Variables/#general
-          general = {
-            layout = "dwindle";
-            gaps_out = 3;
-            gaps_in = 1;
-            border_size = 1;
-            resize_on_border = true;
-            "col.active_border" = rgb config.colorScheme.palette.base0A;
-            "col.inactive_border" = rgb config.colorScheme.palette.base03;
-          };
-
-          cursor = {
-            inactive_timeout = 10;
-          };
-
-          debug = {
-            disable_logs = false;
-          };
-
-          group = {
-            "col.border_inactive" = rgb config.colorScheme.palette.base0D;
-            "col.border_active" = rgb config.colorScheme.palette.base06;
-            "col.border_locked_active" = rgb config.colorScheme.palette.base06;
-            groupbar = {
-              "col.active" = rgb config.colorScheme.palette.base02;
-              "col.inactive" = rgb config.colorScheme.palette.base01;
-              font_size = config.fontProfiles.monospace.sizeAsInt;
-              font_weight_active = "bold";
-              gradients = true;
-              text_color = rgb config.colorScheme.palette.base05;
+          # https://wiki.hypr.land/Configuring/Basics/Variables/
+          config = {
+            general = {
+              layout = "dwindle";
+              gaps_out = 3;
+              gaps_in = 1;
+              border_size = 1;
+              resize_on_border = true;
+              col = {
+                active_border = rgb config.colorScheme.palette.base0A;
+                inactive_border = rgb config.colorScheme.palette.base03;
+              };
             };
-          };
 
-          # https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
-          decoration = {
-            rounding = 3;
-            active_opacity = 0.99;
-            inactive_opacity = 0.93;
-            fullscreen_opacity = 1.0;
-            blur = {
-              enabled = true;
-              size = 5;
-              passes = 3;
-              new_optimizations = true;
-              ignore_opacity = true;
-              popups = true;
+            cursor.inactive_timeout = 10;
+
+            debug.disable_logs = false;
+
+            group = {
+              col = {
+                border_inactive = rgb config.colorScheme.palette.base0D;
+                border_active = rgb config.colorScheme.palette.base06;
+                border_locked_active = rgb config.colorScheme.palette.base06;
+              };
+              groupbar = {
+                col = {
+                  active = rgb config.colorScheme.palette.base02;
+                  inactive = rgb config.colorScheme.palette.base01;
+                };
+                font_size = config.fontProfiles.monospace.sizeAsInt;
+                font_weight_active = "bold";
+                gradients = true;
+                text_color = rgb config.colorScheme.palette.base05;
+              };
             };
-            shadow = {
-              enabled = false;
+
+            decoration = {
+              rounding = 3;
+              active_opacity = 0.99;
+              inactive_opacity = 0.93;
+              fullscreen_opacity = 1.0;
+              blur = {
+                enabled = true;
+                size = 5;
+                passes = 3;
+                new_optimizations = true;
+                ignore_opacity = true;
+                popups = true;
+              };
+              shadow.enabled = false;
             };
-          };
 
-          animations = {
-            enabled = false;
-          };
+            animations.enabled = false;
 
-          # https://wiki.hypr.land/Configuring/Basics/Variables/#input
-          input = {
-            kb_layout = "us,us";
-            kb_variant = "altgr-intl,dvorak";
-            kb_options = "grp:rctrl_ralt_toggle";
-            repeat_rate = 20;
-            repeat_delay = 350;
-
-            follow_mouse = 0;
-
-            touchpad = {
-              disable_while_typing = true;
-              clickfinger_behavior = true;
+            input = {
+              kb_layout = "us,us";
+              kb_variant = "altgr-intl,dvorak";
+              kb_options = "grp:rctrl_ralt_toggle";
+              repeat_rate = 20;
+              repeat_delay = 350;
+              follow_mouse = 0;
+              touchpad = {
+                disable_while_typing = true;
+                clickfinger_behavior = true;
+              };
             };
+
+            misc = {
+              close_special_on_empty = true;
+              focus_on_activate = true;
+              background_color = rgb config.colorScheme.palette.base00;
+              disable_hyprland_logo = true;
+              force_default_wallpaper = 0;
+            };
+
+            binds = {
+              workspace_back_and_forth = true;
+              movefocus_cycles_fullscreen = false;
+            };
+
+            dwindle.split_width_multiplier = 1.35;
           };
 
-          # https://wiki.hypr.land/Configuring/Basics/Variables/#misc
-          misc = {
-            close_special_on_empty = true;
-            focus_on_activate = true;
-            background_color = rgb config.colorScheme.palette.base00;
-            disable_hyprland_logo = true;
-            force_default_wallpaper = 0;
-          };
-
-          binds = {
-            workspace_back_and_forth = true;
-            movefocus_cycles_fullscreen = false;
-          };
-
-          # https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
-          dwindle = {
-            split_width_multiplier = 1.35;
-          };
-
+          # https://wiki.hypr.land/Configuring/Basics/Monitors/
           monitor = [
-            "desc:LG Electronics LG HDR 4K 301MAPNGQZ84,3840x2160@60,0x0,1.5"
-            ",preferred,auto,1"
+            {
+              output = "desc:LG Electronics LG HDR 4K 301MAPNGQZ84";
+              mode = "3840x2160@60";
+              position = "0x0";
+              scale = 1.5;
+            }
+            {
+              output = "";
+              mode = "preferred";
+              position = "auto";
+              scale = 1;
+            }
           ];
 
-          exec-once = let
-            configure-gtk = "${pkgs.configure-gtk}/bin/configure-gtk";
-          in [
-            ''[float;tile] $terminal -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -s random || tmux new -s random"''
-            "${configure-gtk} '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' "
-          ];
+          # Autostart: https://wiki.hypr.land/Configuring/Basics/Autostart/
+          on = let
+            devTerminal = ''${terminal} -a dev-terminal ${pkgs.fish}/bin/fish -c "tmux attach -s random || tmux new -s random"'';
+            configureGtk = "${pkgs.configure-gtk}/bin/configure-gtk '${theme.gtk.theme}' '${theme.gtk.cursor-theme}' '${theme.gtk.icon-theme}' '${config.fontProfiles.regular.name}' '${config.fontProfiles.monospace.name}' ";
+          in {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''
+                function()
+                  hl.exec_cmd([[${devTerminal}]], { float = true, tile = true })
+                  hl.exec_cmd([[${configureGtk}]])
+                end'')
+            ];
+          };
 
-          workspace = let
+          # https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+          workspace_rule = let
             foot = lib.getExe pkgs.foot;
             telegram = lib.getExe pkgs.telegram-desktop;
             slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
@@ -180,88 +193,184 @@ in
             hackernews = "[float] ${foot} -a hackernews ${lib.getExe pkgs.hackernews-tui}";
             musicPlayer = "[float] ${foot} -a musicPlayer ${config.terminal.cli.spotify.exe}";
           in [
-            "special:telegram, on-created-empty:${telegram}"
-            "special:slack, on-created-empty:${slack}"
-            "special:temporis, on-created-empty:${temporis}"
-            "special:orgmode, on-created-empty:${orgmode}"
-            "special:hackernews, on-created-empty:${hackernews}"
-            "special:musicPlayer, on-created-empty:${musicPlayer}"
+            {
+              workspace = "special:telegram";
+              on_created_empty = telegram;
+            }
+            {
+              workspace = "special:slack";
+              on_created_empty = slack;
+            }
+            {
+              workspace = "special:temporis";
+              on_created_empty = temporis;
+            }
+            {
+              workspace = "special:orgmode";
+              on_created_empty = orgmode;
+            }
+            {
+              workspace = "special:hackernews";
+              on_created_empty = hackernews;
+            }
+            {
+              workspace = "special:musicPlayer";
+              on_created_empty = musicPlayer;
+            }
           ];
-          layerrule = [
-            "match:namespace ^waybar$, animation fade"
-            "match:namespace ^waybar$, blur on"
-            "match:namespace ^waybar$, ignore_alpha 0"
-            "match:namespace ^swaync-control-center$, blur on"
-            "match:namespace ^swaync-control-center$, ignore_alpha 0"
-            "match:namespace ^wofi$, blur on"
-            "match:namespace ^wofi$, ignore_alpha 0"
+
+          # https://wiki.hypr.land/Configuring/Basics/Window-Rules/#layer-rules
+          layer_rule = [
+            {
+              match.namespace = "^waybar$";
+              animation = "fade";
+              blur = true;
+              ignore_alpha = 0;
+            }
+            {
+              match.namespace = "^swaync-control-center$";
+              blur = true;
+              ignore_alpha = 0;
+            }
+            {
+              match.namespace = "^wofi$";
+              blur = true;
+              ignore_alpha = 0;
+            }
           ];
 
-          windowrule = [
-            "match:class ^(firefox)$, workspace name:1"
-            "match:class ^(jetbrains-idea)$, workspace name:2"
-            "match:class ^(dev-terminal)$, workspace name:3"
+          # https://wiki.hypr.land/Configuring/Basics/Window-Rules/
+          window_rule = [
+            {
+              match.class = "^(firefox)$";
+              workspace = "name:1";
+            }
+            {
+              match.class = "^(jetbrains-idea)$";
+              workspace = "name:2";
+            }
+            {
+              match.class = "^(dev-terminal)$";
+              workspace = "name:3";
+            }
 
-            "match:class ^(com.zaffa.loppis)$, float on"
-            "match:class ^(xdg-desktop-portal-gtk)$, float on"
+            {
+              match.class = "^(com.zaffa.loppis)$";
+              float = true;
+            }
+            {
+              match.class = "^(xdg-desktop-portal-gtk)$";
+              float = true;
+            }
+            {
+              match.class = "^(org.keepassxc.KeePassXC)$";
+              float = true;
+            }
+            {
+              match.class = "^(nm-connection-editor)$";
+              float = true;
+            }
+            {
+              match.class = "^(.blueman-manager-wrapped)$";
+              float = true;
+            }
+            {
+              match.class = "^(blueman-manager)$";
+              float = true;
+            }
+            {
+              match.class = "^(transmission-qt)$";
+              float = true;
+            }
+            {
+              match.class = "^(org.pulseaudio.pavucontrol)$";
+              float = true;
+            }
+            {
+              match.class = "^Zoom$";
+              float = true;
+            }
+            {
+              match.class = "^udiskie$";
+              float = true;
+            }
 
-            "match:class ^(org.keepassxc.KeePassXC)$, float on"
-            "match:class ^(nm-connection-editor)$, float on"
-            "match:class ^(.blueman-manager-wrapped)$, float on"
-            "match:class ^(blueman-manager)$, float on"
-            "match:class ^(transmission-qt)$, float on"
+            {
+              match = {
+                class = "^Zoom$";
+                title = "Meeting chat";
+              };
+              float = true;
+              move = "100%-w-20 30%";
+              size = "(monitor_w*0.15) (monitor_h*0.60)";
+            }
+            {
+              match = {
+                class = "^Zoom$";
+                title = "Webinar chat";
+              };
+              float = true;
+              move = "100%-w-20 30%";
+              size = "(monitor_w*0.15) (monitor_h*0.60)";
+            }
+            {
+              match = {
+                class = "^Zoom$";
+                title = "^Participants.*$";
+              };
+              float = true;
+              move = "100%-w-20 30%";
+              size = "(monitor_w*0.15) (monitor_h*0.60)";
+            }
 
-            "match:class ^(org.pulseaudio.pavucontrol)$, float on"
-
-            "match:class ^Zoom$, float on"
-
-            "match:class ^udiskie$, float on"
-
-            "match:class ^Zoom$ match:title Meeting chat, float on"
-            "match:class ^Zoom$ match:title Meeting chat, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title Meeting chat, size (monitor_w*0.15) (monitor_h*0.60)"
-
-            "match:class ^Zoom$ match:title Webinar chat, float on"
-            "match:class ^Zoom$ match:title Webinar chat, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title Webinar chat, size (monitor_w*0.15) (monitor_h*0.60)"
-
-            "match:class ^Zoom$ match:title ^Participants.*$, float on"
-            "match:class ^Zoom$ match:title ^Participants.*$, move 100%-w-20 30%"
-            "match:class ^Zoom$ match:title ^Participants.*$, size (monitor_w*0.15) (monitor_h*0.60)"
-
-            "match:class ^(pavucontrol)$, float on"
-            "match:class ^(pavucontrol)$, size (monitor_w*0.60) (monitor_h*0.60)"
-            "match:class ^(pavucontrol)$, center on"
-
-            "match:class ^(orgmode)$, float on"
-            "match:class ^(orgmode)$, size (monitor_w*0.70) (monitor_h*0.80)"
-            "match:class ^(orgmode)$, center on"
-            "match:class ^(orgmode)$, workspace special:orgmode"
-
-            "match:class ^(hackernews)$, float on"
-            "match:class ^(hackernews)$, size (monitor_w*0.70) (monitor_h*0.80)"
-            "match:class ^(hackernews)$, center on"
-            "match:class ^(hackernews)$, workspace special:hackernews"
-
-            "match:class ^(musicPlayer)$, float on"
-            "match:class ^(musicPlayer)$, size (monitor_w*0.50) (monitor_h*0.50)"
-            "match:class ^(musicPlayer)$, center on"
-            "match:class ^(musicPlayer)$, workspace special:musicPlayer"
-
-            "match:class ^(slack)$, float on"
-            "match:class ^(slack)$, size (monitor_w*0.70) (monitor_h*0.80)"
-            "match:class ^(slack)$, center on"
-            "match:class ^(slack)$, workspace special:slack"
-
-            "match:class ^(org.telegram.desktop)$, float on"
-            "match:class ^(org.telegram.desktop)$, size (monitor_w*0.50) (monitor_h*0.40)"
-            "match:class ^(org.telegram.desktop)$, center on"
-            "match:class ^(org.telegram.desktop)$, workspace special:telegram"
-
-            "match:class ^(com.reciperium.temporis)$, float on"
-            "match:class ^(com.reciperium.temporis)$, size (monitor_w*0.60) (monitor_h*0.70)"
-            "match:class ^(com.reciperium.temporis)$, center on"
-            "match:class ^(com.reciperium.temporis)$, workspace special:temporis"
+            {
+              match.class = "^(pavucontrol)$";
+              float = true;
+              size = "(monitor_w*0.60) (monitor_h*0.60)";
+              center = true;
+            }
+            {
+              match.class = "^(orgmode)$";
+              float = true;
+              size = "(monitor_w*0.70) (monitor_h*0.80)";
+              center = true;
+              workspace = "special:orgmode";
+            }
+            {
+              match.class = "^(hackernews)$";
+              float = true;
+              size = "(monitor_w*0.70) (monitor_h*0.80)";
+              center = true;
+              workspace = "special:hackernews";
+            }
+            {
+              match.class = "^(musicPlayer)$";
+              float = true;
+              size = "(monitor_w*0.50) (monitor_h*0.50)";
+              center = true;
+              workspace = "special:musicPlayer";
+            }
+            {
+              match.class = "^(slack)$";
+              float = true;
+              size = "(monitor_w*0.70) (monitor_h*0.80)";
+              center = true;
+              workspace = "special:slack";
+            }
+            {
+              match.class = "^(org.telegram.desktop)$";
+              float = true;
+              size = "(monitor_w*0.50) (monitor_h*0.40)";
+              center = true;
+              workspace = "special:telegram";
+            }
+            {
+              match.class = "^(com.reciperium.temporis)$";
+              float = true;
+              size = "(monitor_w*0.60) (monitor_h*0.70)";
+              center = true;
+              workspace = "special:temporis";
+            }
           ];
         };
       };

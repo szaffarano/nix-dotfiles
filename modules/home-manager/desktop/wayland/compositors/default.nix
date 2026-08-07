@@ -28,13 +28,13 @@ in
         ];
       };
 
-      wayland.windowManager.hyprland.settings =
+      wayland.windowManager.hyprland.extraConfig =
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
-        {
-          exec-once = [
-            "sleep 6 && ${nmAppletCmd}"
-            "sleep 6 && ${paSysTrayCmd}"
-          ];
-        };
+        ''
+          hl.on("hyprland.start", function()
+            hl.exec_cmd(${builtins.toJSON "sleep 6 && ${nmAppletCmd}"})
+            hl.exec_cmd(${builtins.toJSON "sleep 6 && ${paSysTrayCmd}"})
+          end)
+        '';
     };
   }
