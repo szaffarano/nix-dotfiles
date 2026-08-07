@@ -6,9 +6,9 @@ import sys
 
 class WofiEntry:
     def __init__(self, idx: int, title: str, is_image: bool = False):
-        self.idx = idx
-        self.title = title
-        self.is_image = is_image
+        self.idx = idx  # pyright: ignore[reportUnannotatedClassAttribute]
+        self.title = title  # pyright: ignore[reportUnannotatedClassAttribute]
+        self.is_image = is_image  # pyright: ignore[reportUnannotatedClassAttribute]
 
 
 def init_thumb_dir() -> str:
@@ -24,7 +24,7 @@ def init_thumb_dir() -> str:
 
 
 def cliphist_list() -> list[str]:
-    result = subprocess.run(["cliphist", "list"], stdout=subprocess.PIPE)
+    result = subprocess.run(["cliphist", "list"], stdout=subprocess.PIPE, check=True)
 
     if result.returncode != 0:
         return []
@@ -44,6 +44,7 @@ def ensure_thumb(idx: int, path: str) -> None:
         _ = subprocess.run(
             ["magick", "-", "-resize", "256x256>", path],
             input=img,
+            check=True,
         )
 
 
@@ -61,6 +62,7 @@ def show_menu(title: str, entries: list[str]) -> int:
             "-Dynamic_lines=true",
         ],
         input=str.encode(input),
+        check=True,
         capture_output=True,
     )
     selection = result.stdout.decode("utf-8").replace("\n", "")
@@ -69,12 +71,9 @@ def show_menu(title: str, entries: list[str]) -> int:
 
 def purge_thumbs(thumbs_path: str, wofi_input: list[WofiEntry]) -> None:
     all_thumbs = set(os.listdir(thumbs_path))
-    active_thumbs = set(
-        map(
-            lambda entry: os.path.split(entry.title)[-1],
-            filter(lambda entry: entry.is_image, wofi_input),
-        )
-    )
+    active_thumbs = {
+        os.path.split(entry.title)[-1] for entry in wofi_input if entry.is_image
+    }
 
     to_delete = all_thumbs.difference(active_thumbs)
     for thumb in to_delete:
@@ -111,7 +110,7 @@ def cli():
 
     purge_thumbs(thumbs, wofi_input)
 
-    selected = show_menu(title, list(map(lambda we: we.title, wofi_input)))
+    selected = show_menu(title, [we.title for we in wofi_input])
 
     if len(wofi_input) > 0:
         print(f"{wofi_input[selected].idx}\t")

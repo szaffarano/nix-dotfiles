@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import sys
 import json
+import sys
 
 if len(sys.argv) == 1:
     print("usage: ./this-script WORKSPACE", file=sys.stderr)
@@ -128,7 +128,7 @@ def bazel_skylib_workspace():
 # execute the WORKSPACE like it was python code in this module,
 # using all the function stubs from above.
 with open(sys.argv[1]) as f:
-    exec(f.read())
+    exec(f.read())  # noqa: S102
 
 # transform to a dict with the names as keys
 d = {el["name"]: el for el in http_archives}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import sys
 import json
+import sys
 
 if len(sys.argv) != 2:
     print("usage: ./this-script src-deps.json < WORKSPACE", file=sys.stderr)
@@ -44,7 +44,7 @@ def git_repository(**kw):
 
 # execute the WORKSPACE like it was python code in this module,
 # using all the function stubs from above.
-exec(sys.stdin.read())
+exec(sys.stdin.read())  # noqa: S102
 
 # transform to a dict with the names as keys
 d = {el["name"]: el for el in http_archives}
