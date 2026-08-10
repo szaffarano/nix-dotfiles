@@ -11,7 +11,6 @@
     packages = with pkgs; [
       asciinema
       asciinema-agg
-      awscli
       bazel_5_1_1
       bubblewrap
       confluent-cli
