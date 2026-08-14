@@ -623,7 +623,7 @@ in
         zip
         python3.pkgs.absl-py # Needed to build fish completion
       ]
-      ++ lib.optionals stdenv.isDarwin [
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
         cctools
         libcxx
         CoreFoundation
@@ -758,7 +758,7 @@ in
         # Nix to miss the hash when scanning for dependencies
         echo "${bazelRC}" >> $out/nix-support/depends
       ''
-      + lib.optionalString stdenv.isDarwin ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
         echo "${cctools}" >> $out/nix-support/depends
       '';
 
