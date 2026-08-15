@@ -16,6 +16,7 @@
   mkBindOpts = keys: disp: opts: {
     _args = [keys (mkLuaInline disp) opts];
   };
+  mkExec = keys: cmd: mkBind keys ''hl.dsp.exec_cmd("${cmd}")'';
 
   workspaces = [
     "0"
@@ -71,7 +72,6 @@ in
           })
           (mkBindOpts "XF86AudioMute" ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")'' {
             locked = true;
-            repeating = true;
           })
           (mkBindOpts "XF86MonBrightnessUp" ''hl.dsp.exec_cmd("brightnessctl set +5%")'' {
             locked = true;
@@ -86,7 +86,7 @@ in
           (mkBind "${mod} + Return" ''hl.dsp.exec_cmd(${builtins.toJSON config.home.sessionVariables.TERMINAL})'')
           (mkBind "${mod} + SHIFT + Q" "hl.dsp.window.close()")
 
-          (mkBind "${mod} + CTRL + SHIFT + BackSpace" ''hl.dsp.exec_cmd("systemctl suspend")'')
+          (mkExec "${mod} + CTRL + SHIFT + BackSpace" "systemctl suspend")
           (mkBind "${mod} + CTRL + BackSpace" ''hl.dsp.exec_cmd(${builtins.toJSON (lib.getExe pkgs.hyprlock)})'')
 
           (mkBind "${mod} + f" "hl.dsp.window.fullscreen(0)")
@@ -105,10 +105,10 @@ in
           (mkBind "${mod} + CTRL + h" "hl.dsp.group.prev()")
           (mkBind "${mod} + SHIFT + g" ''hl.dsp.window.move({ out_of_group = true })'')
 
-          (mkBind "XF86AudioPlay" ''hl.dsp.exec_cmd("playerctl play-pause")'')
-          (mkBind "XF86AudioPause" ''hl.dsp.exec_cmd("playerctl play-pause")'')
-          (mkBind "XF86AudioNext" ''hl.dsp.exec_cmd("playerctl next")'')
-          (mkBind "XF86AudioPrev" ''hl.dsp.exec_cmd("playerctl previous")'')
+          (mkExec "XF86AudioPlay" "playerctl play-pause")
+          (mkExec "XF86AudioPause" "playerctl play-pause")
+          (mkExec "XF86AudioNext" "playerctl next")
+          (mkExec "XF86AudioPrev" "playerctl previous")
 
           (mkBind "${mod} + o" ''hl.dsp.workspace.toggle_special("orgmode")'')
           (mkBind "${mod} + t" ''hl.dsp.workspace.toggle_special("hackernews")'')
@@ -127,22 +127,22 @@ in
           let
             swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
           in [
-            (mkBind "CTRL + ALT + SPACE" ''hl.dsp.exec_cmd("${swayNcClient} --hide-latest")'')
-            (mkBind "CTRL + SHIFT + SPACE" ''hl.dsp.exec_cmd("${swayNcClient} --close-all")'')
+            (mkExec "CTRL + ALT + SPACE" "${swayNcClient} --hide-latest")
+            (mkExec "CTRL + SHIFT + SPACE" "${swayNcClient} --close-all")
           ]
         ))
         ++ (optionals config.desktop.tools.keepassxc.enable (
           let
             passwordManager = "${pkgs.keepassxc}/bin/keepassxc";
           in [
-            (mkBind "${mod} + SHIFT + w" ''hl.dsp.exec_cmd("${passwordManager}")'')
+            (mkExec "${mod} + SHIFT + w" passwordManager)
           ]
         ))
         ++ (optionals config.services.mako.enable (
           let
             makoctl = "${config.services.mako.package}/bin/makoctl";
           in [
-            (mkBind "${mod} + w" ''hl.dsp.exec_cmd("${makoctl} dismiss")'')
+            (mkExec "${mod} + w" "${makoctl} dismiss")
           ]
         ));
     };

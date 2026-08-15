@@ -8,6 +8,83 @@
   cfg = config.desktop.wayland.compositors.hyprland;
   terminal = config.home.sessionVariables.TERMINAL;
   rgb = color: "rgb(${color})";
+
+  foot = lib.getExe pkgs.foot;
+  telegram = lib.getExe pkgs.telegram-desktop;
+  slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
+  temporis = lib.getExe pkgs.inputs.temporis.temporis-desktop;
+  orgmode = "${foot} -a orgmode ${lib.getExe config.programs.neovim.finalPackage} +Agenda";
+  hackernews = "${foot} -a hackernews ${lib.getExe pkgs.hackernews-tui}";
+  musicPlayer = "${foot} -a musicPlayer ${config.terminal.cli.spotify.exe}";
+
+  mkSpecialWorkspace = {
+    name,
+    cmd,
+    class ? name,
+    size,
+  }: {
+    workspace_rule = {
+      workspace = "special:${name}";
+      on_created_empty = cmd;
+    };
+    window_rule = {
+      match.class = "^(${class})$";
+      float = true;
+      inherit size;
+      center = true;
+      workspace = "special:${name}";
+    };
+  };
+
+  specialWorkspaces = map mkSpecialWorkspace [
+    {
+      name = "telegram";
+      cmd = telegram;
+      class = "org.telegram.desktop";
+      size = "(monitor_w*0.50) (monitor_h*0.40)";
+    }
+    {
+      name = "slack";
+      cmd = slack;
+      size = "(monitor_w*0.70) (monitor_h*0.80)";
+    }
+    {
+      name = "temporis";
+      cmd = temporis;
+      class = "com.reciperium.temporis";
+      size = "(monitor_w*0.60) (monitor_h*0.70)";
+    }
+    {
+      name = "orgmode";
+      cmd = orgmode;
+      size = "(monitor_w*0.70) (monitor_h*0.80)";
+    }
+    {
+      name = "hackernews";
+      cmd = hackernews;
+      size = "(monitor_w*0.70) (monitor_h*0.80)";
+    }
+    {
+      name = "musicPlayer";
+      cmd = musicPlayer;
+      size = "(monitor_w*0.50) (monitor_h*0.50)";
+    }
+  ];
+
+  floatClasses = [
+    "com.zaffa.loppis"
+    "xdg-desktop-portal-gtk"
+    "org.keepassxc.KeePassXC"
+    "nm-connection-editor"
+    ".blueman-manager-wrapped"
+    "blueman-manager"
+    "transmission-qt"
+    "org.pulseaudio.pavucontrol"
+    "Zoom"
+    "udiskie"
+  ];
+
+  zoomSize = "(monitor_w*0.15) (monitor_h*0.60)";
 in
   with lib; {
     options.desktop.wayland.compositors.hyprland.enable = mkEnableOption "hyprland";
@@ -177,47 +254,14 @@ in
               "hyprland.start"
               (lib.generators.mkLuaInline ''
                 function()
-                  hl.exec_cmd([[${devTerminal}]], { float = true, tile = true })
+                  hl.exec_cmd([[${devTerminal}]])
                   hl.exec_cmd([[${configureGtk}]])
                 end'')
             ];
           };
 
           # https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
-          workspace_rule = let
-            foot = lib.getExe pkgs.foot;
-            telegram = lib.getExe pkgs.telegram-desktop;
-            slack = "${lib.getExe pkgs.slack} --enable-features=UseOzonePlatform --ozone-platform=wayland";
-            temporis = lib.getExe pkgs.inputs.temporis.temporis-desktop;
-            orgmode = "[float] ${foot} -a orgmode ${lib.getExe config.programs.neovim.finalPackage} +Agenda";
-            hackernews = "[float] ${foot} -a hackernews ${lib.getExe pkgs.hackernews-tui}";
-            musicPlayer = "[float] ${foot} -a musicPlayer ${config.terminal.cli.spotify.exe}";
-          in [
-            {
-              workspace = "special:telegram";
-              on_created_empty = telegram;
-            }
-            {
-              workspace = "special:slack";
-              on_created_empty = slack;
-            }
-            {
-              workspace = "special:temporis";
-              on_created_empty = temporis;
-            }
-            {
-              workspace = "special:orgmode";
-              on_created_empty = orgmode;
-            }
-            {
-              workspace = "special:hackernews";
-              on_created_empty = hackernews;
-            }
-            {
-              workspace = "special:musicPlayer";
-              on_created_empty = musicPlayer;
-            }
-          ];
+          workspace_rule = map (s: s.workspace_rule) specialWorkspaces;
 
           # https://wiki.hypr.land/Configuring/Basics/Window-Rules/#layer-rules
           layer_rule = [
@@ -240,138 +284,62 @@ in
           ];
 
           # https://wiki.hypr.land/Configuring/Basics/Window-Rules/
-          window_rule = [
-            {
-              match.class = "^(firefox)$";
-              workspace = "name:1";
-            }
-            {
-              match.class = "^(jetbrains-idea)$";
-              workspace = "name:2";
-            }
-            {
-              match.class = "^(dev-terminal)$";
-              workspace = "name:3";
-            }
-
-            {
-              match.class = "^(com.zaffa.loppis)$";
+          window_rule =
+            [
+              {
+                match.class = "^(firefox)$";
+                workspace = "name:1";
+              }
+              {
+                match.class = "^(jetbrains-idea)$";
+                workspace = "name:2";
+              }
+              {
+                match.class = "^(dev-terminal)$";
+                workspace = "name:3";
+              }
+            ]
+            ++ map (c: {
+              match.class = "^(${c})$";
               float = true;
-            }
-            {
-              match.class = "^(xdg-desktop-portal-gtk)$";
-              float = true;
-            }
-            {
-              match.class = "^(org.keepassxc.KeePassXC)$";
-              float = true;
-            }
-            {
-              match.class = "^(nm-connection-editor)$";
-              float = true;
-            }
-            {
-              match.class = "^(.blueman-manager-wrapped)$";
-              float = true;
-            }
-            {
-              match.class = "^(blueman-manager)$";
-              float = true;
-            }
-            {
-              match.class = "^(transmission-qt)$";
-              float = true;
-            }
-            {
-              match.class = "^(org.pulseaudio.pavucontrol)$";
-              float = true;
-            }
-            {
-              match.class = "^Zoom$";
-              float = true;
-            }
-            {
-              match.class = "^udiskie$";
-              float = true;
-            }
-
-            {
-              match = {
-                class = "^Zoom$";
-                title = "Meeting chat";
-              };
-              float = true;
-              move = "100%-w-20 30%";
-              size = "(monitor_w*0.15) (monitor_h*0.60)";
-            }
-            {
-              match = {
-                class = "^Zoom$";
-                title = "Webinar chat";
-              };
-              float = true;
-              move = "100%-w-20 30%";
-              size = "(monitor_w*0.15) (monitor_h*0.60)";
-            }
-            {
-              match = {
-                class = "^Zoom$";
-                title = "^Participants.*$";
-              };
-              float = true;
-              move = "100%-w-20 30%";
-              size = "(monitor_w*0.15) (monitor_h*0.60)";
-            }
-
-            {
-              match.class = "^(pavucontrol)$";
-              float = true;
-              size = "(monitor_w*0.60) (monitor_h*0.60)";
-              center = true;
-            }
-            {
-              match.class = "^(orgmode)$";
-              float = true;
-              size = "(monitor_w*0.70) (monitor_h*0.80)";
-              center = true;
-              workspace = "special:orgmode";
-            }
-            {
-              match.class = "^(hackernews)$";
-              float = true;
-              size = "(monitor_w*0.70) (monitor_h*0.80)";
-              center = true;
-              workspace = "special:hackernews";
-            }
-            {
-              match.class = "^(musicPlayer)$";
-              float = true;
-              size = "(monitor_w*0.50) (monitor_h*0.50)";
-              center = true;
-              workspace = "special:musicPlayer";
-            }
-            {
-              match.class = "^(slack)$";
-              float = true;
-              size = "(monitor_w*0.70) (monitor_h*0.80)";
-              center = true;
-              workspace = "special:slack";
-            }
-            {
-              match.class = "^(org.telegram.desktop)$";
-              float = true;
-              size = "(monitor_w*0.50) (monitor_h*0.40)";
-              center = true;
-              workspace = "special:telegram";
-            }
-            {
-              match.class = "^(com.reciperium.temporis)$";
-              float = true;
-              size = "(monitor_w*0.60) (monitor_h*0.70)";
-              center = true;
-              workspace = "special:temporis";
-            }
-          ];
+            })
+            floatClasses
+            ++ [
+              {
+                match = {
+                  class = "^Zoom$";
+                  title = "Meeting chat";
+                };
+                float = true;
+                move = "100%-w-20 30%";
+                size = zoomSize;
+              }
+              {
+                match = {
+                  class = "^Zoom$";
+                  title = "Webinar chat";
+                };
+                float = true;
+                move = "100%-w-20 30%";
+                size = zoomSize;
+              }
+              {
+                match = {
+                  class = "^Zoom$";
+                  title = "^Participants.*$";
+                };
+                float = true;
+                move = "100%-w-20 30%";
+                size = zoomSize;
+              }
+              {
+                match.class = "^(pavucontrol)$";
+                float = true;
+                size = "(monitor_w*0.60) (monitor_h*0.60)";
+                center = true;
+              }
+            ]
+            ++ map (s: s.window_rule) specialWorkspaces;
         };
       };
     };
