@@ -20,7 +20,7 @@
   # wl-clipboard = import ./wl-clipboard;
 
   # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/544671 is promoted
-  spotify-player = import ./spotify-player;
+  # spotify-player = import ./spotify-player;
 
   # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/552272 is promoted
   wf-recorder = import ./wf-recorder;

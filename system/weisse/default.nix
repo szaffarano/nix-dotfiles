@@ -35,7 +35,6 @@ in {
       alsa.enable = true;
     };
     greetd.enable = false;
-    # TODO move to module?
     printing.enable = true;
   };
 
