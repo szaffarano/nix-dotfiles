@@ -17,7 +17,7 @@
   switchDual = trySwitch ["docked-dual"];
   switchSingle = trySwitch ["docked-single" "docked-single-lg"];
   switchAsus = trySwitch ["asus-only" "asus-laptop"];
-  switchUndocked = trySwitch ["undocked" "undocked-no-asus" "undocked-no-lg"];
+  switchUndocked = trySwitch ["undocked" "undocked-no-asus" "undocked-no-lg" "laptop-only"];
 
   notify = name: "notify-send kanshi '${name} applied'";
 
@@ -198,6 +198,13 @@ in
               ];
             };
           }
+          {
+            profile = {
+              name = "laptop-only";
+              exec = [(notify "laptop-only")];
+              outputs = [laptopEnabled];
+            };
+          }
         ];
       };
 
@@ -214,10 +221,18 @@ in
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
         {
           bind = [
-            "CTRL_ALT,D,exec,${switchDual}"
-            "CTRL_ALT,S,exec,${switchSingle}"
-            "CTRL_ALT,A,exec,${switchAsus}"
-            "CTRL_ALT,U,exec,${switchUndocked}"
+            {
+              _args = ["CTRL + ALT + D" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON switchDual})")];
+            }
+            {
+              _args = ["CTRL + ALT + S" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON switchSingle})")];
+            }
+            {
+              _args = ["CTRL + ALT + A" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON switchAsus})")];
+            }
+            {
+              _args = ["CTRL + ALT + U" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON switchUndocked})")];
+            }
           ];
         };
     };

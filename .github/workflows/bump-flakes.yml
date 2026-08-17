@@ -10,9 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-        # FIXME remove flag once https://github.com/DeterminateSystems/update-flake-lock/issues/223 is fixed
         with:
-          persist-credentials: false
+          persist-credentials: true
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
       - name: Update flake.lock

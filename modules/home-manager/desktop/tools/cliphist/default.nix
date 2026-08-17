@@ -66,13 +66,22 @@ in
           };
         };
 
-        wayland.windowManager.hyprland.settings =
+        wayland.windowManager.hyprland =
           lib.mkIf config.desktop.wayland.compositors.hyprland.enable
           {
-            bind = [
-              "CTRL_ALT,v,exec,${rofiCmd}"
+            settings.bind = [
+              {
+                _args = [
+                  "CTRL + ALT + v"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON rofiCmd})")
+                ];
+              }
             ];
-            exec-once = [watchCmd];
+            extraConfig = ''
+              hl.on("hyprland.start", function()
+                hl.exec_cmd(${builtins.toJSON watchCmd})
+              end)
+            '';
           };
       };
   }

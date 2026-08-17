@@ -24,9 +24,14 @@ in
           }
         ];
 
-      wayland.windowManager.hyprland.settings.exec-once = lib.mkIf (
-        config.desktop.wayland.compositors.hyprland.enable && cfg.autostart
-      ) ["${pkgs.keepassxc}/bin/keepassxc"];
+      wayland.windowManager.hyprland.extraConfig =
+        lib.mkIf (
+          config.desktop.wayland.compositors.hyprland.enable && cfg.autostart
+        ) ''
+          hl.on("hyprland.start", function()
+            hl.exec_cmd(${builtins.toJSON "${pkgs.keepassxc}/bin/keepassxc"})
+          end)
+        '';
 
       home.packages = with pkgs; [keepassxc get-keepass-entry];
     };

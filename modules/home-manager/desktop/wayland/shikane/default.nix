@@ -55,10 +55,18 @@ in
         lib.mkIf config.desktop.wayland.compositors.hyprland.enable
         {
           bind = [
-            "CTRL_ALT,D,exec,${shikaneDual}"
-            "CTRL_ALT,S,exec,${shikaneSingle}"
-            "CTRL_ALT,A,exec,${shikaneAsus}"
-            "CTRL_ALT,U,exec,${shikaneUndocked}"
+            {
+              _args = ["CTRL + ALT + D" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON shikaneDual})")];
+            }
+            {
+              _args = ["CTRL + ALT + S" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON shikaneSingle})")];
+            }
+            {
+              _args = ["CTRL + ALT + A" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON shikaneAsus})")];
+            }
+            {
+              _args = ["CTRL + ALT + U" (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON shikaneUndocked})")];
+            }
           ];
         };
     };

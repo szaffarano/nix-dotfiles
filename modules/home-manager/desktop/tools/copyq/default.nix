@@ -20,30 +20,24 @@ in
       };
       wayland.windowManager.hyprland = lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
         settings = {
-          bind = ["CTRL_ALT,v,exec,copyq toggle"];
-          windowrulev2 = ["float,class:^(com.github.hluk.copyq)$"];
+          bind = [
+            {
+              _args = [
+                "CTRL + ALT + v"
+                (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("copyq toggle")'')
+              ];
+            }
+          ];
+          window_rule = [
+            {
+              match.class = "^(com.github.hluk.copyq)$";
+              float = true;
+            }
+          ];
         };
       };
 
-      # TODO: create PR to parameterize `QT_QPA_PLATFORM`
       home.packages = with pkgs; [copyq];
       services.copyq.enable = false;
-      systemd.user.services.copyq = {
-        Unit = {
-          Description = "CopyQ clipboard management daemon";
-          PartOf = ["graphical-session.target"];
-          After = ["graphical-session.target"];
-        };
-
-        Service = {
-          ExecStart = "${pkgs.copyq}/bin/copyq";
-          Restart = "on-failure";
-          Environment = ["QT_QPA_PLATFORM=wayland"];
-        };
-
-        Install = {
-          WantedBy = ["graphical-session.target"];
-        };
-      };
     };
   }
