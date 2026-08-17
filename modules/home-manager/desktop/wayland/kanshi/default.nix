@@ -17,7 +17,7 @@
   switchDual = trySwitch ["docked-dual"];
   switchSingle = trySwitch ["docked-single" "docked-single-lg"];
   switchAsus = trySwitch ["asus-only" "asus-laptop"];
-  switchUndocked = trySwitch ["undocked" "undocked-no-asus" "undocked-no-lg"];
+  switchUndocked = trySwitch ["undocked" "undocked-no-asus" "undocked-no-lg" "laptop-only"];
 
   notify = name: "notify-send kanshi '${name} applied'";
 
@@ -196,6 +196,13 @@ in
                   status = "disable";
                 }
               ];
+            };
+          }
+          {
+            profile = {
+              name = "laptop-only";
+              exec = [(notify "laptop-only")];
+              outputs = [laptopEnabled];
             };
           }
         ];
