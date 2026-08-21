@@ -18,6 +18,7 @@ in
         home = {
           packages = [
             uv
+            ty
           ];
         };
       };
