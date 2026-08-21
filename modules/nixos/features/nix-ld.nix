@@ -37,12 +37,24 @@ in {
         libgpg-error
         libnotify
         libpulseaudio
+        libsecret
         libunwind
         libusb1
         libuuid
+        libX11
+        libxcb
+        libXcomposite
         libxcrypt-legacy
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
         libxkbcommon
         libxml2
+        libXrandr
+        libXrender
+        libXtst
         mesa
         ncurses
         nspr
@@ -55,17 +67,6 @@ in {
         vulkan-loader
         wayland
         wayland-protocols
-        libX11
-        libxcb
-        libXcomposite
-        libXcursor
-        libXdamage
-        libXext
-        libXfixes
-        libXi
-        libXrandr
-        libXrender
-        libXtst
         zlib
       ];
     };
