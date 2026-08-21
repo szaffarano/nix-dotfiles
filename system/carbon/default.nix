@@ -72,8 +72,7 @@ in {
       enable = true;
     };
     ananicy = {
-      # FIXME: Enable once the package is fixed
-      enable = false;
+      enable = true;
       package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.ananicy-cpp;
       extraRules = [
