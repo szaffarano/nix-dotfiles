@@ -51,10 +51,30 @@ get_local_branches() {
 	git branch | sed 's/^\*\? *//g' | grep -v "^\s*${MAIN_BRANCH}$" | sort
 }
 
+get_worktree_branches() {
+	git worktree list --porcelain | grep '^branch' | sed 's|^branch refs/heads/||' | sort
+}
+
 find_branches_to_delete() {
 	local merged_pr_branches="$1"
 	local local_branches="$2"
-	comm -12 <(echo "$local_branches") <(echo "$merged_pr_branches")
+	local worktree_branches="$3"
+	local candidates
+	candidates=$(comm -12 <(echo "$local_branches") <(echo "$merged_pr_branches"))
+	if [ -z "$worktree_branches" ]; then
+		echo "$candidates"
+		return
+	fi
+	comm -23 <(echo "$candidates") <(echo "$worktree_branches")
+}
+
+find_worktree_blocked_branches() {
+	local merged_pr_branches="$1"
+	local worktree_branches="$2"
+	if [ -z "$worktree_branches" ]; then
+		return
+	fi
+	comm -12 <(echo "$merged_pr_branches") <(echo "$worktree_branches")
 }
 
 confirm_deletion() {
@@ -84,11 +104,21 @@ delete_merged_pr_branches() {
 process_merged_pr_branches() {
 	local merged_pr_branches
 	local local_branches
+	local worktree_branches
 	local branches_to_delete
+	local worktree_blocked
 
 	merged_pr_branches=$(get_merged_pr_branches)
 	local_branches=$(get_local_branches)
-	branches_to_delete=$(find_branches_to_delete "$merged_pr_branches" "$local_branches")
+	worktree_branches=$(get_worktree_branches)
+	branches_to_delete=$(find_branches_to_delete "$merged_pr_branches" "$local_branches" "$worktree_branches")
+	worktree_blocked=$(find_worktree_blocked_branches "$merged_pr_branches" "$worktree_branches")
+
+	if [ -n "$worktree_blocked" ]; then
+		log_warn "Skipping branches checked out in a worktree:"
+		echo "$worktree_blocked"
+		echo ""
+	fi
 
 	if [ -z "$branches_to_delete" ]; then
 		log_warn "No branches with merged PRs found to delete"
@@ -115,21 +145,44 @@ get_branches_merged_into_main() {
 
 process_branches_merged_into_main() {
 	local merged_into_main
+	local worktree_branches
+	local deletable
+	local blocked
 
 	log_info "Checking for branches merged into ${MAIN_BRANCH}..."
-	merged_into_main=$(get_branches_merged_into_main)
+	merged_into_main=$(get_branches_merged_into_main | sed 's/^ *//' | sort)
+	worktree_branches=$(get_worktree_branches)
 
 	if [ -z "$merged_into_main" ]; then
 		log_warn "No additional branches merged into ${MAIN_BRANCH}"
 		return
 	fi
 
+	if [ -n "$worktree_branches" ]; then
+		blocked=$(comm -12 <(echo "$merged_into_main") <(echo "$worktree_branches"))
+		deletable=$(comm -23 <(echo "$merged_into_main") <(echo "$worktree_branches"))
+	else
+		blocked=""
+		deletable="$merged_into_main"
+	fi
+
+	if [ -n "$blocked" ]; then
+		log_warn "Skipping branches checked out in a worktree:"
+		echo "$blocked"
+		echo ""
+	fi
+
+	if [ -z "$deletable" ]; then
+		log_warn "No additional branches merged into ${MAIN_BRANCH}"
+		return
+	fi
+
 	log_warn "Found branches merged into ${MAIN_BRANCH}:"
-	echo "$merged_into_main"
+	echo "$deletable"
 	echo ""
 
 	if confirm_deletion "Do you want to delete these branches?"; then
-		echo "$merged_into_main" | xargs -r git branch -d
+		echo "$deletable" | xargs -r git branch -d
 		log_success "Deleted branches merged into ${MAIN_BRANCH}"
 	else
 		log_warn "Cancelled"
