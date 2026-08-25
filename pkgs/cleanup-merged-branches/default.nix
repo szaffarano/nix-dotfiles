@@ -6,14 +6,14 @@
   git,
 }:
 (writeShellApplication {
-  name = "cleanup-merged-branches";
+  name = "git-cleanup-merged-branches";
   runtimeInputs = [coreutils gh git];
-  text = builtins.readFile ./cleanup-merged-branches.sh;
+  text = builtins.readFile ./git-cleanup-merged-branches.sh;
 })
 // {
   meta = with lib; {
     licenses = licenses.mit;
     platforms = platforms.all;
-    mainProgram = "cleanup-merged-branches";
+    mainProgram = "git-cleanup-merged-branches";
   };
 }
