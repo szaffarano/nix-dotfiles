@@ -35,6 +35,12 @@ _: {
           app_id = "hnMode";
         };
       }
+      {
+        command = "move to scratchpad";
+        criteria = {
+          app_id = "termScratch";
+        };
+      }
     ];
   };
 }

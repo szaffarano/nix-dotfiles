@@ -16,6 +16,7 @@
   orgmode = "${foot} -a orgmode ${lib.getExe config.programs.neovim.finalPackage} +Agenda";
   hackernews = "${foot} -a hackernews ${lib.getExe pkgs.hackernews-tui}";
   musicPlayer = "${foot} -a musicPlayer ${config.terminal.cli.spotify.exe}";
+  termScratch = "${foot} -a termScratch";
 
   mkSpecialWorkspace = {
     name,
@@ -68,6 +69,11 @@
       name = "musicPlayer";
       cmd = musicPlayer;
       size = "(monitor_w*0.50) (monitor_h*0.50)";
+    }
+    {
+      name = "termScratch";
+      cmd = termScratch;
+      size = "(monitor_w*0.70) (monitor_h*0.60)";
     }
   ];
 
