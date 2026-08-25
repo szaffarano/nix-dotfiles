@@ -20,6 +20,7 @@
       lockScreen = lib.getExe pkgs.lock-screen;
       musicPlayer = "${toggleScratchpad} 'musicPlayer' '${config.terminal.cli.spotify.exe}'";
       orgMode = "${toggleScratchpad} 'orgMode' 'nvim +Agenda'";
+      termScratch = "${toggleScratchpad} 'termScratch' '${terminal}'";
       passwordManager = lib.getExe pkgs.keepassxc;
       swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
       toggleScratchpad = lib.getExe pkgs.toggle-sway-scratchpad;
@@ -112,6 +113,7 @@
       "${modifier}+m" = "exec ${musicPlayer}";
       "${modifier}+o" = "exec ${orgMode}";
       "${modifier}+t" = "exec ${hackernews}";
+      "${modifier}+grave" = "exec ${termScratch}";
       "${modifier}+Shift+t" = ''[app_id="org.telegram.desktop"] scratchpad show'';
       "${modifier}+Control+p" = ''[app_id="com.reciperium.temporis"] scratchpad show'';
       "${modifier}+p" = ''[app_id="slack"] scratchpad show'';

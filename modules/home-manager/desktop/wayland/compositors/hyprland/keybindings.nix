@@ -116,6 +116,7 @@ in
           (mkBind "${mod} + p" ''hl.dsp.workspace.toggle_special("slack")'')
           (mkBind "${mod} + CTRL + p" ''hl.dsp.workspace.toggle_special("temporis")'')
           (mkBind "${mod} + SHIFT + t" ''hl.dsp.workspace.toggle_special("telegram")'')
+          (mkBind "${mod} + grave" ''hl.dsp.workspace.toggle_special("termScratch")'')
         ]
         ++ (map (n: mkBind "${mod} + ${n}" ''hl.dsp.focus({ workspace = "name:${n}" })'') workspaces)
         ++ (map (n: mkBind "${mod} + SHIFT + ${n}" ''hl.dsp.window.move({ workspace = "name:${n}", silent = true })'') workspaces)
