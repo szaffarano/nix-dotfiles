@@ -6,6 +6,10 @@ _: {
         criteria.app_id = "firefox";
       }
       {
+        command = "inhibit_idle fullscreen";
+        criteria.app_id = "firefox-nightly";
+      }
+      {
         command = "move to scratchpad";
         criteria.app_id = "org.telegram.desktop";
       }

@@ -293,6 +293,10 @@ in
           window_rule =
             [
               {
+                match.class = "^(firefox-nightly)$";
+                workspace = "name:1";
+              }
+              {
                 match.class = "^(firefox)$";
                 workspace = "name:1";
               }
