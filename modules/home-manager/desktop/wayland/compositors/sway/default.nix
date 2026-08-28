@@ -116,7 +116,7 @@ in
             ];
 
             assigns = {
-              "1" = [{app_id = "firefox";}];
+              "1" = [{app_id = "firefox";} {app_id = "firefox-nightly";}];
               "2" = [{class = "jetbrains-idea.*";}];
               "3" = [{app_id = "dev-terminal";}];
             };
