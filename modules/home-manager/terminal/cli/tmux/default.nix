@@ -98,6 +98,9 @@ in
           set-window-option -g window-status-bell-style "fg=#${base00},bg=#${base08}"
           set-window-option -g window-status-activity-style "fg=#${base05},bg=#${base01}"
           set-option -g message-command-style "fg=#${base06},bg=#${base02}"
+
+          set-option -g extended-keys on
+          set-option -g extended-keys-format csi-u
         '';
       };
     };
