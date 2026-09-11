@@ -54,10 +54,12 @@ in {
         };
         ".default-npm-packages".text = lib.mkDefault ''
           bash-language-server
-          yarn
+          context-mode
           @devcontainers/cli
+          @earendil-works/pi-coding-agent
           @github/copilot
           @github/copilot-language-server
+          yarn
         '';
         ".default-python-packages".text = lib.mkDefault ''
           poetry
