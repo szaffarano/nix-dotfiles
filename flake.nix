@@ -105,11 +105,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvim-mcp = {
-      url = "github:linw1995/nvim-mcp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";

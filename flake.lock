@@ -76,32 +76,10 @@
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "nvim-mcp",
-          "nixpkgs"
-        ],
-        "rust-analyzer-src": "rust-analyzer-src"
-      },
-      "locked": {
-        "lastModified": 1765435813,
-        "narHash": "sha256-C6tT7K1Lx6VsYw1BY5S3OavtapUvEnDQtmQB5DSgbCc=",
-        "owner": "nix-community",
-        "repo": "fenix",
-        "rev": "6399553b7a300c77e7f07342904eb696a5b6bf9d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "fenix",
-        "type": "github"
-      }
-    },
-    "fenix_2": {
-      "inputs": {
-        "nixpkgs": [
           "temporis",
           "nixpkgs"
         ],
-        "rust-analyzer-src": "rust-analyzer-src_2"
+        "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
         "lastModified": 1784190100,
@@ -386,7 +364,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -876,28 +854,6 @@
         "type": "github"
       }
     },
-    "nvim-mcp": {
-      "inputs": {
-        "fenix": "fenix",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": "utils_2"
-      },
-      "locked": {
-        "lastModified": 1788966761,
-        "narHash": "sha256-uVp4/I9OtC3KWl9h3h9NivepiC4VtUWL4JGm3qenruY=",
-        "owner": "linw1995",
-        "repo": "nvim-mcp",
-        "rev": "986be68135a05ebdb727e73e609ffda0bbbbfdf6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "linw1995",
-        "repo": "nvim-mcp",
-        "type": "github"
-      }
-    },
     "org-mcp-server": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -1005,7 +961,6 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-bazel-5_1_1": "nixpkgs-bazel-5_1_1",
         "nur": "nur",
-        "nvim-mcp": "nvim-mcp",
         "org-mcp-server": "org-mcp-server",
         "pre-commit-hooks": "pre-commit-hooks",
         "rofi-tools": "rofi-tools",
@@ -1019,23 +974,6 @@
       }
     },
     "rust-analyzer-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1765400135,
-        "narHash": "sha256-D3+4hfNwUhG0fdCpDhOASLwEQ1jKuHi4mV72up4kLQM=",
-        "owner": "rust-lang",
-        "repo": "rust-analyzer",
-        "rev": "fface27171988b3d605ef45cf986c25533116f7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rust-lang",
-        "ref": "nightly",
-        "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "rust-analyzer-src_2": {
       "flake": false,
       "locked": {
         "lastModified": 1784155628,
@@ -1136,21 +1074,6 @@
       }
     },
     "systems_4": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_5": {
       "flake": false,
       "locked": {
         "lastModified": 1681028828,
@@ -1169,7 +1092,7 @@
     "temporis": {
       "inputs": {
         "crane": "crane",
-        "fenix": "fenix_2",
+        "fenix": "fenix",
         "flake-parts": "flake-parts_5",
         "nixpkgs": [
           "nixpkgs"
@@ -1287,24 +1210,6 @@
         "type": "github"
       }
     },
-    "utils_2": {
-      "inputs": {
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "wofi-tools": {
       "inputs": {
         "flake-parts": "flake-parts_6",
@@ -1335,7 +1240,7 @@
       "inputs": {
         "flake-compat": "flake-compat_7",
         "nixpkgs": "nixpkgs_7",
-        "systems": "systems_5"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1789347364,
