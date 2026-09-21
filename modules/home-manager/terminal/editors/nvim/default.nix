@@ -153,10 +153,6 @@ in {
       hadolint
       vale
 
-      # used by codecompanion
-      # vectorcode
-      inputs.nvim-mcp.default
-
       # LSP servers
       asm-lsp
       basedpyright

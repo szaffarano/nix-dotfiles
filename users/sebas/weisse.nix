@@ -4,8 +4,11 @@ _: {
     wayland = {
       compositors.hyprland.enable = false;
       compositors.sway.enable = true;
-      kanshi.lgMode = "2560x1440@59.951Hz";
-      kanshi.lgScale = 1.0;
+      kanshi = {
+        lgMode = "2560x1440@59.951Hz";
+        lgScale = 1.0;
+        laptopMode = "1920x1080@60.008Hz";
+      };
     };
   };
 
