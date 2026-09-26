@@ -41,6 +41,8 @@ function main() {
 	echo "$CERTIFY_PASS" | gpg --batch --pinentry-mode=loopback \
 		--passphrase-fd 0 --quick-set-expire "$keyfp" "$expiration" \
 		"${args[@]}"
+	echo "$CERTIFY_PASS" | gpg --batch --pinentry-mode=loopback \
+		--passphrase-fd 0 --quick-set-expire "$keyfp" "$expiration"
 	gpg -K
 	gpg --armor --export "$keyid" | tee "$output"
 	echo "Updated public key saved on $output"
