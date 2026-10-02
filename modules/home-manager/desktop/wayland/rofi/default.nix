@@ -213,13 +213,15 @@ in
 
         programs.rofi = {
           enable = true;
-          font = "${config.fontProfiles.regular.name} 11";
+          settings = {
+            font = "${config.fontProfiles.regular.name} 11";
+            extraConfig = {
+              show-icons = true;
+            };
+          };
           package = pkgs.rofi;
           plugins = [(pkgs.rofi-calc.override {rofi-unwrapped = pkgs.rofi;})];
           theme = config.colorScheme.slug;
-          extraConfig = {
-            show-icons = true;
-          };
         };
       };
   }

@@ -45,7 +45,6 @@ in
           dicts:
             with dicts; [
               en
-              en-computers
               es
             ]
         ))

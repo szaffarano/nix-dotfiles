@@ -19,6 +19,10 @@
         auto-optimise-store = lib.mkDefault true;
         warn-dirty = lib.mkDefault false;
         flake-registry = lib.mkDefault ""; # Disable global flake registry
+
+        # Add nixpkgs input to NIX_PATH
+        # This lets nix2 commands still use <nixpkgs>
+        nix-path = ["nixpkgs=${inputs.nixpkgs.outPath}"];
       };
       gc = lib.mkDefault {
         automatic = true;
@@ -28,10 +32,6 @@
 
       # To make nix3 commands consistent with the flake
       registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-      # Add nixpkgs input to NIX_PATH
-      # This lets nix2 commands still use <nixpkgs>
-      nixPath = ["nixpkgs=${inputs.nixpkgs.outPath}"];
     };
   };
 }
