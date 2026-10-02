@@ -4,6 +4,7 @@
     ./cross-compile.nix
     ./desktop.nix
     ./elastic-endpoint.nix
+    ./embedded.nix
     ./home-manager.nix
     ./hyprland.nix
     ./laptop.nix
