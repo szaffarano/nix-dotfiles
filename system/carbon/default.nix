@@ -53,6 +53,7 @@ in {
       "desktop"
       "cross-compile"
       "elastic-endpoint"
+      "embedded"
       "home-manager"
       "hyprland"
       "laptop"
