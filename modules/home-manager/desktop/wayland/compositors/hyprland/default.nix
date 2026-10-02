@@ -317,6 +317,13 @@ in
             ++ [
               {
                 match = {
+                  class = "^anki$";
+                  title = "Add";
+                };
+                float = true;
+              }
+              {
+                match = {
                   class = "^Zoom$";
                   title = "Meeting chat";
                 };
