@@ -17,6 +17,21 @@
   nur = inputs.nur.overlays.default;
 
   pass-secret-service = import ./pass-secret-service;
+
+  # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/572951 reaches nixos-unstable.
+  # Applies the corrected pnpmDeps hash to the pnpm-based build (>= 6.0.2). Guarded so it is a
+  # no-op on the yarn-based 5.3.0 currently pinned, which has no pnpmDeps attribute.
+  typescript-language-server = _: prev: {
+    typescript-language-server =
+      if prev.typescript-language-server ? pnpmDeps
+      then
+        prev.typescript-language-server.overrideAttrs (old: {
+          pnpmDeps = old.pnpmDeps.overrideAttrs (_: {
+            outputHash = "sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=";
+          });
+        })
+      else prev.typescript-language-server;
+  };
   # wl-clipboard = import ./wl-clipboard;
 
   # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/544671 is promoted
