@@ -109,8 +109,6 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    zwift.url = "github:netbrain/zwift";
   };
 
   outputs = {

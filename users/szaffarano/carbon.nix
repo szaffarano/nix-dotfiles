@@ -49,7 +49,7 @@
   develop = {
     enable = true;
     asm.enable = true;
-    emacs.enable = true;
+    emacs.enable = false;
     idea = {
       enable = true;
       ultimate = true;
