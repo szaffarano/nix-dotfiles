@@ -9,33 +9,62 @@
   node_installed = is_installed "node";
 in {
   config = {
-    programs.mise = {
-      enableZshIntegration = config.programs.zsh.enable;
-      enableFishIntegration = config.programs.fish.enable;
+    programs = {
+      fish = lib.mkIf config.programs.fish.enable {
+        interactiveShellInit = ''
+          if not set -q IN_NIX_SHELL; and not set -q NIX_BUILD_TOP
+              ${pkgs.mise}/bin/mise activate fish | source
+          end
 
-      globalConfig = lib.mkDefault {
-        settings = {
-          all_compile = false;
-          experimental = true;
-          # https://github.com/jdx/mise/discussions/4345
-          idiomatic_version_file_enable_tools = ["python" "node"];
-        };
-        settings.python = {
-          compile = false;
-        };
-        settings.node = {
-          compile = false;
-          gpg_verify = false;
-        };
-        tools = {
-          bun = "latest";
-          gcloud = "latest";
-          java = "temurin-25.0.0+36.0.LTS";
-          node = "lts";
-          python = "latest";
-          ruff = "latest";
-          terraform = "latest";
-          tflint = "latest";
+          function cleanup_mise_hooks --on-event fish_prompt
+              if set -q IN_NIX_SHELL; or set -q NIX_BUILD_TOP
+                  if functions -q _mise_hook
+                      functions -e _mise_hook
+                  end
+              end
+          end
+        '';
+      };
+
+      zsh = lib.mkIf config.programs.zsh.enable {
+        initExtra = ''
+          if [ -z "$IN_NIX_SHELL" ] && [ -z "$NIX_BUILD_TOP" ]; then
+              eval "$(${pkgs.mise}/bin/mise activate zsh)"
+          else
+              if type add-zsh-hook >/dev/null 2>&1; then
+                  add-zsh-hook -d precmd _mise_hook 2>/dev/null
+              fi
+          fi
+        '';
+      };
+
+      mise = {
+        enableZshIntegration = false;
+        enableFishIntegration = false;
+
+        globalConfig = lib.mkDefault {
+          settings = {
+            all_compile = false;
+            experimental = true;
+            idiomatic_version_file_enable_tools = ["python" "node"]; # https://github.com/jdx/mise/discussions/4345
+          };
+          settings.python = {
+            compile = false;
+          };
+          settings.node = {
+            compile = false;
+            gpg_verify = false;
+          };
+          tools = {
+            bun = "latest";
+            gcloud = "latest";
+            java = "temurin-25.0.0+36.0.LTS";
+            node = "lts";
+            python = "latest";
+            ruff = "latest";
+            terraform = "latest";
+            tflint = "latest";
+          };
         };
       };
     };
