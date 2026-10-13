@@ -32,7 +32,6 @@
     wayland = {
       compositors.hyprland.enable = true;
       compositors.sway.enable = false;
-      kanshi.laptopMode = "1920x1200@60.003Hz";
     };
   };
   services = {

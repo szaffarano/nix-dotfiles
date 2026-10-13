@@ -147,10 +147,6 @@ in
           ];
         };
 
-        # Migrated to the Lua config backend (hyprlang is being removed upstream).
-        # Each top-level attribute maps to an `hl.<name>(...)` call; list values
-        # generate one call per element. Raw Lua expressions are produced with
-        # `lib.generators.mkLuaInline`.
         settings = {
           # https://wiki.hypr.land/Configuring/Basics/Variables/
           config = {
@@ -234,22 +230,6 @@ in
 
             dwindle.split_width_multiplier = 1.35;
           };
-
-          # https://wiki.hypr.land/Configuring/Basics/Monitors/
-          monitor = [
-            {
-              output = "desc:LG Electronics LG HDR 4K 301MAPNGQZ84";
-              mode = "3840x2160@60";
-              position = "0x0";
-              scale = 1.5;
-            }
-            {
-              output = "";
-              mode = "preferred";
-              position = "auto";
-              scale = 1;
-            }
-          ];
 
           # Autostart: https://wiki.hypr.land/Configuring/Basics/Autostart/
           on = let
