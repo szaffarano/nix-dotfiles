@@ -819,22 +819,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_8": {
-      "locked": {
-        "lastModified": 1790652569,
-        "narHash": "sha256-641r7xrlSOHYoktL9/aArPIYNgZJ9eM5URzSEOtPJDY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b6c8664de9b6cc07fe5666a29f91884ba81197c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -969,8 +953,7 @@
         "temporis": "temporis",
         "treefmt-nix": "treefmt-nix_3",
         "wofi-tools": "wofi-tools",
-        "zig": "zig",
-        "zwift": "zwift"
+        "zig": "zig"
       }
     },
     "rust-analyzer-src": {
@@ -1253,24 +1236,6 @@
       "original": {
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "type": "github"
-      }
-    },
-    "zwift": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_8"
-      },
-      "locked": {
-        "lastModified": 1791122913,
-        "narHash": "sha256-oYLWfqLk64OIQdgiHq/z8UavfJD6pwPtryOXO2jV+ZY=",
-        "owner": "netbrain",
-        "repo": "zwift",
-        "rev": "9ad4cf7250beaae7c7e7c5f55d042700df3a892b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "netbrain",
-        "repo": "zwift",
         "type": "github"
       }
     }
