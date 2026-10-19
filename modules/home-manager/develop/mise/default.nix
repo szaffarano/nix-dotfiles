@@ -27,7 +27,7 @@ in {
       };
 
       zsh = lib.mkIf config.programs.zsh.enable {
-        initExtra = ''
+        initContent = lib.mkBefore ''
           if [ -z "$IN_NIX_SHELL" ] && [ -z "$NIX_BUILD_TOP" ]; then
               eval "$(${pkgs.mise}/bin/mise activate zsh)"
           else
