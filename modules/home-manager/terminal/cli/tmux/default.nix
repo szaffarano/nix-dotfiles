@@ -44,6 +44,14 @@ in
           set -gq allow-passthrough on
 
           # ============================================= #
+          # Popup settings                                #
+          # --------------------------------------------- #
+          set -g @popup-backend floating-pane
+          set -g  @popup-autostart on
+          # share popups within the same project, regardless of the working session
+          set -gF @popup-id-format '#{b:pane_current_path}/{popup_name}'
+
+          # ============================================= #
           # Terminal settings                             #
           # --------------------------------------------- #
           set -g default-terminal "tmux-256color"
@@ -75,11 +83,11 @@ in
           bind s run-shell "tmux neww twm -e"
 
           # popups
-          bind C-t run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75%"
-          bind C-g run "#{@popup-toggle} -Ed'#{pane_current_path}' -w90% -h90% --name=lazygit lazygit"
-          bind C-o run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=opencode mise exec opencode -- opencode"
-          bind C-d run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=claude mise exec node@latest -- claude"
-          bind C-j run "#{@popup-toggle} -Ed'#{pane_current_path}' -w75% -h75% --name=gemini mise exec node@latest -- gemini"
+          bind C-t run "#{@popup-toggle} -c'##{pane_current_path}' -x70% -y90% -X15% -Y5% --name=term"
+          bind C-g run "#{@popup-toggle} -c'##{pane_current_path}' -x90% -y90% -X5% -Y5% --name=lazygit lazygit"
+          bind C-o run "#{@popup-toggle} -c'##{pane_current_path}' -x76% -y75% -X12% -Y12% --name=opencode mise exec opencode -- opencode"
+          bind C-d run "#{@popup-toggle} -c'##{pane_current_path}' -x76% -y75% -X12% -Y12% --name=claude mise exec node@latest -- claude"
+          bind C-i run "#{@popup-toggle} -c'##{pane_current_path}' -x90% -y90% -X5% -Y5% --name=pi pi"
 
           # ============================================= #
           # Theme                                         #
