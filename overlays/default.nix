@@ -32,6 +32,24 @@
         })
       else prev.typescript-language-server;
   };
+  # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/576239 reaches nixos-unstable.
+  # Bumps tmuxPlugins.tmux-toggle-popup 0.5.1 -> 0.5.2.
+  tmux-toggle-popup = final: prev: {
+    tmuxPlugins =
+      prev.tmuxPlugins
+      // {
+        tmux-toggle-popup = prev.tmuxPlugins.tmux-toggle-popup.overrideAttrs (_: rec {
+          version = "0.5.2";
+          src = final.fetchFromGitHub {
+            owner = "loichyan";
+            repo = "tmux-toggle-popup";
+            tag = "v${version}";
+            hash = "sha256-HKGtcTILJvrtCvN8H21QtSnKbwQHhhbR3VzINbFGTr4=";
+          };
+        });
+      };
+  };
+
   # wl-clipboard = import ./wl-clipboard;
 
   # FIXME: Remove once https://github.com/NixOS/nixpkgs/pull/544671 is promoted
