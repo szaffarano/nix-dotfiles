@@ -9,6 +9,7 @@ _: {
       {app_id = "org.pulseaudio.pavucontrol";}
 
       {app_id = "floating";}
+      {app_id = "com.gabm.satty";}
       {app_id = "floating_update";}
 
       {app_id = "zenity";}
