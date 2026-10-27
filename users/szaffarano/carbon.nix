@@ -41,9 +41,7 @@
     syncthing.enable = true;
   };
   terminal.cli = {
-    zellij.enable = true;
     cloud.enable = true;
-    jujutsu.enable = true;
   };
   develop = {
     enable = true;

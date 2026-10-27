@@ -17,7 +17,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-bazel-5_1_1.url = "github:nixos/nixpkgs/20075955deac2583bb12f07151c2df830ef346b4";
 
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -80,11 +79,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,11 +86,6 @@
 
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    mcp-hub = {
-      url = "github:ravitemer/mcp-hub";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
