@@ -78,16 +78,17 @@
   ];
 
   floatClasses = [
-    "com.zaffa.loppis"
-    "xdg-desktop-portal-gtk"
-    "org.keepassxc.KeePassXC"
-    "nm-connection-editor"
-    ".blueman-manager-wrapped"
     "blueman-manager"
-    "transmission-qt"
+    ".blueman-manager-wrapped"
+    "com.gabm.satty"
+    "com.zaffa.loppis"
+    "nm-connection-editor"
+    "org.keepassxc.KeePassXC"
     "org.pulseaudio.pavucontrol"
-    "Zoom"
+    "transmission-qt"
     "udiskie"
+    "xdg-desktop-portal-gtk"
+    "Zoom"
   ];
 
   zoomSize = "(monitor_w*0.15) (monitor_h*0.60)";

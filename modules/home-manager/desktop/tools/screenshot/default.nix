@@ -9,52 +9,51 @@ in
   with lib; {
     options.desktop.tools.screenshot.enable = mkEnableOption "screenshot";
 
-    config = mkIf cfg.enable {
-      xdg.configFile."swappy/config".source = (pkgs.formats.ini {}).generate "swappy" {
-        Default = {
-          save_dir = "${config.home.homeDirectory}/Pictures/Screenshots";
-          show_panel = true;
-          early_exit = true;
-        };
-      };
-
-      home.packages = with pkgs;
-        [swappy]
-        ++ (lib.optionals config.desktop.wayland.compositors.sway.enable [sway-contrib.grimshot])
-        ++ (lib.optionals config.desktop.wayland.compositors.hyprland.enable [
-          pkgs.inputs.hyprland-contrib.grimblast
-        ]);
-
-      wayland.windowManager.sway.config = let
-        grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
-        swappy = "${pkgs.swappy}/bin/swappy";
-      in
-        lib.mkIf config.desktop.wayland.compositors.sway.enable {
-          keybindings = {
-            "Print" = "exec ${grimshot} save area - | ${swappy} -f -";
-            "Shift+Print" = "exec ${grimshot} save screen";
+    config = let
+      sattyBin = lib.getExe pkgs.satty;
+    in
+      mkIf cfg.enable {
+        xdg.configFile."satty/config.toml".source = (pkgs.formats.toml {}).generate "satty" {
+          general = {
+            output-filename = "~/Pictures/Screenshots/screenshot-%Y-%m-%d_%H:%M:%S.png";
           };
         };
 
-      wayland.windowManager.hyprland.settings = let
-        grimblast = lib.getExe pkgs.inputs.hyprland-contrib.grimblast;
-        swappy = lib.getExe pkgs.swappy;
-      in
-        lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
-          bind = [
-            {
-              _args = [
-                "Print"
-                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save area - | ${swappy} -f -"})")
-              ];
-            }
-            {
-              _args = [
-                "SHIFT + Print"
-                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save screen - | ${swappy} -f -"})")
-              ];
-            }
-          ];
-        };
-    };
+        home.packages = with pkgs;
+          [satty]
+          ++ (lib.optionals config.desktop.wayland.compositors.sway.enable [sway-contrib.grimshot])
+          ++ (lib.optionals config.desktop.wayland.compositors.hyprland.enable [
+            pkgs.inputs.hyprland-contrib.grimblast
+          ]);
+
+        wayland.windowManager.sway.config = let
+          grimshot = lib.getExe pkgs.sway-contrib.grimshot;
+        in
+          lib.mkIf config.desktop.wayland.compositors.sway.enable {
+            keybindings = {
+              "Print" = "exec ${grimshot} save area - | ${sattyBin} -f -";
+              "Shift+Print" = "exec ${grimshot} save screen";
+            };
+          };
+
+        wayland.windowManager.hyprland.settings = let
+          grimblast = lib.getExe pkgs.inputs.hyprland-contrib.grimblast;
+        in
+          lib.mkIf config.desktop.wayland.compositors.hyprland.enable {
+            bind = [
+              {
+                _args = [
+                  "Print"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save area - | ${sattyBin} -f -"})")
+                ];
+              }
+              {
+                _args = [
+                  "SHIFT + Print"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(${builtins.toJSON "${grimblast} save screen - | ${sattyBin} -f -"})")
+                ];
+              }
+            ];
+          };
+      };
   }
