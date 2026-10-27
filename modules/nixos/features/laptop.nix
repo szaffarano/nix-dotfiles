@@ -22,7 +22,6 @@ in {
         "aarch64-linux"
         "i686-linux"
       ];
-      initrd.systemd.enable = true;
     };
 
     services = lib.mkIf enabled {

@@ -28,7 +28,6 @@ in {
         "vt.global_cursor_default=0"
       ];
       consoleLogLevel = lib.mkForce 0;
-      initrd.verbose = lib.mkDefault false;
     };
 
     nixos.custom.features.register = feature_name;

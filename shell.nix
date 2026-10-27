@@ -17,7 +17,6 @@ in {
       age
       cachix
       deadnix
-      deploy-rs
       disko
       git
       gnupg

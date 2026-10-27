@@ -1,4 +1,4 @@
-local file_types = { 'markdown', 'codecompanion', 'Avante' }
+local file_types = { 'markdown' }
 
 return {
   'MeanderingProgrammer/render-markdown.nvim',
