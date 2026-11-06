@@ -275,19 +275,19 @@ in
             [
               {
                 match.class = "^(firefox-nightly)$";
-                workspace = "name:1";
+                workspace = "1";
               }
               {
                 match.class = "^(firefox)$";
-                workspace = "name:1";
+                workspace = "1";
               }
               {
                 match.class = "^(jetbrains-idea)$";
-                workspace = "name:2";
+                workspace = "2";
               }
               {
                 match.class = "^(dev-terminal)$";
-                workspace = "name:3";
+                workspace = "3";
               }
             ]
             ++ map (c: {
