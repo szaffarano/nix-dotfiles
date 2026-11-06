@@ -118,8 +118,8 @@ in
           (mkBind "${mod} + SHIFT + t" ''hl.dsp.workspace.toggle_special("telegram")'')
           (mkBind "${mod} + grave" ''hl.dsp.workspace.toggle_special("termScratch")'')
         ]
-        ++ (map (n: mkBind "${mod} + ${n}" ''hl.dsp.focus({ workspace = "name:${n}" })'') workspaces)
-        ++ (map (n: mkBind "${mod} + SHIFT + ${n}" ''hl.dsp.window.move({ workspace = "name:${n}", silent = true })'') workspaces)
+        ++ (map (n: mkBind "${mod} + ${n}" ''hl.dsp.focus({ workspace = "${n}" })'') workspaces)
+        ++ (map (n: mkBind "${mod} + SHIFT + ${n}" ''hl.dsp.window.move({ workspace = "${n}", silent = true })'') workspaces)
         ++ (mapAttrsToList (key: direction: mkBind "${mod} + ${key}" ''hl.dsp.focus({ direction = "${direction}" })'') directions)
         ++ (mapAttrsToList (key: direction: mkBind "${mod} + SHIFT + ${key}" ''hl.dsp.window.swap({ direction = "${direction}" })'') directions)
         # movewindoworgroup: move window in a direction, merging into a group if present.
