@@ -26,7 +26,7 @@ in
         '';
 
         shellAliases = {
-          nixb-cached = "nh os switch --ask | cachix push szaffarano";
+          nixb-watch = "cachix watch-exec szaffarano nh -- os switch --ask";
           nixb = "nh os switch --ask";
           nixc = "nh clean all --keep-since 5d --keep 3";
           open = "xdg-open";
