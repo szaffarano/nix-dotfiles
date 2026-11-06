@@ -141,6 +141,7 @@
       lnav
       ncdu
       nh
+      nixb-cached
       ripgrep-all
       timer
     ];

@@ -22,7 +22,6 @@ in
         enable = lib.mkDefault true;
         dotDir = "${config.xdg.configHome}/zsh";
         shellAliases = {
-          nixb-watch = "cachix watch-exec szaffarano nh -- os switch --ask";
           nixb = "nh os switch --ask";
           nixc = "nh clean all --keep-since 5d --keep 3";
         };
