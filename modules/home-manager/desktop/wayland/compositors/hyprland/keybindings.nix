@@ -128,8 +128,7 @@ in
           let
             swayNcClient = "${pkgs.swaynotificationcenter}/bin/swaync-client";
           in [
-            (mkExec "CTRL + ALT + SPACE" "${swayNcClient} --hide-latest")
-            (mkExec "CTRL + SHIFT + SPACE" "${swayNcClient} --close-all")
+            (mkExec "CTRL + SHIFT + SPACE" "${swayNcClient} --hide-latest")
           ]
         ))
         ++ (optionals config.desktop.tools.keepassxc.enable (

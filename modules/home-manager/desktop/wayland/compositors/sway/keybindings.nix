@@ -87,8 +87,7 @@
 
       "${modifier}+r" = "mode resize";
 
-      "Ctrl+Alt+Space" = "exec ${swayNcClient} --hide-latest";
-      "Ctrl+Shift+Space" = "exec ${swayNcClient} --close-all";
+      "Ctrl+Shift+Space" = "exec ${swayNcClient} --hide-latest";
 
       "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
