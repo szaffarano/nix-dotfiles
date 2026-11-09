@@ -12,7 +12,7 @@ in
       programs.i3status-rust = {
         enable = true;
         bars.default = {
-          icons = "awesome6";
+          icons = "material-nf";
           theme = "gruvbox-dark";
           blocks = [
             {
