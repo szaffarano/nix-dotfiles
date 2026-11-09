@@ -56,7 +56,7 @@ in {
       "nix-ld"
       "quietboot"
       "sensible"
-      "sway"
+      "i3"
       "syncthing"
       "yubikey"
     ];
