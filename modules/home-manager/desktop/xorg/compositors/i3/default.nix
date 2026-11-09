@@ -25,6 +25,10 @@ in
         xautolock.enable = true;
       };
 
+      # startx/xinit runs ~/.xinitrc; home-manager only generates ~/.xsession, so
+      # point xinit at the generated session to launch i3 + the graphical-session target.
+      home.file.".xinitrc".source = config.home.file.".xsession".source;
+
       xsession = {
         enable = true;
         windowManager.i3 = {
