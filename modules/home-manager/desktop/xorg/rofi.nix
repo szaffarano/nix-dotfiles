@@ -8,12 +8,16 @@
   rofi = "${pkgs.rofi}/bin/rofi";
   greenclipPkg = pkgs.haskellPackages.greenclip;
   greenclip = "${greenclipPkg}/bin/greenclip";
+  powerMenu = "${rofi} -show p -modi 'p:${lib.getExe pkgs.rofi-power-menu} --choices=suspend/logout/lockscreen/reboot/shutdown/hibernate' -theme-str 'window {width: 8em;} listview {lines: 5; scrollbar: false;}'";
 in
   with lib; {
     options.desktop.xorg.rofi.enable = mkEnableOption "rofi";
 
     config = mkIf cfg.enable {
-      home.packages = [greenclipPkg];
+      home.packages = [
+        greenclipPkg
+        pkgs.rofi-power-menu
+      ];
 
       programs.rofi = {
         enable = true;
@@ -32,6 +36,7 @@ in
 
         keybindings = {
           "Mod4+d" = "exec ${rofi} -show drun";
+          "Mod4+BackSpace" = ''exec "${powerMenu}"'';
           "Mod4+Shift+v" = "exec ${rofi} -modi 'clipboard:${greenclip} print' -show clipboard -run-command '{cmd}'";
         };
       };
