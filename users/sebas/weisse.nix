@@ -10,6 +10,10 @@ _: {
       foot.enable = false;
       alacritty.enable = true;
     };
+    tools = {
+      cliphist.enable = false;
+      gammastep.enable = false;
+    };
   };
 
   services.syncthing.enable = true;
