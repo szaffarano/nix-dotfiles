@@ -1,9 +1,14 @@
 _: {
   desktop = {
     enable = true;
-    wayland = {
-      compositors.hyprland.enable = false;
-      compositors.sway.enable = true;
+    wayland.enable = false;
+    xorg = {
+      enable = true;
+      compositors.i3.enable = true;
+    };
+    terminal = {
+      foot.enable = false;
+      alacritty.enable = true;
     };
   };
 
