@@ -9,7 +9,7 @@
     programs.fish.loginShellInit = ''
       set TTY1 (tty)
       [ "$TTY1" = "/dev/tty1" ] && exec \
-        ${pkgs.xorg.xinit}/bin/startx \
+        ${pkgs.xinit}/bin/startx \
           > ~/.cache/xorg.log 2>~/.cache/xorg.err.log
     '';
   };

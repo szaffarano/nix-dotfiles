@@ -18,7 +18,7 @@ in
       programs.rofi = {
         enable = true;
         package = pkgs.rofi;
-        terminal = config.home.sessionVariables.TERMINAL;
+        settings.terminal = config.home.sessionVariables.TERMINAL;
       };
 
       xsession.windowManager.i3.config = mkIf config.desktop.xorg.compositors.i3.enable {

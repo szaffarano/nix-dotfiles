@@ -52,7 +52,7 @@ in
         weechat
         xclip
         xdg-utils
-        xorg.xrandr
+        xrandr
         xsel
       ];
 
