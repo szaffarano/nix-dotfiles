@@ -15,6 +15,7 @@ in
       ./themes
       ./tools
       ./wayland
+      ./xorg
       ./web/firefox.nix
       ./web/chromium.nix
     ];
@@ -52,6 +53,7 @@ in
         terminal.enable = lib.mkDefault true;
         tools.enable = lib.mkDefault true;
         wayland.enable = lib.mkDefault true;
+        xorg.enable = lib.mkDefault false;
         web.firefox.enable = lib.mkDefault true;
         web.chromium.enable = lib.mkDefault true;
       };
