@@ -7,6 +7,7 @@
 in
   with lib; {
     imports = [
+      ./alacritty.nix
       ./foot.nix
       ./wezterm.nix
     ];
@@ -14,7 +15,10 @@ in
     options.desktop.terminal.enable = mkEnableOption "desktop terminal";
 
     config = mkIf cfg.enable {
-      desktop.terminal.foot.enable = true;
-      desktop.terminal.wezterm.enable = false;
+      desktop.terminal = {
+        foot.enable = lib.mkDefault true;
+        wezterm.enable = lib.mkDefault false;
+        alacritty.enable = lib.mkDefault false;
+      };
     };
   }

@@ -21,13 +21,13 @@ in
 
     config = mkIf cfg.enable {
       desktop.tools = {
-        cliphist.enable = true;
-        copyq.enable = false;
-        gammastep.enable = true;
-        keepassxc.enable = true;
-        screenshot.enable = true;
-        udiskie.enable = true;
-        zathura.enable = true;
+        cliphist.enable = lib.mkDefault true;
+        copyq.enable = lib.mkDefault false;
+        gammastep.enable = lib.mkDefault true;
+        keepassxc.enable = lib.mkDefault true;
+        screenshot.enable = lib.mkDefault true;
+        udiskie.enable = lib.mkDefault true;
+        zathura.enable = lib.mkDefault true;
       };
       home.packages = with pkgs; [
         virt-manager
