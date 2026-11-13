@@ -12,8 +12,20 @@ in {
       enable = true;
       windowManager.i3.enable = true;
       displayManager.startx.enable = true;
+      autoRepeatDelay = 250;
+      autoRepeatInterval = 25;
+
+      xkb = {
+        layout = "us";
+        variant = "intl";
+        options = "grp:ctrl_alt_toggle";
+      };
     };
     security.polkit = lib.mkIf enabled {
+      enable = true;
+    };
+
+    services.autorandr = {
       enable = true;
     };
 
