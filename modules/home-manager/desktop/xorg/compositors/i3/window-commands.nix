@@ -7,7 +7,7 @@
     xsession.windowManager.i3.config.window.commands = [
       {
         command = "move to scratchpad";
-        criteria.class = "telegram-desktop";
+        criteria.class = "TelegramDesktop";
       }
       {
         command = "move to scratchpad";

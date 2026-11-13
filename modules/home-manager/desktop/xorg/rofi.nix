@@ -35,9 +35,10 @@ in
         ];
 
         keybindings = {
-          "Mod4+d" = "exec ${rofi} -show drun";
+          "Mod4+d" = "exec ${rofi} -show run";
+          "Mod4+x" = "exec ${rofi} -show drun";
           "Mod4+BackSpace" = ''exec "${powerMenu}"'';
-          "Mod4+Shift+v" = "exec ${rofi} -modi 'clipboard:${greenclip} print' -show clipboard -run-command '{cmd}'";
+          "Ctrl+Mod1+v" = "exec ${rofi} -modi 'clipboard:${greenclip} print' -show clipboard -run-command '{cmd}'";
         };
       };
     };

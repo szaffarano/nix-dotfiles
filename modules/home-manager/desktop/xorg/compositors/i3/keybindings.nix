@@ -116,7 +116,7 @@
       "${modifier}+o" = "exec ${orgMode}";
       "${modifier}+t" = "exec ${hackernews}";
       "${modifier}+grave" = "exec ${termScratch}";
-      "${modifier}+Shift+t" = ''[class="telegram-desktop"] scratchpad show'';
+      "${modifier}+Shift+t" = ''[class="TelegramDesktop"] scratchpad show'';
       "${modifier}+Control+p" = ''[class="temporis"] scratchpad show'';
       "${modifier}+p" = ''[class="Slack"] scratchpad show'';
     };
