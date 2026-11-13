@@ -35,6 +35,7 @@ in {
         extensions = with pkgs; [
           gh-dash
           gh-markdown-preview
+          gh-stack
         ];
         settings = {
           git_protocol = "https";
