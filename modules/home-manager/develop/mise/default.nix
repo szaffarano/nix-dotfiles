@@ -60,10 +60,11 @@ in {
             gcloud = "latest";
             java = "temurin-25.0.0+36.0.LTS";
             node = "lts";
-            python = "latest";
+            python = "3.14";
             ruff = "latest";
             terraform = "latest";
             tflint = "latest";
+            "pipx:pre-commit" = "latest";
           };
         };
       };
