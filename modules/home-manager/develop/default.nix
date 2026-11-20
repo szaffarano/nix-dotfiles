@@ -23,7 +23,6 @@ in
 
     config = mkIf cfg.enable {
       home.packages = with pkgs; [
-        pre-commit
         go
         nixfmt
         hyperfine
