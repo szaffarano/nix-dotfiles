@@ -48,6 +48,7 @@ in
         pasystray
         pavucontrol
         playerctl
+        pulseaudio
         vlc
         weechat
         xclip

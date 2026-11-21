@@ -17,8 +17,8 @@ in {
 
       xkb = {
         layout = "us";
-        variant = "intl";
-        options = "grp:ctrl_alt_toggle";
+        variant = "altgr-intl";
+        options = "nodeadkeys";
       };
     };
     security.polkit = lib.mkIf enabled {

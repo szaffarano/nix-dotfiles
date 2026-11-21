@@ -5,6 +5,17 @@
   ...
 }: let
   cfg = config.terminal.fish;
+
+  # 26.11.0 breaks git autocompletion
+  forgitPrev = pkgs.fishPlugins.forgit.overrideAttrs (_: {
+    version = "26.10.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "wfxr";
+      repo = "forgit";
+      tag = "26.10.0";
+      hash = "sha256-Kno14XqXwtG0zWVjrikoXf7eIXo3pj7YbSoQOYUcAI4=";
+    };
+  });
 in
   with lib; {
     options.terminal.fish = {
@@ -12,10 +23,10 @@ in
     };
 
     config = mkIf cfg.enable {
-      home.packages = with pkgs.fishPlugins; [
-        autopair
-        forgit
-        z
+      home.packages = [
+        pkgs.fishPlugins.autopair
+        pkgs.fishPlugins.z
+        forgitPrev
       ];
 
       programs.fish = {

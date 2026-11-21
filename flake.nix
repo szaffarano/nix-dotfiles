@@ -157,8 +157,8 @@
         inherit specialArgs;
       };
 
-      zaffarano-elastic = nixpkgs.lib.nixosSystem {
-        modules = ["${self}/system/zaffarano-elastic"];
+      sutil = nixpkgs.lib.nixosSystem {
+        modules = ["${self}/system/sutil"];
         inherit specialArgs;
       };
 

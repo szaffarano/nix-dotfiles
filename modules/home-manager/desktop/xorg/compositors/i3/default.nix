@@ -66,7 +66,7 @@ in
               fish = lib.getExe pkgs.fish;
             in [
               {
-                command = "setxkbmap -layout 'us,us' -variant 'altgr-intl,dvorak' -option 'grp:rctrl_toggle'";
+                command = "setxkbmap -layout us -variant altgr-intl -option nodeadkeys";
                 always = true;
                 notification = false;
               }

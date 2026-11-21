@@ -29,10 +29,14 @@
       orgMode = scratch "orgMode" ''${terminal} --class orgMode -e nvim +Agenda'';
       termScratch = scratch "termScratch" ''${terminal} --class termScratch'';
       passwordManager = lib.getExe pkgs.keepassxc;
+      pactl = "${pkgs.pulseaudio}/bin/pactl";
     in {
       "${modifier}+Return" = "exec ${terminal}";
       "${modifier}+Shift+q" = "kill";
       "${modifier}+Shift+P" = "exec ${terminal} --class floating-terminal -e btop";
+
+      "${modifier}+Control+q" = "exec setxkbmap -layout us -variant altgr-intl -option nodeadkeys";
+      "${modifier}+Control+d" = "exec setxkbmap -layout us -variant dvorak-intl";
 
       "${modifier}+Shift+w" = "exec ${passwordManager}";
 
@@ -92,9 +96,9 @@
 
       "${modifier}+r" = "mode resize";
 
-      "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-      "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+      "XF86AudioMute" = "exec ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
+      "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+      "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
       "XF86AudioPlay" = "exec playerctl play-pause";
       "XF86AudioPause" = "exec playerctl pause";
       "XF86AudioNext" = "exec playerctl next";

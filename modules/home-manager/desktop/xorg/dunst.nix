@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.desktop.xorg.dunst;
@@ -21,6 +22,7 @@ in
             separator_color = "frame";
             corner_radius = 4;
             offset = "12x12";
+            origin = "bottom-right";
           };
           urgency_low = {
             background = "#${colors.base00}";
@@ -36,6 +38,13 @@ in
             frame_color = "#${colors.base08}";
           };
         };
+      };
+
+      xsession.windowManager.i3.config.keybindings = let
+        dunstctl = "${pkgs.dunst}/bin/dunstctl";
+      in {
+        "Ctrl+Mod1+space" = "exec ${dunstctl} close";
+        "Ctrl+Mod1+Shift+space" = "exec ${dunstctl} history-pop";
       };
     };
   }
