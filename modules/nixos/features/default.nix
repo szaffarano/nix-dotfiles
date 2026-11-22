@@ -7,6 +7,7 @@
     ./embedded.nix
     ./home-manager.nix
     ./hyprland.nix
+    ./i3.nix
     ./laptop.nix
     ./nix-ld.nix
     ./ollama.nix
