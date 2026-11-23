@@ -17,6 +17,8 @@
 
   pass-secret-service = import ./pass-secret-service;
 
+  forgit = import ./forgit;
+
   # wl-clipboard = import ./wl-clipboard;
 
   # spotify-player = import ./spotify-player;
