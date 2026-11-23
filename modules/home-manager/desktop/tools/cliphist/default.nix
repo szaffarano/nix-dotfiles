@@ -30,17 +30,17 @@ in
         default = {
           text_mode_config = {
             title = "Text";
-            shortcut = "Ctrl+t";
+            shortcut = "Alt+t";
             description = "Switch to text mode";
           };
           image_mode_config = {
             title = "Image";
-            shortcut = "Ctrl+i";
+            shortcut = "Alt+i";
             description = "Switch to image mode!";
           };
           delete_mode_config = {
             title = "Delete";
-            shortcut = "Ctrl+x";
+            shortcut = "Alt+x";
             description = "Delete entry";
           };
         };
