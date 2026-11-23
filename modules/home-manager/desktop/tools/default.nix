@@ -8,7 +8,6 @@
 in
   with lib; {
     imports = [
-      ./cliphist
       ./copyq
       ./gammastep
       ./keepassxc
@@ -21,7 +20,6 @@ in
 
     config = mkIf cfg.enable {
       desktop.tools = {
-        cliphist.enable = lib.mkDefault true;
         copyq.enable = lib.mkDefault false;
         gammastep.enable = lib.mkDefault true;
         keepassxc.enable = lib.mkDefault true;

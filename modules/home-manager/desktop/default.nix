@@ -52,7 +52,7 @@ in
         messengers.enable = lib.mkDefault true;
         terminal.enable = lib.mkDefault true;
         tools.enable = lib.mkDefault true;
-        wayland.enable = lib.mkDefault true;
+        wayland.enable = lib.mkDefault false;
         xorg.enable = lib.mkDefault false;
         web.firefox.enable = lib.mkDefault true;
         web.chromium.enable = lib.mkDefault true;

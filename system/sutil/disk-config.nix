@@ -18,6 +18,19 @@
               mountOptions = ["defaults"];
             };
           };
+          swap = {
+            label = "swap";
+            size = "70G";
+            content = {
+              type = "luks";
+              name = "swap";
+              extraOpenArgs = ["--allow-discards"];
+              content = {
+                type = "swap";
+                resumeDevice = true;
+              };
+            };
+          };
           nixos = {
             size = "100%";
             content = {

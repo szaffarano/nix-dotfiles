@@ -1,7 +1,6 @@
 _: {
   desktop = {
     enable = true;
-    wayland.enable = false;
     xorg = {
       enable = true;
       compositors.i3.enable = true;
@@ -10,8 +9,8 @@ _: {
       foot.enable = false;
       alacritty.enable = true;
     };
+    wayland.cliphist.enable = false;
     tools = {
-      cliphist.enable = false;
       gammastep.enable = false;
     };
   };

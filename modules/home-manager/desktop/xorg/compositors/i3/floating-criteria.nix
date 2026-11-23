@@ -10,7 +10,7 @@
       {window_role = "dialog";}
       {window_type = "dialog";}
 
-      {class = "Pavucontrol";}
+      {class = "pavucontrol";}
       {instance = "floating";}
       {class = "Zenity";}
       {class = "Nm-connection-editor";}

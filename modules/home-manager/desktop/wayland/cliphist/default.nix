@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.desktop.tools.cliphist;
+  cfg = config.desktop.wayland.cliphist;
   fmt = pkgs.formats.toml {};
   safeStore = pkgs.writeShellApplication {
     name = "safe-cliphist-store";
@@ -22,7 +22,7 @@
   };
 in
   with lib; {
-    options.desktop.tools.cliphist = {
+    options.desktop.wayland.cliphist = {
       enable = mkEnableOption "cliphist";
       settings = mkOption {
         inherit (fmt) type;

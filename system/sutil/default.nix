@@ -1,15 +1,13 @@
 {
   inputs,
-  config,
   flakeRoot,
-  pkgs,
   ...
 }: let
-  userName = "szaffarano";
-  hostName = "zaffarano-elastic";
-  email = "sebastian.zaffarano@elastic.co";
+  userName = "sebas";
+  hostName = "sutil";
+  email = "sebas@zaffarano.com.ar";
 
-  szaffarano = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
+  sebas = import "${flakeRoot}/modules/nixos/users/sebas.nix" {
     inherit userName hostName email;
   };
 in {
@@ -23,7 +21,7 @@ in {
 
     "${flakeRoot}/modules/nixos"
 
-    szaffarano
+    sebas
   ];
 
   nixos.custom = {
@@ -49,15 +47,12 @@ in {
       };
     };
     features.enable = [
-      "calibre"
       "desktop"
-      "cross-compile"
-      "elastic-endpoint"
+      "embedded"
       "home-manager"
-      "sway"
+      "i3"
       "laptop"
       "nix-ld"
-      "ollama"
       "quietboot"
       "sensible"
       "syncthing"
@@ -65,65 +60,24 @@ in {
       "yubikey"
     ];
   };
-  security.pam.services = {
-    login.fprintAuth = true;
-    sudo.fprintAuth = true;
-  };
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (pkgs.lib.getName pkg) [
-      "libfprint-2-tod1-broadcom"
-    ];
+  boot.plymouth.enable = false;
+
   services = {
-    fprintd = {
-      enable = true;
-      tod = {
-        enable = true;
-        driver = pkgs.libfprint-2-tod1-broadcom;
-      };
-    };
     passSecretService = {
       enable = true;
-    };
-    ananicy = {
-      enable = true;
-      package = pkgs.ananicy-cpp;
-      rulesProvider = pkgs.ananicy-cpp;
-      extraRules = [
-        {
-          name = "elastic-endpoin";
-          nice = 10;
-        }
-        {
-          name = "elastic-endpoint";
-          nice = 10;
-        }
-        {
-          name = "elastic-agent";
-          nice = 10;
-        }
-      ];
     };
     greetd.enable = false;
     flatpak.enable = false;
   };
   networking = {
     inherit hostName;
-    extraHosts = "127.0.0.1 bigquery broker elastic gcs pubsub redis zookeeper";
-    wg-quick.interfaces.wg0 = {
-      configFile = config.sops.secrets.wireguard.path;
-      autostart = false;
-    };
     firewall = {
       allowedTCPPorts = [9200 8200];
     };
   };
 
   sops.secrets = {
-    wireguard = {
-      format = "binary";
-      sopsFile = ./secrets.wireguard;
-    };
-    szaffarano-password = {
+    sebas-password = {
       sopsFile = ./secrets.yaml;
       neededForUsers = true;
     };

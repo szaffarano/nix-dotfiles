@@ -8,6 +8,7 @@
 in
   with lib; {
     imports = [
+      ./cliphist
       ./compositors
       ./kanshi
       ./mako
@@ -25,6 +26,7 @@ in
 
     config = mkIf cfg.enable {
       desktop.wayland = {
+        cliphist.enable = lib.mkDefault true;
         kanshi.enable = lib.mkDefault true;
         mako.enable = lib.mkDefault false;
         rofi.enable = lib.mkDefault true;

@@ -6,8 +6,6 @@
   boot = {
     initrd = {
       availableKernelModules = [
-        "ahci"
-        "rtsx_pci_sdmmc"
         "xhci_pci"
         "thunderbolt"
         "nvme"
@@ -15,7 +13,11 @@
         "sd_mod"
         "sdhci_pci"
       ];
-      kernelModules = ["kvm-intel"];
+      kernelModules = [];
+      luks.devices = {
+        nixos.crypttabExtraOpts = ["tries=3"];
+        swap.crypttabExtraOpts = ["tries=3"];
+      };
     };
 
     loader = {
