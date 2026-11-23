@@ -49,12 +49,12 @@ in {
     features.enable = [
       "desktop"
       "home-manager"
+      "i3"
       "laptop"
       "nix-ld"
       "ollama"
       "quietboot"
       "sensible"
-      "sway"
       "syncthing"
       "virtualisation"
       "yubikey"

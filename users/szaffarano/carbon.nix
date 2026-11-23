@@ -29,8 +29,8 @@
   desktop = {
     enable = true;
     wayland = {
+      enable = true;
       compositors.hyprland.enable = true;
-      compositors.sway.enable = false;
     };
   };
   services = {

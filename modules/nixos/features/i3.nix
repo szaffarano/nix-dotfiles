@@ -25,7 +25,7 @@ in {
       enable = true;
     };
 
-    services.autorandr = {
+    services.autorandr = lib.mkIf enabled {
       enable = true;
     };
 
