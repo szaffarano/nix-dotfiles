@@ -10,9 +10,9 @@
 
   desktop = {
     enable = true;
-    wayland = {
-      compositors.hyprland.enable = false;
-      compositors.sway.enable = true;
+    xorg = {
+      enable = true;
+      compositors.i3.enable = true;
     };
   };
   terminal.cli.cloud.enable = true;
