@@ -86,7 +86,6 @@ in {
           bash-language-server
           context-mode
           @devcontainers/cli
-          @earendil-works/pi-coding-agent
           @github/copilot
           @github/copilot-language-server
           yarn
