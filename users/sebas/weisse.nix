@@ -9,7 +9,6 @@ _: {
       foot.enable = false;
       alacritty.enable = true;
     };
-    wayland.cliphist.enable = false;
     tools = {
       gammastep.enable = false;
     };
