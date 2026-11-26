@@ -38,7 +38,7 @@ in
         compositors = {
           enable = lib.mkDefault true;
           hyprland.enable = lib.mkDefault false;
-          sway.enable = lib.mkDefault true;
+          sway.enable = lib.mkDefault false;
         };
       };
 
