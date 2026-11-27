@@ -43,6 +43,16 @@ in
           pbcopy = "wl-copy";
         };
 
+        functions = {
+          prstate = {
+            description = "Show PR state, mergedAt, mergedBy (current branch if no number)";
+            body = ''
+              gh pr view $argv --json state,mergedAt,mergedBy \
+                --jq '"state:    \(.state)\nmergedAt: \(.mergedAt // "-")\nmergedBy: \(.mergedBy.login // "-")"'
+            '';
+          };
+        };
+
         shellInit = ''
           set -U fish_greeting
 
