@@ -1,23 +1,23 @@
 name: CD | Bump flakes
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * 5"
+    - cron: "0 0 * * 0"
+
 jobs:
-  lockfile:
-    name: Update flake.lock
+  nix-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/update-flake-lock@main
         with:
-          persist-credentials: true
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-      - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
-        with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           pr-title: "chore: Bump flake.lock"
           pr-labels: |
             dependencies
