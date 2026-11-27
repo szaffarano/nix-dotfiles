@@ -13,8 +13,8 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v7
-      - uses: docker/setup-qemu-action@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: docker/setup-qemu-action@v4.4.0
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
