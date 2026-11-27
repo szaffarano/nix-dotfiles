@@ -87,7 +87,15 @@ in
         };
 
         initContent = lib.concatStringsSep "\n" (
-          lib.lists.forEach cfg.extras (
+          [
+            ''
+              prstate() {
+                gh pr view "$@" --json state,mergedAt,mergedBy \
+                  --jq '"state:    \(.state)\nmergedAt: \(.mergedAt // "-")\nmergedBy: \(.mergedBy.login // "-")"'
+              }
+            ''
+          ]
+          ++ lib.lists.forEach cfg.extras (
             f:
               lib.concatStringsSep "\n" [
                 "# ${f}"
